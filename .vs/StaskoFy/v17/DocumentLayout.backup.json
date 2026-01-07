@@ -1,0 +1,177 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A5563525-DA87-409B-ADC7-23E4341BE7EE}|StaskoFy.Models\\StaskoFy.Models.csproj|c:\\users\\student8\\documents\\stanislav arsenal\\12thgrade\\software engineering\\staskofy\\staskofy.models\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A5563525-DA87-409B-ADC7-23E4341BE7EE}|StaskoFy.Models\\StaskoFy.Models.csproj|solutionrelative:staskofy.models\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A5563525-DA87-409B-ADC7-23E4341BE7EE}|StaskoFy.Models\\StaskoFy.Models.csproj|c:\\users\\student8\\documents\\stanislav arsenal\\12thgrade\\software engineering\\staskofy\\staskofy.models\\entities\\artistalbum.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A5563525-DA87-409B-ADC7-23E4341BE7EE}|StaskoFy.Models\\StaskoFy.Models.csproj|solutionrelative:staskofy.models\\entities\\artistalbum.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A5563525-DA87-409B-ADC7-23E4341BE7EE}|StaskoFy.Models\\StaskoFy.Models.csproj|c:\\users\\student8\\documents\\stanislav arsenal\\12thgrade\\software engineering\\staskofy\\staskofy.models\\entities\\song.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A5563525-DA87-409B-ADC7-23E4341BE7EE}|StaskoFy.Models\\StaskoFy.Models.csproj|solutionrelative:staskofy.models\\entities\\song.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A5563525-DA87-409B-ADC7-23E4341BE7EE}|StaskoFy.Models\\StaskoFy.Models.csproj|c:\\users\\student8\\documents\\stanislav arsenal\\12thgrade\\software engineering\\staskofy\\staskofy.models\\entities\\playlistsong.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A5563525-DA87-409B-ADC7-23E4341BE7EE}|StaskoFy.Models\\StaskoFy.Models.csproj|solutionrelative:staskofy.models\\entities\\playlistsong.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A5563525-DA87-409B-ADC7-23E4341BE7EE}|StaskoFy.Models\\StaskoFy.Models.csproj|c:\\users\\student8\\documents\\stanislav arsenal\\12thgrade\\software engineering\\staskofy\\staskofy.models\\entities\\playlist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A5563525-DA87-409B-ADC7-23E4341BE7EE}|StaskoFy.Models\\StaskoFy.Models.csproj|solutionrelative:staskofy.models\\entities\\playlist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A5563525-DA87-409B-ADC7-23E4341BE7EE}|StaskoFy.Models\\StaskoFy.Models.csproj|c:\\users\\student8\\documents\\stanislav arsenal\\12thgrade\\software engineering\\staskofy\\staskofy.models\\entities\\likedsongs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A5563525-DA87-409B-ADC7-23E4341BE7EE}|StaskoFy.Models\\StaskoFy.Models.csproj|solutionrelative:staskofy.models\\entities\\likedsongs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A5563525-DA87-409B-ADC7-23E4341BE7EE}|StaskoFy.Models\\StaskoFy.Models.csproj|c:\\users\\student8\\documents\\stanislav arsenal\\12thgrade\\software engineering\\staskofy\\staskofy.models\\entities\\genre.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A5563525-DA87-409B-ADC7-23E4341BE7EE}|StaskoFy.Models\\StaskoFy.Models.csproj|solutionrelative:staskofy.models\\entities\\genre.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A5563525-DA87-409B-ADC7-23E4341BE7EE}|StaskoFy.Models\\StaskoFy.Models.csproj|c:\\users\\student8\\documents\\stanislav arsenal\\12thgrade\\software engineering\\staskofy\\staskofy.models\\entities\\artistsong.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A5563525-DA87-409B-ADC7-23E4341BE7EE}|StaskoFy.Models\\StaskoFy.Models.csproj|solutionrelative:staskofy.models\\entities\\artistsong.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A5563525-DA87-409B-ADC7-23E4341BE7EE}|StaskoFy.Models\\StaskoFy.Models.csproj|c:\\users\\student8\\documents\\stanislav arsenal\\12thgrade\\software engineering\\staskofy\\staskofy.models\\entities\\album.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A5563525-DA87-409B-ADC7-23E4341BE7EE}|StaskoFy.Models\\StaskoFy.Models.csproj|solutionrelative:staskofy.models\\entities\\album.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.Models\\Entities\\User.cs",
+              "RelativeDocumentMoniker": "StaskoFy.Models\\Entities\\User.cs",
+              "ToolTip": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.Models\\Entities\\User.cs",
+              "RelativeToolTip": "StaskoFy.Models\\Entities\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T11:54:53.414Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Song.cs",
+              "DocumentMoniker": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.Models\\Entities\\Song.cs",
+              "RelativeDocumentMoniker": "StaskoFy.Models\\Entities\\Song.cs",
+              "ToolTip": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.Models\\Entities\\Song.cs",
+              "RelativeToolTip": "StaskoFy.Models\\Entities\\Song.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAkwDQAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T11:54:35.634Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "PlaylistSong.cs",
+              "DocumentMoniker": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.Models\\Entities\\PlaylistSong.cs",
+              "RelativeDocumentMoniker": "StaskoFy.Models\\Entities\\PlaylistSong.cs",
+              "ToolTip": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.Models\\Entities\\PlaylistSong.cs",
+              "RelativeToolTip": "StaskoFy.Models\\Entities\\PlaylistSong.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAkwBsAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T11:54:18.267Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Playlist.cs",
+              "DocumentMoniker": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.Models\\Entities\\Playlist.cs",
+              "RelativeDocumentMoniker": "StaskoFy.Models\\Entities\\Playlist.cs",
+              "ToolTip": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.Models\\Entities\\Playlist.cs",
+              "RelativeToolTip": "StaskoFy.Models\\Entities\\Playlist.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAkwCoAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T11:54:07.529Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "LikedSongs.cs",
+              "DocumentMoniker": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.Models\\Entities\\LikedSongs.cs",
+              "RelativeDocumentMoniker": "StaskoFy.Models\\Entities\\LikedSongs.cs",
+              "ToolTip": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.Models\\Entities\\LikedSongs.cs",
+              "RelativeToolTip": "StaskoFy.Models\\Entities\\LikedSongs.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAkwBsAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T11:53:56.89Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Genre.cs",
+              "DocumentMoniker": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.Models\\Entities\\Genre.cs",
+              "RelativeDocumentMoniker": "StaskoFy.Models\\Entities\\Genre.cs",
+              "ToolTip": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.Models\\Entities\\Genre.cs",
+              "RelativeToolTip": "StaskoFy.Models\\Entities\\Genre.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T11:53:44.008Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ArtistSong.cs",
+              "DocumentMoniker": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.Models\\Entities\\ArtistSong.cs",
+              "RelativeDocumentMoniker": "StaskoFy.Models\\Entities\\ArtistSong.cs",
+              "ToolTip": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.Models\\Entities\\ArtistSong.cs",
+              "RelativeToolTip": "StaskoFy.Models\\Entities\\ArtistSong.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T11:53:31.467Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ArtistAlbum.cs",
+              "DocumentMoniker": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.Models\\Entities\\ArtistAlbum.cs",
+              "RelativeDocumentMoniker": "StaskoFy.Models\\Entities\\ArtistAlbum.cs",
+              "ToolTip": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.Models\\Entities\\ArtistAlbum.cs",
+              "RelativeToolTip": "StaskoFy.Models\\Entities\\ArtistAlbum.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAUwBAAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T11:53:22.167Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Album.cs",
+              "DocumentMoniker": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.Models\\Entities\\Album.cs",
+              "RelativeDocumentMoniker": "StaskoFy.Models\\Entities\\Album.cs",
+              "ToolTip": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.Models\\Entities\\Album.cs",
+              "RelativeToolTip": "StaskoFy.Models\\Entities\\Album.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAkwCQAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T11:53:01.965Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
