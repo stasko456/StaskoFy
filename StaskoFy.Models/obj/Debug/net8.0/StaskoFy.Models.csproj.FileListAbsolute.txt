@@ -1,0 +1,15 @@
+C:\Users\User\Documents\PPMG Nikola Obreshkov\Stanislav-12th Grade\Software Engineering\StaskoFy\StaskoFy.Models\bin\Debug\net8.0\StaskoFy.Models.deps.json
+C:\Users\User\Documents\PPMG Nikola Obreshkov\Stanislav-12th Grade\Software Engineering\StaskoFy\StaskoFy.Models\bin\Debug\net8.0\StaskoFy.Models.runtimeconfig.json
+C:\Users\User\Documents\PPMG Nikola Obreshkov\Stanislav-12th Grade\Software Engineering\StaskoFy\StaskoFy.Models\bin\Debug\net8.0\StaskoFy.Models.dll
+C:\Users\User\Documents\PPMG Nikola Obreshkov\Stanislav-12th Grade\Software Engineering\StaskoFy\StaskoFy.Models\bin\Debug\net8.0\StaskoFy.Models.pdb
+C:\Users\User\Documents\PPMG Nikola Obreshkov\Stanislav-12th Grade\Software Engineering\StaskoFy\StaskoFy.Models\obj\Debug\net8.0\StaskoFy.Models.csproj.AssemblyReference.cache
+C:\Users\User\Documents\PPMG Nikola Obreshkov\Stanislav-12th Grade\Software Engineering\StaskoFy\StaskoFy.Models\obj\Debug\net8.0\StaskoFy.Models.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Documents\PPMG Nikola Obreshkov\Stanislav-12th Grade\Software Engineering\StaskoFy\StaskoFy.Models\obj\Debug\net8.0\StaskoFy.Models.AssemblyInfoInputs.cache
+C:\Users\User\Documents\PPMG Nikola Obreshkov\Stanislav-12th Grade\Software Engineering\StaskoFy\StaskoFy.Models\obj\Debug\net8.0\StaskoFy.Models.AssemblyInfo.cs
+C:\Users\User\Documents\PPMG Nikola Obreshkov\Stanislav-12th Grade\Software Engineering\StaskoFy\StaskoFy.Models\obj\Debug\net8.0\StaskoFy.Models.csproj.CoreCompileInputs.cache
+C:\Users\User\Documents\PPMG Nikola Obreshkov\Stanislav-12th Grade\Software Engineering\StaskoFy\StaskoFy.Models\obj\Debug\net8.0\StaskoFy.Models.sourcelink.json
+C:\Users\User\Documents\PPMG Nikola Obreshkov\Stanislav-12th Grade\Software Engineering\StaskoFy\StaskoFy.Models\obj\Debug\net8.0\StaskoFy.Models.dll
+C:\Users\User\Documents\PPMG Nikola Obreshkov\Stanislav-12th Grade\Software Engineering\StaskoFy\StaskoFy.Models\obj\Debug\net8.0\refint\StaskoFy.Models.dll
+C:\Users\User\Documents\PPMG Nikola Obreshkov\Stanislav-12th Grade\Software Engineering\StaskoFy\StaskoFy.Models\obj\Debug\net8.0\StaskoFy.Models.pdb
+C:\Users\User\Documents\PPMG Nikola Obreshkov\Stanislav-12th Grade\Software Engineering\StaskoFy\StaskoFy.Models\obj\Debug\net8.0\StaskoFy.Models.genruntimeconfig.cache
+C:\Users\User\Documents\PPMG Nikola Obreshkov\Stanislav-12th Grade\Software Engineering\StaskoFy\StaskoFy.Models\obj\Debug\net8.0\ref\StaskoFy.Models.dll
