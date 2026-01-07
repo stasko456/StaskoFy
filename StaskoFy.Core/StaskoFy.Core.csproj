@@ -17,4 +17,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\StaskoFy.DataAccess\StaskoFy.DataAccess.csproj" />
+    <ProjectReference Include="..\StaskoFy.Models\StaskoFy.Models.csproj" />
+  </ItemGroup>
+
 </Project>

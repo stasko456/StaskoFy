@@ -5,6 +5,14 @@
     {
       "AbsoluteMoniker": "D:0:0:{97845BDD-D6EE-464C-A823-7A621EEC47F4}|StaskoFy\\StaskoFy.csproj|c:\\users\\student8\\documents\\stanislav arsenal\\12thgrade\\software engineering\\staskofy\\staskofy\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{97845BDD-D6EE-464C-A823-7A621EEC47F4}|StaskoFy\\StaskoFy.csproj|solutionrelative:staskofy\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0A1A830A-C6CC-481F-A21B-B7BB6F0F079B}|StaskoFy.Core\\StaskoFy.Core.csproj|c:\\users\\student8\\documents\\stanislav arsenal\\12thgrade\\software engineering\\staskofy\\staskofy.core\\services\\genreservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0A1A830A-C6CC-481F-A21B-B7BB6F0F079B}|StaskoFy.Core\\StaskoFy.Core.csproj|solutionrelative:staskofy.core\\services\\genreservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0A1A830A-C6CC-481F-A21B-B7BB6F0F079B}|StaskoFy.Core\\StaskoFy.Core.csproj|c:\\users\\student8\\documents\\stanislav arsenal\\12thgrade\\software engineering\\staskofy\\staskofy.core\\iservices\\igenreservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0A1A830A-C6CC-481F-A21B-B7BB6F0F079B}|StaskoFy.Core\\StaskoFy.Core.csproj|solutionrelative:staskofy.core\\iservices\\igenreservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,11 +22,37 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "GenreService.cs",
+              "DocumentMoniker": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.Core\\Services\\GenreService.cs",
+              "RelativeDocumentMoniker": "StaskoFy.Core\\Services\\GenreService.cs",
+              "ToolTip": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.Core\\Services\\GenreService.cs",
+              "RelativeToolTip": "StaskoFy.Core\\Services\\GenreService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T13:01:38.191Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "IGenreService.cs",
+              "DocumentMoniker": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.Core\\IServices\\IGenreService.cs",
+              "RelativeDocumentMoniker": "StaskoFy.Core\\IServices\\IGenreService.cs",
+              "ToolTip": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.Core\\IServices\\IGenreService.cs",
+              "RelativeToolTip": "StaskoFy.Core\\IServices\\IGenreService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T13:01:10.94Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -28,7 +62,7 @@
               "RelativeDocumentMoniker": "StaskoFy\\Program.cs",
               "ToolTip": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy\\Program.cs",
               "RelativeToolTip": "StaskoFy\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAABUAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-07T12:57:42.922Z",
               "EditorCaption": ""

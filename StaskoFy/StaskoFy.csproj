@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\StaskoFy.Core\StaskoFy.Core.csproj" />
     <ProjectReference Include="..\StaskoFy.DataAccess\StaskoFy.DataAccess.csproj" />
   </ItemGroup>
 

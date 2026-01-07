@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using StaskoFy.Core.IServices;
+using StaskoFy.Core.Services;
 using StaskoFy.DataAccess;
 using StaskoFy.DataAccess.Repository;
 using StaskoFy.Models.Entities;
@@ -28,6 +30,7 @@ namespace StaskoFy
             .AddDefaultTokenProviders();
 
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            builder.Services.AddScoped<IGenreService, GenreService>();
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
