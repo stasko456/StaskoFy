@@ -3,6 +3,11 @@
 @inject UserManager<User> userManager
 @inject SignInManager<User> signInManager
 
+@{
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+    var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+}
+
 <ul class="navbar-nav">
     @if (signInManager.IsSignedIn(User))
     {
@@ -18,10 +23,10 @@
     else
     {
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-controller="User" asp-action="Register">Register</a>
+            <a class="nav-link text-dark @(currentController == "User" && currentAction == "Register" ? "active" : "")" asp-controller="User" asp-action="Register">Register</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-controller="User" asp-action="Login">Login</a>
+            <a class="nav-link text-dark @(currentController == "User" && currentAction == "Login" ? "active" : "")" asp-controller="User" asp-action="Login">Login</a>
         </li>
     }
 </ul>
