@@ -10,7 +10,7 @@ namespace StaskoFy
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -37,6 +37,11 @@ namespace StaskoFy
 
             var app = builder.Build();
 
+            using (var scope = app.Services.CreateScope())
+            {
+                await DataSeeder.SeedRolesAsync(scope.ServiceProvider);
+            }
+
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
@@ -44,6 +49,9 @@ namespace StaskoFy
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            // stasko456; Stasko1234*; stdimov2007@gmail.com
+            // Ken Karson; kenkarson@gmail.com; KenKarson1234*
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

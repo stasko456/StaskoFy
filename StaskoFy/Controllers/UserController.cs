@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore.Internal;
 using StaskoFy.Models.Entities;
 using StaskoFy.ViewModels.User;
@@ -10,11 +11,13 @@ namespace StaskoFy.Controllers
     {
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
+        private readonly RoleManager<IdentityRole<Guid>> roleManager;
 
-        public UserController(UserManager<User> _userManager, SignInManager<User> _signInManager)
+        public UserController(UserManager<User> _userManager, SignInManager<User> _signInManager, RoleManager<IdentityRole<Guid>> _roleManager)
         {
             this.userManager = _userManager;
             this.signInManager = _signInManager;
+            this.roleManager = _roleManager;
         }
 
         [HttpGet]
@@ -24,6 +27,8 @@ namespace StaskoFy.Controllers
             {
                 return RedirectToAction();
             }
+            List<string> roles = new List<string>() { "Artist", "User" };
+            ViewBag.Roles = new SelectList(roles);
             var model = new RegisterViewModel();
             return View(model);
         }
@@ -31,8 +36,11 @@ namespace StaskoFy.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
+            List<string> roles = new List<string>() { "Artist", "User" };
+
             if (!ModelState.IsValid)
             {
+                ViewBag.Roles = new SelectList(roles);
                 return View(model);
             }
 
@@ -43,6 +51,7 @@ namespace StaskoFy.Controllers
             };
 
             var result = await userManager.CreateAsync(user, model.Password);
+            await userManager.AddToRoleAsync(user, model.Role);
 
             if (result.Succeeded)
             {

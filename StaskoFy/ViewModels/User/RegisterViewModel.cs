@@ -26,5 +26,9 @@ namespace StaskoFy.ViewModels.User
         [Compare(nameof(Password))]
         [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [Display(Name = "Role")]
+        public string Role { get; set; }
     }
 }
