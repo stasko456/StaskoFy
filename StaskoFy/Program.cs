@@ -15,7 +15,7 @@ namespace StaskoFy
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddDbContext<StaskoFyDbContext>(options =>
-            options.UseSqlServer(builder.Configuration.GetConnectionString("ArsenalConnection")));
+            options.UseSqlServer(builder.Configuration.GetConnectionString("HomeLaptopConnection")));
 
             builder.Services.AddIdentity<User, IdentityRole<Guid>>(options =>
             {
@@ -31,6 +31,7 @@ namespace StaskoFy
 
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             builder.Services.AddScoped<IGenreService, GenreService>();
+            builder.Services.AddScoped<IArtistService, ArtistService>();
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();

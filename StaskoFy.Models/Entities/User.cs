@@ -13,10 +13,6 @@ namespace StaskoFy.Models.Entities
         [Display(Name = "Profile Picture")]
         public string ImageURL { get; set; } = "/wwwroot/images/defaults/default-user-pfp.png";
 
-        public ICollection<ArtistSong> ArtistsSongs { get; set; } = new List<ArtistSong>();
-
-        public ICollection<ArtistAlbum> ArtistsAlbums { get; set; } = new List<ArtistAlbum>();
-
         public ICollection<LikedSongs> LikedSongs { get; set; } = new List<LikedSongs>();
 
         public ICollection<Playlist> Playlists { get; set; } = new List<Playlist>();

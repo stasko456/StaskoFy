@@ -14,9 +14,9 @@ namespace StaskoFy.Models.Entities
         public Guid Id { get; set; }
 
         [Required]
-        [ForeignKey(nameof(User))]
+        [ForeignKey(nameof(Artist))]
         public Guid ArtistId { get; set; }
-        public User Artist { get; set; }
+        public Artist Artist { get; set; }
 
         [Required]
         [ForeignKey(nameof(Song))]

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore.Internal;
+using StaskoFy.Core.Services;
 using StaskoFy.Models.Entities;
 using StaskoFy.ViewModels.User;
 
@@ -12,12 +13,17 @@ namespace StaskoFy.Controllers
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
         private readonly RoleManager<IdentityRole<Guid>> roleManager;
+        private readonly ArtistService artistService;
 
-        public UserController(UserManager<User> _userManager, SignInManager<User> _signInManager, RoleManager<IdentityRole<Guid>> _roleManager)
+        public UserController(UserManager<User> _userManager,
+                              SignInManager<User> _signInManager, 
+                              RoleManager<IdentityRole<Guid>> _roleManager,
+                              ArtistService _artistService)
         {
             this.userManager = _userManager;
             this.signInManager = _signInManager;
             this.roleManager = _roleManager;
+            this.artistService = _artistService;
         }
 
         [HttpGet]
@@ -49,6 +55,17 @@ namespace StaskoFy.Controllers
                 UserName = model.Username,
                 Email = model.EmailAddress
             };
+
+            if (model.Role == "Artist")
+            {
+                var artist = new Artist
+                {
+                    UserId = user.Id,
+                    User = user
+                };
+
+                await artistService.AddAsync(artist);
+            }
 
             var result = await userManager.CreateAsync(user, model.Password);
             await userManager.AddToRoleAsync(user, model.Role);
