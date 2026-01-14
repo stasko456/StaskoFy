@@ -179,7 +179,23 @@ namespace StaskoFy.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Album");
+                    b.ToTable("Albums");
+                });
+
+            modelBuilder.Entity("StaskoFy.Models.Entities.Artist", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Artists");
                 });
 
             modelBuilder.Entity("StaskoFy.Models.Entities.ArtistAlbum", b =>
@@ -200,7 +216,7 @@ namespace StaskoFy.DataAccess.Migrations
 
                     b.HasIndex("ArtistId");
 
-                    b.ToTable("ArtistAlbum");
+                    b.ToTable("ArtistsAlbums");
                 });
 
             modelBuilder.Entity("StaskoFy.Models.Entities.ArtistSong", b =>
@@ -221,7 +237,7 @@ namespace StaskoFy.DataAccess.Migrations
 
                     b.HasIndex("SongId");
 
-                    b.ToTable("ArtistSong");
+                    b.ToTable("ArtistsSongs");
                 });
 
             modelBuilder.Entity("StaskoFy.Models.Entities.Genre", b =>
@@ -237,7 +253,7 @@ namespace StaskoFy.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Genre");
+                    b.ToTable("Genres");
                 });
 
             modelBuilder.Entity("StaskoFy.Models.Entities.LikedSongs", b =>
@@ -298,7 +314,7 @@ namespace StaskoFy.DataAccess.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Playlist");
+                    b.ToTable("Playlists");
                 });
 
             modelBuilder.Entity("StaskoFy.Models.Entities.PlaylistSong", b =>
@@ -322,7 +338,7 @@ namespace StaskoFy.DataAccess.Migrations
 
                     b.HasIndex("SongId");
 
-                    b.ToTable("PlaylistSong");
+                    b.ToTable("PlaylistsSongs");
                 });
 
             modelBuilder.Entity("StaskoFy.Models.Entities.Song", b =>
@@ -361,7 +377,7 @@ namespace StaskoFy.DataAccess.Migrations
 
                     b.HasIndex("GenreId");
 
-                    b.ToTable("Song");
+                    b.ToTable("Songs");
                 });
 
             modelBuilder.Entity("StaskoFy.Models.Entities.User", b =>
@@ -378,8 +394,9 @@ namespace StaskoFy.DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .IsRequired()
+                        .HasMaxLength(60)
+                        .HasColumnType("nvarchar(60)");
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
@@ -418,8 +435,9 @@ namespace StaskoFy.DataAccess.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
 
@@ -485,6 +503,17 @@ namespace StaskoFy.DataAccess.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("StaskoFy.Models.Entities.Artist", b =>
+                {
+                    b.HasOne("StaskoFy.Models.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("StaskoFy.Models.Entities.ArtistAlbum", b =>
                 {
                     b.HasOne("StaskoFy.Models.Entities.Album", "Album")
@@ -493,7 +522,7 @@ namespace StaskoFy.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("StaskoFy.Models.Entities.User", "Artist")
+                    b.HasOne("StaskoFy.Models.Entities.Artist", "Artist")
                         .WithMany("ArtistsAlbums")
                         .HasForeignKey("ArtistId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -506,7 +535,7 @@ namespace StaskoFy.DataAccess.Migrations
 
             modelBuilder.Entity("StaskoFy.Models.Entities.ArtistSong", b =>
                 {
-                    b.HasOne("StaskoFy.Models.Entities.User", "Artist")
+                    b.HasOne("StaskoFy.Models.Entities.Artist", "Artist")
                         .WithMany("ArtistsSongs")
                         .HasForeignKey("ArtistId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -596,6 +625,13 @@ namespace StaskoFy.DataAccess.Migrations
                     b.Navigation("Songs");
                 });
 
+            modelBuilder.Entity("StaskoFy.Models.Entities.Artist", b =>
+                {
+                    b.Navigation("ArtistsAlbums");
+
+                    b.Navigation("ArtistsSongs");
+                });
+
             modelBuilder.Entity("StaskoFy.Models.Entities.Genre", b =>
                 {
                     b.Navigation("Songs");
@@ -615,10 +651,6 @@ namespace StaskoFy.DataAccess.Migrations
 
             modelBuilder.Entity("StaskoFy.Models.Entities.User", b =>
                 {
-                    b.Navigation("ArtistsAlbums");
-
-                    b.Navigation("ArtistsSongs");
-
                     b.Navigation("LikedSongs");
 
                     b.Navigation("Playlists");

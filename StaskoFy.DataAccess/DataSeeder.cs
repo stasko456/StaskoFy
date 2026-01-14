@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using StaskoFy.Models.Entities;
@@ -15,7 +16,6 @@ namespace StaskoFy.DataAccess
         public static async Task SeedRolesAsync(IServiceProvider serviceProvider)
         {
             var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
-            var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
 
             string[] roles = new string[] { "Admin", "Artist", "User" };
 
@@ -26,6 +26,11 @@ namespace StaskoFy.DataAccess
                     await roleManager.CreateAsync(new IdentityRole<Guid>(role));
                 }
             }
+        }
+
+        public static async Task SeedAdminUser(IServiceProvider serviceProvider)
+        {
+            var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
 
             var adminUsername = "admin";
             var adminEmail = "admin@admin.com";

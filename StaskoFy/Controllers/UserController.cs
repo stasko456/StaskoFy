@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore.Internal;
+using StaskoFy.Core.IServices;
 using StaskoFy.Core.Services;
+using StaskoFy.DataAccess;
 using StaskoFy.Models.Entities;
 using StaskoFy.ViewModels.User;
 
@@ -13,17 +16,20 @@ namespace StaskoFy.Controllers
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
         private readonly RoleManager<IdentityRole<Guid>> roleManager;
-        private readonly ArtistService artistService;
+        private readonly IArtistService artistService;
+        private readonly IUserService userService;
 
         public UserController(UserManager<User> _userManager,
                               SignInManager<User> _signInManager, 
                               RoleManager<IdentityRole<Guid>> _roleManager,
-                              ArtistService _artistService)
+                              IArtistService _artistService,
+                              IUserService _userService)
         {
             this.userManager = _userManager;
             this.signInManager = _signInManager;
             this.roleManager = _roleManager;
             this.artistService = _artistService;
+            this.userService = _userService;
         }
 
         [HttpGet]
@@ -31,7 +37,7 @@ namespace StaskoFy.Controllers
         {
             if (User?.Identity?.IsAuthenticated ?? false)
             {
-                return RedirectToAction();
+                return RedirectToAction("Home", "Index");
             }
             List<string> roles = new List<string>() { "Artist", "User" };
             ViewBag.Roles = new SelectList(roles);
@@ -56,30 +62,32 @@ namespace StaskoFy.Controllers
                 Email = model.EmailAddress
             };
 
+            var result = await userManager.CreateAsync(user, model.Password);
+
+            if (!result.Succeeded)
+            {
+                foreach (var item in result.Errors)
+                {
+                    ModelState.AddModelError("", item.Description);
+                }
+
+                ViewBag.Roles = new SelectList(roles);
+                return View(model);
+            }
+
+            await userManager.AddToRoleAsync(user, model.Role);
+
             if (model.Role == "Artist")
             {
                 var artist = new Artist
                 {
                     UserId = user.Id,
-                    User = user
                 };
 
                 await artistService.AddAsync(artist);
             }
 
-            var result = await userManager.CreateAsync(user, model.Password);
-            await userManager.AddToRoleAsync(user, model.Role);
-
-            if (result.Succeeded)
-            {
-                return RedirectToAction("Login", "User");
-            }
-
-            foreach (var item in result.Errors)
-            {
-                ModelState.AddModelError("", item.Description);
-            }
-            return View(model);
+            return RedirectToAction("Login", "User");
         }
 
         [HttpGet]
@@ -122,6 +130,14 @@ namespace StaskoFy.Controllers
         {
             await signInManager.SignOutAsync();
             return RedirectToAction("Login", "User");
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public IActionResult Manage()
+        {
+            var users = userService.GetAllUsers();
+            return View(users);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using StaskoFy.Core.IServices;
+﻿using Microsoft.EntityFrameworkCore;
+using StaskoFy.Core.IServices;
 using StaskoFy.DataAccess.Repository;
 using StaskoFy.Models.Entities;
 using System;
@@ -25,7 +26,7 @@ namespace StaskoFy.Core.Services
 
         public IQueryable<Genre> GetAll()
         {
-            return genreRepo.GetAll();
+            return genreRepo.GetAll().Include(x => x.Songs);
         }
 
         public async Task<Genre> GetByIdAsync(Guid? id)

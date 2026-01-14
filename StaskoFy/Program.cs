@@ -15,7 +15,7 @@ namespace StaskoFy
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddDbContext<StaskoFyDbContext>(options =>
-            options.UseSqlServer(builder.Configuration.GetConnectionString("HomeLaptopConnection")));
+            options.UseSqlServer(builder.Configuration.GetConnectionString("ArsenalConnection")));
 
             builder.Services.AddIdentity<User, IdentityRole<Guid>>(options =>
             {
@@ -32,6 +32,7 @@ namespace StaskoFy
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             builder.Services.AddScoped<IGenreService, GenreService>();
             builder.Services.AddScoped<IArtistService, ArtistService>();
+            builder.Services.AddScoped<IUserService, UserService>();
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
@@ -41,6 +42,7 @@ namespace StaskoFy
             using (var scope = app.Services.CreateScope())
             {
                 await DataSeeder.SeedRolesAsync(scope.ServiceProvider);
+                await DataSeeder.SeedAdminUser(scope.ServiceProvider);
             }
 
             // Configure the HTTP request pipeline.
@@ -51,8 +53,9 @@ namespace StaskoFy
                 app.UseHsts();
             }
 
-            // stasko456; Stasko1234*; stdimov2007@gmail.com
-            // Ken Karson; kenkarson@gmail.com; KenKarson1234*
+            // Users:
+            // stasko456; Stasko1234*; stdimov2007@gmail.com User
+            // Ken Karson; kencarson@gmail.com; KenCarson1234* Artist
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

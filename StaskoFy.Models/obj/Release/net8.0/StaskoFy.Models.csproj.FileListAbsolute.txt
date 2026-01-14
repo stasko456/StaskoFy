@@ -1,0 +1,15 @@
+C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy.Models\bin\Release\net8.0\StaskoFy.Models.deps.json
+C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy.Models\bin\Release\net8.0\StaskoFy.Models.runtimeconfig.json
+C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy.Models\bin\Release\net8.0\StaskoFy.Models.dll
+C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy.Models\bin\Release\net8.0\StaskoFy.Models.pdb
+C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy.Models\obj\Release\net8.0\StaskoFy.Models.csproj.AssemblyReference.cache
+C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy.Models\obj\Release\net8.0\StaskoFy.Models.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy.Models\obj\Release\net8.0\StaskoFy.Models.AssemblyInfoInputs.cache
+C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy.Models\obj\Release\net8.0\StaskoFy.Models.AssemblyInfo.cs
+C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy.Models\obj\Release\net8.0\StaskoFy.Models.csproj.CoreCompileInputs.cache
+C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy.Models\obj\Release\net8.0\StaskoFy.Models.sourcelink.json
+C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy.Models\obj\Release\net8.0\StaskoFy.Models.dll
+C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy.Models\obj\Release\net8.0\refint\StaskoFy.Models.dll
+C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy.Models\obj\Release\net8.0\StaskoFy.Models.pdb
+C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy.Models\obj\Release\net8.0\StaskoFy.Models.genruntimeconfig.cache
+C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy.Models\obj\Release\net8.0\ref\StaskoFy.Models.dll

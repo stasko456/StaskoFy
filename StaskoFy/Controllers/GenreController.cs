@@ -1,0 +1,134 @@
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using StaskoFy.Core.IServices;
+using StaskoFy.Models.Entities;
+using StaskoFy.ViewModels.Genre;
+
+namespace StaskoFy.Controllers
+{
+    public class GenreController : Controller
+    {
+        private readonly IGenreService genreService;
+
+        public GenreController(IGenreService _genreService)
+        {
+            this.genreService = _genreService;
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public IActionResult Index()
+        {
+            var genres = genreService.GetAll();
+
+            var model = genres.Select(x => new GenreIndexViewModel
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Songs = x.Songs,
+            });
+
+            return View(model);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public IActionResult Create()
+        {
+            var model = new GenreIndexViewModel();
+            return View(model);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Create(GenreIndexViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var genre = new Genre
+            {
+                Id = model.Id,
+                Name = model.Name
+            };
+
+            await genreService.AddAsync(genre);
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Edit(Guid? id)
+        {
+            if (id == null || id == Guid.Empty)
+            {
+                return NotFound();
+            }
+
+            var genre = await genreService.GetByIdAsync(id);
+
+            if (genre == null)
+            {
+                return NotFound();
+            }
+
+            var model = new GenreIndexViewModel
+            {
+                Id = genre.Id,
+                Name = genre.Name,
+                Songs = genre.Songs
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Edit(Guid? id, GenreIndexViewModel model)
+        {
+            if (id != model.Id)
+            {
+                return NotFound();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var genre = await genreService.GetByIdAsync(id);
+
+            if (genre == null)
+            {
+                return NotFound();
+            }
+
+            genre.Name = model.Name;
+            await genreService.UpdateAsync(genre);
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Delete(Guid? id)
+        {
+            if (id == null || id == Guid.Empty)
+            {
+                return NotFound();
+            }
+
+            var genre = await genreService.GetByIdAsync(id);
+
+            if (genre == null)
+            {
+                return NotFound();
+            }
+
+            await genreService.RemoveAsync(genre);
+            return RedirectToAction("Index");
+        }
+    }
+}
