@@ -48,6 +48,8 @@ namespace StaskoFy.DataAccess
                 .Property(u => u.Email)
                 .HasMaxLength(60)
                 .IsRequired();
+
+            builder.ApplyConfigurationsFromAssembly(typeof(StaskoFyDbContext).Assembly);
         }
     }
 }

@@ -139,5 +139,14 @@ namespace StaskoFy.Controllers
             var users = userService.GetAllUsers();
             return View(users);
         }
+
+        // TO DO
+
+        //[HttpGet]
+        //[Authorize(Roles = "Admin")]
+        //public IActionResult Edit()
+        //{
+
+        //}
     }
 }

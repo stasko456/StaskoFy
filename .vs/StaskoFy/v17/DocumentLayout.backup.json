@@ -3,16 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{97845BDD-D6EE-464C-A823-7A621EEC47F4}|StaskoFy\\StaskoFy.csproj|c:\\users\\student8\\documents\\stanislav arsenal\\12thgrade\\software engineering\\staskofy\\staskofy\\views\\genre\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{97845BDD-D6EE-464C-A823-7A621EEC47F4}|StaskoFy\\StaskoFy.csproj|solutionrelative:staskofy\\views\\genre\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{4782A042-C804-4CD3-A6D2-2053B60D6918}|StaskoFy.DataAccess\\StaskoFy.DataAccess.csproj|c:\\users\\student8\\documents\\stanislav arsenal\\12thgrade\\software engineering\\staskofy\\staskofy.dataaccess\\configurations\\artistsongconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4782A042-C804-4CD3-A6D2-2053B60D6918}|StaskoFy.DataAccess\\StaskoFy.DataAccess.csproj|solutionrelative:staskofy.dataaccess\\configurations\\artistsongconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{97845BDD-D6EE-464C-A823-7A621EEC47F4}|StaskoFy\\StaskoFy.csproj|c:\\users\\student8\\documents\\stanislav arsenal\\12thgrade\\software engineering\\staskofy\\staskofy\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{97845BDD-D6EE-464C-A823-7A621EEC47F4}|StaskoFy\\StaskoFy.csproj|solutionrelative:staskofy\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A5563525-DA87-409B-ADC7-23E4341BE7EE}|StaskoFy.Models\\StaskoFy.Models.csproj|c:\\users\\student8\\documents\\stanislav arsenal\\12thgrade\\software engineering\\staskofy\\staskofy.models\\entities\\artistsong.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A5563525-DA87-409B-ADC7-23E4341BE7EE}|StaskoFy.Models\\StaskoFy.Models.csproj|solutionrelative:staskofy.models\\entities\\artistsong.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{97845BDD-D6EE-464C-A823-7A621EEC47F4}|StaskoFy\\StaskoFy.csproj|c:\\users\\student8\\documents\\stanislav arsenal\\12thgrade\\software engineering\\staskofy\\staskofy\\controllers\\genrecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{97845BDD-D6EE-464C-A823-7A621EEC47F4}|StaskoFy\\StaskoFy.csproj|solutionrelative:staskofy\\controllers\\genrecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{4782A042-C804-4CD3-A6D2-2053B60D6918}|StaskoFy.DataAccess\\StaskoFy.DataAccess.csproj|c:\\users\\student8\\documents\\stanislav arsenal\\12thgrade\\software engineering\\staskofy\\staskofy.dataaccess\\dataseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4782A042-C804-4CD3-A6D2-2053B60D6918}|StaskoFy.DataAccess\\StaskoFy.DataAccess.csproj|solutionrelative:staskofy.dataaccess\\dataseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -30,41 +30,41 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy\\Views\\Genre\\Index.cshtml",
-              "RelativeDocumentMoniker": "StaskoFy\\Views\\Genre\\Index.cshtml",
-              "ToolTip": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy\\Views\\Genre\\Index.cshtml",
-              "RelativeToolTip": "StaskoFy\\Views\\Genre\\Index.cshtml",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAACQAAAAHAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-14T12:37:13.115Z",
+              "DocumentIndex": 1,
+              "Title": "ArtistSong.cs",
+              "DocumentMoniker": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.Models\\Entities\\ArtistSong.cs",
+              "RelativeDocumentMoniker": "StaskoFy.Models\\Entities\\ArtistSong.cs",
+              "ToolTip": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.Models\\Entities\\ArtistSong.cs",
+              "RelativeToolTip": "StaskoFy.Models\\Entities\\ArtistSong.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-15T11:41:48.638Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy\\Program.cs",
-              "RelativeDocumentMoniker": "StaskoFy\\Program.cs",
-              "ToolTip": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy\\Program.cs",
-              "RelativeToolTip": "StaskoFy\\Program.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAAEkAAAABAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "ArtistSongConfiguration.cs",
+              "DocumentMoniker": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.DataAccess\\Configurations\\ArtistSongConfiguration.cs",
+              "RelativeDocumentMoniker": "StaskoFy.DataAccess\\Configurations\\ArtistSongConfiguration.cs",
+              "ToolTip": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.DataAccess\\Configurations\\ArtistSongConfiguration.cs*",
+              "RelativeToolTip": "StaskoFy.DataAccess\\Configurations\\ArtistSongConfiguration.cs*",
+              "ViewState": "AgIAABgAAAAAAAAAAAAAAC8AAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-14T12:03:42.221Z",
+              "WhenOpened": "2026-01-15T11:41:09.881Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "GenreController.cs",
-              "DocumentMoniker": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy\\Controllers\\GenreController.cs",
-              "RelativeDocumentMoniker": "StaskoFy\\Controllers\\GenreController.cs",
-              "ToolTip": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy\\Controllers\\GenreController.cs",
-              "RelativeToolTip": "StaskoFy\\Controllers\\GenreController.cs",
-              "ViewState": "AgIAAFAAAAAAAAAAAAAAAFAAAAAjAAAAAAAAAA==",
+              "Title": "DataSeeder.cs",
+              "DocumentMoniker": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.DataAccess\\DataSeeder.cs",
+              "RelativeDocumentMoniker": "StaskoFy.DataAccess\\DataSeeder.cs",
+              "ToolTip": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.DataAccess\\DataSeeder.cs",
+              "RelativeToolTip": "StaskoFy.DataAccess\\DataSeeder.cs",
+              "ViewState": "AgIAAFgAAAAAAAAAAAAmwF0AAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-14T06:43:23.797Z",
+              "WhenOpened": "2026-01-15T11:38:17.977Z",
               "EditorCaption": ""
             }
           ]

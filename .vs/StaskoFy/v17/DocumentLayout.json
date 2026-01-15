@@ -3,12 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{97845BDD-D6EE-464C-A823-7A621EEC47F4}|StaskoFy\\StaskoFy.csproj|c:\\users\\student8\\documents\\stanislav arsenal\\12thgrade\\software engineering\\staskofy\\staskofy\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{97845BDD-D6EE-464C-A823-7A621EEC47F4}|StaskoFy\\StaskoFy.csproj|solutionrelative:staskofy\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{4782A042-C804-4CD3-A6D2-2053B60D6918}|StaskoFy.DataAccess\\StaskoFy.DataAccess.csproj|c:\\users\\student8\\documents\\stanislav arsenal\\12thgrade\\software engineering\\staskofy\\staskofy.dataaccess\\configurations\\playlistsongconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4782A042-C804-4CD3-A6D2-2053B60D6918}|StaskoFy.DataAccess\\StaskoFy.DataAccess.csproj|solutionrelative:staskofy.dataaccess\\configurations\\playlistsongconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0A1A830A-C6CC-481F-A21B-B7BB6F0F079B}|StaskoFy.Core\\StaskoFy.Core.csproj|c:\\users\\student8\\documents\\stanislav arsenal\\12thgrade\\software engineering\\staskofy\\staskofy.core\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0A1A830A-C6CC-481F-A21B-B7BB6F0F079B}|StaskoFy.Core\\StaskoFy.Core.csproj|solutionrelative:staskofy.core\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A5563525-DA87-409B-ADC7-23E4341BE7EE}|StaskoFy.Models\\StaskoFy.Models.csproj|c:\\users\\student8\\documents\\stanislav arsenal\\12thgrade\\software engineering\\staskofy\\staskofy.models\\entities\\playlistsong.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A5563525-DA87-409B-ADC7-23E4341BE7EE}|StaskoFy.Models\\StaskoFy.Models.csproj|solutionrelative:staskofy.models\\entities\\playlistsong.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4782A042-C804-4CD3-A6D2-2053B60D6918}|StaskoFy.DataAccess\\StaskoFy.DataAccess.csproj|c:\\users\\student8\\documents\\stanislav arsenal\\12thgrade\\software engineering\\staskofy\\staskofy.dataaccess\\configurations\\playlistconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4782A042-C804-4CD3-A6D2-2053B60D6918}|StaskoFy.DataAccess\\StaskoFy.DataAccess.csproj|solutionrelative:staskofy.dataaccess\\configurations\\playlistconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A5563525-DA87-409B-ADC7-23E4341BE7EE}|StaskoFy.Models\\StaskoFy.Models.csproj|c:\\users\\student8\\documents\\stanislav arsenal\\12thgrade\\software engineering\\staskofy\\staskofy.models\\entities\\playlist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A5563525-DA87-409B-ADC7-23E4341BE7EE}|StaskoFy.Models\\StaskoFy.Models.csproj|solutionrelative:staskofy.models\\entities\\playlist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,7 +26,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -26,28 +34,54 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "UserService.cs",
-              "DocumentMoniker": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.Core\\Services\\UserService.cs",
-              "RelativeDocumentMoniker": "StaskoFy.Core\\Services\\UserService.cs",
-              "ToolTip": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.Core\\Services\\UserService.cs",
-              "RelativeToolTip": "StaskoFy.Core\\Services\\UserService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAABAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "PlaylistSongConfiguration.cs",
+              "DocumentMoniker": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.DataAccess\\Configurations\\PlaylistSongConfiguration.cs",
+              "RelativeDocumentMoniker": "StaskoFy.DataAccess\\Configurations\\PlaylistSongConfiguration.cs",
+              "ToolTip": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.DataAccess\\Configurations\\PlaylistSongConfiguration.cs",
+              "RelativeToolTip": "StaskoFy.DataAccess\\Configurations\\PlaylistSongConfiguration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACgAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-14T13:20:20.221Z",
+              "WhenOpened": "2026-01-15T13:27:05.753Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "UserController.cs",
-              "DocumentMoniker": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy\\Controllers\\UserController.cs",
-              "RelativeDocumentMoniker": "StaskoFy\\Controllers\\UserController.cs",
-              "ToolTip": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy\\Controllers\\UserController.cs",
-              "RelativeToolTip": "StaskoFy\\Controllers\\UserController.cs",
-              "ViewState": "AgIAAHsAAAAAAAAAAAAAAIoAAAAyAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "PlaylistSong.cs",
+              "DocumentMoniker": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.Models\\Entities\\PlaylistSong.cs",
+              "RelativeDocumentMoniker": "StaskoFy.Models\\Entities\\PlaylistSong.cs",
+              "ToolTip": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.Models\\Entities\\PlaylistSong.cs",
+              "RelativeToolTip": "StaskoFy.Models\\Entities\\PlaylistSong.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-14T13:01:48.803Z",
+              "WhenOpened": "2026-01-15T13:16:58.382Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "PlaylistConfiguration.cs",
+              "DocumentMoniker": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.DataAccess\\Configurations\\PlaylistConfiguration.cs",
+              "RelativeDocumentMoniker": "StaskoFy.DataAccess\\Configurations\\PlaylistConfiguration.cs",
+              "ToolTip": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.DataAccess\\Configurations\\PlaylistConfiguration.cs",
+              "RelativeToolTip": "StaskoFy.DataAccess\\Configurations\\PlaylistConfiguration.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABIAAABKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-15T13:06:57.455Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Playlist.cs",
+              "DocumentMoniker": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.Models\\Entities\\Playlist.cs",
+              "RelativeDocumentMoniker": "StaskoFy.Models\\Entities\\Playlist.cs",
+              "ToolTip": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.Models\\Entities\\Playlist.cs",
+              "RelativeToolTip": "StaskoFy.Models\\Entities\\Playlist.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-15T13:05:57.441Z",
               "EditorCaption": ""
             }
           ]
