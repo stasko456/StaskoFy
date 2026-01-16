@@ -56,144 +56,69 @@ namespace StaskoFy.DataAccess
             }
         }
 
-        public static async Task SeedArtistsAsync(IServiceProvider serviceProvider, StaskoFyDbContext context)
-        {
-            var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
-
-            // Ken Carson
-            var kenCarson = new User
-            {
-                Id = Guid.Parse("11111111-1111-1111-1111-111111111111"),
-                UserName = "kenCarson",
-                Email = "kenCarson@gmail.com"
-            };
-            await userManager.CreateAsync(kenCarson, "kCarson1234*");
-            await userManager.AddToRoleAsync(kenCarson, "Artist");
-
-            // Future
-            var future = new User
-            {
-                Id = Guid.Parse("21111111-1111-1111-1111-111111111111"),         
-                UserName = "future",
-                Email = "future@gmail.com"
-            };
-            await userManager.CreateAsync(future, "Future1234*");
-            await userManager.AddToRoleAsync(future, "Artist");
-
-            // Young Thug
-            var youngThug = new User
-            {
-                Id = Guid.Parse("31111111-1111-1111-1111-111111111111"),
-                UserName = "youngThug",
-                Email = "youngThug@gmail.com"
-            };
-            await userManager.CreateAsync(youngThug, "yThug1234*");
-            await userManager.AddToRoleAsync(youngThug, "Artist");
-
-            // WestSide Gunn
-            var westsideGunn = new User
-            {
-                Id = Guid.Parse("41111111-1111-1111-1111-111111111111"),
-                UserName = "westsideGunn",
-                Email = "westsideGunn@gmail.com"
-            };
-            await userManager.CreateAsync(westsideGunn, "wGunn1234*");
-            await userManager.AddToRoleAsync(westsideGunn, "Artist");
-
-            // Tyler The Creator
-            var tylerTheCreator = new User
-            {
-                Id = Guid.Parse("51111111-1111-1111-1111-111111111111"),
-                UserName = "tylerTheCreator",
-                Email = "tylerTheCreator@gmail.com"
-            };
-            await userManager.CreateAsync(tylerTheCreator, "tTC1234*");
-            await userManager.AddToRoleAsync(tylerTheCreator, "Artist");
-
-            // Destroy Lonely
-            var destroyLonely = new User
-            {
-                Id = Guid.Parse("61111111-1111-1111-1111-111111111111"),
-                UserName = "destroyLonely",
-                Email = "destroyLonely@gmail.com"
-            };
-            await userManager.CreateAsync(destroyLonely, "dLonely1234*");
-            await userManager.AddToRoleAsync(destroyLonely, "Artist");
-
-            //Joe Bada$$
-            var joeyBadass = new User
-            {
-                Id = Guid.Parse("71111111-1111-1111-1111-111111111111"),
-                UserName = "joeyBada$$",
-                Email = "joeyBada$$@gmail.com"
-            };
-            await userManager.CreateAsync(joeyBadass, "jBada$$1234*");
-            await userManager.AddToRoleAsync(joeyBadass, "Artist");
-
-            //Billie Essco
-            var billiEssco = new User
-            {
-                Id = Guid.Parse("81111111-1111-1111-1111-111111111111"),
-                UserName = "billiEssco",
-                Email = "billiEssco@gmail.com"
-            };
-            await userManager.CreateAsync(billiEssco, "bEssco1234*");
-            await userManager.AddToRoleAsync(billiEssco, "Artist");
-
-            //Lil Wayne
-            var lilWayne = new User
-            {
-                Id = Guid.Parse("91111111-1111-1111-1111-111111111111"),
-                UserName = "lilWayne",
-                Email = "lilWayne@gmail.com"
-            };
-            await userManager.CreateAsync(lilWayne, "lilWayne1234*");
-            await userManager.AddToRoleAsync(lilWayne, "Artist");
-
-            //Lil Wayne
-            var homixideGang = new User
-            {
-                Id = Guid.Parse("10111111-1111-1111-1111-111111111111"),
-                UserName = "homixideGang",
-                Email = "homixideGang@gmail.com"
-            };
-            await userManager.CreateAsync(homixideGang, "homiGang1234*");
-            await userManager.AddToRoleAsync(homixideGang, "Artist");
-        }
-
         public static async Task SeedUsersAsync(IServiceProvider serviceProvider)
         {
             var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
 
-            // stasko456
-            var stasko456 = new User
-            {
-                Id = Guid.Parse("11111111-1111-1111-1111-111111111111"),
-                UserName = "stasko456",
-                Email = "stdimov2007@gmail.com"
-            };
-            await userManager.CreateAsync(stasko456, "Stasko1234*");
-            await userManager.AddToRoleAsync(stasko456, "User");
+            //var usersToSeed = new[]
+            //{
+            //    // Artists:
+            //    new { Id = Guid.Parse("01111111-1111-1111-1111-111111111111"), UserName = "kenCarson", Email = "kenCarson@gmail.com", Password = "kCarson1234*", Role = "Artist" },
+            //    new { Id = Guid.Parse("02111111-1111-1111-1111-111111111111"), UserName = "future", Email = "future@gmail.com", Password = "Future1234*", Role = "Artist" },
+            //    new { Id = Guid.Parse("03111111-1111-1111-1111-111111111111"), UserName = "youngThug", Email = "youngThug@gmail.com", Password = "yThug1234*", Role = "Artist"},
+            //    new { Id = Guid.Parse("04111111-1111-1111-1111-111111111111"), UserName = "westsideGunn", Email = "westsideGunn@gmail.com", Password = "wGunn1234*", Role = "Artist"},
+            //    new { Id = Guid.Parse("05111111-1111-1111-1111-111111111111"), UserName = "tylerTheCreator", Email = "tylerTheCreator@gmail.com", Password = "ttCreator1234*", Role = "Artist"},
+            //    new { Id = Guid.Parse("06111111-1111-1111-1111-111111111111"), UserName = "destroyLonely", Email = "destroyLonely@gmail.com", Password = "dLonely1234*", Role = "Artist"},
+            //    new { Id = Guid.Parse("07111111-1111-1111-1111-111111111111"), UserName = "joeyBada$$", Email = "joeyBada$$@gmail.com", Password = "jBadass1234*", Role = "Artist"},
+            //    new { Id = Guid.Parse("08111111-1111-1111-1111-111111111111"), UserName = "billiEssco", Email = "billiEssco@gmail.com", Password = "bEssco1234*", Role = "Artist"},
+            //    new { Id = Guid.Parse("09111111-1111-1111-1111-111111111111"), UserName = "lilWayne", Email = "lilWayne@gmail.com", Password = "lWayne1234*", Role = "Artist"},
+            //    new { Id = Guid.Parse("10111111-1111-1111-1111-111111111111"), UserName = "homixideGang", Email = "homixideGang@gmail.com", Password = "hGang1234*", Role = "Artist"},
 
-            // simon333
-            var simon333 = new User
-            {
-                Id = Guid.Parse("21111111-1111-1111-1111-111111111111"),
-                UserName = "simon333",
-                Email = "simon2403e8@gmail.com"
-            };
-            await userManager.CreateAsync(simon333, "Simon1234*");
-            await userManager.AddToRoleAsync(simon333, "User");
+            //    // Users:
+            //    new { Id = Guid.Parse("11111111-1111-1111-1111-111111111111"), UserName = "stasko456", Email = "stdimov2007@gmail.com", Password = "Stasko1234*", Role = "User"},
+            //    new { Id = Guid.Parse("12111111-1111-1111-1111-111111111111"), UserName = "simon333", Email = "simon2403e8@gmail.com", Password = "Simon1234*", Role = "User"},
+            //    new { Id = Guid.Parse("13111111-1111-1111-1111-111111111111"), UserName = "n_peew07", Email = "nikolaPeew@gmail.com", Password = "Nikola1234*", Role = "User"}
+            //};
 
-            //n_peev07
-            var n_peew07 = new User
-            {
-                Id = Guid.Parse("31111111-1111-1111-1111-111111111111"),
-                UserName = "n_peew07",
-                Email = "nikolaPeew@gmail.com"
-            };
-            await userManager.CreateAsync(n_peew07, "nPeew1234*");
-            await userManager.AddToRoleAsync(n_peew07, "User");
+            //foreach (var u in usersToSeed)
+            //{
+            //    var userExists = userManager.FindByNameAsync(u.UserName);
+
+            //    if (userExists == null)
+            //    {
+            //        var user = new User
+            //        {
+            //            Id = u.Id,
+            //            UserName = u.UserName,
+            //            Email = u.Email,
+            //        };
+
+            //        await userManager.CreateAsync(user, u.Password);
+            //        await userManager.AddToRoleAsync(user, u.Role);
+            //    }
+            //}
         }
+
+        //public static async Task SeedArtistsAsync(IServiceProvider serviceProvider)
+        //{
+        //    var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
+        //    var context = serviceProvider.GetRequiredService<StaskoFyDbContext>();
+
+        //    var artistUsers = await userManager.GetUsersInRoleAsync("Artist");
+
+        //    foreach (var user in artistUsers)
+        //    {
+        //        if (!context.Artists.Any(x => x.UserId == user.Id))
+        //        {
+        //            context.Artists.Add(new Artist
+        //            {
+        //                Id = Guid.NewGuid(),
+        //                UserId = user.Id,
+        //            });
+        //        }
+        //    }
+
+        //    await context.SaveChangesAsync();
+        //}
     }
 }

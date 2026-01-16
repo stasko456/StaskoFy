@@ -35,10 +35,21 @@ namespace StaskoFy.DataAccess
 
         public DbSet<Song> Songs { get; set; }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+            optionsBuilder.ConfigureWarnings(warnings =>
+            {
+                warnings.Ignore(Microsoft.EntityFrameworkCore.Diagnostics.RelationalEventId.PendingModelChangesWarning);
+            });
+        }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
+            builder.ApplyConfigurationsFromAssembly(typeof(StaskoFyDbContext).Assembly);
+            
             builder.Entity<User>()
                 .Property(u => u.UserName)
                 .HasMaxLength(20)
@@ -48,8 +59,6 @@ namespace StaskoFy.DataAccess
                 .Property(u => u.Email)
                 .HasMaxLength(60)
                 .IsRequired();
-
-            builder.ApplyConfigurationsFromAssembly(typeof(StaskoFyDbContext).Assembly);
         }
     }
 }

@@ -10,9 +10,6 @@ namespace StaskoFy.Models.Entities
 {
     public class ArtistAlbum
     {
-        [Key]
-        public Guid Id { get; set; }
-
         [Required]
         [ForeignKey(nameof(Artist))]
         public Guid ArtistId { get; set; }

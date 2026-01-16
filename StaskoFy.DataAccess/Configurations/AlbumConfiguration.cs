@@ -62,7 +62,7 @@ namespace StaskoFy.DataAccess.Configurations
                     Title = "ᐸ/3³",
                     Length = new TimeSpan(0, 54, 32),
                     ReleaseDate = new DateOnly(2025, 9, 22),
-                    SongsCount = 6, // risk, no presure, stfu, jumanji, not the mayor, soooo high
+                    SongsCount = 6, // risk, no presure, stfu, jumanji, not the mayor, soooo high // TO BE ADDED!!!
                 });
         }
     }

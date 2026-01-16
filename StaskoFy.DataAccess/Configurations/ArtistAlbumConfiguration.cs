@@ -13,6 +13,8 @@ namespace StaskoFy.DataAccess.Configurations
     {
         public void Configure(EntityTypeBuilder<ArtistAlbum> builder)
         {
+            builder.HasKey(x => new { x.ArtistId, x.AlbumId });
+
             builder.HasData(
                 new ArtistAlbum { ArtistId = Guid.Parse("11111111-1111-1111-1111-111111111111"), AlbumId = Guid.Parse("11111111-1111-1111-1111-111111111111") },
                 new ArtistAlbum { ArtistId = Guid.Parse("21111111-1111-1111-1111-111111111111"), AlbumId = Guid.Parse("21111111-1111-1111-1111-111111111111") },
