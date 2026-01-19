@@ -1,7 +1,20 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\",
-  "Documents": [],
+  "WorkspaceRootPath": "C:\\Users\\User\\Documents\\PPMG Nikola Obreshkov\\Stanislav-12th Grade\\Software Engineering\\StaskoFy\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{0A1A830A-C6CC-481F-A21B-B7BB6F0F079B}|StaskoFy.Core\\StaskoFy.Core.csproj|c:\\users\\user\\documents\\ppmg nikola obreshkov\\stanislav-12th grade\\software engineering\\staskofy\\staskofy.core\\services\\imageservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0A1A830A-C6CC-481F-A21B-B7BB6F0F079B}|StaskoFy.Core\\StaskoFy.Core.csproj|solutionrelative:staskofy.core\\services\\imageservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0A1A830A-C6CC-481F-A21B-B7BB6F0F079B}|StaskoFy.Core\\StaskoFy.Core.csproj|c:\\users\\user\\documents\\ppmg nikola obreshkov\\stanislav-12th grade\\software engineering\\staskofy\\staskofy.core\\iservices\\iimageservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0A1A830A-C6CC-481F-A21B-B7BB6F0F079B}|StaskoFy.Core\\StaskoFy.Core.csproj|solutionrelative:staskofy.core\\iservices\\iimageservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97845BDD-D6EE-464C-A823-7A621EEC47F4}|StaskoFy\\StaskoFy.csproj|c:\\users\\user\\documents\\ppmg nikola obreshkov\\stanislav-12th grade\\software engineering\\staskofy\\staskofy\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{97845BDD-D6EE-464C-A823-7A621EEC47F4}|StaskoFy\\StaskoFy.csproj|solutionrelative:staskofy\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,11 +22,46 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ImageService.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Documents\\PPMG Nikola Obreshkov\\Stanislav-12th Grade\\Software Engineering\\StaskoFy\\StaskoFy.Core\\Services\\ImageService.cs",
+              "RelativeDocumentMoniker": "StaskoFy.Core\\Services\\ImageService.cs",
+              "ToolTip": "C:\\Users\\User\\Documents\\PPMG Nikola Obreshkov\\Stanislav-12th Grade\\Software Engineering\\StaskoFy\\StaskoFy.Core\\Services\\ImageService.cs",
+              "RelativeToolTip": "StaskoFy.Core\\Services\\ImageService.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAwwCMAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-19T13:33:08.057Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "IImageService.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Documents\\PPMG Nikola Obreshkov\\Stanislav-12th Grade\\Software Engineering\\StaskoFy\\StaskoFy.Core\\IServices\\IImageService.cs",
+              "RelativeDocumentMoniker": "StaskoFy.Core\\IServices\\IImageService.cs",
+              "ToolTip": "C:\\Users\\User\\Documents\\PPMG Nikola Obreshkov\\Stanislav-12th Grade\\Software Engineering\\StaskoFy\\StaskoFy.Core\\IServices\\IImageService.cs",
+              "RelativeToolTip": "StaskoFy.Core\\IServices\\IImageService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAABIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-19T13:32:17.098Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Documents\\PPMG Nikola Obreshkov\\Stanislav-12th Grade\\Software Engineering\\StaskoFy\\StaskoFy\\Program.cs",
+              "RelativeDocumentMoniker": "StaskoFy\\Program.cs",
+              "ToolTip": "C:\\Users\\User\\Documents\\PPMG Nikola Obreshkov\\Stanislav-12th Grade\\Software Engineering\\StaskoFy\\StaskoFy\\Program.cs",
+              "RelativeToolTip": "StaskoFy\\Program.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAADwvx4AAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-19T09:18:32.178Z",
+              "EditorCaption": ""
             }
           ]
         }

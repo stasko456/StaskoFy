@@ -1,10 +1,13 @@
+using CloudinaryDotNet;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging.Console;
 using StaskoFy.Core.IServices;
 using StaskoFy.Core.Services;
 using StaskoFy.DataAccess;
 using StaskoFy.DataAccess.Repository;
 using StaskoFy.Models.Entities;
+using StaskoFy.Models.Utils;
 
 namespace StaskoFy
 {
@@ -28,6 +31,14 @@ namespace StaskoFy
                 options.Password.RequiredLength = 5;
             }).AddEntityFrameworkStores<StaskoFyDbContext>()
             .AddDefaultTokenProviders();
+            
+            var cloudinarySettings = builder.Configuration
+                .GetSection("CloudinarySettings").Get<CloudinarySettings>();
+            builder.Services.AddSingleton<Cloudinary>((sp) =>
+            {
+                return new Cloudinary(new Account(cloudinarySettings.CloudName, cloudinarySettings.ApiKey,
+                    cloudinarySettings.ApiSecret));
+            });
 
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             builder.Services.AddScoped<IGenreService, GenreService>();
