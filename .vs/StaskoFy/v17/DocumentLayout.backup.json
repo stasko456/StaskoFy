@@ -1,18 +1,46 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\User\\Documents\\PPMG Nikola Obreshkov\\Stanislav-12th Grade\\Software Engineering\\StaskoFy\\",
+  "WorkspaceRootPath": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{97845BDD-D6EE-464C-A823-7A621EEC47F4}|StaskoFy\\StaskoFy.csproj|c:\\users\\user\\documents\\ppmg nikola obreshkov\\stanislav-12th grade\\software engineering\\staskofy\\staskofy\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{97845BDD-D6EE-464C-A823-7A621EEC47F4}|StaskoFy\\StaskoFy.csproj|solutionrelative:staskofy\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{97845BDD-D6EE-464C-A823-7A621EEC47F4}|StaskoFy\\StaskoFy.csproj|c:\\users\\student8\\documents\\stanislav arsenal\\12thgrade\\software engineering\\staskofy\\staskofy\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{97845BDD-D6EE-464C-A823-7A621EEC47F4}|StaskoFy\\StaskoFy.csproj|solutionrelative:staskofy\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{97845BDD-D6EE-464C-A823-7A621EEC47F4}|StaskoFy\\StaskoFy.csproj|c:\\users\\user\\documents\\ppmg nikola obreshkov\\stanislav-12th grade\\software engineering\\staskofy\\staskofy\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{97845BDD-D6EE-464C-A823-7A621EEC47F4}|StaskoFy\\StaskoFy.csproj|solutionrelative:staskofy\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{97845BDD-D6EE-464C-A823-7A621EEC47F4}|StaskoFy\\StaskoFy.csproj|c:\\users\\student8\\documents\\stanislav arsenal\\12thgrade\\software engineering\\staskofy\\staskofy\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{97845BDD-D6EE-464C-A823-7A621EEC47F4}|StaskoFy\\StaskoFy.csproj|solutionrelative:staskofy\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A5563525-DA87-409B-ADC7-23E4341BE7EE}|StaskoFy.Models\\StaskoFy.Models.csproj|c:\\users\\user\\documents\\ppmg nikola obreshkov\\stanislav-12th grade\\software engineering\\staskofy\\staskofy.models\\utils\\cloudinarysettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A5563525-DA87-409B-ADC7-23E4341BE7EE}|StaskoFy.Models\\StaskoFy.Models.csproj|solutionrelative:staskofy.models\\utils\\cloudinarysettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{97845BDD-D6EE-464C-A823-7A621EEC47F4}|StaskoFy\\StaskoFy.csproj|c:\\users\\student8\\documents\\stanislav arsenal\\12thgrade\\software engineering\\staskofy\\staskofy\\controllers\\genrecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{97845BDD-D6EE-464C-A823-7A621EEC47F4}|StaskoFy\\StaskoFy.csproj|solutionrelative:staskofy\\controllers\\genrecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4782A042-C804-4CD3-A6D2-2053B60D6918}|StaskoFy.DataAccess\\StaskoFy.DataAccess.csproj|c:\\users\\student8\\documents\\stanislav arsenal\\12thgrade\\software engineering\\staskofy\\staskofy.dataaccess\\repository\\irepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4782A042-C804-4CD3-A6D2-2053B60D6918}|StaskoFy.DataAccess\\StaskoFy.DataAccess.csproj|solutionrelative:staskofy.dataaccess\\repository\\irepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97845BDD-D6EE-464C-A823-7A621EEC47F4}|StaskoFy\\StaskoFy.csproj|c:\\users\\student8\\documents\\stanislav arsenal\\12thgrade\\software engineering\\staskofy\\staskofy\\views\\genre\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{97845BDD-D6EE-464C-A823-7A621EEC47F4}|StaskoFy\\StaskoFy.csproj|solutionrelative:staskofy\\views\\genre\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4782A042-C804-4CD3-A6D2-2053B60D6918}|StaskoFy.DataAccess\\StaskoFy.DataAccess.csproj|c:\\users\\student8\\documents\\stanislav arsenal\\12thgrade\\software engineering\\staskofy\\staskofy.dataaccess\\repository\\repository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4782A042-C804-4CD3-A6D2-2053B60D6918}|StaskoFy.DataAccess\\StaskoFy.DataAccess.csproj|solutionrelative:staskofy.dataaccess\\repository\\repository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0A1A830A-C6CC-481F-A21B-B7BB6F0F079B}|StaskoFy.Core\\StaskoFy.Core.csproj|c:\\users\\student8\\documents\\stanislav arsenal\\12thgrade\\software engineering\\staskofy\\staskofy.core\\services\\genreservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0A1A830A-C6CC-481F-A21B-B7BB6F0F079B}|StaskoFy.Core\\StaskoFy.Core.csproj|solutionrelative:staskofy.core\\services\\genreservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0A1A830A-C6CC-481F-A21B-B7BB6F0F079B}|StaskoFy.Core\\StaskoFy.Core.csproj|c:\\users\\student8\\documents\\stanislav arsenal\\12thgrade\\software engineering\\staskofy\\staskofy.core\\iservices\\igenreservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0A1A830A-C6CC-481F-A21B-B7BB6F0F079B}|StaskoFy.Core\\StaskoFy.Core.csproj|solutionrelative:staskofy.core\\iservices\\igenreservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0A1A830A-C6CC-481F-A21B-B7BB6F0F079B}|StaskoFy.Core\\StaskoFy.Core.csproj|c:\\users\\student8\\documents\\stanislav arsenal\\12thgrade\\software engineering\\staskofy\\staskofy.core\\iservices\\isongservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0A1A830A-C6CC-481F-A21B-B7BB6F0F079B}|StaskoFy.Core\\StaskoFy.Core.csproj|solutionrelative:staskofy.core\\iservices\\isongservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0A1A830A-C6CC-481F-A21B-B7BB6F0F079B}|StaskoFy.Core\\StaskoFy.Core.csproj|c:\\users\\student8\\documents\\stanislav arsenal\\12thgrade\\software engineering\\staskofy\\staskofy.core\\services\\songservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0A1A830A-C6CC-481F-A21B-B7BB6F0F079B}|StaskoFy.Core\\StaskoFy.Core.csproj|solutionrelative:staskofy.core\\services\\songservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,45 +50,140 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "StaskoFy\\Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "StaskoFy\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-21T13:13:00.315Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\User\\Documents\\PPMG Nikola Obreshkov\\Stanislav-12th Grade\\Software Engineering\\StaskoFy\\StaskoFy\\appsettings.json",
-              "RelativeDocumentMoniker": "StaskoFy\\appsettings.json",
-              "ToolTip": "C:\\Users\\User\\Documents\\PPMG Nikola Obreshkov\\Stanislav-12th Grade\\Software Engineering\\StaskoFy\\StaskoFy\\appsettings.json",
-              "RelativeToolTip": "StaskoFy\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAVAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-01-19T09:29:20.903Z",
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "StaskoFy\\Controllers\\HomeController.cs",
+              "ToolTip": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "StaskoFy\\Controllers\\HomeController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-21T13:12:52.54Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Repository.cs",
+              "DocumentMoniker": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.DataAccess\\Repository\\Repository.cs",
+              "RelativeDocumentMoniker": "StaskoFy.DataAccess\\Repository\\Repository.cs",
+              "ToolTip": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.DataAccess\\Repository\\Repository.cs",
+              "RelativeToolTip": "StaskoFy.DataAccess\\Repository\\Repository.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAD0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-21T13:09:16.879Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "IRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.DataAccess\\Repository\\IRepository.cs",
+              "RelativeDocumentMoniker": "StaskoFy.DataAccess\\Repository\\IRepository.cs",
+              "ToolTip": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.DataAccess\\Repository\\IRepository.cs*",
+              "RelativeToolTip": "StaskoFy.DataAccess\\Repository\\IRepository.cs*",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-21T12:45:20.032Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy\\Views\\Genre\\Index.cshtml",
+              "RelativeDocumentMoniker": "StaskoFy\\Views\\Genre\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy\\Views\\Genre\\Index.cshtml",
+              "RelativeToolTip": "StaskoFy\\Views\\Genre\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-21T12:04:44.905Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "CloudinarySettings.cs",
-              "DocumentMoniker": "C:\\Users\\User\\Documents\\PPMG Nikola Obreshkov\\Stanislav-12th Grade\\Software Engineering\\StaskoFy\\StaskoFy.Models\\Utils\\CloudinarySettings.cs",
-              "RelativeDocumentMoniker": "StaskoFy.Models\\Utils\\CloudinarySettings.cs",
-              "ToolTip": "C:\\Users\\User\\Documents\\PPMG Nikola Obreshkov\\Stanislav-12th Grade\\Software Engineering\\StaskoFy\\StaskoFy.Models\\Utils\\CloudinarySettings.cs",
-              "RelativeToolTip": "StaskoFy.Models\\Utils\\CloudinarySettings.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAABAAAAAAAAAA==",
+              "Title": "GenreController.cs",
+              "DocumentMoniker": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy\\Controllers\\GenreController.cs",
+              "RelativeDocumentMoniker": "StaskoFy\\Controllers\\GenreController.cs",
+              "ToolTip": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy\\Controllers\\GenreController.cs",
+              "RelativeToolTip": "StaskoFy\\Controllers\\GenreController.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAswCAAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-19T09:27:56.32Z",
+              "WhenOpened": "2026-01-21T11:56:13.004Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\User\\Documents\\PPMG Nikola Obreshkov\\Stanislav-12th Grade\\Software Engineering\\StaskoFy\\StaskoFy\\Program.cs",
-              "RelativeDocumentMoniker": "StaskoFy\\Program.cs",
-              "ToolTip": "C:\\Users\\User\\Documents\\PPMG Nikola Obreshkov\\Stanislav-12th Grade\\Software Engineering\\StaskoFy\\StaskoFy\\Program.cs",
-              "RelativeToolTip": "StaskoFy\\Program.cs",
-              "ViewState": "AgIAAA8AAAAAAAAAAADwvyEAAAAMAAAAAAAAAA==",
+              "DocumentIndex": 7,
+              "Title": "IGenreService.cs",
+              "DocumentMoniker": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.Core\\IServices\\IGenreService.cs",
+              "RelativeDocumentMoniker": "StaskoFy.Core\\IServices\\IGenreService.cs",
+              "ToolTip": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.Core\\IServices\\IGenreService.cs",
+              "RelativeToolTip": "StaskoFy.Core\\IServices\\IGenreService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-19T09:18:32.178Z",
+              "WhenOpened": "2026-01-21T11:53:23.872Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "GenreService.cs",
+              "DocumentMoniker": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.Core\\Services\\GenreService.cs",
+              "RelativeDocumentMoniker": "StaskoFy.Core\\Services\\GenreService.cs",
+              "ToolTip": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.Core\\Services\\GenreService.cs",
+              "RelativeToolTip": "StaskoFy.Core\\Services\\GenreService.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABoAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-21T11:15:40.943Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ISongService.cs",
+              "DocumentMoniker": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.Core\\IServices\\ISongService.cs",
+              "RelativeDocumentMoniker": "StaskoFy.Core\\IServices\\ISongService.cs",
+              "ToolTip": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.Core\\IServices\\ISongService.cs",
+              "RelativeToolTip": "StaskoFy.Core\\IServices\\ISongService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-21T11:13:49.104Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "SongService.cs",
+              "DocumentMoniker": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.Core\\Services\\SongService.cs",
+              "RelativeDocumentMoniker": "StaskoFy.Core\\Services\\SongService.cs",
+              "ToolTip": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.Core\\Services\\SongService.cs",
+              "RelativeToolTip": "StaskoFy.Core\\Services\\SongService.cs",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAAAD0AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-21T09:51:16.786Z",
               "EditorCaption": ""
             }
           ]

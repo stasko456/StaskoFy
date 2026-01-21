@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MODELS = StaskoFy.Core.Models;
 using ENTITIES = StaskoFy.Models.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace StaskoFy.Core.Services
 {
@@ -23,14 +24,14 @@ namespace StaskoFy.Core.Services
             this.artistRepo = _artistRepo;
         }
 
-        public IQueryable<MODELS.Artist> GetAll()
+        public async Task<IEnumerable<MODELS.Artist>> GetAllAttached()
         {
-            return artistRepo.GetAll()
+            return await artistRepo.GetAllAttached()
                 .Select(a => new MODELS.Artist
                 {
                     Id = a.Id,
                     UserId = a.UserId
-                });
+                }).ToListAsync();
         }
 
         public async Task<MODELS.Artist> GetByIdAsync(Guid? id)

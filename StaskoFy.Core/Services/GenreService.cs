@@ -15,15 +15,15 @@ namespace StaskoFy.Core.Services
             this.genreRepo = _genreRepo;
         }
 
-        public IQueryable<MODELS.Genre> GetAll()
+        public async Task<IEnumerable<MODELS.Genre>> GetAllAttached()
         {
-            return genreRepo.GetAll()
+            return await genreRepo.GetAllAttached()
                 .Select(g => new MODELS.Genre
                 {
                     Id = g.Id,
                     Name = g.Name,
                     Songs = g.Songs,
-                });
+                }).ToListAsync();
         }
 
         public async Task<MODELS.Genre> GetByIdAsync(Guid? id)

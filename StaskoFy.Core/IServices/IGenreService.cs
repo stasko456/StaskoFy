@@ -12,7 +12,7 @@ namespace StaskoFy.Core.IServices
 {
     public interface IGenreService
     {
-        IQueryable<MODELS.Genre> GetAll();
+        Task<IEnumerable<MODELS.Genre>> GetAllAttached();
         Task<MODELS.Genre> GetByIdAsync(Guid? id);
         Task AddAsync(MODELS.Genre model);
         Task RemoveAsync(Guid? id);

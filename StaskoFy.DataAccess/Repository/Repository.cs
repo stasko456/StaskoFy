@@ -21,46 +21,48 @@ namespace StaskoFy.DataAccess.Repository
 
         public async Task AddAsync(T entity)
         {
-            await dbSet.AddAsync(entity);
-            await context.SaveChangesAsync();
+            await this.dbSet.AddAsync(entity);
+            await this.context.SaveChangesAsync();
         }
 
         public async Task AddRangeAsync(IEnumerable<T> entities)
         {
-            await dbSet.AddRangeAsync(entities);
-            await context.SaveChangesAsync();
+            await this.dbSet.AddRangeAsync(entities);
+            await this.context.SaveChangesAsync();
         }
 
-        public IQueryable<T> Find(Expression<Func<T, bool>> predicate)
+        // for readonly operations:
+        public async Task<ICollection<T>> GetAllAsync()
         {
-            return dbSet.Where(predicate);
+            return await this.dbSet.ToListAsync();
         }
 
-        public IQueryable<T> GetAll()
+        // for queries with filters:
+        public IQueryable<T> GetAllAttached()
         {
-            return dbSet.AsNoTracking();
+            return this.dbSet.AsQueryable();
         }
 
         public async Task<T> GetByIdAsync(Guid? id)
         {
-            return await dbSet.FindAsync(id);
+            return await this.dbSet.FindAsync(id);
         }
 
         public async Task RemoveAsync(T entity)
         {
-            dbSet.Remove(entity);
+            this.dbSet.Remove(entity);
             await context.SaveChangesAsync();
         }
 
         public async Task RemoveRangeAsync(IEnumerable<T> entities)
         {
-            dbSet.RemoveRange(entities);
+            this.dbSet.RemoveRange(entities);
             await context.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(T entity)
         {
-            dbSet.Update(entity);
+            this.dbSet.Update(entity);
             await context.SaveChangesAsync();
         }
     }

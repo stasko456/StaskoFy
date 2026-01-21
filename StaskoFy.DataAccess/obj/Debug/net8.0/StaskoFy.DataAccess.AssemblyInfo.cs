@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("StaskoFy.DataAccess")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bb34f004d858d3b90083160236835ae0bf25f60d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f645ec00cb3c4fa685b34af02696d221b91dab24")]
 [assembly: System.Reflection.AssemblyProductAttribute("StaskoFy.DataAccess")]
 [assembly: System.Reflection.AssemblyTitleAttribute("StaskoFy.DataAccess")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
