@@ -367,3 +367,5 @@ C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\Sta
 C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\obj\Debug\net8.0\StaskoFy.pdb
 C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\obj\Debug\net8.0\StaskoFy.genruntimeconfig.cache
 C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\obj\Debug\net8.0\ref\StaskoFy.dll
+C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\bin\Debug\net8.0\CloudinaryDotNet.dll
+C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\bin\Debug\net8.0\Newtonsoft.Json.dll

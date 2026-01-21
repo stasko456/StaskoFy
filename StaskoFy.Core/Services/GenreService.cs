@@ -1,47 +1,66 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StaskoFy.Core.IServices;
 using StaskoFy.DataAccess.Repository;
-using StaskoFy.Models.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MODELS = StaskoFy.Core.DTOs;
+using ENTITIES = StaskoFy.Models.Entities;
 
 namespace StaskoFy.Core.Services
 {
     public class GenreService : IGenreService
     {
-        private readonly IRepository<Genre> genreRepo;
+        private readonly IRepository<ENTITIES.Genre> genreRepo;
 
-        public GenreService(IRepository<Genre> _genreRepo)
+        public GenreService(IRepository<ENTITIES.Genre> _genreRepo)
         {
             this.genreRepo = _genreRepo;
         }
 
-        public async Task AddAsync(Genre genre)
+        public IQueryable<MODELS.Genre> GetAll()
         {
+            return genreRepo.GetAll()
+                .Select(g => new MODELS.Genre
+                {
+                    Id = g.Id,
+                    Name = g.Name,
+                    Songs = g.Songs,
+                });
+        }
+
+        public async Task<MODELS.Genre> GetByIdAsync(Guid? id)
+        {
+            var genre = await genreRepo.GetByIdAsync(id);
+
+            return new MODELS.Genre 
+            {
+                Id = genre.Id,
+                Name = genre.Name,
+            };
+        }
+
+        public async Task AddAsync(MODELS.Genre model)
+        {
+            var genre = new ENTITIES.Genre
+            {
+                Name = model.Name,
+            };
+
             await genreRepo.AddAsync(genre);
         }
 
-        public IQueryable<Genre> GetAll()
+        public async Task UpdateAsync(MODELS.Genre model)
         {
-            return genreRepo.GetAll().Include(x => x.Songs);
-        }
+            var genre = await genreRepo.GetByIdAsync(model.Id);
 
-        public async Task<Genre> GetByIdAsync(Guid? id)
-        {
-            return await genreRepo.GetByIdAsync(id);
-        }
+            genre.Name = model.Name;
 
-        public async Task RemoveAsync(Genre genre)
-        {
-            await genreRepo.RemoveAsync(genre);
-        }
-
-        public async Task UpdateAsync(Genre genre)
-        {
             await genreRepo.UpdateAsync(genre);
+        }
+
+        public async Task RemoveAsync(Guid? id)
+        {
+            var genre = await genreRepo.GetByIdAsync(id);
+
+            await genreRepo.RemoveAsync(genre);
         }
     }
 }

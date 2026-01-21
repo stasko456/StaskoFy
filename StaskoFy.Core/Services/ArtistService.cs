@@ -9,41 +9,56 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MODELS = StaskoFy.Core.Models;
+using ENTITIES = StaskoFy.Models.Entities;
 
 namespace StaskoFy.Core.Services
 {
     public class ArtistService : IArtistService
     {
-        private readonly IRepository<Artist> repository;
+        private readonly IRepository<Artist> artistRepo;
 
-        public ArtistService(IRepository<Artist> _repository)
+        public ArtistService(IRepository<Artist> _artistRepo)
         {
-            this.repository = _repository;
+            this.artistRepo = _artistRepo;
         }
 
-        public async Task AddAsync(Artist artist)
+        public IQueryable<MODELS.Artist> GetAll()
         {
-            await repository.AddAsync(artist);
+            return artistRepo.GetAll()
+                .Select(a => new MODELS.Artist
+                {
+                    Id = a.Id,
+                    UserId = a.UserId
+                });
         }
 
-        public IQueryable<Artist> GetAll()
+        public async Task<MODELS.Artist> GetByIdAsync(Guid? id)
         {
-            return repository.GetAll();
+            var artist = await artistRepo.GetByIdAsync(id);
+
+            return new MODELS.Artist
+            {
+                Id = artist.Id,
+                UserId = artist.UserId
+            };
         }
 
-        public async Task<Artist> GetByIdAsync(Guid? id)
+        public async Task AddAsync(MODELS.Artist model)
         {
-            return await repository.GetByIdAsync(id);
+            var artist = new ENTITIES.Artist
+            {
+                UserId = model.UserId,
+            };
+
+            await artistRepo.AddAsync(artist);
         }
 
-        public async Task RemoveAsync(Artist artist)
+        public async Task RemoveAsync(Guid? id)
         {
-            await repository.RemoveAsync(artist);
-        }
+            var artist = await artistRepo.GetByIdAsync(id);
 
-        public async Task UpdateAsync(Artist artist)
-        {
-            await repository.UpdateAsync(artist);
+            await artistRepo.RemoveAsync(artist);
         }
     }
 }

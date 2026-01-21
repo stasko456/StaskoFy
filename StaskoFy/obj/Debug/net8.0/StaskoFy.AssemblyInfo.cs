@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("StaskoFy")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bb34f004d858d3b90083160236835ae0bf25f60d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b466775b6297b944974a0f7867a8bfa11004af6e")]
 [assembly: System.Reflection.AssemblyProductAttribute("StaskoFy")]
 [assembly: System.Reflection.AssemblyTitleAttribute("StaskoFy")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using StaskoFy.Core.IServices;
 using StaskoFy.Models.Entities;
 using StaskoFy.ViewModels.Genre;
+using MODELS = StaskoFy.Core.DTOs;
 
 namespace StaskoFy.Controllers
 {
@@ -35,22 +36,21 @@ namespace StaskoFy.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
-            var model = new GenreIndexViewModel();
+            var model = new GenreCreateViewModel();
             return View(model);
         }
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Create(GenreIndexViewModel model)
+        public async Task<IActionResult> Create(GenreCreateViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            var genre = new Genre
+            var genre = new MODELS.Genre
             {
-                Id = model.Id,
                 Name = model.Name
             };
 
@@ -74,11 +74,10 @@ namespace StaskoFy.Controllers
                 return NotFound();
             }
 
-            var model = new GenreIndexViewModel
+            var model = new GenreEditViewModel
             {
                 Id = genre.Id,
                 Name = genre.Name,
-                Songs = genre.Songs
             };
 
             return View(model);
@@ -86,27 +85,20 @@ namespace StaskoFy.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Edit(Guid? id, GenreIndexViewModel model)
+        public async Task<IActionResult> Edit(GenreEditViewModel model)
         {
-            if (id != model.Id)
-            {
-                return NotFound();
-            }
-
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            var genre = await genreService.GetByIdAsync(id);
-
-            if (genre == null)
+            var genre = new MODELS.Genre
             {
-                return NotFound();
-            }
+                Id = model.Id,
+                Name = model.Name,
+            };
 
-            genre.Name = model.Name;
-            await genreService.UpdateAsync(genre);
+            await genreService.UpdateAsync(genre); // get serviceModel as params
 
             return RedirectToAction("Index");
         }
@@ -127,7 +119,7 @@ namespace StaskoFy.Controllers
                 return NotFound();
             }
 
-            await genreService.RemoveAsync(genre);
+            await genreService.RemoveAsync(id);
             return RedirectToAction("Index");
         }
     }

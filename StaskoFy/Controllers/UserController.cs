@@ -9,6 +9,7 @@ using StaskoFy.Core.Services;
 using StaskoFy.DataAccess;
 using StaskoFy.Models.Entities;
 using StaskoFy.ViewModels.User;
+using MODELS = StaskoFy.Core.Models;
 
 namespace StaskoFy.Controllers
 {
@@ -18,19 +19,16 @@ namespace StaskoFy.Controllers
         private readonly SignInManager<User> signInManager;
         private readonly RoleManager<IdentityRole<Guid>> roleManager;
         private readonly IArtistService artistService;
-        private readonly IUserService userService;
 
         public UserController(UserManager<User> _userManager,
                               SignInManager<User> _signInManager, 
                               RoleManager<IdentityRole<Guid>> _roleManager,
-                              IArtistService _artistService,
-                              IUserService _userService)
+                              IArtistService _artistService)
         {
             this.userManager = _userManager;
             this.signInManager = _signInManager;
             this.roleManager = _roleManager;
             this.artistService = _artistService;
-            this.userService = _userService;
         }
 
         [HttpGet]
@@ -77,10 +75,10 @@ namespace StaskoFy.Controllers
             }
 
             await userManager.AddToRoleAsync(user, model.Role);
-
+            
             if (model.Role == "Artist")
             {
-                var artist = new Artist
+                var artist = new MODELS.Artist
                 {
                     UserId = user.Id,
                 };
@@ -132,22 +130,5 @@ namespace StaskoFy.Controllers
             await signInManager.SignOutAsync();
             return RedirectToAction("Login", "User");
         }
-
-        [HttpGet]
-        [Authorize(Roles = "Admin")]
-        public IActionResult Manage()
-        {
-            var users = userService.GetAllUsers();
-            return View(users);
-        }
-
-        // TO DO
-
-        //[HttpGet]
-        //[Authorize(Roles = "Admin")]
-        //public IActionResult Edit()
-        //{
-
-        //}
     }
 }

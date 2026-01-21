@@ -43,7 +43,6 @@ namespace StaskoFy
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             builder.Services.AddScoped<IGenreService, GenreService>();
             builder.Services.AddScoped<IArtistService, ArtistService>();
-            builder.Services.AddScoped<IUserService, UserService>();
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();

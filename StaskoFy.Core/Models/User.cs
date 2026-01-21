@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StaskoFy.Core.DTOs
 {
-    public class UserDto
+    public class User
     {
         public Guid Id { get; set; }
         public string Username { get; set; }

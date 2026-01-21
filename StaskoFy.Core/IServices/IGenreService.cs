@@ -1,18 +1,21 @@
-﻿using StaskoFy.Models.Entities;
+﻿using Microsoft.EntityFrameworkCore.Infrastructure;
+using StaskoFy.Core.DTOs;
+using StaskoFy.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MODELS = StaskoFy.Core.DTOs;
 
 namespace StaskoFy.Core.IServices
 {
     public interface IGenreService
     {
-        IQueryable<Genre> GetAll();
-        Task<Genre> GetByIdAsync(Guid? id);
-        Task AddAsync(Genre genre);
-        Task RemoveAsync(Genre genre);
-        Task UpdateAsync(Genre genre);
+        IQueryable<MODELS.Genre> GetAll();
+        Task<MODELS.Genre> GetByIdAsync(Guid? id);
+        Task AddAsync(MODELS.Genre model);
+        Task RemoveAsync(Guid? id);
+        Task UpdateAsync(MODELS.Genre model);
     }
 }
