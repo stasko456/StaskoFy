@@ -1,0 +1,16 @@
+C:\Users\User\Documents\PPMG Nikola Obreshkov\Stanislav-12th Grade\Software Engineering\StaskoFy\StaskoFy.ViewModels\obj\Debug\net8.0\StaskoFy.ViewModels.csproj.AssemblyReference.cache
+C:\Users\User\Documents\PPMG Nikola Obreshkov\Stanislav-12th Grade\Software Engineering\StaskoFy\StaskoFy.ViewModels\obj\Debug\net8.0\StaskoFy.ViewModels.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Documents\PPMG Nikola Obreshkov\Stanislav-12th Grade\Software Engineering\StaskoFy\StaskoFy.ViewModels\obj\Debug\net8.0\StaskoFy.ViewModels.AssemblyInfoInputs.cache
+C:\Users\User\Documents\PPMG Nikola Obreshkov\Stanislav-12th Grade\Software Engineering\StaskoFy\StaskoFy.ViewModels\obj\Debug\net8.0\StaskoFy.ViewModels.AssemblyInfo.cs
+C:\Users\User\Documents\PPMG Nikola Obreshkov\Stanislav-12th Grade\Software Engineering\StaskoFy\StaskoFy.ViewModels\obj\Debug\net8.0\StaskoFy.ViewModels.csproj.CoreCompileInputs.cache
+C:\Users\User\Documents\PPMG Nikola Obreshkov\Stanislav-12th Grade\Software Engineering\StaskoFy\StaskoFy.ViewModels\obj\Debug\net8.0\StaskoFy.ViewModels.sourcelink.json
+C:\Users\User\Documents\PPMG Nikola Obreshkov\Stanislav-12th Grade\Software Engineering\StaskoFy\StaskoFy.ViewModels\bin\Debug\net8.0\StaskoFy.ViewModels.deps.json
+C:\Users\User\Documents\PPMG Nikola Obreshkov\Stanislav-12th Grade\Software Engineering\StaskoFy\StaskoFy.ViewModels\bin\Debug\net8.0\StaskoFy.ViewModels.dll
+C:\Users\User\Documents\PPMG Nikola Obreshkov\Stanislav-12th Grade\Software Engineering\StaskoFy\StaskoFy.ViewModels\bin\Debug\net8.0\StaskoFy.ViewModels.pdb
+C:\Users\User\Documents\PPMG Nikola Obreshkov\Stanislav-12th Grade\Software Engineering\StaskoFy\StaskoFy.ViewModels\bin\Debug\net8.0\StaskoFy.Models.dll
+C:\Users\User\Documents\PPMG Nikola Obreshkov\Stanislav-12th Grade\Software Engineering\StaskoFy\StaskoFy.ViewModels\bin\Debug\net8.0\StaskoFy.Models.pdb
+C:\Users\User\Documents\PPMG Nikola Obreshkov\Stanislav-12th Grade\Software Engineering\StaskoFy\StaskoFy.ViewModels\obj\Debug\net8.0\StaskoFy.D77BA13D.Up2Date
+C:\Users\User\Documents\PPMG Nikola Obreshkov\Stanislav-12th Grade\Software Engineering\StaskoFy\StaskoFy.ViewModels\obj\Debug\net8.0\StaskoFy.ViewModels.dll
+C:\Users\User\Documents\PPMG Nikola Obreshkov\Stanislav-12th Grade\Software Engineering\StaskoFy\StaskoFy.ViewModels\obj\Debug\net8.0\refint\StaskoFy.ViewModels.dll
+C:\Users\User\Documents\PPMG Nikola Obreshkov\Stanislav-12th Grade\Software Engineering\StaskoFy\StaskoFy.ViewModels\obj\Debug\net8.0\StaskoFy.ViewModels.pdb
+C:\Users\User\Documents\PPMG Nikola Obreshkov\Stanislav-12th Grade\Software Engineering\StaskoFy\StaskoFy.ViewModels\obj\Debug\net8.0\ref\StaskoFy.ViewModels.dll
