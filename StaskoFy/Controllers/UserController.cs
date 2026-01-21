@@ -8,8 +8,8 @@ using StaskoFy.Core.IServices;
 using StaskoFy.Core.Services;
 using StaskoFy.DataAccess;
 using StaskoFy.Models.Entities;
+using StaskoFy.ViewModels.Artist;
 using StaskoFy.ViewModels.User;
-using MODELS = StaskoFy.Core.Models;
 
 namespace StaskoFy.Controllers
 {
@@ -78,7 +78,7 @@ namespace StaskoFy.Controllers
             
             if (model.Role == "Artist")
             {
-                var artist = new MODELS.Artist
+                var artist = new ArtistViewModel
                 {
                     UserId = user.Id,
                 };

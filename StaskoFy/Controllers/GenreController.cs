@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using StaskoFy.Core.IServices;
 using StaskoFy.Models.Entities;
 using StaskoFy.ViewModels.Genre;
-using MODELS = StaskoFy.Core.DTOs;
 
 namespace StaskoFy.Controllers
 {
@@ -18,18 +17,11 @@ namespace StaskoFy.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Admin")]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var genres = genreService.GetAll();
+            var genres = await genreService.GetAll();
 
-            var model = genres.Select(x => new GenreIndexViewModel
-            {
-                Id = x.Id,
-                Name = x.Name,
-                Songs = x.Songs,
-            });
-
-            return View(model);
+            return View(genres);
         }
 
         [HttpGet]
@@ -49,12 +41,7 @@ namespace StaskoFy.Controllers
                 return View(model);
             }
 
-            var genre = new MODELS.Genre
-            {
-                Name = model.Name
-            };
-
-            await genreService.AddAsync(genre);
+            await genreService.AddAsync(model);
             return RedirectToAction("Index");
         }
 
@@ -92,13 +79,7 @@ namespace StaskoFy.Controllers
                 return View(model);
             }
 
-            var genre = new MODELS.Genre
-            {
-                Id = model.Id,
-                Name = model.Name,
-            };
-
-            await genreService.UpdateAsync(genre); // get serviceModel as params
+            await genreService.UpdateAsync(model); // get serviceModel as params
 
             return RedirectToAction("Index");
         }
