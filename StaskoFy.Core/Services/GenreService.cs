@@ -1,45 +1,44 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StaskoFy.Core.IServices;
 using StaskoFy.DataAccess.Repository;
-using MODELS = StaskoFy.Core.DTOs;
-using ENTITIES = StaskoFy.Models.Entities;
+using StaskoFy.Models.Entities;
+using StaskoFy.ViewModels.Genre;
 
 namespace StaskoFy.Core.Services
 {
     public class GenreService : IGenreService
     {
-        private readonly IRepository<ENTITIES.Genre> genreRepo;
+        private readonly IRepository<Genre> genreRepo;
 
-        public GenreService(IRepository<ENTITIES.Genre> _genreRepo)
+        public GenreService(IRepository<Genre> _genreRepo)
         {
             this.genreRepo = _genreRepo;
         }
 
-        public async Task<IEnumerable<MODELS.Genre>> GetAllAttached()
+        public async Task<IEnumerable<GenreIndexViewModel>> GetAll()
         {
             return await genreRepo.GetAllAttached()
-                .Select(g => new MODELS.Genre
+                .Select(g => new GenreIndexViewModel
                 {
                     Id = g.Id,
                     Name = g.Name,
-                    Songs = g.Songs,
                 }).ToListAsync();
         }
 
-        public async Task<MODELS.Genre> GetByIdAsync(Guid? id)
+        public async Task<GenreIndexViewModel> GetByIdAsync(Guid? id)
         {
             var genre = await genreRepo.GetByIdAsync(id);
 
-            return new MODELS.Genre 
+            return new GenreIndexViewModel
             {
                 Id = genre.Id,
                 Name = genre.Name,
             };
         }
 
-        public async Task AddAsync(MODELS.Genre model)
+        public async Task AddAsync(GenreCreateViewModel model)
         {
-            var genre = new ENTITIES.Genre
+            var genre = new Genre
             {
                 Name = model.Name,
             };
@@ -47,7 +46,7 @@ namespace StaskoFy.Core.Services
             await genreRepo.AddAsync(genre);
         }
 
-        public async Task UpdateAsync(MODELS.Genre model)
+        public async Task UpdateAsync(GenreEditViewModel model)
         {
             var genre = await genreRepo.GetByIdAsync(model.Id);
 

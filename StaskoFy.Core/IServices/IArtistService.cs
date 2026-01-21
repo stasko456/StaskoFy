@@ -1,18 +1,18 @@
 ﻿using StaskoFy.Models.Entities;
+using StaskoFy.ViewModels.Artist;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MODELS = StaskoFy.Core.Models;
 
 namespace StaskoFy.Core.IServices
 {
     public interface IArtistService
     {
-        Task<IEnumerable<MODELS.Artist>> GetAllAttached();
-        Task<MODELS.Artist> GetByIdAsync(Guid? id);
-        Task AddAsync(MODELS.Artist artist);
+        Task<IEnumerable<ArtistViewModel>> GetAll();
+        Task<ArtistViewModel> GetByIdAsync(Guid? id);
+        Task AddAsync(ArtistViewModel model);
         Task RemoveAsync(Guid? id);
     }
 }

@@ -9,9 +9,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MODELS = StaskoFy.Core.Models;
-using ENTITIES = StaskoFy.Models.Entities;
 using Microsoft.EntityFrameworkCore;
+using StaskoFy.ViewModels.Artist;
 
 namespace StaskoFy.Core.Services
 {
@@ -24,30 +23,30 @@ namespace StaskoFy.Core.Services
             this.artistRepo = _artistRepo;
         }
 
-        public async Task<IEnumerable<MODELS.Artist>> GetAllAttached()
+        public async Task<IEnumerable<ArtistViewModel>> GetAll()
         {
             return await artistRepo.GetAllAttached()
-                .Select(a => new MODELS.Artist
+                .Select(a => new ArtistViewModel
                 {
                     Id = a.Id,
                     UserId = a.UserId
                 }).ToListAsync();
         }
 
-        public async Task<MODELS.Artist> GetByIdAsync(Guid? id)
+        public async Task<ArtistViewModel> GetByIdAsync(Guid? id)
         {
             var artist = await artistRepo.GetByIdAsync(id);
 
-            return new MODELS.Artist
+            return new ArtistViewModel
             {
                 Id = artist.Id,
                 UserId = artist.UserId
             };
         }
 
-        public async Task AddAsync(MODELS.Artist model)
+        public async Task AddAsync(ArtistViewModel model)
         {
-            var artist = new ENTITIES.Artist
+            var artist = new Artist
             {
                 UserId = model.UserId,
             };

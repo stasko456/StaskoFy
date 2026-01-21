@@ -21,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\StaskoFy.DataAccess\StaskoFy.DataAccess.csproj" />
     <ProjectReference Include="..\StaskoFy.Models\StaskoFy.Models.csproj" />
+    <ProjectReference Include="..\StaskoFy.ViewModels\StaskoFy.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>

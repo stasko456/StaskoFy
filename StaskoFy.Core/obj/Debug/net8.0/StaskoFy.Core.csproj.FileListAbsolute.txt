@@ -38,3 +38,5 @@ C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\Sta
 C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy.Core\obj\Debug\net8.0\StaskoFy.Core.pdb
 C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy.Core\obj\Debug\net8.0\StaskoFy.Core.genruntimeconfig.cache
 C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy.Core\obj\Debug\net8.0\ref\StaskoFy.Core.dll
+C:\Users\User\Documents\PPMG Nikola Obreshkov\Stanislav-12th Grade\Software Engineering\StaskoFy\StaskoFy.Core\bin\Debug\net8.0\StaskoFy.ViewModels.dll
+C:\Users\User\Documents\PPMG Nikola Obreshkov\Stanislav-12th Grade\Software Engineering\StaskoFy\StaskoFy.Core\bin\Debug\net8.0\StaskoFy.ViewModels.pdb
