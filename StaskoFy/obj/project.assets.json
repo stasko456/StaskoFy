@@ -2521,7 +2521,8 @@
           "Microsoft.EntityFrameworkCore": "9.0.11",
           "Microsoft.EntityFrameworkCore.SqlServer": "9.0.11",
           "StaskoFy.DataAccess": "1.0.0",
-          "StaskoFy.Models": "1.0.0"
+          "StaskoFy.Models": "1.0.0",
+          "StaskoFy.ViewModels": "1.0.0"
         },
         "compile": {
           "bin/placeholder/StaskoFy.Core.dll": {}
@@ -2563,6 +2564,19 @@
         },
         "runtime": {
           "bin/placeholder/StaskoFy.Models.dll": {}
+        }
+      },
+      "StaskoFy.ViewModels/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "StaskoFy.Models": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/StaskoFy.ViewModels.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/StaskoFy.ViewModels.dll": {}
         }
       }
     }
@@ -7903,6 +7917,11 @@
       "type": "project",
       "path": "../StaskoFy.Models/StaskoFy.Models.csproj",
       "msbuildProject": "../StaskoFy.Models/StaskoFy.Models.csproj"
+    },
+    "StaskoFy.ViewModels/1.0.0": {
+      "type": "project",
+      "path": "../StaskoFy.ViewModels/StaskoFy.ViewModels.csproj",
+      "msbuildProject": "../StaskoFy.ViewModels/StaskoFy.ViewModels.csproj"
     }
   },
   "projectFileDependencyGroups": {

@@ -1,0 +1,32 @@
+﻿@model List<SongIndexViewModel>
+
+<h1 class="mb-4">Songs</h1>
+
+<div class="row g-4 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
+    @foreach (var song in Model)
+    {
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <img src="@song.ImageURL" class="card-img-top" alt="@song.Title" style="height:180px; object-fit:cover;">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">@song.Title</h5>
+                    <p class="card-text mb-1"><strong>Genre:</strong> @song.GenreName</p>
+                    @if (!string.IsNullOrEmpty(song.AlbumName))
+                    {
+                        <p class="card-text mb-1"><strong>Album:</strong> @song.AlbumName</p>
+                    }
+                    <p class="card-text mb-1"><strong>Artists:</strong>
+                        @foreach (var artist in song.Artists)
+                        {
+                            <span class="badge bg-secondary me-1">@artist</span>
+                        }
+                    </p>
+                    <p class="card-text mb-1"><strong>Length:</strong> @song.Length</p>
+                    <p class ="card-text mb-1"><strong>Likes:</strong> @song.Likes</p>
+                    <p class="card-text mb-1"><strong>Release Date:</strong> @song.ReleaseDate</p>
+                    <a asp-action="Details" asp-route-id="@song.Id" class="btn btn-primary mt-auto">View Details</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

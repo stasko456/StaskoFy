@@ -43,6 +43,8 @@ namespace StaskoFy
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             builder.Services.AddScoped<IGenreService, GenreService>();
             builder.Services.AddScoped<IArtistService, ArtistService>();
+            builder.Services.AddScoped<ISongService, SongService>();
+            builder.Services.AddScoped<IImageService, ImageService>();
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
@@ -53,6 +55,7 @@ namespace StaskoFy
             {
                 await DataSeeder.SeedRolesAsync(scope.ServiceProvider);
                 await DataSeeder.SeedAdminUser(scope.ServiceProvider);
+                await DataSeeder.GiveRolesRemainingUsers(scope.ServiceProvider);
             }
 
             // Configure the HTTP request pipeline.

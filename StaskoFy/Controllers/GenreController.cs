@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StaskoFy.Core.IServices;
 using StaskoFy.Models.Entities;
@@ -19,7 +19,7 @@ namespace StaskoFy.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
-            var genres = await genreService.GetAll();
+            var genres = await genreService.GetAllAsync();
 
             return View(genres);
         }
@@ -79,7 +79,7 @@ namespace StaskoFy.Controllers
                 return View(model);
             }
 
-            await genreService.UpdateAsync(model); // get serviceModel as params
+            await genreService.UpdateAsync(model);
 
             return RedirectToAction("Index");
         }

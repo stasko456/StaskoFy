@@ -184,6 +184,15 @@ C:\Users\User\Documents\PPMG Nikola Obreshkov\Stanislav-12th Grade\Software Engi
 C:\Users\User\Documents\PPMG Nikola Obreshkov\Stanislav-12th Grade\Software Engineering\StaskoFy\StaskoFy\obj\Debug\net8.0\StaskoFy.pdb
 C:\Users\User\Documents\PPMG Nikola Obreshkov\Stanislav-12th Grade\Software Engineering\StaskoFy\StaskoFy\obj\Debug\net8.0\StaskoFy.genruntimeconfig.cache
 C:\Users\User\Documents\PPMG Nikola Obreshkov\Stanislav-12th Grade\Software Engineering\StaskoFy\StaskoFy\obj\Debug\net8.0\ref\StaskoFy.dll
+C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\obj\Debug\net8.0\StaskoFy.csproj.AssemblyReference.cache
+C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\obj\Debug\net8.0\StaskoFy.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\obj\Debug\net8.0\StaskoFy.AssemblyInfoInputs.cache
+C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\obj\Debug\net8.0\StaskoFy.AssemblyInfo.cs
+C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\obj\Debug\net8.0\StaskoFy.csproj.CoreCompileInputs.cache
+C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\obj\Debug\net8.0\StaskoFy.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\obj\Debug\net8.0\StaskoFy.RazorAssemblyInfo.cache
+C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\obj\Debug\net8.0\StaskoFy.RazorAssemblyInfo.cs
+C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\obj\Debug\net8.0\StaskoFy.sourcelink.json
 C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\bin\Debug\net8.0\appsettings.json
 C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\bin\Debug\net8.0\StaskoFy.staticwebassets.runtime.json
@@ -194,6 +203,7 @@ C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\Sta
 C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\bin\Debug\net8.0\StaskoFy.pdb
 C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\bin\Debug\net8.0\Azure.Core.dll
 C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\bin\Debug\net8.0\Azure.Identity.dll
+C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\bin\Debug\net8.0\CloudinaryDotNet.dll
 C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\bin\Debug\net8.0\Humanizer.dll
 C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
 C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
@@ -237,6 +247,7 @@ C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\Sta
 C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\bin\Debug\net8.0\Microsoft.SqlServer.Server.dll
 C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
 C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\bin\Debug\net8.0\Mono.TextTemplating.dll
+C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\bin\Debug\net8.0\Newtonsoft.Json.dll
 C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\bin\Debug\net8.0\System.ClientModel.dll
 C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\bin\Debug\net8.0\System.CodeDom.dll
 C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\bin\Debug\net8.0\System.Composition.AttributedModel.dll
@@ -338,19 +349,12 @@ C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\Sta
 C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\bin\Debug\net8.0\StaskoFy.Core.dll
 C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\bin\Debug\net8.0\StaskoFy.DataAccess.dll
 C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\bin\Debug\net8.0\StaskoFy.Models.dll
+C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\bin\Debug\net8.0\StaskoFy.ViewModels.dll
 C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\bin\Debug\net8.0\StaskoFy.Core.pdb
 C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\bin\Debug\net8.0\StaskoFy.DataAccess.pdb
 C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\bin\Debug\net8.0\StaskoFy.Models.pdb
-C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\obj\Debug\net8.0\StaskoFy.csproj.AssemblyReference.cache
-C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\obj\Debug\net8.0\StaskoFy.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\obj\Debug\net8.0\StaskoFy.AssemblyInfoInputs.cache
-C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\obj\Debug\net8.0\StaskoFy.AssemblyInfo.cs
-C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\obj\Debug\net8.0\StaskoFy.csproj.CoreCompileInputs.cache
+C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\bin\Debug\net8.0\StaskoFy.ViewModels.pdb
 C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\obj\Debug\net8.0\StaskoFy.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\obj\Debug\net8.0\StaskoFy.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\obj\Debug\net8.0\StaskoFy.RazorAssemblyInfo.cache
-C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\obj\Debug\net8.0\StaskoFy.RazorAssemblyInfo.cs
-C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\obj\Debug\net8.0\StaskoFy.sourcelink.json
 C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\obj\Debug\net8.0\staticwebassets\msbuild.StaskoFy.Microsoft.AspNetCore.StaticWebAssets.props
@@ -367,5 +371,3 @@ C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\Sta
 C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\obj\Debug\net8.0\StaskoFy.pdb
 C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\obj\Debug\net8.0\StaskoFy.genruntimeconfig.cache
 C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\obj\Debug\net8.0\ref\StaskoFy.dll
-C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\bin\Debug\net8.0\CloudinaryDotNet.dll
-C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy\bin\Debug\net8.0\Newtonsoft.Json.dll

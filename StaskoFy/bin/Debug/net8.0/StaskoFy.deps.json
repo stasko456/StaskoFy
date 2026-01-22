@@ -1515,7 +1515,8 @@
           "Microsoft.EntityFrameworkCore": "9.0.11",
           "Microsoft.EntityFrameworkCore.SqlServer": "9.0.11",
           "StaskoFy.DataAccess": "1.0.0",
-          "StaskoFy.Models": "1.0.0"
+          "StaskoFy.Models": "1.0.0",
+          "StaskoFy.ViewModels": "1.0.0"
         },
         "runtime": {
           "StaskoFy.Core.dll": {
@@ -1550,6 +1551,17 @@
         },
         "runtime": {
           "StaskoFy.Models.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "StaskoFy.ViewModels/1.0.0": {
+        "dependencies": {
+          "StaskoFy.Models": "1.0.0"
+        },
+        "runtime": {
+          "StaskoFy.ViewModels.dll": {
             "assemblyVersion": "1.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -2505,6 +2517,11 @@
       "sha512": ""
     },
     "StaskoFy.Models/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "StaskoFy.ViewModels/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
