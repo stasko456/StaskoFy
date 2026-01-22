@@ -34,7 +34,7 @@ namespace StaskoFy.Models.Entities
         public User User { get; set; }
 
         [Display(Name = "Playlist's Art Cover")]
-        public string ImageURL { get; set; } = "/wwwroot/images/defaults/default_album_cover.png";
+        public string ImageURL { get; set; } = "/images/defaults/default_album_cover.png";
 
         [Display(Name = "Is public")]
         public bool IsPublic { get; set; } = false; // false by default

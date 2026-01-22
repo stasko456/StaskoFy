@@ -29,7 +29,7 @@ namespace StaskoFy.Models.Entities
 
         [Required]
         [Display(Name = "Album's Art Cover")]
-        public string ImageURL { get; set; } = "/wwwroot/images/defaults/default-album-cover-art.png";
+        public string ImageURL { get; set; } = "/images/defaults/default-album-cover-art.png";
 
         public ICollection<ArtistAlbum> ArtistsAlbums { get; set; } = new List<ArtistAlbum>();
 

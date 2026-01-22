@@ -45,7 +45,7 @@ namespace StaskoFy.Models.Entities
 
         [Required]
         [Display(Name = "Song's Art Cover")]
-        public string ImageURL { get; set; } = "/wwwroot/images/defaults/default-song-cover-art.png";
+        public string ImageURL { get; set; } = "/images/defaults/default-song-cover-art.png";
 
         public ICollection<ArtistSong> ArtistsSongs { get; set; } = new List<ArtistSong>();
 
