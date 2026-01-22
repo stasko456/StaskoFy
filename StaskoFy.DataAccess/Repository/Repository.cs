@@ -31,19 +31,13 @@ namespace StaskoFy.DataAccess.Repository
             await this.context.SaveChangesAsync();
         }
 
-        // for readonly operations:
-        public async Task<ICollection<T>> GetAllAsync()
-        {
-            return await this.dbSet.ToListAsync();
-        }
-
         // for queries with filters:
         public IQueryable<T> GetAllAttached()
         {
             return this.dbSet.AsQueryable();
         }
 
-        public async Task<T> GetByIdAsync(Guid? id)
+        public async Task<T?> GetByIdAsync(Guid id)
         {
             return await this.dbSet.FindAsync(id);
         }
