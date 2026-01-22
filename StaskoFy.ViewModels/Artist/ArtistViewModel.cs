@@ -9,9 +9,10 @@ namespace StaskoFy.ViewModels.Artist
 {
     public class ArtistViewModel
     {
-        [Key]
+        [Required]
         public Guid Id { get; set; }
 
+        [Required]
         public Guid UserId { get; set; }
     }
 }
