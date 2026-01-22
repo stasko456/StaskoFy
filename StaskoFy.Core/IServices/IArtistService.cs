@@ -10,7 +10,7 @@ namespace StaskoFy.Core.IServices
 {
     public interface IArtistService
     {
-        Task<IEnumerable<ArtistViewModel>> GetAll();
+        Task<IEnumerable<ArtistViewModel>> GetAllAsync();
         Task<ArtistViewModel> GetByIdAsync(Guid? id);
         Task AddAsync(ArtistViewModel model);
         Task RemoveAsync(Guid? id);

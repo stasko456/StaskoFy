@@ -15,7 +15,7 @@ namespace StaskoFy.Core.Services
             this.genreRepo = _genreRepo;
         }
 
-        public async Task<IEnumerable<GenreIndexViewModel>> GetAll()
+        public async Task<IEnumerable<GenreIndexViewModel>> GetAllAsync()
         {
             return await genreRepo.GetAllAttached()
                 .Select(g => new GenreIndexViewModel

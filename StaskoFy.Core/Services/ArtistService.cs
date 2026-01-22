@@ -23,7 +23,7 @@ namespace StaskoFy.Core.Services
             this.artistRepo = _artistRepo;
         }
 
-        public async Task<IEnumerable<ArtistViewModel>> GetAll()
+        public async Task<IEnumerable<ArtistViewModel>> GetAllAsync()
         {
             return await artistRepo.GetAllAttached()
                 .Select(a => new ArtistViewModel
