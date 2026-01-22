@@ -33,7 +33,7 @@ namespace StaskoFy.Core.Services
                 }).ToListAsync();
         }
 
-        public async Task<ArtistViewModel> GetByIdAsync(Guid? id)
+        public async Task<ArtistViewModel?> GetByIdAsync(Guid id)
         {
             var artist = await artistRepo.GetByIdAsync(id);
 
@@ -54,7 +54,7 @@ namespace StaskoFy.Core.Services
             await artistRepo.AddAsync(artist);
         }
 
-        public async Task RemoveAsync(Guid? id)
+        public async Task RemoveAsync(Guid id)
         {
             var artist = await artistRepo.GetByIdAsync(id);
 

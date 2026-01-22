@@ -19,10 +19,11 @@ namespace StaskoFy.Core.Services
         private readonly IRepository<ArtistSong> artistSongRepo;
         private readonly IRepository<Artist> artistRepo;
 
-        public SongService(IRepository<Song> _songRepo, IRepository<ArtistSong> _artistSongRepo)
+        public SongService(IRepository<Song> _songRepo, IRepository<ArtistSong> _artistSongRepo, IRepository<Artist> _artistRepo)
         {
             this.songRepo = _songRepo;
             this.artistSongRepo = _artistSongRepo;
+            this.artistRepo = _artistRepo;
         }
 
         public async Task<IEnumerable<SongIndexViewModel>> GetAllAsync()
@@ -44,7 +45,7 @@ namespace StaskoFy.Core.Services
                 }).ToListAsync();
         }
 
-        public async Task<SongIndexViewModel> GetByIdAsync(Guid? id)
+        public async Task<SongIndexViewModel> GetByIdAsync(Guid id)
         {
             var song = await songRepo.GetByIdAsync(id);
 
@@ -83,7 +84,6 @@ namespace StaskoFy.Core.Services
             };
 
             await artistSongRepo.AddAsync(artistSong);
-            //await songRepo.AddAsync(song);
         }
 
         public async Task AddRangeAsync(IEnumerable<SongCreateViewModel> models)
@@ -120,7 +120,7 @@ namespace StaskoFy.Core.Services
             await songRepo.UpdateAsync(song);
         }
 
-        public async Task RemoveAsync(Guid? id)
+        public async Task RemoveAsync(Guid id)
         {
             var song = await songRepo.GetByIdAsync(id);
 

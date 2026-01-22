@@ -25,7 +25,7 @@ namespace StaskoFy.Core.Services
                 }).ToListAsync();
         }
 
-        public async Task<GenreIndexViewModel> GetByIdAsync(Guid? id)
+        public async Task<GenreIndexViewModel?> GetByIdAsync(Guid id)
         {
             var genre = await genreRepo.GetByIdAsync(id);
 
@@ -55,7 +55,7 @@ namespace StaskoFy.Core.Services
             await genreRepo.UpdateAsync(genre);
         }
 
-        public async Task RemoveAsync(Guid? id)
+        public async Task RemoveAsync(Guid id)
         {
             var genre = await genreRepo.GetByIdAsync(id);
 

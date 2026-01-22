@@ -12,9 +12,13 @@ namespace StaskoFy.Core.IServices
     public interface IGenreService
     {
         Task<IEnumerable<GenreIndexViewModel>> GetAllAsync();
-        Task<GenreIndexViewModel> GetByIdAsync(Guid? id);
+
+        Task<GenreIndexViewModel?> GetByIdAsync(Guid id);
+
         Task AddAsync(GenreCreateViewModel model);
-        Task RemoveAsync(Guid? id);
+
+        Task RemoveAsync(Guid id);
+
         Task UpdateAsync(GenreEditViewModel model);
     }
 }
