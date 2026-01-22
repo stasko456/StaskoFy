@@ -55,5 +55,24 @@ namespace StaskoFy.DataAccess
                 await userManager.AddToRoleAsync(user, "Admin");
             }
         }
+
+        public static async Task GiveRolesRemainingUsers(IServiceProvider serviceProvider)
+        {
+            var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
+
+            var allUsers = userManager.Users.ToList();
+
+            int artistCount = 10;
+            for (int i = 0; i < allUsers.Count; i++)
+            {
+                var user = allUsers[i];
+                string roleToAssign = i < artistCount ? "Artist" : "User";
+
+                if (!await userManager.IsInRoleAsync(user, roleToAssign))
+                {
+                    await userManager.AddToRoleAsync(user, roleToAssign);
+                }
+            }
+        }
     }
 }

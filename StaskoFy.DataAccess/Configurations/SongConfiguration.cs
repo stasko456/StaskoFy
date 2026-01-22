@@ -23,7 +23,8 @@ namespace StaskoFy.DataAccess.Configurations
                 ReleaseDate = new DateOnly(2024, 7, 5),
                 AlbumId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                 Likes = 10044245,
-                GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111")
+                GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
+                ImageURL = "/images/defaults/default-song-cover-art.png"
             },
             new Song
             {
@@ -33,7 +34,8 @@ namespace StaskoFy.DataAccess.Configurations
                 ReleaseDate = new DateOnly(2024, 7, 5),
                 AlbumId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                 Likes = 643545,
-                GenreId = Guid.Parse("41111111-1111-1111-1111-111111111111")
+                GenreId = Guid.Parse("41111111-1111-1111-1111-111111111111"),
+                ImageURL = "/images/defaults/default-song-cover-art.png"
             },
 
             new Song
@@ -44,7 +46,8 @@ namespace StaskoFy.DataAccess.Configurations
                 ReleaseDate = new DateOnly(2024, 7, 5),
                 AlbumId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                 Likes = 234566,
-                GenreId = Guid.Parse("41111111-1111-1111-1111-111111111111")
+                GenreId = Guid.Parse("41111111-1111-1111-1111-111111111111"),
+                ImageURL = "/images/defaults/default-song-cover-art.png"
             },
             new Song
             {
@@ -54,7 +57,8 @@ namespace StaskoFy.DataAccess.Configurations
                 ReleaseDate = new DateOnly(2024, 7, 5),
                 AlbumId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                 Likes = 8384754,
-                GenreId = Guid.Parse("31111111-1111-1111-1111-111111111111")
+                GenreId = Guid.Parse("31111111-1111-1111-1111-111111111111"),
+                ImageURL = "/images/defaults/default-song-cover-art.png"
             },
             new Song
             {
@@ -64,7 +68,8 @@ namespace StaskoFy.DataAccess.Configurations
                 ReleaseDate = new DateOnly(2024, 7, 5),
                 AlbumId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                 Likes = 3647835,
-                GenreId = Guid.Parse("31111111-1111-1111-1111-111111111111")
+                GenreId = Guid.Parse("31111111-1111-1111-1111-111111111111"),
+                ImageURL = "/images/defaults/default-song-cover-art.png"
             },
 
             // Super Slimey
@@ -76,7 +81,8 @@ namespace StaskoFy.DataAccess.Configurations
                 ReleaseDate = new DateOnly(2017, 10, 20),
                 AlbumId = Guid.Parse("21111111-1111-1111-1111-111111111111"),
                 Likes = 125467,
-                GenreId = Guid.Parse("21111111-1111-1111-1111-111111111111")
+                GenreId = Guid.Parse("21111111-1111-1111-1111-111111111111"),
+                ImageURL = "/images/defaults/default-song-cover-art.png"
             },
             new Song
             {
@@ -86,7 +92,8 @@ namespace StaskoFy.DataAccess.Configurations
                 ReleaseDate = new DateOnly(2017, 10, 20),
                 AlbumId = Guid.Parse("21111111-1111-1111-1111-111111111111"),
                 Likes = 125467,
-                GenreId = Guid.Parse("21111111-1111-1111-1111-111111111111")
+                GenreId = Guid.Parse("21111111-1111-1111-1111-111111111111"),
+                ImageURL = "/images/defaults/default-song-cover-art.png"
             },
             new Song
             {
@@ -96,7 +103,8 @@ namespace StaskoFy.DataAccess.Configurations
                 ReleaseDate = new DateOnly(2017, 10, 20),
                 AlbumId = Guid.Parse("21111111-1111-1111-1111-111111111111"),
                 Likes = 125467,
-                GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111")
+                GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
+                ImageURL = "/images/defaults/default-song-cover-art.png"
             },
             new Song
             {
@@ -106,7 +114,8 @@ namespace StaskoFy.DataAccess.Configurations
                 ReleaseDate = new DateOnly(2017, 10, 20),
                 AlbumId = Guid.Parse("21111111-1111-1111-1111-111111111111"),
                 Likes = 125467,
-                GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111")
+                GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
+                ImageURL = "/images/defaults/default-song-cover-art.png"
             },
             new Song
             {
@@ -116,7 +125,8 @@ namespace StaskoFy.DataAccess.Configurations
                 ReleaseDate = new DateOnly(2017, 10, 20),
                 AlbumId = Guid.Parse("21111111-1111-1111-1111-111111111111"),
                 Likes = 235678,
-                GenreId = Guid.Parse("21111111-1111-1111-1111-111111111111")
+                GenreId = Guid.Parse("21111111-1111-1111-1111-111111111111"),
+                ImageURL = "/images/defaults/default-song-cover-art.png"
             },
             new Song
             {
@@ -126,7 +136,8 @@ namespace StaskoFy.DataAccess.Configurations
                 ReleaseDate = new DateOnly(2017, 10, 20),
                 AlbumId = Guid.Parse("21111111-1111-1111-1111-111111111111"),
                 Likes = 98765,
-                GenreId = Guid.Parse("21111111-1111-1111-1111-111111111111")
+                GenreId = Guid.Parse("21111111-1111-1111-1111-111111111111"),
+                ImageURL = "/images/defaults/default-song-cover-art.png"
             },
 
             // Pray For Paris
@@ -138,7 +149,8 @@ namespace StaskoFy.DataAccess.Configurations
                 ReleaseDate = new DateOnly(2020, 4, 17),
                 AlbumId = Guid.Parse("31111111-1111-1111-1111-111111111111"),
                 Likes = 123456,
-                GenreId = Guid.Parse("51111111-1111-1111-1111-111111111111")
+                GenreId = Guid.Parse("51111111-1111-1111-1111-111111111111"),
+                ImageURL = "/images/defaults/default-song-cover-art.png"
             },
             new Song
             {
@@ -148,7 +160,8 @@ namespace StaskoFy.DataAccess.Configurations
                 ReleaseDate = new DateOnly(2020, 4, 17),
                 AlbumId = Guid.Parse("31111111-1111-1111-1111-111111111111"),
                 Likes = 654321,
-                GenreId = Guid.Parse("51111111-1111-1111-1111-111111111111")
+                GenreId = Guid.Parse("51111111-1111-1111-1111-111111111111"),
+                ImageURL = "/images/defaults/default-song-cover-art.png"
             },
             new Song
             {
@@ -158,7 +171,8 @@ namespace StaskoFy.DataAccess.Configurations
                 ReleaseDate = new DateOnly(2020, 4, 17),
                 AlbumId = Guid.Parse("31111111-1111-1111-1111-111111111111"),
                 Likes = 234567,
-                GenreId = Guid.Parse("51111111-1111-1111-1111-111111111111")
+                GenreId = Guid.Parse("51111111-1111-1111-1111-111111111111"),
+                ImageURL = "/images/defaults/default-song-cover-art.png"
             },
             new Song
             {
@@ -168,7 +182,8 @@ namespace StaskoFy.DataAccess.Configurations
                 ReleaseDate = new DateOnly(2020, 4, 17),
                 AlbumId = Guid.Parse("31111111-1111-1111-1111-111111111111"),
                 Likes = 345678,
-                GenreId = Guid.Parse("51111111-1111-1111-1111-111111111111")
+                GenreId = Guid.Parse("51111111-1111-1111-1111-111111111111"),
+                ImageURL = "/images/defaults/default-song-cover-art.png"
             },
 
             // CALL ME IF YOU GET LOST: THE ESTATE SALE
@@ -180,7 +195,8 @@ namespace StaskoFy.DataAccess.Configurations
                 ReleaseDate = new DateOnly(2023, 3, 31),
                 AlbumId = Guid.Parse("41111111-1111-1111-1111-111111111111"),
                 Likes = 456789,
-                GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111")
+                GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
+                ImageURL = "/images/defaults/default-song-cover-art.png"
             },
             new Song
             {
@@ -190,7 +206,8 @@ namespace StaskoFy.DataAccess.Configurations
                 ReleaseDate = new DateOnly(2023, 3, 31),
                 AlbumId = Guid.Parse("41111111-1111-1111-1111-111111111111"),
                 Likes = 567890,
-                GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111")
+                GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
+                ImageURL = "/images/defaults/default-song-cover-art.png"
             },
             new Song
             {
@@ -200,7 +217,8 @@ namespace StaskoFy.DataAccess.Configurations
                 ReleaseDate = new DateOnly(2023, 3, 31),
                 AlbumId = Guid.Parse("41111111-1111-1111-1111-111111111111"),
                 Likes = 678901,
-                GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111")
+                GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
+                ImageURL = "/images/defaults/default-song-cover-art.png"
             },
             new Song
             {
@@ -210,7 +228,8 @@ namespace StaskoFy.DataAccess.Configurations
                 ReleaseDate = new DateOnly(2023, 3, 31),
                 AlbumId = Guid.Parse("41111111-1111-1111-1111-111111111111"),
                 Likes = 789012,
-                GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111")
+                GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
+                ImageURL = "/images/defaults/default-song-cover-art.png"
             },
             new Song
             {
@@ -220,7 +239,8 @@ namespace StaskoFy.DataAccess.Configurations
                 ReleaseDate = new DateOnly(2023, 3, 31),
                 AlbumId = Guid.Parse("41111111-1111-1111-1111-111111111111"),
                 Likes = 890123,
-                GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111")
+                GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
+                ImageURL = "/images/defaults/default-song-cover-art.png"
             },
             new Song
             {
@@ -230,7 +250,8 @@ namespace StaskoFy.DataAccess.Configurations
                 ReleaseDate = new DateOnly(2023, 3, 31),
                 AlbumId = Guid.Parse("41111111-1111-1111-1111-111111111111"),
                 Likes = 901234,
-                GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111")
+                GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
+                ImageURL = "/images/defaults/default-song-cover-art.png"
             },
 
             // NULL AlbumId songs
@@ -242,7 +263,8 @@ namespace StaskoFy.DataAccess.Configurations
                 ReleaseDate = new DateOnly(2019, 7, 30),
                 AlbumId = null,
                 Likes = 12345,
-                GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111")
+                GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
+                ImageURL = "/images/defaults/default-song-cover-art.png"
             },
             new Song
             {
@@ -252,7 +274,8 @@ namespace StaskoFy.DataAccess.Configurations
                 ReleaseDate = new DateOnly(2023, 3, 3),
                 AlbumId = null,
                 Likes = 23456,
-                GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111")
+                GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
+                ImageURL = "/images/defaults/default-song-cover-art.png"
             },
             new Song
             {
@@ -262,7 +285,8 @@ namespace StaskoFy.DataAccess.Configurations
                 ReleaseDate = new DateOnly(2023, 9, 1),
                 AlbumId = null,
                 Likes = 34567,
-                GenreId = Guid.Parse("31111111-1111-1111-1111-111111111111")
+                GenreId = Guid.Parse("31111111-1111-1111-1111-111111111111"),
+                ImageURL = "/images/defaults/default-song-cover-art.png"
             },
 
             // XTENDED
@@ -274,7 +298,8 @@ namespace StaskoFy.DataAccess.Configurations
                 ReleaseDate = new DateOnly(2022, 10, 31),
                 AlbumId = Guid.Parse("51111111-1111-1111-1111-111111111111"),
                 Likes = 45678,
-                GenreId = Guid.Parse("31111111-1111-1111-1111-111111111111")
+                GenreId = Guid.Parse("31111111-1111-1111-1111-111111111111"),
+                ImageURL = "/images/defaults/default-song-cover-art.png"
             },
             new Song
             {
@@ -285,7 +310,8 @@ namespace StaskoFy.DataAccess.Configurations
                 ReleaseDate = new DateOnly(2022, 10, 31),
                 AlbumId = Guid.Parse("51111111-1111-1111-1111-111111111111"),
                 Likes = 78901,
-                GenreId = Guid.Parse("41111111-1111-1111-1111-111111111111")
+                GenreId = Guid.Parse("41111111-1111-1111-1111-111111111111"),
+                ImageURL = "/images/defaults/default-song-cover-art.png"
             },
             new Song
             {
@@ -295,7 +321,8 @@ namespace StaskoFy.DataAccess.Configurations
                 ReleaseDate = new DateOnly(2022, 10, 31),
                 AlbumId = Guid.Parse("51111111-1111-1111-1111-111111111111"),
                 Likes = 56789,
-                GenreId = Guid.Parse("41111111-1111-1111-1111-111111111111")
+                GenreId = Guid.Parse("41111111-1111-1111-1111-111111111111"),
+                ImageURL = "/images/defaults/default-song-cover-art.png"
             },
             new Song
             {
@@ -305,7 +332,8 @@ namespace StaskoFy.DataAccess.Configurations
                 ReleaseDate = new DateOnly(2022, 10, 31),
                 AlbumId = Guid.Parse("51111111-1111-1111-1111-111111111111"),
                 Likes = 67890,
-                GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111")
+                GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
+                ImageURL = "/images/defaults/default-song-cover-art.png"
             });
         }
     }

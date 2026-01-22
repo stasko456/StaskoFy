@@ -23,6 +23,7 @@ namespace StaskoFy.DataAccess.Configurations
                     Length = new TimeSpan(1, 5, 0),
                     ReleaseDate = new DateOnly(2024, 7, 5),
                     SongsCount = 5,
+                    ImageURL = "/images/defaults/default-album-cover-art.png"
                 },
                 new Album
                 {
@@ -31,6 +32,7 @@ namespace StaskoFy.DataAccess.Configurations
                     Length = new TimeSpan(0, 40, 49),
                     ReleaseDate = new DateOnly(2017, 10, 20),
                     SongsCount = 6,
+                    ImageURL = "/images/defaults/default-album-cover-art.png"
                 },
                 new Album
                 {
@@ -39,6 +41,7 @@ namespace StaskoFy.DataAccess.Configurations
                     Length = new TimeSpan(0, 36, 25),
                     ReleaseDate = new DateOnly(2020, 4, 17),
                     SongsCount = 4,
+                    ImageURL = "/images/defaults/default-album-cover-art.png"
                 },
                 new Album
                 {
@@ -47,6 +50,7 @@ namespace StaskoFy.DataAccess.Configurations
                     Length = new TimeSpan(1, 17, 0),
                     ReleaseDate = new DateOnly(2023, 3, 31),
                     SongsCount = 6,
+                    ImageURL = "/images/defaults/default-album-cover-art.png"
                 },
                 new Album
                 {
@@ -55,6 +59,7 @@ namespace StaskoFy.DataAccess.Configurations
                     Length = new TimeSpan(1, 1, 0),
                     ReleaseDate = new DateOnly(2022, 10, 31),
                     SongsCount = 4,
+                    ImageURL = "/images/defaults/default-album-cover-art.png"
                 },
                 new Album
                 {
@@ -63,6 +68,7 @@ namespace StaskoFy.DataAccess.Configurations
                     Length = new TimeSpan(0, 54, 32),
                     ReleaseDate = new DateOnly(2025, 9, 22),
                     SongsCount = 6, // risk, no presure, stfu, jumanji, not the mayor, soooo high // TO BE ADDED!!!
+                    ImageURL = "/images/defaults/default-album-cover-art.png"
                 });
         }
     }

@@ -16,18 +16,18 @@ C:\Users\User\Documents\PPMG Nikola Obreshkov\Stanislav-12th Grade\Software Engi
 C:\Users\User\Documents\PPMG Nikola Obreshkov\Stanislav-12th Grade\Software Engineering\StaskoFy\StaskoFy.DataAccess\obj\Debug\net8.0\StaskoFy.DataAccess.pdb
 C:\Users\User\Documents\PPMG Nikola Obreshkov\Stanislav-12th Grade\Software Engineering\StaskoFy\StaskoFy.DataAccess\obj\Debug\net8.0\StaskoFy.DataAccess.genruntimeconfig.cache
 C:\Users\User\Documents\PPMG Nikola Obreshkov\Stanislav-12th Grade\Software Engineering\StaskoFy\StaskoFy.DataAccess\obj\Debug\net8.0\ref\StaskoFy.DataAccess.dll
-C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy.DataAccess\bin\Debug\net8.0\StaskoFy.DataAccess.deps.json
-C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy.DataAccess\bin\Debug\net8.0\StaskoFy.DataAccess.runtimeconfig.json
-C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy.DataAccess\bin\Debug\net8.0\StaskoFy.DataAccess.dll
-C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy.DataAccess\bin\Debug\net8.0\StaskoFy.DataAccess.pdb
-C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy.DataAccess\bin\Debug\net8.0\StaskoFy.Models.dll
-C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy.DataAccess\bin\Debug\net8.0\StaskoFy.Models.pdb
 C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy.DataAccess\obj\Debug\net8.0\StaskoFy.DataAccess.csproj.AssemblyReference.cache
 C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy.DataAccess\obj\Debug\net8.0\StaskoFy.DataAccess.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy.DataAccess\obj\Debug\net8.0\StaskoFy.DataAccess.AssemblyInfoInputs.cache
 C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy.DataAccess\obj\Debug\net8.0\StaskoFy.DataAccess.AssemblyInfo.cs
 C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy.DataAccess\obj\Debug\net8.0\StaskoFy.DataAccess.csproj.CoreCompileInputs.cache
 C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy.DataAccess\obj\Debug\net8.0\StaskoFy.DataAccess.sourcelink.json
+C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy.DataAccess\bin\Debug\net8.0\StaskoFy.DataAccess.deps.json
+C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy.DataAccess\bin\Debug\net8.0\StaskoFy.DataAccess.runtimeconfig.json
+C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy.DataAccess\bin\Debug\net8.0\StaskoFy.DataAccess.dll
+C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy.DataAccess\bin\Debug\net8.0\StaskoFy.DataAccess.pdb
+C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy.DataAccess\bin\Debug\net8.0\StaskoFy.Models.dll
+C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy.DataAccess\bin\Debug\net8.0\StaskoFy.Models.pdb
 C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy.DataAccess\obj\Debug\net8.0\StaskoFy.E3451C7B.Up2Date
 C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy.DataAccess\obj\Debug\net8.0\StaskoFy.DataAccess.dll
 C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy.DataAccess\obj\Debug\net8.0\refint\StaskoFy.DataAccess.dll

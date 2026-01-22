@@ -22,7 +22,8 @@ namespace StaskoFy.DataAccess.Configurations
                     SongCount = 6,
                     DataCreated = new DateOnly(2024, 12, 4),
                     UserId = Guid.Parse("01111111-1111-1111-1111-111111111111"),
-                    IsPublic = true
+                    IsPublic = true,
+                    ImageURL = "/images/defaults/default-album-cover-art.png"
                 },
                 new Playlist
                 {
@@ -33,6 +34,7 @@ namespace StaskoFy.DataAccess.Configurations
                     DataCreated = new DateOnly(2024, 12, 10),
                     UserId = Guid.Parse("02111111-1111-1111-1111-111111111111"),
                     IsPublic = true,
+                    ImageURL = "/images/defaults/default-album-cover-art.png"
                 },
                 new Playlist
                 {
@@ -43,6 +45,7 @@ namespace StaskoFy.DataAccess.Configurations
                     DataCreated = new DateOnly(2022, 6, 27),
                     UserId = Guid.Parse("03111111-1111-1111-1111-111111111111"),
                     IsPublic = false,
+                    ImageURL = "/images/defaults/default-album-cover-art.png"
                 });
 
 
