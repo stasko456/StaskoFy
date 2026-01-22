@@ -47,7 +47,7 @@ namespace StaskoFy.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Edit(Guid? id)
+        public async Task<IActionResult> Edit(Guid id)
         {
             if (id == null || id == Guid.Empty)
             {
@@ -86,7 +86,7 @@ namespace StaskoFy.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Delete(Guid? id)
+        public async Task<IActionResult> Delete(Guid id)
         {
             if (id == null || id == Guid.Empty)
             {

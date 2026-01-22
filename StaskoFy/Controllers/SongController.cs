@@ -61,7 +61,7 @@ namespace StaskoFy.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Artist")]
-        public async Task <IActionResult> Edit(Guid? id)
+        public async Task <IActionResult> Edit(Guid id)
         {
             var genres = await genreService.GetAllAsync();
             ViewBag.Genres = new SelectList(genres, "Id", "Name");
@@ -109,7 +109,7 @@ namespace StaskoFy.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Artist")]
-        public async Task <IActionResult> Delete(Guid? id)
+        public async Task <IActionResult> Delete(Guid id)
         {
             if (id == null || id == Guid.Empty)
             {
