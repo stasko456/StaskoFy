@@ -1,0 +1,11 @@
+bin/
+obj/
+.vs/
+.idea/
+.vscode/
+publish/
+appsettings.Development.json
+*.log
+.DS_Store
+Thumbs.db
+
