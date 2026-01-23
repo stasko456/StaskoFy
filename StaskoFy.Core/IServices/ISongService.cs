@@ -1,4 +1,5 @@
-﻿using StaskoFy.ViewModels.Song;
+﻿using StaskoFy.Models.Entities;
+using StaskoFy.ViewModels.Song;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,11 @@ namespace StaskoFy.Core.IServices
 {
     public interface ISongService
     {
-        Task<IEnumerable<SongIndexViewModel>> GetAllAsync();
+        Task<IEnumerable<ArtistIndexViewModel>> GetAllAsync();
 
-        Task<SongIndexViewModel?> GetByIdAsync(Guid id);
+        Task<IEnumerable<ArtistIndexViewModel>> GetSpecificArtistSongs(Guid artistId);
+
+        Task<ArtistIndexViewModel?> GetByIdAsync(Guid id);
 
         Task AddAsync(SongCreateViewModel model, Guid userId);
         Task AddRangeAsync(IEnumerable<SongCreateViewModel> models);

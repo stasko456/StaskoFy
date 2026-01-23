@@ -29,6 +29,11 @@ namespace StaskoFy.Core.Services
         {
             var genre = await genreRepo.GetByIdAsync(id);
 
+            if (genre == null)
+            {
+                throw new KeyNotFoundException("Genre not found.");
+            }
+
             return new GenreIndexViewModel
             {
                 Id = genre.Id,
