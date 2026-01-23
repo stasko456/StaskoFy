@@ -56,11 +56,6 @@ namespace StaskoFy.Controllers
 
             var genre = await genreService.GetByIdAsync(id);
 
-            if (genre == null)
-            {
-                return NotFound();
-            }
-
             var model = new GenreEditViewModel
             {
                 Id = genre.Id,
@@ -94,11 +89,6 @@ namespace StaskoFy.Controllers
             }
 
             var genre = await genreService.GetByIdAsync(id);
-
-            if (genre == null)
-            {
-                return NotFound();
-            }
 
             await genreService.RemoveAsync(id);
             return RedirectToAction("Index");

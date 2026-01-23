@@ -26,7 +26,9 @@ namespace StaskoFy.Controllers
         [Authorize(Roles = "Artist")]
         public async Task<IActionResult> Index()
         {
-            var songs = await songService.GetAllAsync();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var songs = await songService.GetSpecificArtistSongs(Guid.Parse(userId));
             return View(songs);
         }
 
@@ -73,11 +75,6 @@ namespace StaskoFy.Controllers
 
             var song = await songService.GetByIdAsync(id);
 
-            if (song == null)
-            {
-                return NotFound();
-            }
-
             var model = new SongEditViewModel
             {
                 Id = song.Id,
@@ -116,13 +113,7 @@ namespace StaskoFy.Controllers
                 return NotFound();
             }
 
-            var song = await songService.GetByIdAsync(id);
-
-            if (song == null)
-            {
-                return NotFound();
-            }
-
+            await songService.RemoveAsync(id);
             return RedirectToAction("Index");
         }
     }
