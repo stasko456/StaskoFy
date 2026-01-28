@@ -26,10 +26,10 @@ namespace StaskoFy.Core.Services
             this.artistRepo = _artistRepo;
         }
 
-        public async Task<IEnumerable<ArtistIndexViewModel>> GetAllAsync()
+        public async Task<IEnumerable<SongIndexViewModel>> GetAllAsync()
         {
             return await songRepo.GetAllAttached()
-                .Select(s => new ArtistIndexViewModel
+                .Select(s => new SongIndexViewModel
                 {
                     Id = s.Id,
                     Title = s.Title,
@@ -45,9 +45,9 @@ namespace StaskoFy.Core.Services
                 }).ToListAsync();
         }
 
-        public async Task<IEnumerable<ArtistIndexViewModel>> GetSpecificArtistSongs(Guid userId)
+        public async Task<IEnumerable<SongIndexViewModel>> GetSpecificArtistSongsAsync (Guid userId)
         {
-            var specificArtistSongs = new List<ArtistIndexViewModel>();
+            var specificArtistSongs = new List<SongIndexViewModel>();
 
             var songs = await songRepo.GetAllAttached()
                 .Include(x => x.Genre)
@@ -60,7 +60,7 @@ namespace StaskoFy.Core.Services
 
             foreach (var song in songs)
             {
-                var vm = new ArtistIndexViewModel
+                var vm = new SongIndexViewModel
                 {
                     Id = song.Id,
                     Title = song.Title,
@@ -81,7 +81,7 @@ namespace StaskoFy.Core.Services
             return specificArtistSongs;
         }
 
-        public async Task<ArtistIndexViewModel?> GetByIdAsync(Guid id)
+        public async Task<SongIndexViewModel?> GetByIdAsync(Guid id)
         {
             var song = await songRepo.GetAllAttached().Include(x => x.Genre)
                 .Include(x => x.Album)
@@ -95,7 +95,7 @@ namespace StaskoFy.Core.Services
                 throw new KeyNotFoundException("Song not found.");
             }
 
-            return new ArtistIndexViewModel
+            return new SongIndexViewModel
             {
                 Id = song.Id,
                 Title = song.Title,

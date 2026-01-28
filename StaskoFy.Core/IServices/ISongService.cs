@@ -10,11 +10,11 @@ namespace StaskoFy.Core.IServices
 {
     public interface ISongService
     {
-        Task<IEnumerable<ArtistIndexViewModel>> GetAllAsync();
+        Task<IEnumerable<SongIndexViewModel>> GetAllAsync();
 
-        Task<IEnumerable<ArtistIndexViewModel>> GetSpecificArtistSongs(Guid artistId);
+        Task<IEnumerable<SongIndexViewModel>> GetSpecificArtistSongsAsync(Guid artistId);
 
-        Task<ArtistIndexViewModel?> GetByIdAsync(Guid id);
+        Task<SongIndexViewModel?> GetByIdAsync(Guid id);
 
         Task AddAsync(SongCreateViewModel model, Guid userId);
         Task AddRangeAsync(IEnumerable<SongCreateViewModel> models);
