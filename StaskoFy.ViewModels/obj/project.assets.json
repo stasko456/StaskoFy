@@ -5939,24 +5939,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\User\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Student8\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\User\\Documents\\PPMG Nikola Obreshkov\\Stanislav-12th Grade\\Software Engineering\\StaskoFy\\StaskoFy.ViewModels\\StaskoFy.ViewModels.csproj",
+      "projectUniqueName": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.ViewModels\\StaskoFy.ViewModels.csproj",
       "projectName": "StaskoFy.ViewModels",
-      "projectPath": "C:\\Users\\User\\Documents\\PPMG Nikola Obreshkov\\Stanislav-12th Grade\\Software Engineering\\StaskoFy\\StaskoFy.ViewModels\\StaskoFy.ViewModels.csproj",
-      "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\User\\Documents\\PPMG Nikola Obreshkov\\Stanislav-12th Grade\\Software Engineering\\StaskoFy\\StaskoFy.ViewModels\\obj\\",
+      "projectPath": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.ViewModels\\StaskoFy.ViewModels.csproj",
+      "packagesPath": "C:\\Users\\Student8\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.ViewModels\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\Student8\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -5964,14 +5959,15 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\User\\Documents\\PPMG Nikola Obreshkov\\Stanislav-12th Grade\\Software Engineering\\StaskoFy\\StaskoFy.Models\\StaskoFy.Models.csproj": {
-              "projectPath": "C:\\Users\\User\\Documents\\PPMG Nikola Obreshkov\\Stanislav-12th Grade\\Software Engineering\\StaskoFy\\StaskoFy.Models\\StaskoFy.Models.csproj"
+            "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.Models\\StaskoFy.Models.csproj": {
+              "projectPath": "C:\\Users\\Student8\\Documents\\stanislav arsenal\\12thGrade\\Software Engineering\\StaskoFy\\StaskoFy.Models\\StaskoFy.Models.csproj"
             }
           }
         }
@@ -5985,8 +5981,7 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      },
-      "SdkAnalysisLevel": "9.0.300"
+      }
     },
     "frameworks": {
       "net8.0": {
@@ -6007,7 +6002,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

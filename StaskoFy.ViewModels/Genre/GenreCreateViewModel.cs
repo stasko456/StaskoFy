@@ -6,7 +6,7 @@ namespace StaskoFy.ViewModels.Genre
     {
         [Required(ErrorMessage = "Genre's name is required!")]
         [StringLength(100, MinimumLength = 1)]
-        [Display(Name = "Genre's name")]
+        [Display(Name = "Name")]
         public string Name { get; set; }
     }
 }

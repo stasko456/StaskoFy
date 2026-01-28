@@ -1,13 +1,14 @@
-﻿using System;
+﻿using StaskoFy.Models.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StaskoFy.ViewModels.Song
+namespace StaskoFy.ViewModels.Album
 {
-    public class ArtistIndexViewModel
+    public class AlbumIndexViewModel
     {
         public Guid Id { get; set; }
 
@@ -15,18 +16,14 @@ namespace StaskoFy.ViewModels.Song
 
         public TimeSpan Length { get; set; }
 
-        public string? AlbumName { get; set; }
-        public Guid? AlbumId { get; set; }
-
-        public string GenreName { get; set; }
-        public Guid GenreId { get; set; }
-
         public DateOnly ReleaseDate { get; set; }
 
-        public string ImageURL { get; set; }
+        public int SongsCount { get; set; }
 
-        public int Likes { get; set; }
+        public string ImageURL { get; set; } = "/images/defaults/default-album-cover-art.png";
 
         public List<string> Artists { get; set; } = new List<string>();
+
+        public List<string> Songs { get; set; } = new List<string>();
     }
 }
