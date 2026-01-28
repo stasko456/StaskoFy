@@ -26,6 +26,22 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\Student8\Documents\stanislav arsenal\12thGrade\Software Engineering\StaskoFy\StaskoFy
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/Student8/Documents/stanislav arsenal/12thGrade/Software Engineering/StaskoFy/StaskoFy/Views/Album/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWxidW1cQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student8/Documents/stanislav arsenal/12thGrade/Software Engineering/StaskoFy/StaskoFy/Views/Album/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWxidW1cRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student8/Documents/stanislav arsenal/12thGrade/Software Engineering/StaskoFy/StaskoFy/Views/Album/IndexForAllUsers.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWxidW1cSW5kZXhGb3JBbGxVc2Vycy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student8/Documents/stanislav arsenal/12thGrade/Software Engineering/StaskoFy/StaskoFy/Views/Album/IndexForLoggedArtist.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWxidW1cSW5kZXhGb3JMb2dnZWRBcnRpc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Student8/Documents/stanislav arsenal/12thGrade/Software Engineering/StaskoFy/StaskoFy/Views/Genre/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2VucmVcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

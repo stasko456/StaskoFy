@@ -45,6 +45,7 @@ namespace StaskoFy
             builder.Services.AddScoped<IArtistService, ArtistService>();
             builder.Services.AddScoped<ISongService, SongService>();
             builder.Services.AddScoped<IImageService, ImageService>();
+            builder.Services.AddScoped<IAlbumService, AlbumService>();
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();

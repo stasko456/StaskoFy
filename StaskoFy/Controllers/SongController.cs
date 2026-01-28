@@ -13,13 +13,13 @@ namespace StaskoFy.Controllers
     {
         private readonly ISongService songService;
         private readonly IGenreService genreService;
-        private readonly UserManager<User> userManager;
+        private readonly IArtistService artistService;
 
-        public SongController(ISongService _songService, IGenreService _genreService, UserManager<User> _userManager)
+        public SongController(ISongService _songService, IGenreService _genreService, IArtistService _artistService)
         {
             this.songService = _songService;
             this.genreService = _genreService;
-            this.userManager = _userManager;
+            this.artistService = _artistService;
         }
 
         [HttpGet]
@@ -28,7 +28,7 @@ namespace StaskoFy.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var songs = await songService.GetSpecificArtistSongs(Guid.Parse(userId));
+            var songs = await songService.GetSpecificArtistSongsAsync(Guid.Parse(userId));
             return View(songs);
         }
 
@@ -38,6 +38,9 @@ namespace StaskoFy.Controllers
         {
             var genres = await genreService.GetAllAsync();
             ViewBag.Genres = new SelectList(genres, "Id", "Name");
+
+            //var artists = await artistService.GetAllAsync();
+            //ViewBag.Artists = new MultiSelectList(artists, "Id", "Name");
 
             var model = new SongCreateViewModel();
             return View(model);
@@ -50,10 +53,12 @@ namespace StaskoFy.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             var genres = await genreService.GetAllAsync();
+            var artists = await artistService.GetAllAsync();
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 ViewBag.Genres = new SelectList(genres, "Id", "Name");
+                ViewBag.Artists = new SelectList(artists, "Id", "Name");
                 return View(model);
             }
 
