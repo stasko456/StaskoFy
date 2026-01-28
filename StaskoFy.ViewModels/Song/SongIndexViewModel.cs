@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace StaskoFy.ViewModels.Song
 {
-    public class ArtistIndexViewModel
+    public class SongIndexViewModel
     {
         public Guid Id { get; set; }
 

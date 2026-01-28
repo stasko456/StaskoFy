@@ -16,14 +16,11 @@ namespace StaskoFy.ViewModels.Album
         public string Title { get; set; }
 
         [Display(Name = "Length")]
-        public TimeSpan Length { get; set; }
+        public TimeSpan Length { get; set; } = new TimeSpan(0, 0, 0);
 
         [Required]
         [Display(Name = "Release Date")]
         public DateOnly ReleaseDate { get; set; }
-
-        [Display(Name = "Count of songs")]
-        public int SongsCount { get; set; }
 
         [Required]
         [Display(Name = "Art Cover")]

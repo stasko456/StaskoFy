@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("StaskoFy.ViewModels")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+59c37d15ea963378e1d5eb7ebc3e9fb5cdef8939")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bff8c1cf17a84ff52c3150d9db395cbef9bb5801")]
 [assembly: System.Reflection.AssemblyProductAttribute("StaskoFy.ViewModels")]
 [assembly: System.Reflection.AssemblyTitleAttribute("StaskoFy.ViewModels")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -28,5 +28,7 @@ namespace StaskoFy.ViewModels.Song
         [Required(ErrorMessage = "Song's ArtCover is required!")]
         [Display(Name = "Art Cover")]
         public string ImageURL { get; set; } = "/wwwroot/images/defaults/default-song-cover-art.png";
+
+        public ICollection<Guid> ArtistIds { get; set; } = new List<Guid>(); 
     }
 }

@@ -20,7 +20,7 @@ namespace StaskoFy.ViewModels.Album
 
         public int SongsCount { get; set; }
 
-        public string ImageURL { get; set; } = "/images/defaults/default-album-cover-art.png";
+        public string ImageURL { get; set; }
 
         public List<string> Artists { get; set; } = new List<string>();
 

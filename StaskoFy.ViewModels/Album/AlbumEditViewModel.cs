@@ -17,6 +17,7 @@ namespace StaskoFy.ViewModels.Album
         [StringLength(100, MinimumLength = 1)]
         public string Title { get; set; }
 
+        [Required]
         [Display(Name = "Length")]
         public TimeSpan Length { get; set; }
 
@@ -24,12 +25,9 @@ namespace StaskoFy.ViewModels.Album
         [Display(Name = "Release Date")]
         public DateOnly ReleaseDate { get; set; }
 
-        [Display(Name = "Count of songs")]
-        public int SongsCount { get; set; }
-
         [Required]
         [Display(Name = "Art Cover")]
-        public string ImageURL { get; set; } = "/images/defaults/default-album-cover-art.png";
+        public string ImageURL { get; set; }
 
         public ICollection<string> Artists { get; set; } = new List<string>();
 
