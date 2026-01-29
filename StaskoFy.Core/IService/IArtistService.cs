@@ -16,5 +16,7 @@ namespace StaskoFy.Core.IService
         Task AddAsync(ArtistViewModel model);
 
         Task RemoveAsync(Guid id);
+
+        Task<IEnumerable<ArtistSelectViewModel>> PopulateArtistSelectListAsync(Guid userId);
     }
 }
