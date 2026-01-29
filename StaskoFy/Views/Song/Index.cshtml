@@ -1,0 +1,60 @@
+﻿@model List<SongIndexViewModel>
+
+<div class="container py-5">
+    <div class="text-center text-light">
+        <h1 class="display-4 fw-bold mb-3">
+            @User?.Identity?.Name 's<span class="text-warning"> Songs</span>
+        </h1>
+    </div>
+</div>
+
+<div class="row g-4 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
+    @foreach (var song in Model)
+    {
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <img src="@song.ImageURL" class="card-img-top" alt="@song.Title" style="height:180px; object-fit:cover;">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">@song.Title</h5>
+                    <p class="card-text mb-1"><strong>Genre:</strong> @song.GenreName</p>
+                    @if (!string.IsNullOrEmpty(song.AlbumName))
+                    {
+                        <p class="card-text mb-1"><strong>Album:</strong> @song.AlbumName</p>
+                    }
+                    <p class="card-text mb-1">
+                        <strong>Artists:</strong>
+                        @foreach (var artist in song.Artists)
+                        {
+                            <span class="badge bg-secondary me-1">@artist</span>
+                        }
+                    </p>
+                    <p class="card-text mb-1"><strong>Minutes:</strong> @song.Minutes minutes</p>
+                    <p class="card-text mb-1"><strong>Seconds:</strong> @song.Seconds seconds</p>
+                    <p class="card-text mb-1"><strong>Likes:</strong> @song.Likes</p>
+                    <p class="card-text mb-1"><strong>Release Date:</strong> @song.ReleaseDate</p>
+                    @if (User.IsInRole("Artist"))
+                    {
+                        <div class="d-flex gap-2">
+                            <a asp-action="Edit" asp-route-id="@song.Id" class="btn btn-warning btn-md d-inline-flex align-items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="16" height="16" class="me-2">
+                                    <path d="M535.6 85.7C513.7 63.8 478.3 63.8 456.4 85.7L432 110.1L529.9 208L554.3 183.6C576.2 161.7 576.2 126.3 554.3 104.4L535.6 85.7zM236.4 305.7C230.3 311.8 225.6 319.3 222.9 327.6L193.3 416.4C190.4 425 192.7 434.5 199.1 441C205.5 447.5 215 449.7 223.7 446.8L312.5 417.2C320.7 414.5 328.2 409.8 334.4 403.7L496 241.9L398.1 144L236.4 305.7zM160 128C107 128 64 171 64 224L64 480C64 533 107 576 160 576L416 576C469 576 512 533 512 480L512 384C512 366.3 497.7 352 480 352C462.3 352 448 366.3 448 384L448 480C448 497.7 433.7 512 416 512L160 512C142.3 512 128 497.7 128 480L128 224C128 206.3 142.3 192 160 192L256 192C273.7 192 288 177.7 288 160C288 142.3 273.7 128 256 128L160 128z" />
+                                </svg>
+                                Edit
+                            </a>
+
+                            <form asp-action="Delete" method="post" asp-route-id="@song.Id">
+                                <button class="btn btn-danger btn-md d-inline-flex align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="16" height="16" class="me-2">
+                                        <path d="M232.7 69.9L224 96L128 96C110.3 96 96 110.3 96 128C96 145.7 110.3 160 128 160L512 160C529.7 160 544 145.7 544 128C544 110.3 529.7 96 512 96L416 96L407.3 69.9C402.9 56.8 390.7 48 376.9 48L263.1 48C249.3 48 237.1 56.8 232.7 69.9zM512 208L128 208L149.1 531.1C150.7 556.4 171.7 576 197 576L443 576C468.3 576 489.3 556.4 490.9 531.1L512 208z" />
+                                    </svg>
+                                    Delete
+                                </button>
+                            </form>
+                        </div>
+
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
