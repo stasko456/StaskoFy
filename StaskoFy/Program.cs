@@ -10,7 +10,7 @@ namespace StaskoFy
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -31,11 +31,19 @@ namespace StaskoFy
 
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             builder.Services.AddScoped<IArtistService, ArtistService>();
+            builder.Services.AddScoped<IGenreService, GenreService>();
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
+
+            using (var scope = app.Services.CreateScope())
+            {
+                await DataSeeder.SeedRolesAsync(scope.ServiceProvider);
+                await DataSeeder.SeedAdminUser(scope.ServiceProvider);
+                await DataSeeder.GiveRolesRemainingUsers(scope.ServiceProvider);
+            }
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
