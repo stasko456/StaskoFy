@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using StaskoFy.Core.IService;
+using StaskoFy.Core.Service;
 using StaskoFy.DataAccess;
+using StaskoFy.DataAccess.Repository;
 using StaskoFy.Models.Entities;
 
 namespace StaskoFy
@@ -25,6 +28,9 @@ namespace StaskoFy
                 options.Password.RequiredLength = 5;
             }).AddEntityFrameworkStores<StaskoFyDbContext>()
             .AddDefaultTokenProviders();
+
+            builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            builder.Services.AddScoped<IArtistService, ArtistService>();
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
