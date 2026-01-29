@@ -1,3 +1,8 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using StaskoFy.DataAccess;
+using StaskoFy.Models.Entities;
+
 namespace StaskoFy
 {
     public class Program
@@ -5,6 +10,21 @@ namespace StaskoFy
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddDbContext<StaskoFyDbContext>(options =>
+            options.UseSqlServer(builder.Configuration.GetConnectionString("Connection")));
+
+            builder.Services.AddIdentity<User, IdentityRole<Guid>>(options =>
+            {
+                options.SignIn.RequireConfirmedEmail = false;
+                options.SignIn.RequireConfirmedAccount = false;
+                options.Password.RequireDigit = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequiredLength = 5;
+            }).AddEntityFrameworkStores<StaskoFyDbContext>()
+            .AddDefaultTokenProviders();
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
@@ -24,6 +44,7 @@ namespace StaskoFy
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
