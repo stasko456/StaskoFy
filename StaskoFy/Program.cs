@@ -1,3 +1,4 @@
+using CloudinaryDotNet;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using StaskoFy.Core.IService;
@@ -5,6 +6,7 @@ using StaskoFy.Core.Service;
 using StaskoFy.DataAccess;
 using StaskoFy.DataAccess.Repository;
 using StaskoFy.Models.Entities;
+using StaskoFy.Models.Utilities;
 
 namespace StaskoFy
 {
@@ -29,10 +31,22 @@ namespace StaskoFy
             }).AddEntityFrameworkStores<StaskoFyDbContext>()
             .AddDefaultTokenProviders();
 
+            var cloudinarySettings = builder.Configuration
+                .GetSection("CloudinarySettings").Get<CloudinarySettings>();
+            builder.Services.AddSingleton<Cloudinary>((sp) =>
+            {
+                return new Cloudinary(new Account(cloudinarySettings.CloudName, cloudinarySettings.ApiKey,
+                    cloudinarySettings.ApiSecret));
+            });
+
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             builder.Services.AddScoped<IArtistService, ArtistService>();
             builder.Services.AddScoped<IGenreService, GenreService>();
             builder.Services.AddScoped<ISongService, SongService>();
+
+            // Users:
+            // stasko456; Stasko1234*; stdimov2007@gmail.com User
+            // Ken Karson; kencarson@gmail.com; KenCarson1234* Artist
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
