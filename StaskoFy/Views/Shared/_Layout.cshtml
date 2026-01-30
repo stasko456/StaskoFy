@@ -4,15 +4,18 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - StaskoFy</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/StaskoFy.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-pV3L+3yxGr6pXKZpL+qvWQFdybgQbsA3R1Rl1M1lQ+k0G5Y/J44l3rDrYy/+YpzA0d1GfD0ZwW2bNyzOOk+6xA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">StaskoFy</a>
+                <a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">StaskoFy</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -22,11 +25,42 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+                        @if ((User?.Identity?.IsAuthenticated ?? false) && (User.IsInRole("Admin")))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Genres</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item text-white" asp-controller="Genre" asp-action="Index">Index</a>
+                                    <a class="dropdown-item text-white" asp-controller="Genre" asp-action="Create">Create</a>
+                                </div>
+                            </li>
+                        }
+                        else if ((User?.Identity?.IsAuthenticated ?? false) && (User.IsInRole("Artist")))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Songs</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item text-white" asp-controller="Song" asp-action="Index">Index</a>
+                                    <a class="dropdown-item text-white" asp-controller="Song" asp-action="Create">Create</a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Albums</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item text-white" asp-controller="Album" asp-action="IndexForLoggedArtist">Index</a>
+                                    <a class="dropdown-item text-white" asp-controller="Album" asp-action="Create">Create</a>
+                                </div>
+                            </li>
+                        }
+                        else if ((User?.Identity?.IsAuthenticated ?? false) && (User.IsInRole("User")))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Album" asp-action="IndexForAllUsers">Albums</a>
+                            </li>
+                        }
                     </ul>
                 </div>
+                <partial name="_LoginPartial" />
             </div>
         </nav>
     </header>
@@ -44,6 +78,8 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

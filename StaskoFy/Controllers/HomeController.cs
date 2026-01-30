@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using StaskoFy.Core.IService;
 using StaskoFy.Models;
 
 namespace StaskoFy.Controllers
@@ -7,15 +8,18 @@ namespace StaskoFy.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ISongService songService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ISongService _songService)
         {
             _logger = logger;
+            this.songService = _songService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var songs = await songService.GetAllAsync();
+            return View(songs);
         }
 
         public IActionResult Privacy()
