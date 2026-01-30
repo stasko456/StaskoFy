@@ -14,7 +14,7 @@ namespace StaskoFy.Models.Entities
 
         [Required]
         [MaxLength(100)]
-        public string Name { get; set; }
+        public string Name { get; set; } = null!;
 
         public ICollection<Song> Songs { get; set; } = new List<Song>();
     }

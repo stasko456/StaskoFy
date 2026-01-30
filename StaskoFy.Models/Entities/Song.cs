@@ -31,12 +31,14 @@ namespace StaskoFy.Models.Entities
         [Required]
         [ForeignKey(nameof(Genre))]
         public Guid GenreId { get; set; }
-        public Genre Genre { get; set; }
+        public Genre Genre { get; set; } = null!;
 
         // not required
         public int Likes { get; set; }
 
-        public string ImageURL { get; set; }
+        [Required]
+        [StringLength(2048)]
+        public string ImageURL { get; set; } = null!;
 
         public ICollection<ArtistSong> ArtistsSongs { get; set; } = new List<ArtistSong>();
 
