@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace StaskoFy.ViewModels.Song
 {
@@ -27,6 +28,6 @@ namespace StaskoFy.ViewModels.Song
 
         public List<Guid> SelectedArtistIds { get; set; } = new();
 
-        public MultiSelectList? Artists { get; set; }
+        public Microsoft.AspNetCore.Mvc.Rendering.MultiSelectList? Artists { get; set; }
     }
 }
