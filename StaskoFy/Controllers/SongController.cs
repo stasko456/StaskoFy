@@ -42,7 +42,7 @@ namespace StaskoFy.Controllers
             var artists = await artistService.PopulateArtistSelectListAsync(Guid.Parse(userId));
             var model = new SongCreateViewModel
             {
-                //Artists = new MultiSelectList(artists, "Id", "Username")
+                Artists = new MultiSelectList(artists, "Id", "Username")
             };
 
             return View(model);
@@ -60,7 +60,7 @@ namespace StaskoFy.Controllers
                 ViewBag.Genres = new SelectList(genres, "Id", "Name");
 
                 var artists = await artistService.PopulateArtistSelectListAsync(Guid.Parse(userId));
-                //model.Artists = new MultiSelectList(artists, "Id", "Username");
+                model.Artists = new MultiSelectList(artists, "Id", "Username");
 
                 return View(model);
             }
@@ -96,7 +96,7 @@ namespace StaskoFy.Controllers
                 ReleaseDate = song.ReleaseDate,
                 GenreId = song.GenreId,
                 ImageURL = song.ImageURL,
-                //Artists = new MultiSelectList(artists, "Id", "Username")
+                Artists = new MultiSelectList(artists, "Id", "Username")
             };
 
             return View(model);

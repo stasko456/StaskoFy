@@ -43,6 +43,7 @@ namespace StaskoFy
             builder.Services.AddScoped<IArtistService, ArtistService>();
             builder.Services.AddScoped<IGenreService, GenreService>();
             builder.Services.AddScoped<ISongService, SongService>();
+            builder.Services.AddScoped<IAlbumService, AlbumService>();
 
             // Users:
             // stasko456; Stasko1234*; stdimov2007@gmail.com User
