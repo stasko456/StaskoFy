@@ -11,20 +11,22 @@ namespace StaskoFy.ViewModels.Song
 {
     public class SongCreateViewModel
     {
-        [StringLength(100, MinimumLength = 1,
-            ErrorMessage = "Song's title must be between 1 and 100 symbols long!")]
-        public string Title { get; set; }
+        [Required]
+        [StringLength(100, MinimumLength = 1, ErrorMessage = "Song's title must be between 1 and 100 characters long.")]
+        public string Title { get; set; } = null!;
 
-        [Range(0, 59)]
+        [Range(0, 59, ErrorMessage = "Minutes must be between 0 and 59.")]
         public int Minutes { get; set; }
 
-        [Range(1, 59)]
+        [Range(1, 59, ErrorMessage = "Seconds must be between 1 and 59.")]
         public int Seconds { get; set; }
 
+        [Required]
         public Guid GenreId { get; set; }
 
         [Required]
-        public string ImageURL { get; set; }
+        [StringLength(2048)]
+        public string ImageURL { get; set; } = null!;
 
         public List<Guid> SelectedArtistIds { get; set; } = new();
 

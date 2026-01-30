@@ -10,24 +10,23 @@ namespace StaskoFy.ViewModels.Song
     {
         public Guid Id { get; set; }
 
-        public string Title { get; set; }
+        public string Title { get; set; } = null!;
 
         public int Minutes { get; set; }
-
         public int Seconds { get; set; }
 
         public string? AlbumName { get; set; }
         public Guid? AlbumId { get; set; }
 
-        public string GenreName { get; set; }
+        public string GenreName { get; set; } = null!;
         public Guid GenreId { get; set; }
 
         public DateOnly ReleaseDate { get; set; }
 
-        public string ImageURL { get; set; }
+        public string ImageURL { get; set; } = null!;
 
         public int Likes { get; set; }
 
-        public List<string> Artists { get; set; } = new List<string>();
+        public List<string> Artists { get; set; } = new();
     }
 }

@@ -10,23 +10,19 @@ namespace StaskoFy.ViewModels.Album
     public class AlbumCreateViewModel
     {
         [Required]
-        [Display(Name = "Title")]
-        [MinLength(1)]
-        [MaxLength(100)]
-        public string Title { get; set; }
+        [StringLength(100, MinimumLength = 1, ErrorMessage = "Album title must be between 1 and 100 characters.")]
+        public string Title { get; set; } = null!;
 
-        [Display(Name = "Length")]
+        [Required(ErrorMessage = "Album length is required.")]
         public TimeSpan Length { get; set; }
 
-        [Required]
-        [Display(Name = "Release Date")]
+        [Required(ErrorMessage = "Release date is required.")]
         public DateOnly ReleaseDate { get; set; }
 
-        [Display(Name = "Art Cover")]
-        public string ImageURL { get; set; }
+        [Required(ErrorMessage = "Album cover is required.")]
+        public string ImageURL { get; set; } = null!;
 
         public ICollection<string> Artists { get; set; } = new List<string>();
-
         public ICollection<string> Songs { get; set; } = new List<string>();
     }
 }

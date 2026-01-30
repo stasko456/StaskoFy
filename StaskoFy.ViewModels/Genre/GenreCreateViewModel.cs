@@ -9,10 +9,9 @@ namespace StaskoFy.ViewModels.Genre
 {
     public class GenreCreateViewModel
     {
-        [Required(ErrorMessage = "Genre's name must be between 1 and 100 symbols long!")]
-        [MinLength(1)]
-        [MaxLength(100)]
+        [Required]
+        [StringLength(100, MinimumLength = 1, ErrorMessage = "Genre's name must be between 1 and 100 characters long.")]
         [Display(Name = "Name")]
-        public string Name { get; set; }
+        public string Name { get; set; } = null!;
     }
 }
