@@ -12,25 +12,28 @@ namespace StaskoFy.ViewModels.Song
     {
         public Guid Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Song title is required!")]
         [StringLength(100, MinimumLength = 1, ErrorMessage = "Song's title must be between 1 and 100 characters long.")]
         public string Title { get; set; } = null!;
 
+        [Required(ErrorMessage = "Song minutes are required!")]
         [Range(0, 59, ErrorMessage = "Minutes must be between 0 and 59.")]
         public int Minutes { get; set; }
 
-        [Range(1, 59, ErrorMessage = "Seconds must be between 1 and 59.")]
+        [Required(ErrorMessage = "Song secnods are required!")]
+        [Range(0, 59, ErrorMessage = "Seconds must be between 0 and 59.")]
         public int Seconds { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Release date is required!")]
         [DataType(DataType.Date)]
         public DateOnly ReleaseDate { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Genre is required!")]
         public Guid GenreId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Song cover is required!")]
         [StringLength(2048)]
+        [Url]
         public string ImageURL { get; set; } = null!;
 
         public List<Guid> SelectedArtistIds { get; set; } = new();

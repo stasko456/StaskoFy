@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace StaskoFy.ViewModels.Album
 {
@@ -12,26 +13,33 @@ namespace StaskoFy.ViewModels.Album
         [Required]
         public Guid Id { get; set; }
 
-        [Required]
-        [Display(Name = "Title")]
-        [MinLength(1)]
-        [MaxLength(100)]
-        public string Title { get; set; }
+        [Required(ErrorMessage = "Album title is required!")]
+        [StringLength(100, MinimumLength = 1, ErrorMessage = "Album title must be between 1 and 100 characters.")]
+        public string Title { get; set; } = null!;
 
-        [Required]
-        [Display(Name = "Length")]
-        public TimeSpan Length { get; set; }
+        [Required(ErrorMessage = "Album hours are required!")]
+        [Range(0, 59, ErrorMessage = "Hours must be between 0 and 59.")]
+        public int Hours { get; set; }
 
-        [Required]
-        [Display(Name = "Release Date")]
+        [Required(ErrorMessage = "Album minutes are required!")]
+        [Range(0, 59, ErrorMessage = "Minutes must be between 0 and 59.")]
+        public int Minutes { get; set; }
+
+        [Required(ErrorMessage = "Album secnods are required!")]
+        [Range(0, 59, ErrorMessage = "Seconds must be between 0 and 59.")]
+        public int Seconds { get; set; }
+
+        [Required(ErrorMessage = "Release date is required.")]
+        [DataType(DataType.Date)]
         public DateOnly ReleaseDate { get; set; }
 
-        [Required]
-        [Display(Name = "Art Cover")]
-        public string ImageURL { get; set; }
+        [Required(ErrorMessage = "Album cover is required.")]
+        [StringLength(2048)]
+        [Url]
+        public string ImageURL { get; set; } = null!;
 
-        public ICollection<string> Artists { get; set; } = new List<string>();
+        public List<Guid> SelectedArtistIds { get; set; } = new();
 
-        public ICollection<string> Songs { get; set; } = new List<string>();
+        public Microsoft.AspNetCore.Mvc.Rendering.MultiSelectList? Artists { get; set; }
     }
 }

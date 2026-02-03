@@ -12,7 +12,9 @@ namespace StaskoFy.ViewModels.Album
 
         public string Title { get; set; }
 
-        public TimeSpan Length { get; set; }
+        public int Hours { get; set; }
+        public int Minutes { get; set; }
+        public int Seconds { get; set; }
 
         public DateOnly ReleaseDate { get; set; }
 
