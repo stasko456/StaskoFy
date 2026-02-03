@@ -31,7 +31,9 @@ namespace StaskoFy.Core.Service
                 {
                     Id = a.Id,
                     Title = a.Title,
-                    Length = a.Length,
+                    Hours = a.Length.Hours,
+                    Minutes = a.Length.Minutes,
+                    Seconds = a.Length.Seconds,
                     ReleaseDate = a.ReleaseDate,
                     SongsCount = a.SongsCount,
                     ImageURL = a.ImageURL,
@@ -58,7 +60,9 @@ namespace StaskoFy.Core.Service
                 {
                     Id = album.Id,
                     Title = album.Title,
-                    Length = album.Length,
+                    Hours = album.Length.Hours,
+                    Minutes = album.Length.Minutes,
+                    Seconds = album.Length.Seconds,
                     ReleaseDate = album.ReleaseDate,
                     SongsCount = album.SongsCount,
                     ImageURL = album.ImageURL,
@@ -90,7 +94,9 @@ namespace StaskoFy.Core.Service
             {
                 Id = id,
                 Title = album.Title,
-                Length = album.Length,
+                Hours = album.Length.Hours,
+                Minutes = album.Length.Minutes,
+                Seconds = album.Length.Seconds,
                 ReleaseDate = album.ReleaseDate,
                 SongsCount = album.SongsCount,
                 ImageURL = album.ImageURL,
@@ -100,24 +106,38 @@ namespace StaskoFy.Core.Service
 
         public async Task AddAsync(AlbumCreateViewModel model, Guid userId)
         {
-            var artist = await artistRepo.GetAllAttached().FirstOrDefaultAsync(x => x.UserId == userId);
+            var mainArtist = await artistRepo.GetAllAttached().
+                FirstOrDefaultAsync(x => x.UserId == userId);
+
+            var featuredArtists = await artistRepo.GetAllAttached().
+                Where(x => model.SelectedArtistIds.Contains(x.Id))
+                .ToListAsync();
 
             var album = new Album
             {
                 Title = model.Title,
-                Length = model.Length,
+                Length = new TimeSpan(model.Hours, model.Minutes, model.Seconds),
                 ReleaseDate = DateOnly.FromDateTime(DateTime.Now),
-                // add songs after creating album
                 ImageURL = model.ImageURL,
+                ArtistsAlbums = new List<ArtistAlbum>(),
             };
 
-            var artistAlbum = new ArtistAlbum
+            album.ArtistsAlbums.Add(new ArtistAlbum
             {
-                Artist = artist,
+                Artist = mainArtist,
                 Album = album,
-            };
+            });
 
-            await artistAlbumRepo.AddAsync(artistAlbum);
+            foreach (var artist in featuredArtists)
+            {
+                album.ArtistsAlbums.Add(new ArtistAlbum
+                {
+                    Artist = artist,
+                    Album = album,
+                });
+            }
+
+            await albumRepo.AddAsync(album);
         }
 
         public async Task UpdateAsync(AlbumEditViewModel model)
@@ -125,11 +145,11 @@ namespace StaskoFy.Core.Service
             var album = await albumRepo.GetByIdAsync(model.Id);
 
             album.Title = model.Title;
-            album.Length = model.Length;
+            album.Length = new TimeSpan(model.Hours, model.Minutes, model.Seconds);
             album.ReleaseDate = model.ReleaseDate;
             album.ImageURL = model.ImageURL;
-            // change artist to the album,
-            // change songs to the album
+
+            // to fix this:
         }
 
         public async Task RemoveAsync(Guid id)
