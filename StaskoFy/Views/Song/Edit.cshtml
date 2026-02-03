@@ -19,17 +19,8 @@
             <div class="form-group text-center mb-3">
                 <label class="form-label">Length</label>
                 <div class="d-flex gap-2">
-                    <input asp-for="Minutes"
-                           type="number"
-                           min="0"
-                           class="form-control"
-                           placeholder="Min" />
-                    <input asp-for="Seconds"
-                           type="number"
-                           min="1"
-                           max="59"
-                           class="form-control"
-                           placeholder="Sec" />
+                    <input asp-for="Minutes" type="number" min="0" max ="59" class="form-control" placeholder="Min" />
+                    <input asp-for="Seconds" type="number" min="0" max="59" class="form-control"placeholder="Sec" />
                 </div>
                 <span asp-validation-for="Minutes" class="text-danger"></span>
                 <span asp-validation-for="Seconds" class="text-danger"></span>
@@ -51,12 +42,7 @@
 
             <div class="form-group text-center mb-3">
                 <label asp-for="SelectedArtistIds" class="form-label">Select features</label>
-                <select asp-for="SelectedArtistIds"
-                        asp-items="Model.Artists"
-                        id="artistSelect"
-                        multiple
-                        class="form-select">
-                </select>
+                <select asp-for="SelectedArtistIds" asp-items="Model.Artists" id="artistSelect multiple class="form-select"></select>
                 <span asp-validation-for="SelectedArtistIds" class="text-danger"></span>
             </div>
 

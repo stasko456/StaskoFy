@@ -1,18 +1,22 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using StaskoFy.Core.IService;
 using StaskoFy.ViewModels.Album;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace StaskoFy.Controllers
 {
     public class AlbumController : Controller
     {
         private readonly IAlbumService albumService;
+        private readonly IArtistService artistService;
 
-        public AlbumController(IAlbumService _albumService)
+        public AlbumController(IAlbumService _albumService, IArtistService _artistService)
         {
             this.albumService = _albumService;
+            this.artistService = _artistService;
         }
 
         [HttpGet]
@@ -34,9 +38,16 @@ namespace StaskoFy.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Artist")]
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
-            var model = new AlbumCreateViewModel();
+            var userId = User.FindFirstValue(ClaimTypes.Name);
+
+            var artists = await artistService.PopulateArtistSelectListAsync(Guid.Parse(userId));
+            var model = new AlbumCreateViewModel
+            {
+                Artists = new MultiSelectList(artists, "Id", "Username")
+            };
+
             return View(model);
         }
 
@@ -48,12 +59,10 @@ namespace StaskoFy.Controllers
 
             if (!ModelState.IsValid)
             {
-                return View(model);
-            }
+                var artists = await artistService.PopulateArtistSelectListAsync(Guid.Parse(userId));
+                model.Artists = new MultiSelectList(artists, "Id", "Username");
 
-            if (model.ImageURL == string.Empty || model.ImageURL == null)
-            {
-                model.ImageURL = "/images/defaults/default-album-cover-art.png";
+                return View(model);
             }
 
             await albumService.AddAsync(model, Guid.Parse(userId));
@@ -75,7 +84,9 @@ namespace StaskoFy.Controllers
             {
                 Id = album.Id,
                 Title = album.Title,
-                Length = album.Length,
+                Hours = album.Hours,
+                Minutes = album.Minutes,
+                Seconds = album.Seconds,
                 ReleaseDate = album.ReleaseDate,
                 ImageURL = album.ImageURL,
             };

@@ -17,18 +17,8 @@
             <div class="form-group text-center mb-3">
                 <label class="form-label">Minutes and Seconds</label>
                 <div class="d-flex gap-2">
-                    <input asp-for="Minutes"
-                           type="number"
-                           min="0"
-                           class="form-control"
-                           placeholder="Min" />
-
-                    <input asp-for="Seconds"
-                           type="number"
-                           min="1"
-                           max="59"
-                           class="form-control"
-                           placeholder="Sec" />
+                    <input asp-for="Minutes" type="number" min="0" max ="59" class="form-control"placeholder="Min" />
+                    <input asp-for="Seconds" type="number" min="0" max="59" class="form-control" placeholder="Sec" />
                 </div>
                 <span asp-validation-for="Minutes" class="text-danger"></span>
                 <span asp-validation-for="Seconds" class="text-danger"></span>
@@ -36,24 +26,15 @@
 
             <div class="form-group text-center mb-3">
                 <label asp-for="GenreId" class="form-label">Genre</label>
-                <select asp-for="GenreId"
-                        asp-items="ViewBag.Genres"
-                        class="form-select">
+                <select asp-for="GenreId" asp-items="ViewBag.Genres" class="form-select">
                     <option value="">-- Select genre --</option>
                 </select>
                 <span asp-validation-for="GenreId" class="text-danger"></span>
             </div>
 
             <div class="form-group text-center mb-3">
-                <label asp-for="SelectedArtistIds" class="form-label">
-                    Select Features
-                </label>
-                <select asp-for="SelectedArtistIds"
-                        asp-items="Model.Artists"
-                        id="artistSelect"
-                        multiple
-                        class="form-select">
-                </select>
+                <label asp-for="SelectedArtistIds" class="form-label">Select Features</label>
+                <select asp-for="SelectedArtistIds" asp-items="Model.Artists" id="artistSelect" multiple class="form-select"></select>
             </div>
 
             <div class="form-group text-center mb-3">
@@ -63,9 +44,7 @@
             </div>
 
             <div class="text-center">
-                <button type="submit" class="btn btn-primary w-100">
-                    Create
-                </button>
+                <button type="submit" class="btn btn-primary w-100">Create</button>
             </div>
         </form>
     </div>
