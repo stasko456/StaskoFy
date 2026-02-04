@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace StaskoFy.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class StaskoFy : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -240,7 +240,7 @@ namespace StaskoFy.DataAccess.Migrations
                     AlbumId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     GenreId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Likes = table.Column<int>(type: "int", nullable: false),
-                    ImageURL = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    ImageURL = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -249,7 +249,8 @@ namespace StaskoFy.DataAccess.Migrations
                         name: "FK_Songs_Albums_AlbumId",
                         column: x => x.AlbumId,
                         principalTable: "Albums",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Songs_Genres_GenreId",
                         column: x => x.GenreId,
@@ -279,7 +280,7 @@ namespace StaskoFy.DataAccess.Migrations
                         column: x => x.ArtistId,
                         principalTable: "Artists",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -297,7 +298,7 @@ namespace StaskoFy.DataAccess.Migrations
                         column: x => x.ArtistId,
                         principalTable: "Artists",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_ArtistsSongs_Songs_SongId",
                         column: x => x.SongId,
@@ -376,19 +377,19 @@ namespace StaskoFy.DataAccess.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "ImageURL", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { new Guid("01111111-1111-1111-1111-111111111111"), 0, "b0254bda-cc1f-471d-bfc9-ca9c7c33954e", "kenCarson@gmail.com", false, "/images/defaults/default-user-pfp.png", false, null, "kenCarson@gmail.com", "kenCarson", "AQAAAAIAAYagAAAAELMn9MQtWdbwZ97SMSvUyZwb2Bzr4NFwyTcMfE70rQ1vOoG+x+fV5Mp4d9YsqA68Ew==", null, false, "01111111-1111-1111-1111-111111111111", false, "kenCarson" },
-                    { new Guid("02111111-1111-1111-1111-111111111111"), 0, "0ecbb676-c2e1-4a9a-b1cf-3752ce096f78", "future@gmail.com", false, "/images/defaults/default-user-pfp.png", false, null, "future@gmail.com", "future", "AQAAAAIAAYagAAAAEMl2r5KtPVrQIMBBuLy/aHlP9OQRqiQxeEs1ciI50JhSkyfgcKjvlGPQZTR0fqV8+Q==", null, false, "02111111-1111-1111-1111-111111111111", false, "future" },
-                    { new Guid("03111111-1111-1111-1111-111111111111"), 0, "6b64f36b-37c0-431c-8452-8d4551556125", "youngThug@gmail.com", false, "/images/defaults/default-user-pfp.pnguser-pfp", false, null, "youngThug@gmail.com", "youngThug", "AQAAAAIAAYagAAAAEEaOnANBDOGlptXqvuQ2869ug92nV6NSquXIFM+RBCupDTa+bkDARQGPINQI4VJWFQ==", null, false, "03111111-1111-1111-1111-111111111111", false, "youngThug" },
-                    { new Guid("04111111-1111-1111-1111-111111111111"), 0, "0a5ea6df-bfd5-4249-807b-21013a125774", "westsideGunn@gmail.com", false, "/images/defaults/default-user-pfp .png", false, null, "westsideGunn@gmail.com", "westsideGunn", "AQAAAAIAAYagAAAAEFGE3cKjuwVDmW53mL5bX1H6SSt3AfVt554m/ConK2UHXNyWuoSW5QBMRXGeX2xa1A==", null, false, "04111111-1111-1111-1111-111111111111", false, "westsideGunn" },
-                    { new Guid("05111111-1111-1111-1111-111111111111"), 0, "4f2491ba-8ff1-43c6-bf4d-8b40840eb572", "tylerTheCreator@gmail.com", false, "/images/defaults/default-user-pfp.png", false, null, "tylerTheCreator@gmail.com", "tylerTheCreator", "AQAAAAIAAYagAAAAEOr5dJqDtVEq6v4OMwjWJhOVdb0LfHbi6508TufHO+m8nTpy8URjTugEjwBZOdcj0Q==", null, false, "05111111-1111-1111-1111-111111111111", false, "tylerTheCreator" },
-                    { new Guid("06111111-1111-1111-1111-111111111111"), 0, "d3b02216-56a8-4460-8cba-01e33a377f6c", "destroyLonely@gmail.com", false, "/images/defaults/default-user-pfp.png", false, null, "destroyLonely@gmail.com", "destroyLonely", "AQAAAAIAAYagAAAAEF8ymfNyNNyEsAVhEPzue5CgQcDysErbBnhNcEMzIwvOQZ3R35nfyHzLjWEGKxJrpw==", null, false, "06111111-1111-1111-1111-111111111111", false, "destroyLonely" },
-                    { new Guid("07111111-1111-1111-1111-111111111111"), 0, "0ff7ed6a-d5fb-4056-bf9b-cf7f622bd95d", "joeyBada$$@gmail.com", false, "/images/defaults/default-user-pfp.png", false, null, "joeyBada$$@gmail.com", "joeyBada$$", "AQAAAAIAAYagAAAAEB0V+mvSSDcK6D46PmMZqlPTPYBz0ISx0vY2Fczg4YTeJBlkY/yn0oPKavHB9yrT4w==", null, false, "07111111-1111-1111-1111-111111111111", false, "joeyBada$$" },
-                    { new Guid("08111111-1111-1111-1111-111111111111"), 0, "f8ace8b9-eabc-4e54-9fef-f618f31b9d34", "billiEssco@gmail.com", false, "/images/defaults/default-user-pfp.png", false, null, "billiEssco@gmail.com", "billiEssco", "AQAAAAIAAYagAAAAEF/KjutuHogiqUii5YJws/8+B7lUlrp4W8ww5FE79zxClPTPtPEH1trMFYZm63vgoA==", null, false, "08111111-1111-1111-1111-111111111111", false, "billiEssco" },
-                    { new Guid("09111111-1111-1111-1111-111111111111"), 0, "e6fa8b29-a823-48ae-95d0-94ce9130a5a4", "lilWayne@gmail.com", false, "/images/defaults/default-user-pfp.png", false, null, "lilWayne@gmail.com", "lilWayne", "AQAAAAIAAYagAAAAEKiGpmuUYrqWJ14F+0dYS6nnHi1ZPuB6P+TO4LkyW5Jvd+gr1XyLc8bDXMqmQoFDDg==", null, false, "09111111-1111-1111-1111-111111111111", false, "lilWayne" },
-                    { new Guid("10111111-1111-1111-1111-111111111111"), 0, "150d9e8a-cbc9-42b9-b09e-4cdf7e8ab443", "homixideGang@gmail.com", false, "/images/defaults/default-user-pfp.png", false, null, "homixideGang@gmail.com", "homixideGang", "AQAAAAIAAYagAAAAEHhpi4WiSEbZ1EDwk1qOB/mmnDCw7VyY1b2n97YVFf/PdJ8kq3SIc0Iq7HE91hYn1w==", null, false, "10111111-1111-1111-1111-111111111111", false, "homixideGang" },
-                    { new Guid("11111111-1111-1111-1111-111111111111"), 0, "09d99d6c-6e3f-4ba3-bb7b-64f8364b47b8", "stdimov2007@gmail.com", false, "/images/defaults/default-user-pfp.png", false, null, "stdimov2007@gmail.com", "stasko456", "AQAAAAIAAYagAAAAELUOc6uAHDNluYp+rhFJ9EUdtAd54ygUMtKBlfzBtcCB7BM234dKrCsrSyWl2bR4pA==", null, false, "11111111-1111-1111-1111-111111111111", false, "stasko456" },
-                    { new Guid("12111111-1111-1111-1111-111111111111"), 0, "3ef7c518-7461-4f69-9eb6-ab8fa168d45e", "simon2403e8@gmail.com", false, "images/defaults/default-user-pfp.png", false, null, "simon2403e8@gmail.com", "simon333", "AQAAAAIAAYagAAAAEO0cBnwv+oPwpH2HpP6LjJYuyWQhpSclYYezy5UQ41fXsu8QlbSk+JjztPtXzIs+IQ==", null, false, "12111111-1111-1111-1111-111111111111", false, "simon333" },
-                    { new Guid("13111111-1111-1111-1111-111111111111"), 0, "1445a45f-185d-445c-88e6-aa43564de5c0", "nikolaPeew@gmail.com", false, "/images/defaults/default-user-pfp.png", false, null, "nikolaPeew@gmail.com", "n_peew07", "AQAAAAIAAYagAAAAEA1WQg7aFDTAh4QiaRdIjwWp+GVVL+eiNuI+/lXZfNJhmjEYjcBKiO4dipTO0I7VCQ==", null, false, "13111111-1111-1111-1111-111111111111", false, "n_peew07" }
+                    { new Guid("01111111-1111-1111-1111-111111111111"), 0, "202dade7-7afc-40b7-96f3-89eb6f09a512", "kenCarson@gmail.com", false, "/images/defaults/default-user-pfp.png", false, null, "kenCarson@gmail.com", "kenCarson", "AQAAAAIAAYagAAAAEDwMULyYGetsYhuNkQt5FFLxt/zhnhifALknY0UKnrsBTf3tkNNIHsJ3/39Xl5Bx4g==", null, false, "01111111-1111-1111-1111-111111111111", false, "kenCarson" },
+                    { new Guid("02111111-1111-1111-1111-111111111111"), 0, "8c68b681-fb07-44fd-a88f-fca24a1da50c", "future@gmail.com", false, "/images/defaults/default-user-pfp.png", false, null, "future@gmail.com", "future", "AQAAAAIAAYagAAAAEBpIw2afzZanIn3zUPEzujozPAIV1ca5YmS4bBcKXuh9oUV8pPXEjjk/n5T3azYD5w==", null, false, "02111111-1111-1111-1111-111111111111", false, "future" },
+                    { new Guid("03111111-1111-1111-1111-111111111111"), 0, "34b5d07c-c5d2-49db-8fcd-c4300ee7a229", "youngThug@gmail.com", false, "/images/defaults/default-user-pfp.pnguser-pfp", false, null, "youngThug@gmail.com", "youngThug", "AQAAAAIAAYagAAAAEAQ/xvmGW0NhQSxh1E5AgI9jA1Qxt7wvwqZjHPv6CQk7aAQ6OHdzZyj6+7rjfNvTyA==", null, false, "03111111-1111-1111-1111-111111111111", false, "youngThug" },
+                    { new Guid("04111111-1111-1111-1111-111111111111"), 0, "0903bf81-ebc6-4e3e-866d-4134ce37795c", "westsideGunn@gmail.com", false, "/images/defaults/default-user-pfp .png", false, null, "westsideGunn@gmail.com", "westsideGunn", "AQAAAAIAAYagAAAAEKLB4eryetyst11vK1K3xtFsNPm7Qakkq3dYjirlIpuSuH5OcmBwcKAsHVALWsJx9g==", null, false, "04111111-1111-1111-1111-111111111111", false, "westsideGunn" },
+                    { new Guid("05111111-1111-1111-1111-111111111111"), 0, "5f2a77bf-c4da-46a4-9a67-6ceaf9eba807", "tylerTheCreator@gmail.com", false, "/images/defaults/default-user-pfp.png", false, null, "tylerTheCreator@gmail.com", "tylerTheCreator", "AQAAAAIAAYagAAAAEH6hc0s559qB3PyplBtKrjUUxD+LMCfViZh19xYVnxGe5ILajuRKpZPlmIRIrrBKaw==", null, false, "05111111-1111-1111-1111-111111111111", false, "tylerTheCreator" },
+                    { new Guid("06111111-1111-1111-1111-111111111111"), 0, "85e6b72f-e5df-413e-b94f-e3d37c79d37f", "destroyLonely@gmail.com", false, "/images/defaults/default-user-pfp.png", false, null, "destroyLonely@gmail.com", "destroyLonely", "AQAAAAIAAYagAAAAEPyBmJzLCrWDzPHILClNCwC5beUvO6wF57hlnegezUIwtDgFj+U7qSWt0AmY1R6+mg==", null, false, "06111111-1111-1111-1111-111111111111", false, "destroyLonely" },
+                    { new Guid("07111111-1111-1111-1111-111111111111"), 0, "76ba52c3-1366-4910-b7d1-e19ca124c4fb", "joeyBada$$@gmail.com", false, "/images/defaults/default-user-pfp.png", false, null, "joeyBada$$@gmail.com", "joeyBada$$", "AQAAAAIAAYagAAAAEPvM8MSWfdmxr+hcJvciVgH9+2TkXrDqzHRKsoJsqvDK69QG7ZNWifT3wNzsopwXBw==", null, false, "07111111-1111-1111-1111-111111111111", false, "joeyBada$$" },
+                    { new Guid("08111111-1111-1111-1111-111111111111"), 0, "e45a1edf-c155-4d02-90e6-c433a357a384", "billiEssco@gmail.com", false, "/images/defaults/default-user-pfp.png", false, null, "billiEssco@gmail.com", "billiEssco", "AQAAAAIAAYagAAAAEKOrH6OirXcuas4PKz4MiuSGYWSQR+/SV80PQtl7x+Br3nfSuHskWHsuqj8d4qvzhg==", null, false, "08111111-1111-1111-1111-111111111111", false, "billiEssco" },
+                    { new Guid("09111111-1111-1111-1111-111111111111"), 0, "c1b7e17c-41fc-4a97-97bb-e83c72334d14", "lilWayne@gmail.com", false, "/images/defaults/default-user-pfp.png", false, null, "lilWayne@gmail.com", "lilWayne", "AQAAAAIAAYagAAAAEEiSEKQhkVZpA7iFUGRR/Sk+i7mw/KmQoiSIDygVFpSKhIMVUdb0Rn59FhNNCJuPXw==", null, false, "09111111-1111-1111-1111-111111111111", false, "lilWayne" },
+                    { new Guid("10111111-1111-1111-1111-111111111111"), 0, "1c9bc3df-b1b1-46de-8fe7-67700384947d", "homixideGang@gmail.com", false, "/images/defaults/default-user-pfp.png", false, null, "homixideGang@gmail.com", "homixideGang", "AQAAAAIAAYagAAAAEPiUfwDscUV1q2XuY88fDi6jSkdbGK7tVqwvAFxFarRJQ2tufp3USZtQj4Eld9XXUQ==", null, false, "10111111-1111-1111-1111-111111111111", false, "homixideGang" },
+                    { new Guid("11111111-1111-1111-1111-111111111111"), 0, "63106531-cc70-427a-9822-f057dde48249", "stdimov2007@gmail.com", false, "/images/defaults/default-user-pfp.png", false, null, "stdimov2007@gmail.com", "stasko456", "AQAAAAIAAYagAAAAEPqQb8+KT2mOwrEDypdCTzWoNYUGuFGPO0z2ucjZFfNnLUnEzkWqcCCPkxqiJAddrg==", null, false, "11111111-1111-1111-1111-111111111111", false, "stasko456" },
+                    { new Guid("12111111-1111-1111-1111-111111111111"), 0, "94b57cd3-ce76-46b9-b9a5-b1209be70f89", "simon2403e8@gmail.com", false, "images/defaults/default-user-pfp.png", false, null, "simon2403e8@gmail.com", "simon333", "AQAAAAIAAYagAAAAEDuQNCXqsf1bBht0Fwd7ivC+D28x5ZVfXYIM6BxhrhCJlxESTOn1OuPFe3sDQ5hLvg==", null, false, "12111111-1111-1111-1111-111111111111", false, "simon333" },
+                    { new Guid("13111111-1111-1111-1111-111111111111"), 0, "ad5ed334-bd06-4053-a915-ebf267057e7b", "nikolaPeew@gmail.com", false, "/images/defaults/default-user-pfp.png", false, null, "nikolaPeew@gmail.com", "n_peew07", "AQAAAAIAAYagAAAAELZCrbNJwLwfNYFG91u7fjqVQxWprBEL87yxqSuva0Dr6v+cn7NLjodkDXpYTQP/dQ==", null, false, "13111111-1111-1111-1111-111111111111", false, "n_peew07" }
                 });
 
             migrationBuilder.InsertData(
