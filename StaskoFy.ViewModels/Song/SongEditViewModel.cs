@@ -33,7 +33,6 @@ namespace StaskoFy.ViewModels.Song
 
         [Required(ErrorMessage = "Song cover is required!")]
         [StringLength(2048)]
-        [Url]
         public string ImageURL { get; set; } = null!;
 
         public List<Guid> SelectedArtistIds { get; set; } = new();
