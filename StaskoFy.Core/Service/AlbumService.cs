@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace StaskoFy.Core.Service
 {
@@ -16,12 +17,14 @@ namespace StaskoFy.Core.Service
         private readonly IRepository<Album> albumRepo;
         private readonly IRepository<Artist> artistRepo;
         private readonly IRepository<ArtistAlbum> artistAlbumRepo;
+        private readonly IRepository<Song> songRepo;
 
-        public AlbumService(IRepository<Album> _albumRepo, IRepository<Artist> _artistRepo, IRepository<ArtistAlbum> _artistAlbumRepo)
+        public AlbumService(IRepository<Album> _albumRepo, IRepository<Artist> _artistRepo, IRepository<ArtistAlbum> _artistAlbumRepo, IRepository<Song> _songRepo)
         {
             this.albumRepo = _albumRepo;
             this.artistRepo = _artistRepo;
             this.artistAlbumRepo = _artistAlbumRepo;
+            this.songRepo = _songRepo;
         }
 
         public async Task<IEnumerable<AlbumIndexViewModel>> GetAllAsync()
@@ -113,21 +116,28 @@ namespace StaskoFy.Core.Service
                 Where(x => model.SelectedArtistIds.Contains(x.Id))
                 .ToListAsync();
 
+            var albumSongs = await songRepo.GetAllAttached()
+                .Where(x => model.SelectedSongIds.Contains(x.Id))
+                .ToListAsync();
+
+            // make new album entity
             var album = new Album
             {
                 Title = model.Title,
-                Length = new TimeSpan(model.Hours, model.Minutes, model.Seconds),
                 ReleaseDate = DateOnly.FromDateTime(DateTime.Now),
                 ImageURL = model.ImageURL,
                 ArtistsAlbums = new List<ArtistAlbum>(),
             };
 
+
+            // add main artist
             album.ArtistsAlbums.Add(new ArtistAlbum
             {
                 Artist = mainArtist,
                 Album = album,
             });
 
+            // add featured artists
             foreach (var artist in featuredArtists)
             {
                 album.ArtistsAlbums.Add(new ArtistAlbum
@@ -137,19 +147,89 @@ namespace StaskoFy.Core.Service
                 });
             }
 
+            // add songs from the album
+            foreach (var song in albumSongs)
+            {
+                album.Songs.Add(song);
+            }
+
+            // update album SongCount
+            album.SongsCount = albumSongs.Count();
+
+            // update album Length
+            TimeSpan albumLength = TimeSpan.Zero;
+            foreach (var song in albumSongs)
+            {
+                albumLength += song.Length;
+            }
+            album.Length = albumLength;
+
             await albumRepo.AddAsync(album);
         }
 
-        public async Task UpdateAsync(AlbumEditViewModel model)
+        public async Task UpdateAsync(AlbumEditViewModel model, Guid userId)
         {
+            var mainArtist = await artistRepo.GetAllAttached().
+                FirstOrDefaultAsync(x => x.UserId == userId);
+
+            var featuredArtists = await artistRepo.GetAllAttached()
+                .Where(x => model.SelectedArtistIds.Contains(x.Id))
+                .ToListAsync();
+
+            var albumSongs = await songRepo.GetAllAttached()
+                .Include(x => x.Genre)
+                .Include(x => x.Album)
+                .Include(x => x.ArtistsSongs)
+                    .ThenInclude(a => a.Artist)
+                        .ThenInclude(u => u.User)
+                .Where(x => model.SelectedSongIds.Contains(x.Id))
+                .ToListAsync();
+
             var album = await albumRepo.GetByIdAsync(model.Id);
 
             album.Title = model.Title;
-            album.Length = new TimeSpan(model.Hours, model.Minutes, model.Seconds);
             album.ReleaseDate = model.ReleaseDate;
             album.ImageURL = model.ImageURL;
 
-            // to fix this:
+            // delete featured artists
+            album.ArtistsAlbums.Clear();
+
+            // add main artist:
+            var albumMainArtist = album
+            album.ArtistsAlbums.Add(new ArtistAlbum
+            {
+                Artist = mainArtist,
+                Album = album
+            });
+
+            // add featured artist to the album
+            foreach (var artist in featuredArtists)
+            {
+                album.ArtistsAlbums.Add(new ArtistAlbum
+                {
+                    Artist = artist,
+                    Album = album,
+                });
+            }
+
+            // delete songs from album
+            album.Songs.Clear();
+
+            // add new songs to album
+            album.Songs = albumSongs;
+
+            // update SongCount
+            album.SongsCount = albumSongs.Count();
+
+            // update Length
+            TimeSpan albumLength = TimeSpan.Zero;
+            foreach (var song in albumSongs)
+            {
+                albumLength += song.Length;
+            }
+            album.Length = albumLength;
+
+            await albumRepo.UpdateAsync(album);
         }
 
         public async Task RemoveAsync(Guid id)

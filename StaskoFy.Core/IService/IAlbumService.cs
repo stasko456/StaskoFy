@@ -20,6 +20,6 @@ namespace StaskoFy.Core.IService
         Task RemoveAsync(Guid id);
         Task RemoveRangeAsync(IEnumerable<Guid> ids);
 
-        Task UpdateAsync(AlbumEditViewModel model);
+        Task UpdateAsync(AlbumEditViewModel model, Guid userId);
     }
 }
