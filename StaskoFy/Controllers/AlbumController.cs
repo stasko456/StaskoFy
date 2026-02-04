@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using StaskoFy.Core.IService;
+using StaskoFy.Models.Entities;
 using StaskoFy.ViewModels.Album;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -12,11 +13,13 @@ namespace StaskoFy.Controllers
     {
         private readonly IAlbumService albumService;
         private readonly IArtistService artistService;
+        private readonly ISongService songService;
 
-        public AlbumController(IAlbumService _albumService, IArtistService _artistService)
+        public AlbumController(IAlbumService _albumService, IArtistService _artistService, ISongService _songService)
         {
             this.albumService = _albumService;
             this.artistService = _artistService;
+            this.songService = _songService;
         }
 
         [HttpGet]
@@ -40,12 +43,15 @@ namespace StaskoFy.Controllers
         [Authorize(Roles = "Artist")]
         public async Task<ActionResult> Create()
         {
-            var userId = User.FindFirstValue(ClaimTypes.Name);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             var artists = await artistService.PopulateArtistSelectListAsync(Guid.Parse(userId));
+            var songs = await songService.GetSpecificArtistSongsAsync(Guid.Parse(userId));
+
             var model = new AlbumCreateViewModel
             {
-                Artists = new MultiSelectList(artists, "Id", "Username")
+                Artists = new MultiSelectList(artists, "Id", "Username"),
+                Songs = new MultiSelectList(songs, "Id", "Title"),
             };
 
             return View(model);
@@ -60,7 +66,9 @@ namespace StaskoFy.Controllers
             if (!ModelState.IsValid)
             {
                 var artists = await artistService.PopulateArtistSelectListAsync(Guid.Parse(userId));
+                var songs = await songService.GetSpecificArtistSongsAsync(Guid.Parse(userId));
                 model.Artists = new MultiSelectList(artists, "Id", "Username");
+                model.Songs = new MultiSelectList(songs, "Id", "Title");
 
                 return View(model);
             }
@@ -80,6 +88,11 @@ namespace StaskoFy.Controllers
 
             var album = await albumService.GetByIdAsync(id);
 
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var artists = await artistService.PopulateArtistSelectListAsync(Guid.Parse(userId));
+            var songs = await songService.GetSpecificArtistSongsAsync(Guid.Parse(userId));
+
             var model = new AlbumEditViewModel
             {
                 Id = album.Id,
@@ -89,9 +102,11 @@ namespace StaskoFy.Controllers
                 Seconds = album.Seconds,
                 ReleaseDate = album.ReleaseDate,
                 ImageURL = album.ImageURL,
+                Artists = new MultiSelectList(artists, "Id", "Username"),
+                Songs = new MultiSelectList(songs, "Id", "Title"),
             };
 
-            await albumService.UpdateAsync(model);
+            await albumService.UpdateAsync(model, Guid.Parse(userId));
             return View(model);
         }
 
@@ -99,12 +114,20 @@ namespace StaskoFy.Controllers
         [Authorize(Roles = "Artist")]
         public async Task<IActionResult> Edit(AlbumEditViewModel model)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var artists = await artistService.PopulateArtistSelectListAsync(Guid.Parse(userId));
+            var songs = await songService.GetSpecificArtistSongsAsync(Guid.Parse(userId));
+
             if (!ModelState.IsValid)
             {
+                model.Artists = new MultiSelectList(artists, "Id", "Username");
+                model.Songs = new MultiSelectList(songs, "Id", "Title");
+                
                 return View(model);
             }
 
-            await albumService.UpdateAsync(model);
+            await albumService.UpdateAsync(model, Guid.Parse(userId));
             return RedirectToAction("IndexForLoggedArtist");
         }
 
