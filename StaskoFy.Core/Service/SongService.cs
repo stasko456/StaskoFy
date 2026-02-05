@@ -166,9 +166,35 @@ namespace StaskoFy.Core.Service
             song.GenreId = model.GenreId;
             song.ImageURL = model.ImageURL;
 
-            await songRepo.UpdateAsync(song);
+            // add featured artists to the song if any are selected
+            if (featuredArtists.Count > 0)
+            {
+                // remove ArtistSong for this song from the DB 
+                var artistsSong = await artistSongRepo.GetAllAttached()
+                    .Where(x => x.SongId == song.Id)
+                    .ToListAsync();
+                await artistSongRepo.RemoveRangeAsync(artistsSong);
 
-            // to do
+                // add main artist to the song
+                song.ArtistsSongs.Add(new ArtistSong
+                {
+                    ArtistId = mainArtist.Id,
+                    SongId = song.Id,
+                });
+
+                // add featured artists to the song
+                foreach (var artist in featuredArtists)
+                {
+                    song.ArtistsSongs.Add(new ArtistSong
+                    {
+                        ArtistId = artist.Id,
+                        SongId = song.Id,
+                    });
+                }
+            }
+
+            // update entity
+            await songRepo.UpdateAsync(song);
         }
 
         public async Task RemoveAsync(Guid id)

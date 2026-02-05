@@ -103,7 +103,8 @@ namespace StaskoFy.Core.Service
                 ReleaseDate = album.ReleaseDate,
                 SongsCount = album.SongsCount,
                 ImageURL = album.ImageURL,
-                Artists = album.ArtistsAlbums.Select(x => x.Artist.User.UserName).ToList()
+                Artists = album.ArtistsAlbums.Select(x => x.Artist.User.UserName).ToList(),
+                Songs = album.Songs.Select(x => x.Title).ToList(),
             };
         }
 
@@ -191,44 +192,58 @@ namespace StaskoFy.Core.Service
             album.ReleaseDate = model.ReleaseDate;
             album.ImageURL = model.ImageURL;
 
-            // delete featured artists
-            album.ArtistsAlbums.Clear();
-
-            // add main artist:
-            var albumMainArtist = album
-            album.ArtistsAlbums.Add(new ArtistAlbum
+            // add featured artists to the album if any are selected
+            if (featuredArtists.Count > 0)
             {
-                Artist = mainArtist,
-                Album = album
-            });
+                // remove ArtistAlbums for this album from the DB 
+                var artistsAlbum = await artistAlbumRepo.GetAllAttached()
+                    .Where(x => x.AlbumId == album.Id)
+                    .ToListAsync();
+                await artistAlbumRepo.RemoveRangeAsync(artistsAlbum);
 
-            // add featured artist to the album
-            foreach (var artist in featuredArtists)
-            {
+                // add main artist to the album
                 album.ArtistsAlbums.Add(new ArtistAlbum
                 {
-                    Artist = artist,
-                    Album = album,
+                    ArtistId = mainArtist.Id,
+                    AlbumId = album.Id,
                 });
+
+                // add featured artists to the album
+                foreach (var artist in featuredArtists)
+                {
+                    album.ArtistsAlbums.Add(new ArtistAlbum
+                    {
+                        ArtistId = artist.Id,
+                        AlbumId = album.Id,
+                    });
+                }
             }
 
-            // delete songs from album
-            album.Songs.Clear();
-
-            // add new songs to album
-            album.Songs = albumSongs;
-
-            // update SongCount
-            album.SongsCount = albumSongs.Count();
-
-            // update Length
-            TimeSpan albumLength = TimeSpan.Zero;
-            foreach (var song in albumSongs)
+            // add songs to the album if any are selected
+            if (albumSongs.Count > 0)
             {
-                albumLength += song.Length;
-            }
-            album.Length = albumLength;
+                // delete songs from album
+                album.Songs.Clear();
 
+                // add new songs to album
+                foreach (var song in albumSongs)
+                {
+                    album.Songs.Add(song);
+                }
+
+                // update SongCount
+                album.SongsCount = albumSongs.Count();
+
+                // update Length
+                TimeSpan albumLength = TimeSpan.Zero;
+                foreach (var song in albumSongs)
+                {
+                    albumLength += song.Length;
+                }
+                album.Length = albumLength;
+            }
+
+            // update entity
             await albumRepo.UpdateAsync(album);
         }
 
