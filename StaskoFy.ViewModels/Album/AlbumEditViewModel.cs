@@ -17,18 +17,6 @@ namespace StaskoFy.ViewModels.Album
         [StringLength(100, MinimumLength = 1, ErrorMessage = "Album title must be between 1 and 100 characters.")]
         public string Title { get; set; } = null!;
 
-        [Required(ErrorMessage = "Album hours are required!")]
-        [Range(0, 59, ErrorMessage = "Hours must be between 0 and 59.")]
-        public int Hours { get; set; }
-
-        [Required(ErrorMessage = "Album minutes are required!")]
-        [Range(0, 59, ErrorMessage = "Minutes must be between 0 and 59.")]
-        public int Minutes { get; set; }
-
-        [Required(ErrorMessage = "Album secnods are required!")]
-        [Range(0, 59, ErrorMessage = "Seconds must be between 0 and 59.")]
-        public int Seconds { get; set; }
-
         [Required(ErrorMessage = "Release date is required.")]
         [DataType(DataType.Date)]
         public DateOnly ReleaseDate { get; set; }

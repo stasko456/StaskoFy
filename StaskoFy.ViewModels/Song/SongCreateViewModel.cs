@@ -28,10 +28,9 @@ namespace StaskoFy.ViewModels.Song
 
         [Required(ErrorMessage = "Song cover is required!")]
         [StringLength(2048)]
-        public string ImageURL { get; set; } = null!;
+        public string ImageURL { get; set; } = "/images/defaults/default-song-cover-art.png";
 
         public List<Guid> SelectedArtistIds { get; set; } = new();
-
         public Microsoft.AspNetCore.Mvc.Rendering.MultiSelectList? Artists { get; set; }
     }
 }

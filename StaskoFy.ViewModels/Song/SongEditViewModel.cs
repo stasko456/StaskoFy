@@ -36,7 +36,6 @@ namespace StaskoFy.ViewModels.Song
         public string ImageURL { get; set; } = null!;
 
         public List<Guid> SelectedArtistIds { get; set; } = new();
-
         public Microsoft.AspNetCore.Mvc.Rendering.MultiSelectList? Artists { get; set; }
     }
 }

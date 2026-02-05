@@ -16,11 +16,13 @@ namespace StaskoFy.ViewModels.Album
 
         [Required(ErrorMessage = "Album cover is required!")]
         [StringLength(2048)]
-        public string ImageURL { get; set; } = null!;
+        public string ImageURL { get; set; } = "/images/defaults/default-album-cover-art.png";
 
         public List<Guid> SelectedArtistIds { get; set; } = new();
         public Microsoft.AspNetCore.Mvc.Rendering.MultiSelectList? Artists { get; set; }
 
+        [Required(ErrorMessage = "Please select at least one song.")]
+        [MinLength(1, ErrorMessage = "Please select at least one song.")]
         public List<Guid> SelectedSongIds { get; set; } = new();
         public Microsoft.AspNetCore.Mvc.Rendering.MultiSelectList? Songs { get; set; }
     }
