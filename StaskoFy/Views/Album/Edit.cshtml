@@ -12,18 +12,6 @@
                     <span asp-validation-for="Title" class="text-danger"></span>
                 </div>​
 
-                <div class="form-group text-center mb-3">
-                <label class="form-label">Minutes and Seconds</label>
-                <div class="d-flex gap-2">
-                    <input asp-for="Hours" type="number" min="0" max ="59" class="form-control"placeholder="Hours" />
-                    <input asp-for="Minutes" type="number" min="0" max ="59" class="form-control"placeholder="Min" />
-                    <input asp-for="Seconds" type="number" min="0" max="59" class="form-control" placeholder="Sec" />
-                </div>
-                <span asp-validation-for="Hours" class="text-danger"></span>
-                <span asp-validation-for="Minutes" class="text-danger"></span>
-                <span asp-validation-for="Seconds" class="text-danger"></span>
-                </div>
-
                 <div class="form-group text-center">​
                     <label asp-for="@Model.ReleaseDate" class="form-label"></label>​
                     <input type="date" asp-for="@Model.ReleaseDate" class="form-control" aria-required="true" />
@@ -37,15 +25,14 @@
                 </div>​
 
                 <div class="form-group text-center">
+                    <label asp-for="SelectedArtistIds" class="form-label">Selected Features</label>
+                    <select asp-for="SelectedArtistIds" asp-items="Model.Artists" id="artistSelect" multiple class="form-select"></select>
+                </div>
+
+                <div class="form-group text-center">
                     <label asp-for="SelectedSongIds" class="form-label">Selected Songs</label>
                     <select asp-for="SelectedSongIds" asp-items="Model.Songs" id="songSelect" multiple class="form-select"></select>
                 </div>
-
-                <div class="form-group text-center">​
-                    <label asp-for="ImageURL" class="form-label"></label>​
-                    <input asp-for="ImageURL" class="form-control" aria-required="true" />
-                    <span asp-validation-for="ImageURL" class="text-danger"></span>
-                </div>​
 
                 <div class="text-center">​
                     <button type="submit" class="btn btn-primary w-100">Edit</button>

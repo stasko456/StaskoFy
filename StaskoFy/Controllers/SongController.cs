@@ -112,7 +112,7 @@ namespace StaskoFy.Controllers
 
             var genres = await genreService.GetAllAsync();
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 ViewBag.Genres = new SelectList(genres, "Id", "Name");
 

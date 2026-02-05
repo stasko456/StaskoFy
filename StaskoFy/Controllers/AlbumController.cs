@@ -97,9 +97,6 @@ namespace StaskoFy.Controllers
             {
                 Id = album.Id,
                 Title = album.Title,
-                Hours = album.Hours,
-                Minutes = album.Minutes,
-                Seconds = album.Seconds,
                 ReleaseDate = album.ReleaseDate,
                 ImageURL = album.ImageURL,
                 Artists = new MultiSelectList(artists, "Id", "Username"),
@@ -142,6 +139,18 @@ namespace StaskoFy.Controllers
 
             await albumService.RemoveAsync(id);
             return RedirectToAction("IndexForLoggedArtist");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(Guid id)
+        {
+            if (id == null || id == Guid.Empty)
+            {
+                return NotFound();
+            }
+
+            var album = await albumService.GetByIdAsync(id);
+            return View(album);
         }
     }
 }

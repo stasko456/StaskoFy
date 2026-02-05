@@ -42,8 +42,7 @@
 
             <div class="form-group text-center mb-3">
                 <label asp-for="SelectedArtistIds" class="form-label">Select features</label>
-                <select asp-for="SelectedArtistIds" asp-items="Model.Artists" id="artistSelect multiple class="form-select"></select>
-                <span asp-validation-for="SelectedArtistIds" class="text-danger"></span>
+                <select asp-for="SelectedArtistIds" asp-items="Model.Artists" id="artistSelect" multiple class="form-select"></select>
             </div>
 
             <div class="form-group text-center mb-3">

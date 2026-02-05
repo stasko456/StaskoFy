@@ -20,6 +20,7 @@
                 <div class="form-group text-center">
                     <label asp-for="SelectedSongIds" class="form-label">Selected Songs</label>
                     <select asp-for="SelectedSongIds" asp-items="Model.Songs" id="songSelect" multiple class="form-select"></select>
+                    <span asp-validation-for="SelectedSongIds" class="text-danger"></span>
                 </div>
 
                 <div class="form-group text-center">​
