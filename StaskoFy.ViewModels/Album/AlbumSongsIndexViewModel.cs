@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace StaskoFy.ViewModels.Album
 {
-    public class AlbumIndexViewModel
+    public class AlbumSongsIndexViewModel
     {
         public Guid Id { get; set; }
 
@@ -23,6 +23,8 @@ namespace StaskoFy.ViewModels.Album
 
         public string ImageURL { get; set; }
 
-        public List<string> Artists { get; set; } = new List<string>();
+        public List<string> Artists { get; set; } = new();
+
+        public List<SongAlbumIndexViewModel> Songs { get; set; } = new();
     }
 }
