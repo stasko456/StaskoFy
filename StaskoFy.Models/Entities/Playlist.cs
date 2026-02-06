@@ -24,14 +24,14 @@ namespace StaskoFy.Models.Entities
         public int SongCount { get; set; }
 
         [Required]
-        public DateOnly DataCreated { get; set; }
+        public DateOnly DateCreated { get; set; }
 
         [Required]
         [ForeignKey(nameof(User))]
         public Guid UserId { get; set; }
         public User User { get; set; }
 
-        public string ImageURL { get; set; } = "/images/defaults/default_album_cover.png";
+        public string ImageURL { get; set; }
 
         public bool IsPublic { get; set; } = false; // false by default
 
