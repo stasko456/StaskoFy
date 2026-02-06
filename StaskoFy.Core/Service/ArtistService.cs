@@ -34,6 +34,11 @@ namespace StaskoFy.Core.Service
         {
             var artist = await artistRepo.GetByIdAsync(id);
 
+            if (artist == null)
+            {
+                throw new KeyNotFoundException("Artist not found.");
+            }
+
             return new ArtistViewModel
             {
                 Id = artist.Id,

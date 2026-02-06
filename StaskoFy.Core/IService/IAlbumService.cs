@@ -15,6 +15,8 @@ namespace StaskoFy.Core.IService
 
         Task<AlbumIndexViewModel?> GetByIdAsync(Guid id);
 
+        Task<AlbumSongsIndexViewModel?> GetByIdWithSongsAsync(Guid id);
+
         Task AddAsync(AlbumCreateViewModel model, Guid userId);
 
         Task RemoveAsync(Guid id);
