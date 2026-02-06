@@ -149,7 +149,7 @@ namespace StaskoFy.Controllers
                 return NotFound();
             }
 
-            var album = await albumService.GetByIdAsync(id);
+            var album = await albumService.GetByIdWithSongsAsync(id);
             return View(album);
         }
     }

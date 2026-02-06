@@ -1,4 +1,4 @@
-﻿@model AlbumIndexViewModel
+﻿@model AlbumSongsIndexViewModel
 
 <div class="row g-3 justify-content-center mt-3">​
     <div class="col-12 col-md-6 col-lg-12 fs-5">​
@@ -12,13 +12,24 @@
                 <thead>
                     <tr>
                         <th>Title</th>
+                        <th>Length</th>
+                        <th>Release Date</th>
+                        <th>Artists</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var song in @Model.Songs)
+                    @foreach (var song in Model.Songs)
                     {
                         <tr>
-                            <td>@song</td>
+                            <td>@song.Title</td>
+                            <td>@song.Minutes:@song.Seconds</td>
+                            <td>@song.Genre</td>
+                            <td>
+                                @foreach (var artist in song.Artists)
+                                {
+                                    <span>@artist</span>
+                                }
+                            </td>
                         </tr>
                     }
                 </tbody>

@@ -31,6 +31,16 @@ namespace StaskoFy
             }).AddEntityFrameworkStores<StaskoFyDbContext>()
             .AddDefaultTokenProviders();
 
+            builder.Services.AddAuthorization(options =>
+            {
+                options.AddPolicy("ArtistOrAdmin", policy =>
+                    policy.RequireRole("Admin", "Artist"));
+
+                options.AddPolicy("ArtistOrAdminOrUser", policy =>
+                    policy.RequireRole("Artist", "Admin", "User"));
+            });
+
+
             var cloudinarySettings = builder.Configuration
                 .GetSection("CloudinarySettings").Get<CloudinarySettings>();
             builder.Services.AddSingleton<Cloudinary>((sp) =>
@@ -44,6 +54,7 @@ namespace StaskoFy
             builder.Services.AddScoped<IGenreService, GenreService>();
             builder.Services.AddScoped<ISongService, SongService>();
             builder.Services.AddScoped<IAlbumService, AlbumService>();
+            builder.Services.AddScoped<ILikedSongsService, LikedSongsService>();
 
             // Users:
             // stasko456; Stasko1234*; stdimov2007@gmail.com User
