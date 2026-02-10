@@ -20,7 +20,7 @@ namespace StaskoFy.DataAccess.Configurations
                     Title = "Hip-Hop & Trap Filmar",
                     Length = new TimeSpan(0, 16, 59),
                     SongCount = 6,
-                    DataCreated = new DateOnly(2024, 12, 4),
+                    DateCreated = new DateOnly(2024, 12, 4),
                     UserId = Guid.Parse("01111111-1111-1111-1111-111111111111"),
                     IsPublic = true,
                     ImageURL = "/images/defaults/default-album-cover-art.png"
@@ -31,7 +31,7 @@ namespace StaskoFy.DataAccess.Configurations
                     Title = "00PIUMxx Filmar",
                     Length = new TimeSpan(0, 19, 9),
                     SongCount = 7,
-                    DataCreated = new DateOnly(2024, 12, 10),
+                    DateCreated = new DateOnly(2024, 12, 10),
                     UserId = Guid.Parse("02111111-1111-1111-1111-111111111111"),
                     IsPublic = true,
                     ImageURL = "/images/defaults/default-album-cover-art.png"
@@ -42,7 +42,7 @@ namespace StaskoFy.DataAccess.Configurations
                     Title = "Mnooo Cherno",
                     Length = new TimeSpan(0, 22, 29),
                     SongCount = 8,
-                    DataCreated = new DateOnly(2022, 6, 27),
+                    DateCreated = new DateOnly(2022, 6, 27),
                     UserId = Guid.Parse("03111111-1111-1111-1111-111111111111"),
                     IsPublic = false,
                     ImageURL = "/images/defaults/default-album-cover-art.png"
