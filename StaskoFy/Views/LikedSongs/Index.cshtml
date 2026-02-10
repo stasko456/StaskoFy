@@ -1,6 +1,12 @@
 ﻿@model List<LikedSongsIndexViewModel>
 
-<h2 class="mb-4 text-center fw-bold">Liked Songs</h2>
+<div class="container py-5">
+    <div class="text-center text-light">
+        <h1 class="display-4 fw-bold mb-3">
+            @User?.Identity?.Name 's <span class="text-warning">Liked Songs</span>
+        </h1>
+    </div>
+</div>
 
 <div class="row g-4 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
     @foreach (var likedSong in Model)
