@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StaskoFy.ViewModels.Song;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,22 +7,22 @@ using System.Threading.Tasks;
 
 namespace StaskoFy.ViewModels.Playlist
 {
-    public class PlaylistIndexViewModel
+    public class PlaylistSongsIndexViewModel
     {
         public Guid Id { get; set; }
 
-        public string Title { get; set; } = null!;
+        public string Title { get; set; }
 
         public int Hours { get; set; }
         public int Minutes { get; set; }
         public int Seconds { get; set; }
 
-        public int SongCount { get; set; }
-
         public DateOnly DateCreated { get; set; }
 
-        public string ImageURL { get; set; } = null!;
+        public int SongsCount { get; set; }
 
-        public bool IsPublic { get; set; }
+        public string ImageURL { get; set; }
+
+        public List<SongAlbumIndexViewModel> Songs { get; set; } = new();
     }
 }

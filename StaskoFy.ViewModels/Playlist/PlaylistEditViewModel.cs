@@ -36,8 +36,6 @@ namespace StaskoFy.ViewModels.Playlist
 
         public bool IsPublic { get; set; } = false; // false by default
 
-        [Required(ErrorMessage = "Please select at least one song.")]
-        [MinLength(1, ErrorMessage = "Please select at least one song.")]
         public List<Guid> SelectedSongIds { get; set; } = new();
         public Microsoft.AspNetCore.Mvc.Rendering.MultiSelectList? Songs { get; set; }
     }
