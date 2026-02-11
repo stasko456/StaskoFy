@@ -24,9 +24,9 @@ namespace StaskoFy.Controllers
         [Authorize(Roles = "Artist")]
         public async Task<IActionResult> Index()
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var artistId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var songs = await songService.GetSpecificArtistSongsAsync(Guid.Parse(userId));
+            var songs = await songService.GetSpecificArtistSongsAsync(Guid.Parse(artistId));
             return View(songs);
         }
 
@@ -108,14 +108,12 @@ namespace StaskoFy.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var artists = await artistService.PopulateArtistSelectListAsync(Guid.Parse(userId));
-
-            var genres = await genreService.GetAllAsync();
-
             if (!ModelState.IsValid)
             {
+                var genres = await genreService.GetAllAsync();
                 ViewBag.Genres = new SelectList(genres, "Id", "Name");
 
+                var artists = await artistService.PopulateArtistSelectListAsync(Guid.Parse(userId));
                 model.Artists = new MultiSelectList(artists, "Id", "Username");
 
                 return View(model);

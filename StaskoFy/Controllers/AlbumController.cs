@@ -66,8 +66,9 @@ namespace StaskoFy.Controllers
             if (!ModelState.IsValid)
             {
                 var artists = await artistService.PopulateArtistSelectListAsync(Guid.Parse(userId));
-                var songs = await songService.GetSpecificArtistSongsAsync(Guid.Parse(userId));
                 model.Artists = new MultiSelectList(artists, "Id", "Username");
+
+                var songs = await songService.GetSpecificArtistSongsAsync(Guid.Parse(userId));
                 model.Songs = new MultiSelectList(songs, "Id", "Title");
 
                 return View(model);
@@ -103,7 +104,6 @@ namespace StaskoFy.Controllers
                 Songs = new MultiSelectList(songs, "Id", "Title"),
             };
 
-            await albumService.UpdateAsync(model, Guid.Parse(userId));
             return View(model);
         }
 
@@ -113,12 +113,12 @@ namespace StaskoFy.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var artists = await artistService.PopulateArtistSelectListAsync(Guid.Parse(userId));
-            var songs = await songService.GetSpecificArtistSongsAsync(Guid.Parse(userId));
-
             if (!ModelState.IsValid)
             {
+                var artists = await artistService.PopulateArtistSelectListAsync(Guid.Parse(userId));
                 model.Artists = new MultiSelectList(artists, "Id", "Username");
+                
+                var songs = await songService.GetSpecificArtistSongsAsync(Guid.Parse(userId));
                 model.Songs = new MultiSelectList(songs, "Id", "Title");
                 
                 return View(model);

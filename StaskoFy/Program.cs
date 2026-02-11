@@ -55,6 +55,7 @@ namespace StaskoFy
             builder.Services.AddScoped<ISongService, SongService>();
             builder.Services.AddScoped<IAlbumService, AlbumService>();
             builder.Services.AddScoped<ILikedSongsService, LikedSongsService>();
+            builder.Services.AddScoped<IPlaylistService, PlaylistService>();
 
             // Users:
             // stasko456; Stasko1234*; stdimov2007@gmail.com User
