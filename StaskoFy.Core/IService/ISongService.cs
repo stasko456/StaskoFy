@@ -15,11 +15,11 @@ namespace StaskoFy.Core.IService
 
         Task<SongIndexViewModel?> GetByIdAsync(Guid id);
 
-        Task AddAsync(SongCreateViewModel model, Guid userId);
+        Task AddAsync(SongCreateViewModel model, Guid artistId);
 
         Task RemoveAsync(Guid id);
         Task RemoveRangeAsync(IEnumerable<Guid> ids);
 
-        Task UpdateAsync(SongEditViewModel model, Guid userId);
+        Task UpdateAsync(SongEditViewModel model, Guid artistId);
     }
 }

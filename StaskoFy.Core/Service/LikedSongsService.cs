@@ -42,7 +42,6 @@ namespace StaskoFy.Core.Service
         {
             var likedSong = new LikedSongs
             {
-                Id = Guid.NewGuid(),
                 SongId = model.SongId,
                 UserId = userId,
                 DateAdded = DateOnly.FromDateTime(DateTime.Now),
@@ -56,7 +55,7 @@ namespace StaskoFy.Core.Service
             }
         }
 
-        public async Task<LikedSongsIndexViewModel> GetByIdAsync(Guid id, Guid userId)
+        public async Task<LikedSongsIndexViewModel?> GetByIdAsync(Guid id, Guid userId)
         {
             var likedSong = await likedSongsRepo.GetByIdAsync(id);
 

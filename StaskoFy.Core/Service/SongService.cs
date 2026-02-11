@@ -44,7 +44,7 @@ namespace StaskoFy.Core.Service
                 }).ToListAsync();
         }
 
-        public async Task<IEnumerable<SongIndexViewModel>> GetSpecificArtistSongsAsync(Guid userId)
+        public async Task<IEnumerable<SongIndexViewModel>> GetSpecificArtistSongsAsync(Guid artistId)
         {
             var specificArtistSongs = new List<SongIndexViewModel>();
 
@@ -54,7 +54,7 @@ namespace StaskoFy.Core.Service
                 .Include(x => x.ArtistsSongs)
                     .ThenInclude(a => a.Artist)
                         .ThenInclude(u => u.User)
-                .Where(s => s.ArtistsSongs.Any(a => a.Artist.UserId == userId))
+                .Where(s => s.ArtistsSongs.Any(a => a.Artist.UserId == artistId))
                 .ToListAsync();
 
             foreach (var song in songs)
@@ -112,10 +112,10 @@ namespace StaskoFy.Core.Service
             };
         }
 
-        public async Task AddAsync(SongCreateViewModel model, Guid userId)
+        public async Task AddAsync(SongCreateViewModel model, Guid artistId)
         {
             var mainArtist = await artistRepo.GetAllAttached().
-                FirstOrDefaultAsync(x => x.UserId == userId);
+                FirstOrDefaultAsync(x => x.UserId == artistId);
 
             var featuredArtists = await artistRepo.GetAllAttached().
                 Where(x => model.SelectedArtistIds.Contains(x.Id))
@@ -149,10 +149,10 @@ namespace StaskoFy.Core.Service
             await songRepo.AddAsync(song);
         }
 
-        public async Task UpdateAsync(SongEditViewModel model, Guid userId)
+        public async Task UpdateAsync(SongEditViewModel model, Guid artistId)
         {
             var mainArtist = await artistRepo.GetAllAttached()
-                .FirstOrDefaultAsync(x => x.UserId == userId);
+                .FirstOrDefaultAsync(x => x.UserId == artistId);
 
             var featuredArtists = await artistRepo.GetAllAttached()
                 .Where(x => model.SelectedArtistIds.Contains(model.Id))

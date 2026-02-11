@@ -45,7 +45,7 @@ namespace StaskoFy.Core.Service
                 }).ToListAsync();
         }
 
-        public async Task<IEnumerable<AlbumIndexViewModel>> GetSpecificArtistAlbumsAsync(Guid userId)
+        public async Task<IEnumerable<AlbumIndexViewModel>> GetSpecificArtistAlbumsAsync(Guid artistId)
         {
             var specificArtistAlbums = new List<AlbumIndexViewModel>();
 
@@ -53,7 +53,7 @@ namespace StaskoFy.Core.Service
                 .Include(x => x.ArtistsAlbums)
                     .ThenInclude(a => a.Artist)
                         .ThenInclude(u => u.User)
-                .Where(s => s.ArtistsAlbums.Any(a => a.Artist.UserId == userId))
+                .Where(s => s.ArtistsAlbums.Any(a => a.Artist.UserId == artistId))
                 .ToListAsync();
 
             foreach (var album in albums)
@@ -145,10 +145,10 @@ namespace StaskoFy.Core.Service
             };
         }
 
-        public async Task AddAsync(AlbumCreateViewModel model, Guid userId)
+        public async Task AddAsync(AlbumCreateViewModel model, Guid artistId)
         {
             var mainArtist = await artistRepo.GetAllAttached().
-                FirstOrDefaultAsync(x => x.UserId == userId);
+                FirstOrDefaultAsync(x => x.UserId == artistId);
 
             var featuredArtists = await artistRepo.GetAllAttached().
                 Where(x => model.SelectedArtistIds.Contains(x.Id))
@@ -202,13 +202,14 @@ namespace StaskoFy.Core.Service
             }
             album.Length = albumLength;
 
+            // add album to DB
             await albumRepo.AddAsync(album);
         }
 
-        public async Task UpdateAsync(AlbumEditViewModel model, Guid userId)
+        public async Task UpdateAsync(AlbumEditViewModel model, Guid artistId)
         {
             var mainArtist = await artistRepo.GetAllAttached().
-                FirstOrDefaultAsync(x => x.UserId == userId);
+                FirstOrDefaultAsync(x => x.UserId == artistId);
 
             var featuredArtists = await artistRepo.GetAllAttached()
                 .Where(x => model.SelectedArtistIds.Contains(x.Id))

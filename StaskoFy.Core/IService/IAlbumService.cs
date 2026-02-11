@@ -11,17 +11,17 @@ namespace StaskoFy.Core.IService
     {
         Task<IEnumerable<AlbumIndexViewModel>> GetAllAsync();
 
-        Task<IEnumerable<AlbumIndexViewModel>> GetSpecificArtistAlbumsAsync(Guid userId);
+        Task<IEnumerable<AlbumIndexViewModel>> GetSpecificArtistAlbumsAsync(Guid artistId);
 
         Task<AlbumIndexViewModel?> GetByIdAsync(Guid id);
 
         Task<AlbumSongsIndexViewModel?> GetByIdWithSongsAsync(Guid id);
 
-        Task AddAsync(AlbumCreateViewModel model, Guid userId);
+        Task AddAsync(AlbumCreateViewModel model, Guid artistId);
 
         Task RemoveAsync(Guid id);
         Task RemoveRangeAsync(IEnumerable<Guid> ids);
 
-        Task UpdateAsync(AlbumEditViewModel model, Guid userId);
+        Task UpdateAsync(AlbumEditViewModel model, Guid artistId);
     }
 }
