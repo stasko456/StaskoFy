@@ -16,6 +16,10 @@ namespace StaskoFy.Core.IService
 
         Task<LikedSongsIndexViewModel?> GetByIdAsync(Guid id, Guid userId);
 
-        Task RemoveAsync(Guid id);
+        Task<bool> IsSongLikedByUserAsync(Guid songId, Guid userId);
+
+        Task<LikedSongs?> GetByUserAndSongAsync(Guid userId, Guid songId);
+
+        Task RemoveAsync(Guid userId, Guid songId);
     }
 }

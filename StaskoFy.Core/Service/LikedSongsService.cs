@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,10 +16,12 @@ namespace StaskoFy.Core.Service
     public class LikedSongsService : ILikedSongsService
     {
         private readonly IRepository<LikedSongs> likedSongsRepo;
+        private readonly IRepository<Song> songRepo;
 
-        public LikedSongsService(IRepository<LikedSongs> _likedSongsRepo)
+        public LikedSongsService(IRepository<LikedSongs> _likedSongsRepo, IRepository<Song> _songRepo)
         {
             this.likedSongsRepo = _likedSongsRepo;
+            this.songRepo = _songRepo;
         }
 
         public async Task<IEnumerable<LikedSongsIndexViewModel>> GetAllAsync(Guid userId)
@@ -38,19 +41,41 @@ namespace StaskoFy.Core.Service
                 }).ToListAsync(); 
         }
 
+        public async Task<bool> IsSongLikedByUserAsync(Guid songId, Guid userId)
+        {
+            return await likedSongsRepo.GetAllAttached()
+                .AnyAsync(x => x.UserId == userId && x.SongId == songId);
+        }
+
+        public async Task<LikedSongs?> GetByUserAndSongAsync(Guid userId, Guid songId)
+        {
+            return await likedSongsRepo.GetAllAttached()
+                .FirstOrDefaultAsync(x => x.UserId == userId && x.SongId == songId);
+        }
+
         public async Task AddAsync(LikedSongsCreateViewModel model, Guid userId)
         {
-            var likedSong = new LikedSongs
-            {
-                SongId = model.SongId,
-                UserId = userId,
-                DateAdded = DateOnly.FromDateTime(DateTime.Now),
-            };
+            bool isLiked = await this.IsSongLikedByUserAsync(userId, model.SongId);
 
-            var checkIfLikedSongExists = await likedSongsRepo.GetByIdAsync(likedSong.Id);
-
-            if (checkIfLikedSongExists == null)
+            if (!isLiked)
             {
+                var song = await songRepo.GetByIdAsync(model.SongId);
+
+                if (song == null)
+                {
+                    return;
+                }
+
+                song.Likes++;
+                await songRepo.UpdateAsync(song);
+
+                var likedSong = new LikedSongs
+                {
+                    SongId = model.SongId,
+                    UserId = userId,
+                    DateAdded = DateOnly.FromDateTime(DateTime.Now),
+                };
+
                 await likedSongsRepo.AddAsync(likedSong);
             }
         }
@@ -77,11 +102,24 @@ namespace StaskoFy.Core.Service
             };
         }
 
-        public async Task RemoveAsync(Guid id)
+        public async Task RemoveAsync(Guid userId, Guid songId)
         {
-            var likedSongToRemove = await likedSongsRepo.GetByIdAsync(id);
+            var likedSong = await this.GetByUserAndSongAsync(userId, songId);
 
-            await likedSongsRepo.RemoveAsync(likedSongToRemove);
+            if (likedSong == null)
+            {
+                return;
+            }
+
+            var song = await songRepo.GetByIdAsync(songId);
+
+            if (song != null && song.Likes > 0)
+            {
+                song.Likes--;
+                await songRepo.UpdateAsync(song);
+            }
+
+            await likedSongsRepo.RemoveAsync(likedSong);
         }
     }
 }
