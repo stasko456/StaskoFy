@@ -1,51 +1,68 @@
 ﻿@model SongCreateViewModel
 
-<div class="row justify-content-center mt-3">
-    <div class="col-12 col-md-6 col-lg-6 border-2 border border-dark rounded-3 p-3 fs-5">
-        <h2 class="text-center">Create song</h2>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-xl-10">
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-body p-4 p-md-5">
+                    <h2 class="text-center mb-3 fw-bold">
+                        <i class="bi bi-music-note-beamed"></i> Create <span class="text-success">Song</span>
+                    </h2>
+                    <form method="post" asp-action="Create">
+                        <div class="row g-4 align-items-stretch">
+                            <div class="col-12 col-lg-6 d-flex">
+                                <div class="w-100">
+                                    <div class="mb-3">
+                                        <label asp-for="Title" class="form-label fw-semibold">Title</label>
+                                        <input asp-for="Title" class="form-control" placeholder="Song Title" />
+                                        <span asp-validation-for="Title" class="text-danger small"></span>
+                                    </div>
 
-        <form method="post" asp-action="Create">
-            <hr />
+                                    <div class="mb-3">
+                                        <label class="form-label fw-semibold">Duration (Minutes / Seconds)</label>
+                                        <div class="d-flex gap-2">
+                                            <input asp-for="Minutes" type="number" min="0" max="59" class="form-control" placeholder="Min" />
+                                            <input asp-for="Seconds" type="number" min="0" max="59" class="form-control" placeholder="Sec" />
+                                        </div>
+                                        <div class="d-flex gap-2 mt-1">
+                                            <span asp-validation-for="Minutes" class="text-danger small"></span>
+                                            <span asp-validation-for="Seconds" class="text-danger small"></span>
+                                        </div>
+                                    </div>
 
-            <div class="form-group text-center mb-3">
-                <label asp-for="Title" class="form-label">Title</label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
+                                    <div class="mb-3">
+                                        <label asp-for="GenreId" class="form-label fw-semibold">Genre</label>
+                                        <select asp-for="GenreId" asp-items="ViewBag.Genres" class="form-select">
+                                            <option value="">-- Select genre --</option>
+                                        </select>
+                                        <span asp-validation-for="GenreId" class="text-danger small"></span>
+                                    </div>
+                                </div>
+                            </div>
 
-            <div class="form-group text-center mb-3">
-                <label class="form-label">Minutes and Seconds</label>
-                <div class="d-flex gap-2">
-                    <input asp-for="Minutes" type="number" min="0" max ="59" class="form-control"placeholder="Min" />
-                    <input asp-for="Seconds" type="number" min="0" max="59" class="form-control" placeholder="Sec" />
+                            <div class="col-12 col-lg-6 d-flex">
+                                <div class="w-100">
+                                    <div class="mb-3 mt-5">
+                                        <label asp-for="SelectedArtistIds" class="form-label fw-semibold">Select Featured Artists</label>
+                                        <select asp-for="SelectedArtistIds" asp-items="Model.Artists" id="artistSelect" multiple class="form-select"></select>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label asp-for="ImageURL" class="form-label fw-semibold">Art Cover</label>
+                                        <input asp-for="ImageURL" class="form-control" placeholder="Image URL" />
+                                        <span asp-validation-for="ImageURL" class="text-danger small"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-success btn-lg rounded-pill px-5 shadow fw-semibold">Create Song</button>
+                        </div>
+                    </form>
                 </div>
-                <span asp-validation-for="Minutes" class="text-danger"></span>
-                <span asp-validation-for="Seconds" class="text-danger"></span>
             </div>
-
-            <div class="form-group text-center mb-3">
-                <label asp-for="GenreId" class="form-label">Genre</label>
-                <select asp-for="GenreId" asp-items="ViewBag.Genres" class="form-select">
-                    <option value="">-- Select genre --</option>
-                </select>
-                <span asp-validation-for="GenreId" class="text-danger"></span>
-            </div>
-
-            <div class="form-group text-center mb-3">
-                <label asp-for="SelectedArtistIds" class="form-label">Select Features</label>
-                <select asp-for="SelectedArtistIds" asp-items="Model.Artists" id="artistSelect" multiple class="form-select"></select>
-            </div>
-
-            <div class="form-group text-center mb-3">
-                <label asp-for="ImageURL" class="form-label">Art Cover</label>
-                <input asp-for="ImageURL" class="form-control" />
-                <span asp-validation-for="ImageURL" class="text-danger"></span>
-            </div>
-
-            <div class="text-center">
-                <button type="submit" class="btn btn-success w-100">Create</button>
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 

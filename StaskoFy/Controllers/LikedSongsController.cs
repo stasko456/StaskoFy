@@ -13,10 +13,12 @@ namespace StaskoFy.Controllers
     public class LikedSongsController : Controller
     {
         private readonly ILikedSongsService likedSongsService;
+        private readonly ISongService songService;
 
-        public LikedSongsController(ILikedSongsService _likedSongsService)
+        public LikedSongsController(ILikedSongsService _likedSongsService, ISongService _songService)
         {
             this.likedSongsService = _likedSongsService;
+            this.songService = _songService;
         }
 
         [HttpGet]
@@ -49,7 +51,11 @@ namespace StaskoFy.Controllers
         [Authorize(Policy = "ArtistOrAdminOrUser")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            await likedSongsService.RemoveAsync(id);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var song = await songService.GetByIdAsync(id);
+
+            await likedSongsService.RemoveAsync(Guid.Parse(userId), song.Id);
             return RedirectToAction("Index");
         }
     }

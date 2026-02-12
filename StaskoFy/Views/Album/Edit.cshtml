@@ -1,79 +1,89 @@
 ﻿@model AlbumEditViewModel
 
-<div class="row justify-content-center mt-3">​
-    <div class="col-12 col-md-6 col-lg-6 border-2 border border-dark rounded-3 p-3 fs-5">​
-        <h2 class="text-center">Edit album</h2>​
-        <section>​
-            <form method="post" asp-action="Edit">​
-                <hr />​
-                <div class="form-group text-center">​
-                    <label asp-for="@Model.Title" class="form-label"></label>​
-                    <input asp-for="@Model.Title" class="form-control" aria-required="true" />
-                    <span asp-validation-for="Title" class="text-danger"></span>
-                </div>​
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-xl-10">
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-body p-4 p-md-5">
+                    <h2 class="text-center mb-3 fw-bold">
+                        <i class="bi bi-music-note-beamed"></i> Edit <span class="text-warning">Album</span>
+                    </h2>
+                    <form method="post" asp-action="Edit">
+                        <div class="row g-4">
+                            <!-- LEFT COLUMN -->
+                            <div class="col-12 col-lg-6">
+                                <div class="mb-3">
+                                    <label asp-for="Title" class="form-label fw-semibold"></label>
+                                    <input asp-for="Title" class="form-control" placeholder="Title">
+                                    <span asp-validation-for="Title" class="text-danger small"></span>
+                                </div>
 
-                <div class="form-group text-center">​
-                    <label asp-for="@Model.ReleaseDate" class="form-label"></label>​
-                    <input type="date" asp-for="@Model.ReleaseDate" class="form-control" aria-required="true" />
-                    <span asp-validation-for="ReleaseDate" class="text-danger"></span>
-                </div>​
+                                <div class="mb-3">
+                                    <label asp-for="ImageURL" class="form-label fw-semibold">Image URL</label>
+                                    <input asp-for="ImageURL" class="form-control" placeholder="Image URL">
+                                    <span asp-validation-for="ImageURL" class="text-danger small"></span>
+                                </div>
 
-                <div class="form-group text-center">​
-                    <label asp-for="@Model.ImageURL" class="form-label"></label>​
-                    <input asp-for="@Model.ImageURL" class="form-control" aria-required="true" />
-                    <span asp-validation-for="ImageURL" class="text-danger"></span>
-                </div>​
+                                <div class="mb-3">
+                                    <label asp-for="ReleaseDate" class="form-label fw-semibold">Release Date</label>
+                                    <input asp-for="ReleaseDate" class="form-control" placeholder="Release Date">
+                                    <span asp-validation-for="ReleaseDate" class="text-danger small"></span>
+                                </div>
+                            </div>
 
-                <div class="form-group text-center">
-                    <label asp-for="SelectedArtistIds" class="form-label">Selected Features</label>
-                    <select asp-for="SelectedArtistIds" asp-items="Model.Artists" id="artistSelect" multiple class="form-select"></select>
+                            <!-- RIGHT COLUMN -->
+                            <div class="col-12 col-lg-6">
+                                <div class="mb-5 mt-4">
+                                    <label class="form-label fw-semibold">Featured Artists</label>
+                                    <select asp-for="SelectedArtistIds" asp-items="Model.Artists" id="artistSelect" multiple class="form-select" size="6"></select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold">Songs</label>
+                                    <select asp-for="SelectedSongIds" asp-items="Model.Songs" id="songSelect" multiple class="form-select size="6"></select>
+                                    <span asp-validation-for="SelectedSongIds" class="text-danger small"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-warning btn-lg rounded-pill px-5 shadow fw-semibold">Edit Album</button>
+                        </div>
+                    </form>
                 </div>
-
-                <div class="form-group text-center">
-                    <label asp-for="SelectedSongIds" class="form-label">Selected Songs</label>
-                    <select asp-for="SelectedSongIds" asp-items="Model.Songs" id="songSelect" multiple class="form-select"></select>
-                </div>
-
-                <div class="text-center">​
-                    <button type="submit" class="btn btn-primary w-100">Edit</button>
-                </div>​
-            </form>
-        </section>
-    </div>​
+            </div>
+        </div>
+    </div>
 </div>
 
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const artistSelect = document.getElementById('artistSelect');
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const artistSelect = document.getElementById('artistSelect');
-
-            new Choices(artistSelect, {
-                removeItemButton: true,
-                searchEnabled: true,
-                placeholderValue: 'Select artists',
-                noResultsText: 'No artists found',
-                itemSelectText: 'Click to select',
-                shouldSort: false
-            });
+        new Choices(artistSelect, {
+            removeItemButton: true,
+            searchEnabled: true,
+            placeholderValue: 'Select artists',
+            noResultsText: 'No artists found',
+            itemSelectText: 'Click to select',
+            shouldSort: false
         });
+    });
 
-        document.addEventListener('DOMContentLoaded', function () {
-            const artistSelect = document.getElementById('songSelect');
+    document.addEventListener('DOMContentLoaded', function () {
+        const artistSelect = document.getElementById('songSelect');
 
-            new Choices(artistSelect, {
-                removeItemButton: true,
-                searchEnabled: true,
-                placeholderValue: 'Select songs',
-                noResultsText: 'No songs found',
-                itemSelectText: 'Click to select',
-                shouldSort: false
-            });
+        new Choices(artistSelect, {
+            removeItemButton: true,
+            searchEnabled: true,
+            placeholderValue: 'Select songs',
+            noResultsText: 'No songs found',
+            itemSelectText: 'Click to select',
+            shouldSort: false
         });
-    </script>
-}
-
+    });
+</script>
 
 <style>
     .choices__item {

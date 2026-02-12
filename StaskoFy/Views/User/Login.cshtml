@@ -1,29 +1,45 @@
-﻿@model LoginViewModel​
+﻿@model LoginViewModel
 
-<div class="row justify-content-center mt-3">​
-    <div class="col-md-4 border-2 border border-dark rounded-3 p-3 fs-6">​
-        <h2 class="text-center">Login</h2>​
-        <section>​
-            <form id="account" method="post" asp-action="Login">​
-                <hr />​
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>​
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-6 col-lg-5">
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-body p-5">
+                    <h2 class="text-center mb-4 fw-bold display-5">
+                        <i class="bi bi-box-arrow-in-right me-2"></i><span class="text-warning">Login</span>
+                    </h2>
+                    <form id="account" method="post" asp-action="Login">
+                        <hr class="mb-3" />
+                        <!-- Validation summary -->
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-4"></div>
 
-                <div class="form-group text-center">​
-                    <label asp-for="@Model.Username" class="form-label"></label>​
-                    <input asp-for="@Model.Username" class="form-control" autocomplete="username" aria-required="true" />
-                    <span asp-validation-for="Username" class="text-danger"></span>
-                </div>​
+                        <!-- Username -->
+                        <div class="mb-3">
+                            <label asp-for="Username" class="form-label fw-semibold fs-5">Username</label>
+                            <input asp-for="Username" class="form-control form-control-lg" autocomplete="username" aria-required="true" placeholder="Enter username" />
+                            <span asp-validation-for="Username" class="text-danger small"></span>
+                        </div>
 
-                <div class="form-group text-center">
-                    <label asp-for="@Model.Password" class="form-label"></label>
-                    <input asp-for="@Model.Password" type="password" class="form-control" autocomplete="current-password" aria-required="true" />
-                    <span asp-validation-for="Password" class="text-danger"></span>​
-                </div>​
+                        <!-- Password -->
+                        <div class="mb-3">
+                            <label asp-for="Password" class="form-label fw-semibold fs-5">Password</label>
+                            <input asp-for="Password" type="password" class="form-control form-control-lg" autocomplete="current-password" aria-required="true" placeholder="Enter password" />
+                            <span asp-validation-for="Password" class="text-danger small"></span>
+                        </div>
 
-                <div class="text-center">​
-                    <button id="login-submit" type="submit" class="btn btn-primary w-100">Log in</button>
-                </div>​
-            </form>
-        </section>
-    </div>​
+                        <!-- Submit Button -->
+                        <div class="text-center mt-3">
+                            <button id="login-submit" type="submit" class="btn btn-warning btn-lg w-100 rounded-pill shadow fs-5">
+                                Log In
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

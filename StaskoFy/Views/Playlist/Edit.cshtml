@@ -1,40 +1,64 @@
 ﻿@model PlaylistEditViewModel
 
-<div class="row justify-content-center mt-3">​
-    <div class="col-12 col-md-6 col-lg-6 border-2 border border-dark rounded-3 p-3 fs-5">​
-        <h2 class="text-center">Edit playlist</h2>​
-        <section>​
-            <form method="post" asp-action="Edit">​
-                <hr />​
-                <div class="form-group text-center">​
-                    <label asp-for="@Model.Title" class="form-label"></label>​
-                    <input asp-for="@Model.Title" class="form-control" aria-required="true" />
-                    <span asp-validation-for="Title" class="text-danger"></span>
-                </div>​
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-xl-10">
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-body p-4 p-md-5">
+                    <h2 class="text-center mb-3 fw-bold">
+                        <i class="bi bi-music-note-list"></i> Edit <span class="text-warning">Playlist</span>
+                    </h2>
+                    <form method="post" asp-action="Edit">
+                        <input type="hidden" asp-for="Id" />
+                        <div class="row g-4 align-items-stretch">
+                            <!-- LEFT COLUMN -->
+                            <div class="col-12 col-lg-6 d-flex">
+                                <div class="w-100">
+                                    <!-- Title -->
+                                    <div class="mb-3">
+                                        <label asp-for="Title" class="form-label fw-semibold">Playlist Title</label>
+                                        <input asp-for="Title" class="form-control" placeholder="Playlist Title" aria-required="true" />
+                                        <span asp-validation-for="Title" class="text-danger small"></span>
+                                    </div>
 
-                <div class="form-group text-center">​
-                    <label asp-for="@Model.DateCreated" class="form-label"></label>​
-                    <input type="date" asp-for="@Model.DateCreated" class="form-control" aria-required="true" />
-                    <span asp-validation-for="DateCreated" class="text-danger"></span>
-                </div>​
+                                    <!-- Date Created -->
+                                    <div class="mb-3">
+                                        <label asp-for="DateCreated" class="form-label fw-semibold">Date Created</label>
+                                        <input type="date" asp-for="DateCreated" class="form-control" aria-required="true" />
+                                        <span asp-validation-for="DateCreated" class="text-danger small"></span>
+                                    </div>
+                                </div>
+                            </div>
 
-                <div class="form-group text-center">​
-                    <label asp-for="@Model.ImageURL" class="form-label"></label>​
-                    <input asp-for="@Model.ImageURL" class="form-control" aria-required="true" />
-                    <span asp-validation-for="ImageURL" class="text-danger"></span>
-                </div>​
+                            <!-- RIGHT COLUMN -->
+                            <div class="col-12 col-lg-6 d-flex">
+                                <div class="w-100">
+                                    <!-- Image URL -->
+                                    <div class="mb-3">
+                                        <label asp-for="ImageURL" class="form-label fw-semibold">Cover Image URL</label>
+                                        <input asp-for="ImageURL" class="form-control" placeholder="Image URL" aria-required="true" />
+                                        <span asp-validation-for="ImageURL" class="text-danger small"></span>
+                                    </div>
 
-                <div class="form-group text-center mb-3">
-                    <label asp-for="SelectedSongIds" class="form-label">Selected Features</label>
-                    <select asp-for="SelectedSongIds" asp-items="Model.Songs" id="songSelect" multiple class="form-select"></select>
+                                    <!-- Selected Songs -->
+                                    <div class="mb-3">
+                                        <label asp-for="SelectedSongIds" class="form-label fw-semibold">Selected Songs</label>
+                                        <select asp-for="SelectedSongIds" asp-items="Model.Songs" id="songSelect" multiple class="form-select"></select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-warning btn-lg rounded-pill px-5 shadow fw-semibold">Edit Playlist</button>
+                        </div>
+
+                    </form>
                 </div>
-
-                <div class="text-center">​
-                    <button type="submit" class="btn btn-primary w-100">Edit</button>
-                </div>​
-            </form>
-        </section>
-    </div>​
+            </div>
+        </div>
+    </div>
 </div>
 
 @section Scripts {
@@ -42,9 +66,9 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const artistSelect = document.getElementById('songSelect');
+            const songSelect = document.getElementById('songSelect');
 
-            new Choices(artistSelect, {
+            new Choices(songSelect, {
                 removeItemButton: true,
                 searchEnabled: true,
                 placeholderValue: 'Select songs',
@@ -55,7 +79,6 @@
         });
     </script>
 }
-
 
 <style>
     .choices__item {
