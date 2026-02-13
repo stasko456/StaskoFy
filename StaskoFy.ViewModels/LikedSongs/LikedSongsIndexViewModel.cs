@@ -11,6 +11,8 @@ namespace StaskoFy.ViewModels.LikedSongs
     {
         public Guid Id { get; set; }
 
+        public Guid SongId { get; set; }
+
         public string Title { get; set; } = null!;
 
         public string AlbumTitle { get; set; } = null!;
