@@ -27,20 +27,20 @@ namespace StaskoFy.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var currentUserLikedSongs = await likedSongsService.GetAllAsync(Guid.Parse(userId));
+            var currentUserLikedSongs = await likedSongsService.GetAllFromCurrentLoggedUserAsync(Guid.Parse(userId));
 
             return View(currentUserLikedSongs);
         }
 
         [HttpPost]
         [Authorize(Policy = "ArtistOrAdminOrUser")]
-        public async Task<IActionResult> Create(Guid id)
+        public async Task<IActionResult> Create(Guid songId)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             var model = new LikedSongsCreateViewModel
             {
-                SongId = id,
+                SongId = songId,
             };
 
             await likedSongsService.AddAsync(model, Guid.Parse(userId));
@@ -49,13 +49,11 @@ namespace StaskoFy.Controllers
 
         [HttpPost]
         [Authorize(Policy = "ArtistOrAdminOrUser")]
-        public async Task<IActionResult> Delete(Guid id)
+        public async Task<IActionResult> Delete(Guid songId)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var song = await songService.GetByIdAsync(id);
-
-            await likedSongsService.RemoveAsync(Guid.Parse(userId), song.Id);
+            await likedSongsService.RemoveAsync(Guid.Parse(userId), songId);
             return RedirectToAction("Index");
         }
     }

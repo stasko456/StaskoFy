@@ -42,8 +42,21 @@
 
                                     <!-- Selected Songs -->
                                     <div class="mb-3">
-                                        <label asp-for="SelectedSongIds" class="form-label fw-semibold">Selected Songs</label>
-                                        <select asp-for="SelectedSongIds" asp-items="Model.Songs" id="songSelect" multiple class="form-select"></select>
+                                        <label class="form-label fw-semibold">Songs</label>
+                                        <select asp-for="SelectedSongIds"
+                                                asp-items="Model.Songs"
+                                                multiple
+                                                class="form-select
+                                                size="6"
+                                                data-choices
+                                                data-remove-item-button="true"
+                                                data-search-enabled="true"
+                                                data-placeholder-value="Select songs"
+                                                data-no-results-text="No songs found"
+                                                data-item-select-text="Click to select"
+                                                data-should-sort="false">
+                                        </select>
+                                        <span asp-validation-for="SelectedSongIds" class="text-danger small"></span>
                                     </div>
                                 </div>
                             </div>
@@ -63,37 +76,4 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const songSelect = document.getElementById('songSelect');
-
-            new Choices(songSelect, {
-                removeItemButton: true,
-                searchEnabled: true,
-                placeholderValue: 'Select songs',
-                noResultsText: 'No songs found',
-                itemSelectText: 'Click to select',
-                shouldSort: false
-            });
-        });
-    </script>
 }
-
-<style>
-    .choices__item {
-        background-color: #0d6efd;
-        color: white;
-        border-radius: 0.375rem;
-        padding: 0.25rem 0.5rem;
-    }
-
-    .choices__item--selectable {
-        background-color: #0d6efd !important;
-        color: white !important;
-    }
-
-    .choices__button {
-        color: white !important;
-    }
-</style>

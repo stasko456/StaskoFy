@@ -1,38 +1,94 @@
 ﻿@model PlaylistSongsIndexViewModel
 
-<div class="row g-3 justify-content-center mt-3">​
-    <div class="col-12 col-md-6 col-lg-12 fs-5">​
-        <div class="text-center">
-            <h1 class="display-4 fw-bold mb-3">
-                <span class="text-warning">@Model.Title</span>
-            </h1>
-        </div>
-        <hr />
-        <table class="table table-striped table-bordered table-responsive text-center">
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Length</th>
-                        <th>Release Date</th>
-                        <th>Artists</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var song in Model.Songs)
-                    {
-                        <tr>
-                            <td>@song.Title</td>
-                            <td>@song.Minutes:@song.Seconds</td>
-                            <td>@song.Genre</td>
-                            <td>
-                                @foreach (var artist in song.Artists)
-                                {
-                                    <span>@artist</span>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-xl-10">
+
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-body p-4 p-md-5">
+
+                    <!-- Header -->
+                    <div class="text-center mb-4">
+                        <h2 class="fw-bold">
+                            <i class="bi bi-music-note-list me-2"></i>
+                            <span class="text-secondary">@Model.Title</span>
+                        </h2>
+                        <p class="text-muted mb-0">
+                            @Model.Songs.Count() Songs in this playlist
+                        </p>
+                    </div>
+
+                    <hr class="mb-4" />
+
+                    <!-- Songs Table -->
+                    <div class="table-responsive">
+                        <table class="table align-middle mb-0">
+
+                            <thead class="bg-light text-secondary">
+                                <tr class="small text-uppercase">
+                                    <th class="ps-3">#</th>
+                                    <th>Title</th>
+                                    <th>Length</th>
+                                    <th>Genre</th>
+                                    <th>Artists</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @{
+                                    int index = 1;
                                 }
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-          </table>
-    </div>​
+
+                                @foreach (var song in Model.Songs)
+                                {
+                                    <tr class="border-top">
+
+                                        <!-- Index -->
+                                        <td class="ps-3 text-muted fw-semibold">
+                                            @index
+                                        </td>
+
+                                        <!-- Title -->
+                                        <td class="fw-semibold text-dark">
+                                            <i class="bi bi-music-note text-secondary me-2"></i>
+                                            @song.Title
+                                        </td>
+
+                                        <!-- Duration -->
+                                        <td class="text-muted">
+                                            @song.Minutes:@song.Seconds.ToString("D2")
+                                        </td>
+
+                                        <!-- Genre -->
+                                        <td>
+                                            <span class="badge bg-secondary bg-opacity-75 rounded-pill px-3">
+                                                @song.Genre
+                                            </span>
+                                        </td>
+
+                                        <!-- Artists -->
+                                        <td>
+                                            @foreach (var artist in song.Artists)
+                                            {
+                                                <span class="badge bg-light text-dark border rounded-pill me-1 px-3">
+                                                    @artist
+                                                </span>
+                                            }
+                                        </td>
+
+                                    </tr>
+
+                                    index++;
+                                }
+
+                            </tbody>
+
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>

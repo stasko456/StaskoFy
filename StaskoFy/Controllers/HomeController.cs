@@ -16,9 +16,19 @@ namespace StaskoFy.Controllers
             this.songService = _songService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string filter)
         {
             var songs = await songService.GetAllAsync();
+
+            if (!string.IsNullOrEmpty(filter))
+            {
+                songs = await songService.GetAllBySongNameAsync(filter);
+
+                if (!songs.Any())
+                {
+                    ViewData["NoResult"] = "No songs found matching your search.";
+                }
+            }
             return View(songs);
         }
 
