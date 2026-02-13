@@ -21,5 +21,7 @@ namespace StaskoFy.Core.IService
         Task RemoveRangeAsync(IEnumerable<Guid> ids);
 
         Task UpdateAsync(SongEditViewModel model, Guid artistId);
+
+        Task<IEnumerable<SongIndexViewModel>> GetAllBySongNameAsync(string songTitle);
     }
 }

@@ -54,7 +54,7 @@ namespace StaskoFy.Core.Service
                 .Include(x => x.ArtistsSongs)
                     .ThenInclude(a => a.Artist)
                         .ThenInclude(u => u.User)
-                .Where(s => s.ArtistsSongs.Any(a => a.Artist.UserId == artistId))
+                .Where(s => s.ArtistsSongs.Any(a => a.Artist.UserId == artistId) && s.Album == null)
                 .ToListAsync();
 
             foreach (var song in songs)
@@ -216,6 +216,27 @@ namespace StaskoFy.Core.Service
             }
 
             await songRepo.RemoveRangeAsync(songsToRemove);
+        }
+
+        public async Task<IEnumerable<SongIndexViewModel>> GetAllBySongNameAsync(string songTitle)
+        {
+            return await songRepo.GetAllAttached()
+                .Where(s => s.Title == songTitle)
+                .Select(song => new SongIndexViewModel
+                {
+                    Id = song.Id,
+                    Title = song.Title,
+                    Minutes = song.Length.Minutes,
+                    Seconds = song.Length.Seconds,
+                    ReleaseDate = song.ReleaseDate,
+                    AlbumName = song.Album != null ? song.Album.Title : "Single",
+                    AlbumId = song.AlbumId,
+                    GenreId = song.GenreId,
+                    GenreName = song.Genre.Name,
+                    ImageURL = song.ImageURL,
+                    Likes = song.Likes,
+                    Artists = song.ArtistsSongs.Select(x => x.Artist.User.UserName).ToList()
+                }).ToListAsync();
         }
     }
 }

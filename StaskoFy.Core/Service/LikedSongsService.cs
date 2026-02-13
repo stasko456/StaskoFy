@@ -24,13 +24,14 @@ namespace StaskoFy.Core.Service
             this.songRepo = _songRepo;
         }
 
-        public async Task<IEnumerable<LikedSongsIndexViewModel>> GetAllAsync(Guid userId)
+        public async Task<IEnumerable<LikedSongsIndexViewModel>> GetAllFromCurrentLoggedUserAsync(Guid userId)
         {
             return await likedSongsRepo.GetAllAttached()
                 .Where(x => x.UserId == userId)
                 .Select(x => new LikedSongsIndexViewModel
                 {
                     Id = x.Id,
+                    SongId = x.SongId,
                     Title = x.Song.Title,
                     AlbumTitle = x.Song.Album == null ? "Single" : x.Song.Album.Title,
                     Minutes = x.Song.Length.Minutes,
@@ -41,12 +42,6 @@ namespace StaskoFy.Core.Service
                 }).ToListAsync(); 
         }
 
-        public async Task<bool> IsSongLikedByUserAsync(Guid songId, Guid userId)
-        {
-            return await likedSongsRepo.GetAllAttached()
-                .AnyAsync(x => x.UserId == userId && x.SongId == songId);
-        }
-
         public async Task<LikedSongs?> GetByUserAndSongAsync(Guid userId, Guid songId)
         {
             return await likedSongsRepo.GetAllAttached()
@@ -55,32 +50,34 @@ namespace StaskoFy.Core.Service
 
         public async Task AddAsync(LikedSongsCreateViewModel model, Guid userId)
         {
-            bool isLiked = await this.IsSongLikedByUserAsync(userId, model.SongId);
+            var isLiked = await likedSongsRepo.GetAllAttached()
+                .AnyAsync(x => x.UserId == userId && x.SongId == model.SongId);
 
-            if (!isLiked)
+            if (isLiked)
             {
-                var song = await songRepo.GetByIdAsync(model.SongId);
-
-                if (song == null)
-                {
-                    return;
-                }
-
-                song.Likes++;
-                await songRepo.UpdateAsync(song);
-
-                var likedSong = new LikedSongs
-                {
-                    SongId = model.SongId,
-                    UserId = userId,
-                    DateAdded = DateOnly.FromDateTime(DateTime.Now),
-                };
-
-                await likedSongsRepo.AddAsync(likedSong);
+                return;
             }
+
+            var song = await songRepo.GetByIdAsync(model.SongId);
+            if (song == null)
+            {
+                return;
+            }
+
+            var likedSong = new LikedSongs
+            {
+                SongId = model.SongId,
+                UserId = userId,
+                DateAdded = DateOnly.FromDateTime(DateTime.Now),
+            };
+
+            await likedSongsRepo.AddAsync(likedSong);
+
+            song.Likes++;
+            await songRepo.UpdateAsync(song);
         }
 
-        public async Task<LikedSongsIndexViewModel?> GetByIdAsync(Guid id, Guid userId)
+        public async Task<LikedSongsIndexViewModel?> GetByIdAsync(Guid id)
         {
             var likedSong = await likedSongsRepo.GetByIdAsync(id);
 
@@ -92,6 +89,7 @@ namespace StaskoFy.Core.Service
             return new LikedSongsIndexViewModel
             {
                 Id = id,
+                SongId = likedSong.SongId,
                 Title = likedSong.Song.Title,
                 AlbumTitle = likedSong.Song.Album == null ? "Single" : likedSong.Song.Album.Title,
                 Minutes = likedSong.Song.Length.Minutes,
@@ -113,7 +111,12 @@ namespace StaskoFy.Core.Service
 
             var song = await songRepo.GetByIdAsync(songId);
 
-            if (song != null && song.Likes > 0)
+            if (song == null)
+            {
+                return;
+            }
+
+            if (song.Likes > 0)
             {
                 song.Likes--;
                 await songRepo.UpdateAsync(song);
