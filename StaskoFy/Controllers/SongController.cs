@@ -22,11 +22,17 @@ namespace StaskoFy.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Artist")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchItem, List<string> filters)
         {
             var artistId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var songs = await songService.GetSpecificArtistSongsAsync(Guid.Parse(artistId));
+            var songs = await songService.FilterSongsForCurrentLoggedArtistAsync(Guid.Parse(artistId), searchItem, filters);
+
+            if (!songs.Any())
+            {
+                ViewData["NoResult"] = "No songs found matching your search.";
+            }
+
             return View(songs);
         }
 
