@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc.Formatters.Internal;
+using Microsoft.EntityFrameworkCore;
 using StaskoFy.Core.IService;
  using StaskoFy.DataAccess.Repository;
 using StaskoFy.Models.Entities;
@@ -6,6 +7,7 @@ using StaskoFy.ViewModels.Song;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -46,20 +48,14 @@ namespace StaskoFy.Core.Service
 
         public async Task<IEnumerable<SongIndexViewModel>> GetSpecificArtistSongsAsync(Guid artistId)
         {
-            var specificArtistSongs = new List<SongIndexViewModel>();
-
-            var songs = await songRepo.GetAllAttached()
+            return await songRepo.GetAllAttached()
                 .Include(x => x.Genre)
                 .Include(x => x.Album)
                 .Include(x => x.ArtistsSongs)
                     .ThenInclude(a => a.Artist)
                         .ThenInclude(u => u.User)
-                .Where(s => s.ArtistsSongs.Any(a => a.Artist.UserId == artistId) && s.Album == null)
-                .ToListAsync();
-
-            foreach (var song in songs)
-            {
-                var vm = new SongIndexViewModel
+                .Where(s => s.ArtistsSongs.Any(a => a.Artist.UserId == artistId))
+                .Select(song => new SongIndexViewModel
                 {
                     Id = song.Id,
                     Title = song.Title,
@@ -73,12 +69,8 @@ namespace StaskoFy.Core.Service
                     ImageURL = song.ImageURL,
                     Likes = song.Likes,
                     Artists = song.ArtistsSongs.Select(x => x.Artist.User.UserName).ToList()
-                };
-
-                specificArtistSongs.Add(vm);
-            }
-
-            return specificArtistSongs;
+                })
+                .ToListAsync();
         }
 
         public async Task<SongIndexViewModel?> GetByIdAsync(Guid id)
@@ -218,10 +210,58 @@ namespace StaskoFy.Core.Service
             await songRepo.RemoveRangeAsync(songsToRemove);
         }
 
-        public async Task<IEnumerable<SongIndexViewModel>> GetAllBySongNameAsync(string songTitle)
+        public async Task<IEnumerable<SongIndexViewModel>> FilterSongsAsync(string searchItem, List<string> filters)
         {
-            return await songRepo.GetAllAttached()
-                .Where(s => s.Title == songTitle)
+            var query = songRepo.GetAllAttached();
+
+            if (!string.IsNullOrEmpty(searchItem) && filters != null && filters.Any())
+            {
+                query = query.Where(s =>
+                    (filters.Contains("Title") && EF.Functions.Like(s.Title, $"%{searchItem}%")) ||
+                    (filters.Contains("Album") && s.Album != null && EF.Functions.Like(s.Album.Title, $"%{searchItem}%")) ||
+                    (filters.Contains("Genre") && EF.Functions.Like(s.Genre.Name, $"%{searchItem}%")) ||
+                    (filters.Contains("Artist") && s.ArtistsSongs.Any(a => EF.Functions.Like(a.Artist.User.UserName, $"%{searchItem}%")))
+                );
+            }
+
+            return await query
+                .Select(song => new SongIndexViewModel
+                {
+                    Id = song.Id,
+                    Title = song.Title,
+                    Minutes = song.Length.Minutes,
+                    Seconds = song.Length.Seconds,
+                    ReleaseDate = song.ReleaseDate,
+                    AlbumName = song.Album != null ? song.Album.Title : "Single",
+                    AlbumId = song.AlbumId,
+                    GenreId = song.GenreId,
+                    GenreName = song.Genre.Name,
+                    ImageURL = song.ImageURL,
+                    Likes = song.Likes,
+                    Artists = song.ArtistsSongs.Select(x => x.Artist.User.UserName).ToList()
+                }).Take(10).ToListAsync();
+        }
+
+        public async Task<IEnumerable<SongIndexViewModel>> FilterSongsForCurrentLoggedArtistAsync(Guid artistId, string searchItem, List<string> filters)
+        {
+            var query = songRepo.GetAllAttached()
+            .Include(s => s.Genre)
+            .Include(s => s.Album)
+            .Include(s => s.ArtistsSongs)
+                .ThenInclude(x => x.Artist)
+                    .ThenInclude(a => a.User)
+            .Where(s => s.ArtistsSongs.Any(x => x.Artist.UserId == artistId));
+
+            if (!string.IsNullOrEmpty(searchItem) && filters != null && filters.Any())
+            {
+                query = query.Where(s =>
+                    (filters.Contains("Title") && EF.Functions.Like(s.Title, $"%{searchItem}%")) ||
+                    (filters.Contains("Album") && s.Album != null && EF.Functions.Like(s.Album.Title, $"%{searchItem}%")) ||
+                    (filters.Contains("Genre") && EF.Functions.Like(s.Genre.Name, $"%{searchItem}%"))
+                );
+            }
+
+            return await query
                 .Select(song => new SongIndexViewModel
                 {
                     Id = song.Id,

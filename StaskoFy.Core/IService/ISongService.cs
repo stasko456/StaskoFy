@@ -22,6 +22,8 @@ namespace StaskoFy.Core.IService
 
         Task UpdateAsync(SongEditViewModel model, Guid artistId);
 
-        Task<IEnumerable<SongIndexViewModel>> GetAllBySongNameAsync(string songTitle);
+        Task<IEnumerable<SongIndexViewModel>> FilterSongsAsync(string searchItem, List<string> filters);
+
+        Task<IEnumerable<SongIndexViewModel>> FilterSongsForCurrentLoggedArtistAsync(Guid artistId, string searchItem, List<string> filters);
     }
 }

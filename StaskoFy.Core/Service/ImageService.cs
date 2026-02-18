@@ -30,7 +30,7 @@ namespace StaskoFy.Core.Service
 
             var uploadResult = await cloudinary.UploadAsync(uploadParams);
 
-            return uploadResult.SecureUrl.ToString();
+            return uploadResult.SecureUrl.ToString();   
         }
     }
 }
