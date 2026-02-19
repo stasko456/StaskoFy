@@ -25,6 +25,8 @@ namespace StaskoFy.ViewModels.Song
 
         public string ImageURL { get; set; } = null!;
 
+        public string CloudinaryPublicId { get; set; } = null!;
+
         public int Likes { get; set; }
 
         public List<string> Artists { get; set; } = new();

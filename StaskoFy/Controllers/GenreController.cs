@@ -15,7 +15,7 @@ namespace StaskoFy.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Index()
         {
             var genres = await genreService.GetAllAsync();
@@ -24,7 +24,7 @@ namespace StaskoFy.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Policy = "Admin")]
         public IActionResult Create()
         {
             var model = new GenreCreateViewModel();
@@ -32,7 +32,7 @@ namespace StaskoFy.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Create(GenreCreateViewModel model)
         {
             if (!ModelState.IsValid)
@@ -45,7 +45,7 @@ namespace StaskoFy.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Edit(Guid id)
         {
             if (id == null || id == Guid.Empty)
@@ -65,7 +65,7 @@ namespace StaskoFy.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Edit(GenreEditViewModel model)
         {
             if (!ModelState.IsValid)
@@ -79,7 +79,7 @@ namespace StaskoFy.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Delete(Guid id)
         {
             if (id == null || id == Guid.Empty)

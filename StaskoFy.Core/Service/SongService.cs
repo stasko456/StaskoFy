@@ -40,38 +40,40 @@ namespace StaskoFy.Core.Service
                     GenreName = s.Genre.Name,
                     GenreId = s.GenreId,
                     ImageURL = s.ImageURL,
+                    CloudinaryPublicId = s.CloudinaryPublicId,
                     Likes = s.Likes,
                     ReleaseDate = s.ReleaseDate,
                     Artists = s.ArtistsSongs.Select(x => x.Artist.User.UserName).ToList()
                 }).ToListAsync();
         }
 
-        public async Task<IEnumerable<SongIndexViewModel>> GetSpecificArtistSongsAsync(Guid artistId)
-        {
-            return await songRepo.GetAllAttached()
-                .Include(x => x.Genre)
-                .Include(x => x.Album)
-                .Include(x => x.ArtistsSongs)
-                    .ThenInclude(a => a.Artist)
-                        .ThenInclude(u => u.User)
-                .Where(s => s.ArtistsSongs.Any(a => a.Artist.UserId == artistId))
-                .Select(song => new SongIndexViewModel
-                {
-                    Id = song.Id,
-                    Title = song.Title,
-                    Minutes = song.Length.Minutes,
-                    Seconds = song.Length.Seconds,
-                    ReleaseDate = song.ReleaseDate,
-                    AlbumName = song.Album != null ? song.Album.Title : "Single",
-                    AlbumId = song.AlbumId,
-                    GenreId = song.GenreId,
-                    GenreName = song.Genre.Name,
-                    ImageURL = song.ImageURL,
-                    Likes = song.Likes,
-                    Artists = song.ArtistsSongs.Select(x => x.Artist.User.UserName).ToList()
-                })
-                .ToListAsync();
-        }
+        //public async Task<IEnumerable<SongIndexViewModel>> GetSpecificArtistSongsAsync(Guid artistId)
+        //{
+        //    return await songRepo.GetAllAttached()
+        //        .Include(x => x.Genre)
+        //        .Include(x => x.Album)
+        //        .Include(x => x.ArtistsSongs)
+        //            .ThenInclude(a => a.Artist)
+        //                .ThenInclude(u => u.User)
+        //        .Where(s => s.ArtistsSongs.Any(a => a.Artist.UserId == artistId))
+        //        .Select(song => new SongIndexViewModel
+        //        {
+        //            Id = song.Id,
+        //            Title = song.Title,
+        //            Minutes = song.Length.Minutes,
+        //            Seconds = song.Length.Seconds,
+        //            ReleaseDate = song.ReleaseDate,
+        //            AlbumName = song.Album != null ? song.Album.Title : "Single",
+        //            AlbumId = song.AlbumId,
+        //            GenreId = song.GenreId,
+        //            GenreName = song.Genre.Name,
+        //            ImageURL = song.ImageURL,
+        //            CloudinaryPublicId = song.CloudinaryPublicId,
+        //            Likes = song.Likes,
+        //            Artists = song.ArtistsSongs.Select(x => x.Artist.User.UserName).ToList()
+        //        })
+        //        .ToListAsync();
+        //}
 
         public async Task<SongIndexViewModel?> GetByIdAsync(Guid id)
         {
@@ -99,12 +101,13 @@ namespace StaskoFy.Core.Service
                 GenreId = song.GenreId,
                 GenreName = song.Genre.Name,
                 ImageURL = song.ImageURL,
+                CloudinaryPublicId = song.CloudinaryPublicId,
                 Likes = song.Likes,
                 Artists = song.ArtistsSongs.Select(x => x.Artist.User.UserName).ToList()
             };
         }
 
-        public async Task AddAsync(SongCreateViewModel model, Guid artistId)
+        public async Task AddAsync(SongCreateViewModel model, Guid artistId, string imageURL, string publicId)
         {
             var mainArtist = await artistRepo.GetAllAttached().
                 FirstOrDefaultAsync(x => x.UserId == artistId);
@@ -119,7 +122,8 @@ namespace StaskoFy.Core.Service
                 Length = new TimeSpan(0, model.Minutes, model.Seconds),
                 ReleaseDate = DateOnly.FromDateTime(DateTime.Now),
                 GenreId = model.GenreId,
-                ImageURL = model.ImageURL,
+                ImageURL = imageURL,
+                CloudinaryPublicId = publicId,
                 ArtistsSongs = new List<ArtistSong>(),
             };
 
@@ -237,9 +241,10 @@ namespace StaskoFy.Core.Service
                     GenreId = song.GenreId,
                     GenreName = song.Genre.Name,
                     ImageURL = song.ImageURL,
+                    CloudinaryPublicId = song.CloudinaryPublicId,
                     Likes = song.Likes,
                     Artists = song.ArtistsSongs.Select(x => x.Artist.User.UserName).ToList()
-                }).Take(10).ToListAsync();
+                }).ToListAsync();
         }
 
         public async Task<IEnumerable<SongIndexViewModel>> FilterSongsForCurrentLoggedArtistAsync(Guid artistId, string searchItem, List<string> filters)
@@ -274,6 +279,7 @@ namespace StaskoFy.Core.Service
                     GenreId = song.GenreId,
                     GenreName = song.Genre.Name,
                     ImageURL = song.ImageURL,
+                    CloudinaryPublicId = song.CloudinaryPublicId,
                     Likes = song.Likes,
                     Artists = song.ArtistsSongs.Select(x => x.Artist.User.UserName).ToList()
                 }).ToListAsync();

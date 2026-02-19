@@ -9,6 +9,8 @@ namespace StaskoFy.Core.IService
 {
     public interface IImageService
     {
-        Task<string> UploadImageAsync(IFormFile imageFile, string name);
+        Task<(string Url, string PublicId)> UploadImageAsync(IFormFile imageFile, string name, string folder);
+
+        Task DestroyImageAsync(string publicId);
     }
 }

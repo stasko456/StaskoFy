@@ -12,16 +12,18 @@ namespace StaskoFy.Controllers
         private readonly ISongService songService;
         private readonly IGenreService genreService;
         private readonly IArtistService artistService;
+        private readonly IImageService imageService;
 
-        public SongController(ISongService _songService, IGenreService _genreService, IArtistService _artistService)
+        public SongController(ISongService _songService, IGenreService _genreService, IArtistService _artistService, IImageService _imageService)
         {
             this.songService = _songService;
             this.genreService = _genreService;
             this.artistService = _artistService;
+            this.imageService = _imageService;
         }
 
         [HttpGet]
-        [Authorize(Roles = "Artist")]
+        [Authorize(Policy = "Artist")]
         public async Task<IActionResult> Index(string searchItem, List<string> filters)
         {
             var artistId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -37,7 +39,7 @@ namespace StaskoFy.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Artist")]
+        [Authorize(Policy = "Artist")]
         public async Task<IActionResult> Create()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -55,7 +57,7 @@ namespace StaskoFy.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Artist")]
+        [Authorize(Policy = "Artist")]
         public async Task<IActionResult> Create(SongCreateViewModel model)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -71,12 +73,14 @@ namespace StaskoFy.Controllers
                 return View(model);
             }
 
-            await songService.AddAsync(model, Guid.Parse(userId));
+            var uploadResult = await imageService.UploadImageAsync(model.ImageFile, model.ImageFile.FileName, "songs");
+
+            await songService.AddAsync(model, Guid.Parse(userId), uploadResult.Url, uploadResult.PublicId);
             return RedirectToAction("Index");
         }
 
         [HttpGet]
-        [Authorize(Roles = "Artist")]
+        [Authorize(Policy = "Artist")]
         public async Task<IActionResult> Edit(Guid id)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -109,7 +113,7 @@ namespace StaskoFy.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Artist")]
+        [Authorize(Policy = "Artist")]
         public async Task<IActionResult> Edit(SongEditViewModel model)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -130,12 +134,19 @@ namespace StaskoFy.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Artist")]
+        [Authorize(Policy = "Artist")]
         public async Task<IActionResult> Delete(Guid id)
         {
             if (id == null || id == Guid.Empty)
             {
                 return NotFound();
+            }
+
+            var song = await songService.GetByIdAsync(id);
+
+            if (!string.IsNullOrEmpty(song.CloudinaryPublicId))
+            {
+                await imageService.DestroyImageAsync(song.CloudinaryPublicId);
             }
 
             await songService.RemoveAsync(id);

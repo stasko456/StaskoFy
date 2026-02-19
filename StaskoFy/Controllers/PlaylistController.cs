@@ -22,7 +22,7 @@ namespace StaskoFy.Controllers
         }
 
         [HttpGet]
-        [Authorize(Policy = "ArtistOrAdminOrUser")]
+        [Authorize(Policy = "ArtistOrUser")]
         public async Task<IActionResult> IndexForCurrentLoggedUser()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -32,7 +32,7 @@ namespace StaskoFy.Controllers
         }
 
         [HttpGet]
-        [Authorize(Policy = "ArtistOrAdminOrUser")]
+        [Authorize(Policy = "ArtistOrUser")]
         public async Task<IActionResult> Create()
         {
             // maybe have to do another method
@@ -46,7 +46,7 @@ namespace StaskoFy.Controllers
         }
 
         [HttpPost]
-        [Authorize(Policy = "ArtistOrAdminOrUser")]
+        [Authorize(Policy = "ArtistOrUser")]
         public async Task<IActionResult> Create(PlaylistCreateViewModel model)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -64,7 +64,7 @@ namespace StaskoFy.Controllers
         }
 
         [HttpGet]
-        [Authorize(Policy = "ArtistOrAdminOrUser")]
+        [Authorize(Policy = "ArtistOrUser")]
         public async Task<IActionResult> Edit(Guid id)
         {
             if (id == null || id == Guid.Empty)
@@ -94,7 +94,7 @@ namespace StaskoFy.Controllers
         }
 
         [HttpPost]
-        [Authorize(Policy = "ArtistOrAdminOrUser")]
+        [Authorize(Policy = "ArtistOrUser")]
         public async Task<IActionResult> Edit(PlaylistEditViewModel model)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -112,7 +112,7 @@ namespace StaskoFy.Controllers
         }
 
         [HttpPost]
-        [Authorize(Policy = "ArtistOrAdminOrUser")]
+        [Authorize(Policy = "ArtistOrUser")]
         public async Task<IActionResult> Delete(Guid id)
         {
             if (id == null || id == Guid.Empty)
@@ -125,7 +125,7 @@ namespace StaskoFy.Controllers
         }
 
         [HttpGet]
-        [Authorize(Policy = "ArtistOrAdminOrUser")]
+        [Authorize(Policy = "ArtistOrUser")]
         public async Task<IActionResult> Details(Guid id)
         {
             if (id == null || id == Guid.Empty)

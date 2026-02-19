@@ -23,7 +23,7 @@ namespace StaskoFy.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Artist")]
+        [Authorize(Policy = "Artist")]
         public async Task<IActionResult> IndexForLoggedArtist()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -33,6 +33,7 @@ namespace StaskoFy.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = "User")]
         public async Task<IActionResult> IndexForAllUsers()
         {
             var albums = await albumService.GetAllAsync();
@@ -40,7 +41,7 @@ namespace StaskoFy.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Artist")]
+        [Authorize(Policy = "Artist")]
         public async Task<ActionResult> Create()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -58,7 +59,7 @@ namespace StaskoFy.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Artist")]
+        [Authorize(Policy = "Artist")]
         public async Task<IActionResult> Create(AlbumCreateViewModel model)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -79,7 +80,7 @@ namespace StaskoFy.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Artist")]
+        [Authorize(Policy = "Artist")]
         public async Task<IActionResult> Edit(Guid id)
         {
             if (id == null || id == Guid.Empty)
@@ -108,7 +109,7 @@ namespace StaskoFy.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Artist")]
+        [Authorize(Policy = "Artist")]
         public async Task<IActionResult> Edit(AlbumEditViewModel model)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -129,7 +130,7 @@ namespace StaskoFy.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Artist")]
+        [Authorize(Policy = "Artist")]
         public async Task<IActionResult> Delete(Guid id)
         {
             if (id == null || id == Guid.Empty)
@@ -142,6 +143,7 @@ namespace StaskoFy.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = "ArtistOrUser")]
         public async Task<IActionResult> Details(Guid id)
         {
             if (id == null || id == Guid.Empty)

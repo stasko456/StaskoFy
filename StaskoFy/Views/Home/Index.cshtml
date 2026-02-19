@@ -18,7 +18,7 @@
             <a href="#songs" class="btn btn-warning btn-lg">
                 Browse Songs
             </a>
-            @if (User?.Identity?.IsAuthenticated ?? false && User.IsInRole("Artist"))
+            @if ((User?.Identity?.IsAuthenticated ?? false) && User.IsInRole("Artist"))
             {
                 <a asp-controller="Song" asp-action="Create" class="btn btn-outline-light btn-lg">
                     Upload Music

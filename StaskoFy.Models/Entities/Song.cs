@@ -40,6 +40,8 @@ namespace StaskoFy.Models.Entities
         [StringLength(2048)]
         public string ImageURL { get; set; } = null!;
 
+        public string CloudinaryPublicId { get; set; } = null!;
+
         public ICollection<ArtistSong> ArtistsSongs { get; set; } = new List<ArtistSong>();
 
         public ICollection<PlaylistSong> PlaylistSongs { get; set; } = new List<PlaylistSong>();

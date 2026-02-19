@@ -33,6 +33,20 @@ namespace StaskoFy
 
             builder.Services.AddAuthorization(options =>
             {
+                options.AddPolicy("Admin", policy =>
+                    policy.RequireRole("Admin"));
+
+                options.AddPolicy("Artist", policy =>
+                    policy.RequireRole("Artist"));
+
+                options.AddPolicy("User", policy =>
+                    policy.RequireRole("User"));
+                 
+                //---------------------//
+
+                options.AddPolicy("ArtistOrUser", policy =>
+                    policy.RequireRole("Artist", "User"));
+
                 options.AddPolicy("ArtistOrAdmin", policy =>
                     policy.RequireRole("Admin", "Artist"));
 
@@ -56,6 +70,7 @@ namespace StaskoFy
             builder.Services.AddScoped<IAlbumService, AlbumService>();
             builder.Services.AddScoped<ILikedSongsService, LikedSongsService>();
             builder.Services.AddScoped<IPlaylistService, PlaylistService>();
+            builder.Services.AddScoped<IImageService, ImageService>();
 
             // Users:
             // stasko456; Stasko1234*; stdimov2007@gmail.com User

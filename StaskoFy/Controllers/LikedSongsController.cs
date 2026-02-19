@@ -22,7 +22,7 @@ namespace StaskoFy.Controllers
         }
 
         [HttpGet]
-        [Authorize(Policy = "ArtistOrAdminOrUser")]
+        [Authorize(Policy = "ArtistOrUser")]
         public async Task<IActionResult> Index()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -33,7 +33,7 @@ namespace StaskoFy.Controllers
         }
 
         [HttpPost]
-        [Authorize(Policy = "ArtistOrAdminOrUser")]
+        [Authorize(Policy = "ArtistOrUser")]
         public async Task<IActionResult> Create(Guid songId)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -48,7 +48,7 @@ namespace StaskoFy.Controllers
         }
 
         [HttpPost]
-        [Authorize(Policy = "ArtistOrAdminOrUser")]
+        [Authorize(Policy = "ArtistOrUser")]
         public async Task<IActionResult> Delete(Guid songId)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);

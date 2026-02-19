@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace StaskoFy.ViewModels.Song
@@ -26,9 +27,7 @@ namespace StaskoFy.ViewModels.Song
         [Required(ErrorMessage = "Genre is required!")]
         public Guid GenreId { get; set; }
 
-        [Required(ErrorMessage = "Song cover is required!")]
-        [StringLength(2048)]
-        public string ImageURL { get; set; } = "/images/defaults/default-song-cover-art.png";
+        public IFormFile ImageFile { get; set; } = null!; // = "/images/defaults/default-song-cover-art.png";
 
         public List<Guid> SelectedArtistIds { get; set; } = new();
         public Microsoft.AspNetCore.Mvc.Rendering.MultiSelectList? Artists { get; set; }

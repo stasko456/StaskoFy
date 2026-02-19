@@ -12,7 +12,7 @@ using StaskoFy.DataAccess;
 namespace StaskoFy.DataAccess.Migrations
 {
     [DbContext(typeof(StaskoFyDbContext))]
-    [Migration("20260210072142_InitialMigration")]
+    [Migration("20260219120626_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -188,7 +188,7 @@ namespace StaskoFy.DataAccess.Migrations
                         new
                         {
                             Id = new Guid("11111111-1111-1111-1111-111111111111"),
-                            ImageURL = "/images/defaults/default-album-cover-art.png",
+                            ImageURL = "/images/songs-art-covers/a_great_chaos_deluxe.jpg",
                             Length = new TimeSpan(0, 1, 5, 0, 0),
                             ReleaseDate = new DateOnly(2024, 7, 5),
                             SongsCount = 5,
@@ -197,7 +197,7 @@ namespace StaskoFy.DataAccess.Migrations
                         new
                         {
                             Id = new Guid("21111111-1111-1111-1111-111111111111"),
-                            ImageURL = "/images/defaults/default-album-cover-art.png",
+                            ImageURL = "/images/songs-art-covers/super_slimey.jpg",
                             Length = new TimeSpan(0, 0, 40, 49, 0),
                             ReleaseDate = new DateOnly(2017, 10, 20),
                             SongsCount = 6,
@@ -206,7 +206,7 @@ namespace StaskoFy.DataAccess.Migrations
                         new
                         {
                             Id = new Guid("31111111-1111-1111-1111-111111111111"),
-                            ImageURL = "/images/defaults/default-album-cover-art.png",
+                            ImageURL = "/images/songs-art-covers/pray_for_paris.jpg",
                             Length = new TimeSpan(0, 0, 36, 25, 0),
                             ReleaseDate = new DateOnly(2020, 4, 17),
                             SongsCount = 4,
@@ -215,7 +215,7 @@ namespace StaskoFy.DataAccess.Migrations
                         new
                         {
                             Id = new Guid("41111111-1111-1111-1111-111111111111"),
-                            ImageURL = "/images/defaults/default-album-cover-art.png",
+                            ImageURL = "/images/songs-art-covers/call_me_if_you_get_lost_the_estate_sale.jpg",
                             Length = new TimeSpan(0, 1, 17, 0, 0),
                             ReleaseDate = new DateOnly(2023, 3, 31),
                             SongsCount = 6,
@@ -224,7 +224,7 @@ namespace StaskoFy.DataAccess.Migrations
                         new
                         {
                             Id = new Guid("51111111-1111-1111-1111-111111111111"),
-                            ImageURL = "/images/defaults/default-album-cover-art.png",
+                            ImageURL = "/images/songs-art-covers/xtended.jpg",
                             Length = new TimeSpan(0, 1, 1, 0, 0),
                             ReleaseDate = new DateOnly(2022, 10, 31),
                             SongsCount = 4,
@@ -233,7 +233,7 @@ namespace StaskoFy.DataAccess.Migrations
                         new
                         {
                             Id = new Guid("61111111-1111-1111-1111-111111111111"),
-                            ImageURL = "/images/defaults/default-album-cover-art.png",
+                            ImageURL = "/images/songs-art-covers/broken_hearts_3.jpg",
                             Length = new TimeSpan(0, 0, 54, 32, 0),
                             ReleaseDate = new DateOnly(2025, 9, 22),
                             SongsCount = 6,
@@ -785,7 +785,7 @@ namespace StaskoFy.DataAccess.Migrations
                         {
                             Id = new Guid("11111111-1111-1111-1111-111111111111"),
                             DateCreated = new DateOnly(2024, 12, 4),
-                            ImageURL = "/images/defaults/default-album-cover-art.png",
+                            ImageURL = "/images/playlists-art-covers/hip-hop-trap-filmar.jpg",
                             IsPublic = true,
                             Length = new TimeSpan(0, 0, 16, 59, 0),
                             SongCount = 6,
@@ -796,18 +796,18 @@ namespace StaskoFy.DataAccess.Migrations
                         {
                             Id = new Guid("21111111-1111-1111-1111-111111111111"),
                             DateCreated = new DateOnly(2024, 12, 10),
-                            ImageURL = "/images/defaults/default-album-cover-art.png",
+                            ImageURL = "/images/playlists-art-covers/opium_filmar.jpg",
                             IsPublic = true,
                             Length = new TimeSpan(0, 0, 19, 9, 0),
                             SongCount = 7,
-                            Title = "00PIUMxx Filmar",
+                            Title = "00PIUM Filmar",
                             UserId = new Guid("02111111-1111-1111-1111-111111111111")
                         },
                         new
                         {
                             Id = new Guid("31111111-1111-1111-1111-111111111111"),
                             DateCreated = new DateOnly(2022, 6, 27),
-                            ImageURL = "/images/defaults/default-album-cover-art.png",
+                            ImageURL = "/images/playlists-art-covers/mnooo_cherno.jpg",
                             IsPublic = false,
                             Length = new TimeSpan(0, 0, 22, 29, 0),
                             SongCount = 8,
@@ -998,6 +998,10 @@ namespace StaskoFy.DataAccess.Migrations
                     b.Property<Guid?>("AlbumId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("CloudinaryPublicId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<Guid>("GenreId")
                         .HasColumnType("uniqueidentifier");
 
@@ -1033,8 +1037,9 @@ namespace StaskoFy.DataAccess.Migrations
                         {
                             Id = new Guid("01111111-1111-1111-1111-111111111111"),
                             AlbumId = new Guid("11111111-1111-1111-1111-111111111111"),
+                            CloudinaryPublicId = "",
                             GenreId = new Guid("11111111-1111-1111-1111-111111111111"),
-                            ImageURL = "/images/defaults/default-song-cover-art.png",
+                            ImageURL = "/images/songs-art-covers/a_great_chaos_deluxe.jpg",
                             Length = new TimeSpan(0, 0, 3, 8, 0),
                             Likes = 10044245,
                             ReleaseDate = new DateOnly(2024, 7, 5),
@@ -1044,8 +1049,9 @@ namespace StaskoFy.DataAccess.Migrations
                         {
                             Id = new Guid("02111111-1111-1111-1111-111111111111"),
                             AlbumId = new Guid("11111111-1111-1111-1111-111111111111"),
+                            CloudinaryPublicId = "",
                             GenreId = new Guid("41111111-1111-1111-1111-111111111111"),
-                            ImageURL = "/images/defaults/default-song-cover-art.png",
+                            ImageURL = "/images/songs-art-covers/a_great_chaos_deluxe.jpg",
                             Length = new TimeSpan(0, 0, 2, 20, 0),
                             Likes = 643545,
                             ReleaseDate = new DateOnly(2024, 7, 5),
@@ -1055,8 +1061,9 @@ namespace StaskoFy.DataAccess.Migrations
                         {
                             Id = new Guid("03111111-1111-1111-1111-111111111111"),
                             AlbumId = new Guid("11111111-1111-1111-1111-111111111111"),
+                            CloudinaryPublicId = "",
                             GenreId = new Guid("41111111-1111-1111-1111-111111111111"),
-                            ImageURL = "/images/defaults/default-song-cover-art.png",
+                            ImageURL = "/images/songs-art-covers/a_great_chaos_deluxe.jpg",
                             Length = new TimeSpan(0, 0, 3, 54, 0),
                             Likes = 234566,
                             ReleaseDate = new DateOnly(2024, 7, 5),
@@ -1066,8 +1073,9 @@ namespace StaskoFy.DataAccess.Migrations
                         {
                             Id = new Guid("04111111-1111-1111-1111-111111111111"),
                             AlbumId = new Guid("11111111-1111-1111-1111-111111111111"),
+                            CloudinaryPublicId = "",
                             GenreId = new Guid("31111111-1111-1111-1111-111111111111"),
-                            ImageURL = "/images/defaults/default-song-cover-art.png",
+                            ImageURL = "/images/songs-art-covers/a_great_chaos_deluxe.jpg",
                             Length = new TimeSpan(0, 0, 2, 7, 0),
                             Likes = 8384754,
                             ReleaseDate = new DateOnly(2024, 7, 5),
@@ -1077,8 +1085,9 @@ namespace StaskoFy.DataAccess.Migrations
                         {
                             Id = new Guid("05111111-1111-1111-1111-111111111111"),
                             AlbumId = new Guid("11111111-1111-1111-1111-111111111111"),
+                            CloudinaryPublicId = "",
                             GenreId = new Guid("31111111-1111-1111-1111-111111111111"),
-                            ImageURL = "/images/defaults/default-song-cover-art.png",
+                            ImageURL = "/images/songs-art-covers/a_great_chaos_deluxe.jpg",
                             Length = new TimeSpan(0, 0, 3, 4, 0),
                             Likes = 3647835,
                             ReleaseDate = new DateOnly(2024, 7, 5),
@@ -1088,8 +1097,9 @@ namespace StaskoFy.DataAccess.Migrations
                         {
                             Id = new Guid("06111111-1111-1111-1111-111111111111"),
                             AlbumId = new Guid("21111111-1111-1111-1111-111111111111"),
+                            CloudinaryPublicId = "",
                             GenreId = new Guid("21111111-1111-1111-1111-111111111111"),
-                            ImageURL = "/images/defaults/default-song-cover-art.png",
+                            ImageURL = "/images/songs-art-covers/super_slimey.jpg",
                             Length = new TimeSpan(0, 0, 2, 24, 0),
                             Likes = 125467,
                             ReleaseDate = new DateOnly(2017, 10, 20),
@@ -1099,8 +1109,9 @@ namespace StaskoFy.DataAccess.Migrations
                         {
                             Id = new Guid("07111111-1111-1111-1111-111111111111"),
                             AlbumId = new Guid("21111111-1111-1111-1111-111111111111"),
+                            CloudinaryPublicId = "",
                             GenreId = new Guid("21111111-1111-1111-1111-111111111111"),
-                            ImageURL = "/images/defaults/default-song-cover-art.png",
+                            ImageURL = "/images/songs-art-covers/super_slimey.jpg",
                             Length = new TimeSpan(0, 0, 3, 24, 0),
                             Likes = 125467,
                             ReleaseDate = new DateOnly(2017, 10, 20),
@@ -1110,8 +1121,9 @@ namespace StaskoFy.DataAccess.Migrations
                         {
                             Id = new Guid("08111111-1111-1111-1111-111111111111"),
                             AlbumId = new Guid("21111111-1111-1111-1111-111111111111"),
+                            CloudinaryPublicId = "",
                             GenreId = new Guid("11111111-1111-1111-1111-111111111111"),
-                            ImageURL = "/images/defaults/default-song-cover-art.png",
+                            ImageURL = "/images/songs-art-covers/super_slimey.jpg",
                             Length = new TimeSpan(0, 0, 2, 26, 0),
                             Likes = 125467,
                             ReleaseDate = new DateOnly(2017, 10, 20),
@@ -1121,8 +1133,9 @@ namespace StaskoFy.DataAccess.Migrations
                         {
                             Id = new Guid("09111111-1111-1111-1111-111111111111"),
                             AlbumId = new Guid("21111111-1111-1111-1111-111111111111"),
+                            CloudinaryPublicId = "",
                             GenreId = new Guid("11111111-1111-1111-1111-111111111111"),
-                            ImageURL = "/images/defaults/default-song-cover-art.png",
+                            ImageURL = "/images/songs-art-covers/super_slimey.jpg",
                             Length = new TimeSpan(0, 0, 2, 46, 0),
                             Likes = 125467,
                             ReleaseDate = new DateOnly(2017, 10, 20),
@@ -1132,8 +1145,9 @@ namespace StaskoFy.DataAccess.Migrations
                         {
                             Id = new Guid("10111111-1111-1111-1111-111111111111"),
                             AlbumId = new Guid("21111111-1111-1111-1111-111111111111"),
+                            CloudinaryPublicId = "",
                             GenreId = new Guid("21111111-1111-1111-1111-111111111111"),
-                            ImageURL = "/images/defaults/default-song-cover-art.png",
+                            ImageURL = "/images/songs-art-covers/super_slimey.jpg",
                             Length = new TimeSpan(0, 0, 2, 46, 0),
                             Likes = 235678,
                             ReleaseDate = new DateOnly(2017, 10, 20),
@@ -1143,8 +1157,9 @@ namespace StaskoFy.DataAccess.Migrations
                         {
                             Id = new Guid("11111111-1111-1111-1111-111111111111"),
                             AlbumId = new Guid("21111111-1111-1111-1111-111111111111"),
+                            CloudinaryPublicId = "",
                             GenreId = new Guid("21111111-1111-1111-1111-111111111111"),
-                            ImageURL = "/images/defaults/default-song-cover-art.png",
+                            ImageURL = "/images/songs-art-covers/super_slimey.jpg",
                             Length = new TimeSpan(0, 0, 3, 40, 0),
                             Likes = 98765,
                             ReleaseDate = new DateOnly(2017, 10, 20),
@@ -1154,8 +1169,9 @@ namespace StaskoFy.DataAccess.Migrations
                         {
                             Id = new Guid("12111111-1111-1111-1111-111111111111"),
                             AlbumId = new Guid("31111111-1111-1111-1111-111111111111"),
+                            CloudinaryPublicId = "",
                             GenreId = new Guid("51111111-1111-1111-1111-111111111111"),
-                            ImageURL = "/images/defaults/default-song-cover-art.png",
+                            ImageURL = "/images/songs-art-covers/pray_for_paris.jpg",
                             Length = new TimeSpan(0, 0, 1, 35, 0),
                             Likes = 123456,
                             ReleaseDate = new DateOnly(2020, 4, 17),
@@ -1165,8 +1181,9 @@ namespace StaskoFy.DataAccess.Migrations
                         {
                             Id = new Guid("13111111-1111-1111-1111-111111111111"),
                             AlbumId = new Guid("31111111-1111-1111-1111-111111111111"),
+                            CloudinaryPublicId = "",
                             GenreId = new Guid("51111111-1111-1111-1111-111111111111"),
-                            ImageURL = "/images/defaults/default-song-cover-art.png",
+                            ImageURL = "/images/songs-art-covers/pray_for_paris.jpg",
                             Length = new TimeSpan(0, 0, 5, 49, 0),
                             Likes = 654321,
                             ReleaseDate = new DateOnly(2020, 4, 17),
@@ -1176,8 +1193,9 @@ namespace StaskoFy.DataAccess.Migrations
                         {
                             Id = new Guid("14111111-1111-1111-1111-111111111111"),
                             AlbumId = new Guid("31111111-1111-1111-1111-111111111111"),
+                            CloudinaryPublicId = "",
                             GenreId = new Guid("51111111-1111-1111-1111-111111111111"),
-                            ImageURL = "/images/defaults/default-song-cover-art.png",
+                            ImageURL = "/images/songs-art-covers/pray_for_paris.jpg",
                             Length = new TimeSpan(0, 0, 1, 49, 0),
                             Likes = 234567,
                             ReleaseDate = new DateOnly(2020, 4, 17),
@@ -1187,8 +1205,9 @@ namespace StaskoFy.DataAccess.Migrations
                         {
                             Id = new Guid("15111111-1111-1111-1111-111111111111"),
                             AlbumId = new Guid("31111111-1111-1111-1111-111111111111"),
+                            CloudinaryPublicId = "",
                             GenreId = new Guid("51111111-1111-1111-1111-111111111111"),
-                            ImageURL = "/images/defaults/default-song-cover-art.png",
+                            ImageURL = "/images/songs-art-covers/pray_for_paris.jpg",
                             Length = new TimeSpan(0, 0, 2, 4, 0),
                             Likes = 345678,
                             ReleaseDate = new DateOnly(2020, 4, 17),
@@ -1198,8 +1217,9 @@ namespace StaskoFy.DataAccess.Migrations
                         {
                             Id = new Guid("16111111-1111-1111-1111-111111111111"),
                             AlbumId = new Guid("41111111-1111-1111-1111-111111111111"),
+                            CloudinaryPublicId = "",
                             GenreId = new Guid("11111111-1111-1111-1111-111111111111"),
-                            ImageURL = "/images/defaults/default-song-cover-art.png",
+                            ImageURL = "/images/songs-art-covers/call_me_if_you_get_lost_the_estate_sale.jpg",
                             Length = new TimeSpan(0, 0, 2, 35, 0),
                             Likes = 456789,
                             ReleaseDate = new DateOnly(2023, 3, 31),
@@ -1209,8 +1229,9 @@ namespace StaskoFy.DataAccess.Migrations
                         {
                             Id = new Guid("17111111-1111-1111-1111-111111111111"),
                             AlbumId = new Guid("41111111-1111-1111-1111-111111111111"),
+                            CloudinaryPublicId = "",
                             GenreId = new Guid("11111111-1111-1111-1111-111111111111"),
-                            ImageURL = "/images/defaults/default-song-cover-art.png",
+                            ImageURL = "/images/songs-art-covers/call_me_if_you_get_lost_the_estate_sale.jpg",
                             Length = new TimeSpan(0, 0, 8, 35, 0),
                             Likes = 567890,
                             ReleaseDate = new DateOnly(2023, 3, 31),
@@ -1220,8 +1241,9 @@ namespace StaskoFy.DataAccess.Migrations
                         {
                             Id = new Guid("18111111-1111-1111-1111-111111111111"),
                             AlbumId = new Guid("41111111-1111-1111-1111-111111111111"),
+                            CloudinaryPublicId = "",
                             GenreId = new Guid("11111111-1111-1111-1111-111111111111"),
-                            ImageURL = "/images/defaults/default-song-cover-art.png",
+                            ImageURL = "/images/songs-art-covers/call_me_if_you_get_lost_the_estate_sale.jpg",
                             Length = new TimeSpan(0, 0, 2, 57, 0),
                             Likes = 678901,
                             ReleaseDate = new DateOnly(2023, 3, 31),
@@ -1231,8 +1253,9 @@ namespace StaskoFy.DataAccess.Migrations
                         {
                             Id = new Guid("19111111-1111-1111-1111-111111111111"),
                             AlbumId = new Guid("41111111-1111-1111-1111-111111111111"),
+                            CloudinaryPublicId = "",
                             GenreId = new Guid("11111111-1111-1111-1111-111111111111"),
-                            ImageURL = "/images/defaults/default-song-cover-art.png",
+                            ImageURL = "/images/songs-art-covers/call_me_if_you_get_lost_the_estate_sale.jpg",
                             Length = new TimeSpan(0, 0, 3, 36, 0),
                             Likes = 789012,
                             ReleaseDate = new DateOnly(2023, 3, 31),
@@ -1242,8 +1265,9 @@ namespace StaskoFy.DataAccess.Migrations
                         {
                             Id = new Guid("20111111-1111-1111-1111-111111111111"),
                             AlbumId = new Guid("41111111-1111-1111-1111-111111111111"),
+                            CloudinaryPublicId = "",
                             GenreId = new Guid("11111111-1111-1111-1111-111111111111"),
-                            ImageURL = "/images/defaults/default-song-cover-art.png",
+                            ImageURL = "/images/songs-art-covers/call_me_if_you_get_lost_the_estate_sale.jpg",
                             Length = new TimeSpan(0, 0, 2, 41, 0),
                             Likes = 890123,
                             ReleaseDate = new DateOnly(2023, 3, 31),
@@ -1253,8 +1277,9 @@ namespace StaskoFy.DataAccess.Migrations
                         {
                             Id = new Guid("21111111-1111-1111-1111-111111111111"),
                             AlbumId = new Guid("41111111-1111-1111-1111-111111111111"),
+                            CloudinaryPublicId = "",
                             GenreId = new Guid("11111111-1111-1111-1111-111111111111"),
-                            ImageURL = "/images/defaults/default-song-cover-art.png",
+                            ImageURL = "/images/songs-art-covers/call_me_if_you_get_lost_the_estate_sale.jpg",
                             Length = new TimeSpan(0, 0, 3, 50, 0),
                             Likes = 901234,
                             ReleaseDate = new DateOnly(2023, 3, 31),
@@ -1263,8 +1288,9 @@ namespace StaskoFy.DataAccess.Migrations
                         new
                         {
                             Id = new Guid("22111111-1111-1111-1111-111111111111"),
+                            CloudinaryPublicId = "",
                             GenreId = new Guid("11111111-1111-1111-1111-111111111111"),
-                            ImageURL = "/images/defaults/default-song-cover-art.png",
+                            ImageURL = "/images/songs-art-covers/bane.jpg",
                             Length = new TimeSpan(0, 0, 2, 20, 0),
                             Likes = 12345,
                             ReleaseDate = new DateOnly(2019, 7, 30),
@@ -1273,8 +1299,9 @@ namespace StaskoFy.DataAccess.Migrations
                         new
                         {
                             Id = new Guid("23111111-1111-1111-1111-111111111111"),
+                            CloudinaryPublicId = "",
                             GenreId = new Guid("11111111-1111-1111-1111-111111111111"),
-                            ImageURL = "/images/defaults/default-song-cover-art.png",
+                            ImageURL = "/images/songs-art-covers/if_looks_could_kill.jpg",
                             Length = new TimeSpan(0, 0, 3, 14, 0),
                             Likes = 23456,
                             ReleaseDate = new DateOnly(2023, 3, 3),
@@ -1283,8 +1310,9 @@ namespace StaskoFy.DataAccess.Migrations
                         new
                         {
                             Id = new Guid("24111111-1111-1111-1111-111111111111"),
+                            CloudinaryPublicId = "",
                             GenreId = new Guid("31111111-1111-1111-1111-111111111111"),
-                            ImageURL = "/images/defaults/default-song-cover-art.png",
+                            ImageURL = "/images/songs-art-covers/kat_food.jpg",
                             Length = new TimeSpan(0, 0, 4, 46, 0),
                             Likes = 34567,
                             ReleaseDate = new DateOnly(2023, 9, 1),
@@ -1294,8 +1322,9 @@ namespace StaskoFy.DataAccess.Migrations
                         {
                             Id = new Guid("25111111-1111-1111-1111-111111111111"),
                             AlbumId = new Guid("51111111-1111-1111-1111-111111111111"),
+                            CloudinaryPublicId = "",
                             GenreId = new Guid("31111111-1111-1111-1111-111111111111"),
-                            ImageURL = "/images/defaults/default-song-cover-art.png",
+                            ImageURL = "/images/songs-art-covers/xtended.jpg",
                             Length = new TimeSpan(0, 0, 3, 48, 0),
                             Likes = 45678,
                             ReleaseDate = new DateOnly(2022, 10, 31),
@@ -1305,8 +1334,9 @@ namespace StaskoFy.DataAccess.Migrations
                         {
                             Id = new Guid("26111111-1111-1111-1111-111111111111"),
                             AlbumId = new Guid("51111111-1111-1111-1111-111111111111"),
+                            CloudinaryPublicId = "",
                             GenreId = new Guid("41111111-1111-1111-1111-111111111111"),
-                            ImageURL = "/images/defaults/default-song-cover-art.png",
+                            ImageURL = "/images/songs-art-covers/xtended.jpg",
                             Length = new TimeSpan(0, 0, 2, 18, 0),
                             Likes = 78901,
                             ReleaseDate = new DateOnly(2022, 10, 31),
@@ -1316,8 +1346,9 @@ namespace StaskoFy.DataAccess.Migrations
                         {
                             Id = new Guid("27111111-1111-1111-1111-111111111111"),
                             AlbumId = new Guid("51111111-1111-1111-1111-111111111111"),
+                            CloudinaryPublicId = "",
                             GenreId = new Guid("41111111-1111-1111-1111-111111111111"),
-                            ImageURL = "/images/defaults/default-song-cover-art.png",
+                            ImageURL = "/images/songs-art-covers/xtended.jpg",
                             Length = new TimeSpan(0, 0, 2, 45, 0),
                             Likes = 56789,
                             ReleaseDate = new DateOnly(2022, 10, 31),
@@ -1327,8 +1358,9 @@ namespace StaskoFy.DataAccess.Migrations
                         {
                             Id = new Guid("28111111-1111-1111-1111-111111111111"),
                             AlbumId = new Guid("51111111-1111-1111-1111-111111111111"),
+                            CloudinaryPublicId = "",
                             GenreId = new Guid("11111111-1111-1111-1111-111111111111"),
-                            ImageURL = "/images/defaults/default-song-cover-art.png",
+                            ImageURL = "/images/songs-art-covers/xtended.jpg",
                             Length = new TimeSpan(0, 0, 3, 21, 0),
                             Likes = 67890,
                             ReleaseDate = new DateOnly(2022, 10, 31),
@@ -1412,14 +1444,14 @@ namespace StaskoFy.DataAccess.Migrations
                         {
                             Id = new Guid("01111111-1111-1111-1111-111111111111"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3785aeb7-0de9-4f2a-9bde-66ac78fc762e",
+                            ConcurrencyStamp = "598bbcc9-7e30-4370-b24e-bfc4e8ac3edd",
                             Email = "kenCarson@gmail.com",
                             EmailConfirmed = false,
-                            ImageURL = "/images/defaults/default-user-pfp.png",
+                            ImageURL = "/images/users-pfps/ken_carson.jpg",
                             LockoutEnabled = false,
                             NormalizedEmail = "kenCarson@gmail.com",
                             NormalizedUserName = "kenCarson",
-                            PasswordHash = "AQAAAAIAAYagAAAAELsvc3kltV7EKaZQdwGyHoGXt1QRdfA3OWbohwweZCqtGC0qDz+4t9Tycq2yQdXkIg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAENOtUGIHSWMboFBUT0fgdbHhyVDTSOs7In0CTLr0lrwctp5uuijCv05nlxfDxF42Vw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "01111111-1111-1111-1111-111111111111",
                             TwoFactorEnabled = false,
@@ -1429,14 +1461,14 @@ namespace StaskoFy.DataAccess.Migrations
                         {
                             Id = new Guid("02111111-1111-1111-1111-111111111111"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "df30d44b-fea4-4f7b-9430-0eed8c27b4f9",
+                            ConcurrencyStamp = "09f13bc7-efa8-4b31-a672-3a09a817d1ab",
                             Email = "future@gmail.com",
                             EmailConfirmed = false,
-                            ImageURL = "/images/defaults/default-user-pfp.png",
+                            ImageURL = "/images/users-pfps/future.jpg",
                             LockoutEnabled = false,
                             NormalizedEmail = "future@gmail.com",
                             NormalizedUserName = "future",
-                            PasswordHash = "AQAAAAIAAYagAAAAEBVHh4VTNZHGsNRonj+/2+FJe/4gmcEpAZqjlcCtwejdqG9F5v9PXdxi8L+i6QXJTg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEBwwKzagzaheS1WuqgBKzcoYl/iB/q9rP7UsFjD+L46bJVEzUb5p8ePsmrOsqU7uQw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "02111111-1111-1111-1111-111111111111",
                             TwoFactorEnabled = false,
@@ -1446,14 +1478,14 @@ namespace StaskoFy.DataAccess.Migrations
                         {
                             Id = new Guid("03111111-1111-1111-1111-111111111111"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b8f6da10-98f5-4d47-8fdd-1ebe55929f40",
+                            ConcurrencyStamp = "360dc326-7d8c-4a1a-846e-c22582eaa74d",
                             Email = "youngThug@gmail.com",
                             EmailConfirmed = false,
-                            ImageURL = "/images/defaults/default-user-pfp.pnguser-pfp",
+                            ImageURL = "/images/users-pfps/young_thug.jpg",
                             LockoutEnabled = false,
                             NormalizedEmail = "youngThug@gmail.com",
                             NormalizedUserName = "youngThug",
-                            PasswordHash = "AQAAAAIAAYagAAAAEISkuWtVOjx5PLk6YhLh0C5Yy0QFdmpO/AG/S4rFsuKUKU6DRmK9DJlRKtryAnGXtA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEBA5aGS/3klVHRYZADehDmD8QUmoqwancV6dSzS3D2HOuG8y1r0Rcq+SzB0+po15+A==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "03111111-1111-1111-1111-111111111111",
                             TwoFactorEnabled = false,
@@ -1463,14 +1495,14 @@ namespace StaskoFy.DataAccess.Migrations
                         {
                             Id = new Guid("04111111-1111-1111-1111-111111111111"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "fc3d4241-804c-4ef8-86bd-a4b2668bcba2",
+                            ConcurrencyStamp = "d0602cf0-5d44-40fe-8b34-87978c92da64",
                             Email = "westsideGunn@gmail.com",
                             EmailConfirmed = false,
-                            ImageURL = "/images/defaults/default-user-pfp .png",
+                            ImageURL = "/images/users-pfps/westside_gunn.jpg",
                             LockoutEnabled = false,
                             NormalizedEmail = "westsideGunn@gmail.com",
                             NormalizedUserName = "westsideGunn",
-                            PasswordHash = "AQAAAAIAAYagAAAAEGWS+CC2Jyo/jmuROvAjI/0TawNisZAuhQH2ErcKjA7xcJwcBL5ZPUl9Niib3cK0kA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEO6UVTFq45f/+vtMLC8FAt+iYI8Sfe5px1CVfclOl9LTQYeLTOh5a6iURdcSFcmRjg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "04111111-1111-1111-1111-111111111111",
                             TwoFactorEnabled = false,
@@ -1480,14 +1512,14 @@ namespace StaskoFy.DataAccess.Migrations
                         {
                             Id = new Guid("05111111-1111-1111-1111-111111111111"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f02def27-4fae-4796-88bd-0df051a6e8fc",
+                            ConcurrencyStamp = "89d0131c-e0fe-4468-b86a-f380ff6a7859",
                             Email = "tylerTheCreator@gmail.com",
                             EmailConfirmed = false,
-                            ImageURL = "/images/defaults/default-user-pfp.png",
+                            ImageURL = "/images/users-pfps/tyler_the_creator.jpg",
                             LockoutEnabled = false,
                             NormalizedEmail = "tylerTheCreator@gmail.com",
                             NormalizedUserName = "tylerTheCreator",
-                            PasswordHash = "AQAAAAIAAYagAAAAEEyd1PFj4hKh05GN39IhyTjzPvTNCtgZeeiDJl4UnDZJ2xsQQtKPQbN+6VRi88iU+g==",
+                            PasswordHash = "AQAAAAIAAYagAAAAENi/wfW3GolVLNNeat4SmPBiIJeywtbMiP4nJEuofDdpho0mAONhVWFi61t+fSkbGA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "05111111-1111-1111-1111-111111111111",
                             TwoFactorEnabled = false,
@@ -1497,14 +1529,14 @@ namespace StaskoFy.DataAccess.Migrations
                         {
                             Id = new Guid("06111111-1111-1111-1111-111111111111"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "88e9a66a-577f-4b36-a73d-300aa3df4c9f",
+                            ConcurrencyStamp = "a0ef6f9c-66b8-49a0-98a2-86cf177f5911",
                             Email = "destroyLonely@gmail.com",
                             EmailConfirmed = false,
-                            ImageURL = "/images/defaults/default-user-pfp.png",
+                            ImageURL = "/images/users-pfps/destroy_lonely.jpg",
                             LockoutEnabled = false,
                             NormalizedEmail = "destroyLonely@gmail.com",
                             NormalizedUserName = "destroyLonely",
-                            PasswordHash = "AQAAAAIAAYagAAAAEJoQFL9mSJeaSUw3pX21X69T31/bDX1DXpIPXepDlsXnqVaaAD0BCzk2KASyalwQEQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEAk7RbmVRAmOpHRDXydpDhEUPgWjOLwZPmfI6tivhI5mwpSk/voGGFcDIOhkHohU6A==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "06111111-1111-1111-1111-111111111111",
                             TwoFactorEnabled = false,
@@ -1514,14 +1546,14 @@ namespace StaskoFy.DataAccess.Migrations
                         {
                             Id = new Guid("07111111-1111-1111-1111-111111111111"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "148f3dc7-2ef0-468e-a314-ee78aebc642b",
+                            ConcurrencyStamp = "75f9d8ae-5085-4759-86c7-4bddbe98f681",
                             Email = "joeyBada$$@gmail.com",
                             EmailConfirmed = false,
-                            ImageURL = "/images/defaults/default-user-pfp.png",
+                            ImageURL = "/images/users-pfps/joey_bada$$.jpg",
                             LockoutEnabled = false,
                             NormalizedEmail = "joeyBada$$@gmail.com",
                             NormalizedUserName = "joeyBada$$",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOjPfty9021St4WpzOyQbrvMcaYLw8eEH5eKdQapfO043ce8WLhDXfGmDWGTR0N7Mw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEEapdC+2wb3lS0lH3/ln3FCJb4NoWiM/fUimTSwBh31tTXST9iL/22JR0UPW8d/alA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "07111111-1111-1111-1111-111111111111",
                             TwoFactorEnabled = false,
@@ -1531,14 +1563,14 @@ namespace StaskoFy.DataAccess.Migrations
                         {
                             Id = new Guid("08111111-1111-1111-1111-111111111111"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "823ee1f1-fc71-4845-9ff9-1dab5042f5ee",
+                            ConcurrencyStamp = "af459876-95c4-429b-9a96-d1bd9df12f80",
                             Email = "billiEssco@gmail.com",
                             EmailConfirmed = false,
-                            ImageURL = "/images/defaults/default-user-pfp.png",
+                            ImageURL = "/images/users-pfps/billie_essco.jpg",
                             LockoutEnabled = false,
                             NormalizedEmail = "billiEssco@gmail.com",
                             NormalizedUserName = "billiEssco",
-                            PasswordHash = "AQAAAAIAAYagAAAAEKoXotoHKu/aMciErfGMeoIYZBjnz0E2LbY1rx3YkUWSLq61f4vfaa2mTttX1gAYBA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEF9thttC+L0lk8on/vPR6QtXwoUNRsCgT8tdVGZiCon+EoSqgQ/Udh0eDqHuI5BN5g==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "08111111-1111-1111-1111-111111111111",
                             TwoFactorEnabled = false,
@@ -1548,14 +1580,14 @@ namespace StaskoFy.DataAccess.Migrations
                         {
                             Id = new Guid("09111111-1111-1111-1111-111111111111"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f7bfa0b7-99e7-4a89-85bc-c8616e93b278",
+                            ConcurrencyStamp = "be145a31-a27e-4bba-90fc-233ad2284f84",
                             Email = "lilWayne@gmail.com",
                             EmailConfirmed = false,
-                            ImageURL = "/images/defaults/default-user-pfp.png",
+                            ImageURL = "/images/users-pfps/lil_wayne.jpg",
                             LockoutEnabled = false,
                             NormalizedEmail = "lilWayne@gmail.com",
                             NormalizedUserName = "lilWayne",
-                            PasswordHash = "AQAAAAIAAYagAAAAELXnLgGSRB68XA6WM6yhkgzd//BWXaJ7sJzP0onSNkZ3bajHkJx6pTgGgFPMRgTNmg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEGo1kAvCDG/YF6mozjMvbE1hPMVGxmYpIYRAtFT1jphuq65OLLGKf8AGucsCYYv3rw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "09111111-1111-1111-1111-111111111111",
                             TwoFactorEnabled = false,
@@ -1565,14 +1597,14 @@ namespace StaskoFy.DataAccess.Migrations
                         {
                             Id = new Guid("10111111-1111-1111-1111-111111111111"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c0f2b4ed-34f8-43ab-904f-5f0d7bb9f864",
+                            ConcurrencyStamp = "e9cbff66-0c64-4ae6-80e4-5f55e5847db4",
                             Email = "homixideGang@gmail.com",
                             EmailConfirmed = false,
-                            ImageURL = "/images/defaults/default-user-pfp.png",
+                            ImageURL = "/images/users-pfps/homixide_gang.jpg",
                             LockoutEnabled = false,
                             NormalizedEmail = "homixideGang@gmail.com",
                             NormalizedUserName = "homixideGang",
-                            PasswordHash = "AQAAAAIAAYagAAAAEPw8UqIXo0ilT7warCgLY0hpkf1zV125sElT+6+z1UVhTQR+8HOUyvkaTyTHKU0Q5g==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEIDYe0sWTZL1N2zJGX5MtqbzgWKmEJ04pXw6ufUgeSUDmFfAxyje1Wf9zlVCxB0gWQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "10111111-1111-1111-1111-111111111111",
                             TwoFactorEnabled = false,
@@ -1582,14 +1614,14 @@ namespace StaskoFy.DataAccess.Migrations
                         {
                             Id = new Guid("11111111-1111-1111-1111-111111111111"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "84aec36f-c267-4856-8980-11519310c8d2",
+                            ConcurrencyStamp = "dd06fc8e-c0c9-4229-b01a-e8ce14f079bd",
                             Email = "stdimov2007@gmail.com",
                             EmailConfirmed = false,
-                            ImageURL = "/images/defaults/default-user-pfp.png",
+                            ImageURL = "/images/users-pfps/stasko456.JPG",
                             LockoutEnabled = false,
                             NormalizedEmail = "stdimov2007@gmail.com",
                             NormalizedUserName = "stasko456",
-                            PasswordHash = "AQAAAAIAAYagAAAAEMN9R8D8V/rucC3DgGEAStTJQps5NZ/sXLzUo0Nr1Qm6+J5z5Q2zNmkE0bdA7IRuBQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEAACalutxpox1l7ZK4IpYp1qR4iXwP7IPt1c62RBKoBI/6UvlH9h/59UkBl9nF3mBQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "11111111-1111-1111-1111-111111111111",
                             TwoFactorEnabled = false,
@@ -1599,14 +1631,14 @@ namespace StaskoFy.DataAccess.Migrations
                         {
                             Id = new Guid("12111111-1111-1111-1111-111111111111"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "de9841f6-7617-40fb-93c2-9815ae1fd13d",
+                            ConcurrencyStamp = "cc1ce418-cb7b-494e-9a25-ab372619c519",
                             Email = "simon2403e8@gmail.com",
                             EmailConfirmed = false,
-                            ImageURL = "images/defaults/default-user-pfp.png",
+                            ImageURL = "/images/users-pfps/simon333.jpg",
                             LockoutEnabled = false,
                             NormalizedEmail = "simon2403e8@gmail.com",
                             NormalizedUserName = "simon333",
-                            PasswordHash = "AQAAAAIAAYagAAAAEIAkMLQW5XhClY/sna/JgVDFlRjAzCm6/lgAXhODPG66u9w7ph6KGFSva9NAh7cnLA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEND4e80eYEr+yAgVkSP6SevGMFiDWjVW6cs1/PDTNxn2SdsdkfOw47mZIt/g4YULhg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "12111111-1111-1111-1111-111111111111",
                             TwoFactorEnabled = false,
@@ -1616,18 +1648,35 @@ namespace StaskoFy.DataAccess.Migrations
                         {
                             Id = new Guid("13111111-1111-1111-1111-111111111111"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e5c2dfa0-c455-4888-8914-c67e0090de77",
+                            ConcurrencyStamp = "43f5000a-f34a-483a-8a4c-d8e3f9a99431",
                             Email = "nikolaPeew@gmail.com",
                             EmailConfirmed = false,
-                            ImageURL = "/images/defaults/default-user-pfp.png",
+                            ImageURL = "/images/users-pfps/n_peew07.jpg",
                             LockoutEnabled = false,
                             NormalizedEmail = "nikolaPeew@gmail.com",
                             NormalizedUserName = "n_peew07",
-                            PasswordHash = "AQAAAAIAAYagAAAAEL4PyunDaRXQgeVZy0w7aB3YKYNCiVDnb1vbRUvjnoTRap7uwn3FD4//RJDOeSGR3A==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEE3Wv8FHMefyKVgnaFNyc8nTrd5bnPKY4i+m0L7xttcJXCVE7CeJWP9YArGV8rwQow==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "13111111-1111-1111-1111-111111111111",
                             TwoFactorEnabled = false,
                             UserName = "n_peew07"
+                        },
+                        new
+                        {
+                            Id = new Guid("14111111-1111-1111-1111-111111111111"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "ee20205c-9f05-4d17-a5a3-fb46ff798ed0",
+                            Email = "gtonev@gmail.com",
+                            EmailConfirmed = false,
+                            ImageURL = "/images/users-pfps/gt_baby.jpg",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "gtonev@gmail.com",
+                            NormalizedUserName = "g_tonev",
+                            PasswordHash = "AQAAAAIAAYagAAAAEGq2cbascFLngU3AzI22TiPeMzXtTYqcOXBOHvwMmKkE61b4mhXfUZ9sQu9ZJLnzyA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "14111111-1111-1111-1111-111111111111",
+                            TwoFactorEnabled = false,
+                            UserName = "g_tonev"
                         });
                 });
 

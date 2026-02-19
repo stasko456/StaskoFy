@@ -8,7 +8,7 @@
                     <h2 class="text-center mb-3 fw-bold">
                         <i class="bi bi-music-note-beamed"></i> Create <span class="text-success">Song</span>
                     </h2>
-                    <form method="post" asp-action="Create">
+                    <form method="post" asp-action="Create" enctype="multipart/form-data">
                         <div class="row g-4 align-items-stretch">
                             <div class="col-12 col-lg-6 d-flex">
                                 <div class="w-100">
@@ -60,9 +60,8 @@
                                     </div>
 
                                     <div class="mb-3">
-                                        <label asp-for="ImageURL" class="form-label fw-semibold">Art Cover</label>
-                                        <input asp-for="ImageURL" class="form-control" placeholder="Image URL" />
-                                        <span asp-validation-for="ImageURL" class="text-danger small"></span>
+                                        <label asp-for="ImageFile" class="form-label fw-semibold">Art Cover</label>
+                                        <input type="file" asp-for="ImageFile" class="form-control"/>
                                     </div>
                                 </div>
                             </div>
