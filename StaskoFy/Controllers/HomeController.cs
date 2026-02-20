@@ -16,16 +16,17 @@ namespace StaskoFy.Controllers
             this.songService = _songService;
         }
 
-        public async Task<IActionResult> Index(string searchItem, List<string> filters)
+        public IActionResult Index()
         {
-            var songs = await songService.FilterSongsAsync(searchItem, filters);
+            //var songs = await songService.FilterSongsAsync(searchItem, filters);
 
-            if (!songs.Any())
-            {
-                ViewData["NoResult"] = "No songs found matching your search.";
-            }
+            //if (!songs.Any())
+            //{
+            //    ViewData["NoResult"] = "No songs found matching your search.";
+            //}
 
-            return View(songs);
+            //return View(songs);
+            return View();
         }
 
         public IActionResult Privacy()

@@ -23,11 +23,11 @@ namespace StaskoFy.Controllers
 
         [HttpGet]
         [Authorize(Policy = "ArtistOrUser")]
-        public async Task<IActionResult> IndexForCurrentLoggedUser()
+        public async Task<IActionResult> PlaylistsIndexForCurrentLoggedUser()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var playlists = await playlistService.GetAllFromCurrentLoggedUserAsync(Guid.Parse(userId));
+            var playlists = await playlistService.GetPlaylistsFromCurrentLoggedUserAsync(Guid.Parse(userId));
             return View(playlists);
         }
 
@@ -35,8 +35,7 @@ namespace StaskoFy.Controllers
         [Authorize(Policy = "ArtistOrUser")]
         public async Task<IActionResult> Create()
         {
-            // maybe have to do another method
-            var songs = await songService.GetAllAsync();
+            var songs = await songService.SelectSongsAsync();
 
             var model = new PlaylistCreateViewModel
             {
@@ -51,7 +50,7 @@ namespace StaskoFy.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var songs = await songService.GetAllAsync();
+            var songs = await songService.SelectSongsAsync();
 
             if (!ModelState.IsValid)
             {
@@ -59,22 +58,22 @@ namespace StaskoFy.Controllers
                 return View(model);
             }
 
-            await playlistService.AddAsync(model, Guid.Parse(userId));
-            return RedirectToAction("IndexForCurrentLoggedUser");
+            await playlistService.AddPlaylistAsync(model, Guid.Parse(userId));
+            return RedirectToAction("PlaylistsIndexForCurrentLoggedUser");
         }
 
         [HttpGet]
         [Authorize(Policy = "ArtistOrUser")]
         public async Task<IActionResult> Edit(Guid id)
         {
-            if (id == null || id == Guid.Empty)
+            if (id == Guid.Empty)
             {
-                return NotFound();
+                return BadRequest();
             }
 
-            var playlist = await playlistService.GetByIdAsync(id);
+            var playlist = await playlistService.GetPlaylistByIdAsync(id);
 
-            var songs = await songService.GetAllAsync();
+            var songs = await songService.SelectSongsAsync();
 
             var model = new PlaylistEditViewModel
             {
@@ -99,7 +98,7 @@ namespace StaskoFy.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var songs = await songService.GetAllAsync();
+            var songs = await songService.SelectSongsAsync();
 
             if (!ModelState.IsValid)
             {
@@ -107,33 +106,39 @@ namespace StaskoFy.Controllers
                 return View(model);
             }
 
-            await playlistService.UpdateAsync(model, Guid.Parse(userId));
-            return RedirectToAction("IndexForCurrentLoggedUser");
+            await playlistService.UpdatePlaylistAsync(model, Guid.Parse(userId));
+            return RedirectToAction("PlaylistsIndexForCurrentLoggedUser");
         }
 
         [HttpPost]
         [Authorize(Policy = "ArtistOrUser")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            if (id == null || id == Guid.Empty)
+            if (id == Guid.Empty)
             {
-                return NotFound();
+                return BadRequest();
             }
 
-            await playlistService.RemoveAsync(id);
-            return RedirectToAction("IndexForCurrentLoggedUser");
+            await playlistService.RemovePlaylistAsync(id);
+            return RedirectToAction("PlaylistsIndexForCurrentLoggedUser");
         }
 
         [HttpGet]
         [Authorize(Policy = "ArtistOrUser")]
         public async Task<IActionResult> Details(Guid id)
         {
-            if (id == null || id == Guid.Empty)
+            if (id == Guid.Empty)
+            {
+                return BadRequest();
+            }
+
+            var playlist = await playlistService.GetPlaylistByIdWithSongsAsync(id);
+
+            if (playlist == null)
             {
                 return NotFound();
             }
 
-            var playlist = await playlistService.GetByIdWithSongsAsync(id);
             return View(playlist);
         }
     }

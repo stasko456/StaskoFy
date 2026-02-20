@@ -18,7 +18,7 @@ namespace StaskoFy.Controllers
         [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Index()
         {
-            var genres = await genreService.GetAllAsync();
+            var genres = await genreService.GetGenresAsync();
 
             return View(genres);
         }
@@ -40,7 +40,7 @@ namespace StaskoFy.Controllers
                 return View(model);
             }
 
-            await genreService.AddAsync(model);
+            await genreService.AddGenreAsync(model);
             return RedirectToAction("Index");
         }
 
@@ -48,12 +48,17 @@ namespace StaskoFy.Controllers
         [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Edit(Guid id)
         {
-            if (id == null || id == Guid.Empty)
+            if (id == Guid.Empty)
+            {
+                return BadRequest();
+            }
+
+            var genre = await genreService.GetGenreByIdAsync(id);
+
+            if (genre == null)
             {
                 return NotFound();
             }
-
-            var genre = await genreService.GetByIdAsync(id);
 
             var model = new GenreEditViewModel
             {
@@ -73,7 +78,7 @@ namespace StaskoFy.Controllers
                 return View(model);
             }
 
-            await genreService.UpdateAsync(model);
+            await genreService.UpdateGenreAsync(model);
 
             return RedirectToAction("Index");
         }
@@ -82,14 +87,19 @@ namespace StaskoFy.Controllers
         [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            if (id == null || id == Guid.Empty)
+            if (id == Guid.Empty)
+            {
+                return BadRequest();
+            }
+
+            var genre = await genreService.GetGenreByIdAsync(id);
+
+            if (genre == null)
             {
                 return NotFound();
             }
 
-            var genre = await genreService.GetByIdAsync(id);
-
-            await genreService.RemoveAsync(id);
+            await genreService.RemoveGenreAsync(id);
             return RedirectToAction("Index");
         }
     }

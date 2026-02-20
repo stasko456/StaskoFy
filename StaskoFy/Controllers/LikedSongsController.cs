@@ -23,11 +23,11 @@ namespace StaskoFy.Controllers
 
         [HttpGet]
         [Authorize(Policy = "ArtistOrUser")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> LikedSongsIndexForCurrentLoggedUser()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var currentUserLikedSongs = await likedSongsService.GetAllFromCurrentLoggedUserAsync(Guid.Parse(userId));
+            var currentUserLikedSongs = await likedSongsService.GetLikedSongsFromCurrentLoggedUserAsync(Guid.Parse(userId));
 
             return View(currentUserLikedSongs);
         }
@@ -43,8 +43,8 @@ namespace StaskoFy.Controllers
                 SongId = songId,
             };
 
-            await likedSongsService.AddAsync(model, Guid.Parse(userId));
-            return RedirectToAction("Index");
+            await likedSongsService.AddLikedSongAsync(model, Guid.Parse(userId));
+            return RedirectToAction("LikedSongsIndexForCurrentLoggedUser");
         }
 
         [HttpPost]
@@ -53,8 +53,8 @@ namespace StaskoFy.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            await likedSongsService.RemoveAsync(Guid.Parse(userId), songId);
-            return RedirectToAction("Index");
+            await likedSongsService.RemoveLikedSongAsync(Guid.Parse(userId), songId);
+            return RedirectToAction("LikedSongsIndexForCurrentLoggedUser");
         }
     }
 }

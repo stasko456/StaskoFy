@@ -24,11 +24,27 @@ namespace StaskoFy.Controllers
 
         [HttpGet]
         [Authorize(Policy = "Artist")]
-        public async Task<IActionResult> Index(string searchItem, List<string> filters)
+        public async Task<IActionResult> SongsIndexForCurrentLoggedArtist(string searchItem, List<string> filters)
         {
-            var artistId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var songs = await songService.FilterSongsForCurrentLoggedArtistAsync(Guid.Parse(artistId), searchItem, filters);
+            var songs = await songService.FilterSongsForCurrentLoggedArtistAsync(Guid.Parse(userId), searchItem, filters);
+
+            if (!songs.Any())
+            {
+                ViewData["NoResult"] = "No songs found matching your search.";
+            }
+
+            return View(songs);
+        }
+
+        [HttpGet]
+        [Authorize(Policy = "ArtistOrUser")]
+        public async Task<IActionResult> SongsIndexForAllUsers(string searchItem, List<string> filters)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var songs = await songService.FilterSongsAsync(searchItem, filters);
 
             if (!songs.Any())
             {
@@ -44,7 +60,7 @@ namespace StaskoFy.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var genres = await genreService.GetAllAsync();
+            var genres = await genreService.GetGenresAsync();
             ViewBag.Genres = new SelectList(genres, "Id", "Name");
 
             var artists = await artistService.PopulateArtistSelectListAsync(Guid.Parse(userId));
@@ -64,7 +80,7 @@ namespace StaskoFy.Controllers
 
             if (!ModelState.IsValid)
             {
-                var genres = await genreService.GetAllAsync();
+                var genres = await genreService.GetGenresAsync();
                 ViewBag.Genres = new SelectList(genres, "Id", "Name");
 
                 var artists = await artistService.PopulateArtistSelectListAsync(Guid.Parse(userId));
@@ -75,27 +91,32 @@ namespace StaskoFy.Controllers
 
             var uploadResult = await imageService.UploadImageAsync(model.ImageFile, model.ImageFile.FileName, "songs");
 
-            await songService.AddAsync(model, Guid.Parse(userId), uploadResult.Url, uploadResult.PublicId);
-            return RedirectToAction("Index");
+            await songService.AddSongAsync(model, Guid.Parse(userId), uploadResult.Url, uploadResult.PublicId);
+            return RedirectToAction("SongsIndexForCurrentLoggedArtist");
         }
 
         [HttpGet]
         [Authorize(Policy = "Artist")]
         public async Task<IActionResult> Edit(Guid id)
         {
+            if (id == Guid.Empty)
+            {
+                return BadRequest();
+            }
+
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var genres = await genreService.GetAllAsync();
+            var genres = await genreService.GetGenresAsync();
             ViewBag.Genres = new SelectList(genres, "Id", "Name");
 
             var artists = await artistService.PopulateArtistSelectListAsync(Guid.Parse(userId));
 
-            if (id == null || id == Guid.Empty)
+            var song = await songService.GetSongByIdAsync(id);
+
+            if (song == null)
             {
                 return NotFound();
             }
-
-            var song = await songService.GetByIdAsync(id);
 
             var model = new SongEditViewModel
             {
@@ -120,7 +141,7 @@ namespace StaskoFy.Controllers
 
             if (!ModelState.IsValid)
             {
-                var genres = await genreService.GetAllAsync();
+                var genres = await genreService.GetGenresAsync();
                 ViewBag.Genres = new SelectList(genres, "Id", "Name");
 
                 var artists = await artistService.PopulateArtistSelectListAsync(Guid.Parse(userId));
@@ -129,28 +150,33 @@ namespace StaskoFy.Controllers
                 return View(model);
             }
 
-            await songService.UpdateAsync(model, Guid.Parse(userId));
-            return RedirectToAction("Index");
+            await songService.UpdateSongsAsync(model, Guid.Parse(userId));
+            return RedirectToAction("SongsIndexForCurrentLoggedArtist");
         }
 
         [HttpPost]
         [Authorize(Policy = "Artist")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            if (id == null || id == Guid.Empty)
+            if (id == Guid.Empty)
+            {
+                return BadRequest();
+            }
+
+            var song = await songService.GetSongByIdAsync(id);
+
+            if (song == null)
             {
                 return NotFound();
             }
-
-            var song = await songService.GetByIdAsync(id);
 
             if (!string.IsNullOrEmpty(song.CloudinaryPublicId))
             {
                 await imageService.DestroyImageAsync(song.CloudinaryPublicId);
             }
 
-            await songService.RemoveAsync(id);
-            return RedirectToAction("Index");
+            await songService.RemoveSongAsync(id);
+            return RedirectToAction("SongsIndexForCurrentLoggedArtist");
         }
     }
 }

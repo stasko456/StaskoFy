@@ -79,7 +79,7 @@ namespace StaskoFy.Controllers
                     UserId = user.Id,
                 };
 
-                await artistService.AddAsync(artist);
+                await artistService.AddArtistAsync(artist);
             }
 
             return RedirectToAction("Login", "User");
