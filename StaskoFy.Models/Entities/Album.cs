@@ -14,7 +14,7 @@ namespace StaskoFy.Models.Entities
 
         [Required]
         [MaxLength(100)]
-        public string Title { get; set; }
+        public string Title { get; set; } = null!;
 
         // non required because I am summing the lenghts of the album's songs
         public TimeSpan Length { get; set; }
@@ -26,7 +26,7 @@ namespace StaskoFy.Models.Entities
         public int SongsCount { get; set; }
 
         [Required]
-        public string ImageURL { get; set; }
+        public string ImageURL { get; set; } = null!;
 
         public ICollection<ArtistAlbum> ArtistsAlbums { get; set; } = new List<ArtistAlbum>();
 

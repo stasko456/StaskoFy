@@ -15,7 +15,7 @@ namespace StaskoFy.Models.Entities
 
         [Required]
         [MaxLength(100)]
-        public string Title { get; set; }
+        public string Title { get; set; } = null!;
 
         [Required]
         public TimeSpan Length { get; set; }
