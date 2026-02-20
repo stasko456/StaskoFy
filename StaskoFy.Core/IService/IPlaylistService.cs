@@ -10,16 +10,16 @@ namespace StaskoFy.Core.IService
 {
     public interface IPlaylistService
     {
-        Task<IEnumerable<PlaylistIndexViewModel>> GetAllFromCurrentLoggedUserAsync(Guid userId);
+        Task<IEnumerable<PlaylistIndexViewModel>> GetPlaylistsFromCurrentLoggedUserAsync(Guid userId);
 
-        Task<PlaylistIndexViewModel?> GetByIdAsync(Guid id);
+        Task<PlaylistIndexViewModel?> GetPlaylistByIdAsync(Guid id);
 
-        Task<PlaylistSongsIndexViewModel?> GetByIdWithSongsAsync(Guid id);
+        Task<PlaylistSongsIndexViewModel?> GetPlaylistByIdWithSongsAsync(Guid id);
 
-        Task AddAsync(PlaylistCreateViewModel model, Guid userId);
+        Task AddPlaylistAsync(PlaylistCreateViewModel model, Guid userId);
 
-        Task UpdateAsync(PlaylistEditViewModel model, Guid userId);
+        Task UpdatePlaylistAsync(PlaylistEditViewModel model, Guid userId);
 
-        Task RemoveAsync(Guid id);
+        Task RemovePlaylistAsync(Guid id);
     }
 }

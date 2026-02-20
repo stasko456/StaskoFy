@@ -28,7 +28,7 @@ namespace StaskoFy.Core.Service
             this.songRepo = _songRepo;
         }
 
-        public async Task<IEnumerable<AlbumIndexViewModel>> GetAllAsync()
+        public async Task<IEnumerable<AlbumIndexViewModel>> GetAlbumsAsync()
         {
             return await albumRepo.GetAllAttached()
                 .Select(a => new AlbumIndexViewModel
@@ -45,20 +45,14 @@ namespace StaskoFy.Core.Service
                 }).ToListAsync();
         }
 
-        public async Task<IEnumerable<AlbumIndexViewModel>> GetSpecificArtistAlbumsAsync(Guid artistId)
+        public async Task<IEnumerable<AlbumIndexViewModel>> GetSpecificArtistAlbumsAsync(Guid userId)
         {
-            var specificArtistAlbums = new List<AlbumIndexViewModel>();
-
-            var albums = await albumRepo.GetAllAttached()
+            return await albumRepo.GetAllAttached()
                 .Include(x => x.ArtistsAlbums)
                     .ThenInclude(a => a.Artist)
                         .ThenInclude(u => u.User)
-                .Where(s => s.ArtistsAlbums.Any(a => a.Artist.UserId == artistId))
-                .ToListAsync();
-
-            foreach (var album in albums)
-            {
-                var vm = new AlbumIndexViewModel
+                .Where(s => s.ArtistsAlbums.Any(a => a.Artist.UserId == userId))
+                .Select(album => new AlbumIndexViewModel
                 {
                     Id = album.Id,
                     Title = album.Title,
@@ -69,15 +63,11 @@ namespace StaskoFy.Core.Service
                     SongsCount = album.SongsCount,
                     ImageURL = album.ImageURL,
                     Artists = album.ArtistsAlbums.Select(x => x.Artist.User.UserName).ToList(),
-                };
-
-                specificArtistAlbums.Add(vm);
-            }
-
-            return specificArtistAlbums;
+                })
+                .ToListAsync();
         }
 
-        public async Task<AlbumIndexViewModel?> GetByIdAsync(Guid id)
+        public async Task<AlbumIndexViewModel?> GetAlbumByIdAsync(Guid id)
         {
             var album = await albumRepo.GetAllAttached()
                 .Include(x => x.ArtistsAlbums)
@@ -87,7 +77,7 @@ namespace StaskoFy.Core.Service
 
             if (album == null)
             {
-                throw new KeyNotFoundException("Album not found.");
+                return null;
             }
 
             return new AlbumIndexViewModel
@@ -104,7 +94,7 @@ namespace StaskoFy.Core.Service
             };
         }
 
-        public async Task<AlbumSongsIndexViewModel?> GetByIdWithSongsAsync(Guid id)
+        public async Task<AlbumSongsIndexViewModel?> GetAlbumByIdWithSongsAsync(Guid id)
         {
             var album = await albumRepo.GetAllAttached()
             .Include(a => a.Songs)
@@ -120,7 +110,7 @@ namespace StaskoFy.Core.Service
 
             if (album == null)
             {
-                throw new KeyNotFoundException("Album not found.");
+                return null;
             }
 
             return new AlbumSongsIndexViewModel
@@ -145,10 +135,10 @@ namespace StaskoFy.Core.Service
             };
         }
 
-        public async Task AddAsync(AlbumCreateViewModel model, Guid artistId)
+        public async Task AddAlbumAsync(AlbumCreateViewModel model, Guid userId)
         {
             var mainArtist = await artistRepo.GetAllAttached().
-                FirstOrDefaultAsync(x => x.UserId == artistId);
+                FirstOrDefaultAsync(x => x.UserId == userId);
 
             var featuredArtists = await artistRepo.GetAllAttached().
                 Where(x => model.SelectedArtistIds.Contains(x.Id))
@@ -206,10 +196,10 @@ namespace StaskoFy.Core.Service
             await albumRepo.AddAsync(album);
         }
 
-        public async Task UpdateAsync(AlbumEditViewModel model, Guid artistId)
+        public async Task UpdateAlbumAsync(AlbumEditViewModel model, Guid userId)
         {
             var mainArtist = await artistRepo.GetAllAttached().
-                FirstOrDefaultAsync(x => x.UserId == artistId);
+                FirstOrDefaultAsync(x => x.UserId == userId);
 
             var featuredArtists = await artistRepo.GetAllAttached()
                 .Where(x => model.SelectedArtistIds.Contains(x.Id))
@@ -285,14 +275,14 @@ namespace StaskoFy.Core.Service
             await albumRepo.UpdateAsync(album);
         }
 
-        public async Task RemoveAsync(Guid id)
+        public async Task RemoveAlbumAsync(Guid id)
         {
             var album = await albumRepo.GetByIdAsync(id);
 
             await albumRepo.RemoveAsync(album);
         }
 
-        public async Task RemoveRangeAsync(IEnumerable<Guid> ids)
+        public async Task RemoveAlbumsRangeAsync(IEnumerable<Guid> ids)
         {
             List<Album> albumsToRemove = new List<Album>();
 
@@ -304,6 +294,60 @@ namespace StaskoFy.Core.Service
             }
 
             await albumRepo.RemoveRangeAsync(albumsToRemove);
+        }
+
+        public async Task<IEnumerable<AlbumIndexViewModel>> FilterAlbumsAsync(string searchItem, List<string> filters)
+        {
+            var query = albumRepo.GetAllAttached();
+
+            if (!string.IsNullOrEmpty(searchItem) && filters != null && filters.Any())
+            {
+                query = query.Where(s =>
+                    (filters.Contains("Title") && EF.Functions.Like(s.Title, $"%{searchItem}%")) ||
+                    (filters.Contains("Artist") && s.ArtistsAlbums.Any(a => EF.Functions.Like(a.Artist.User.UserName, $"%{searchItem}%")))
+                );
+            }
+
+            return await query
+                .Select(album => new AlbumIndexViewModel
+                {
+                    Id = album.Id,
+                    Title = album.Title,
+                    Hours = album.Length.Hours,
+                    Minutes = album.Length.Minutes,
+                    Seconds = album.Length.Seconds,
+                    ReleaseDate = album.ReleaseDate,
+                    SongsCount = album.SongsCount,
+                    ImageURL = album.ImageURL,
+                    Artists = album.ArtistsAlbums.Select(x => x.Artist.User.UserName).ToList()
+                }).ToListAsync();
+        }
+
+        public async Task<IEnumerable<AlbumIndexViewModel>> FilterAlbumsForCurrentLoggedArtistAsync(Guid userId, string searchItem, List<string> filters)
+        {
+            var query = albumRepo.GetAllAttached()
+            .Where(s => s.ArtistsAlbums.Any(x => x.Artist.UserId == userId));
+
+            if (!string.IsNullOrEmpty(searchItem) && filters != null && filters.Any())
+            {
+                query = query.Where(s =>
+                    (filters.Contains("Title") && EF.Functions.Like(s.Title, $"%{searchItem}%"))
+                );
+            }
+
+            return await query
+                .Select(album => new AlbumIndexViewModel
+                {
+                    Id = album.Id,
+                    Title = album.Title,
+                    Hours = album.Length.Hours,
+                    Minutes = album.Length.Minutes,
+                    Seconds = album.Length.Seconds,
+                    ReleaseDate = album.ReleaseDate,
+                    SongsCount = album.SongsCount,
+                    ImageURL = album.ImageURL,
+                    Artists = album.ArtistsAlbums.Select(x => x.Artist.User.UserName).ToList()
+                }).ToListAsync();
         }
     }
 }

@@ -9,13 +9,13 @@ namespace StaskoFy.Core.IService
 {
     public interface IArtistService
     {
-        Task<IEnumerable<ArtistViewModel>> GetAllAsync();
+        Task<IEnumerable<ArtistIndexWithSongsAndAlbumsViewModel>> GetArtistsAsync();
 
-        Task<ArtistViewModel?> GetByIdAsync(Guid id);
+        Task<ArtistViewModel?> GetArtistByIdAsync(Guid id);
 
-        Task AddAsync(ArtistViewModel model);
+        Task AddArtistAsync(ArtistViewModel model);
 
-        Task RemoveAsync(Guid id);
+        Task RemoveArtistAsync(Guid id);
 
         Task<IEnumerable<ArtistSelectViewModel>> PopulateArtistSelectListAsync(Guid userId);
     }

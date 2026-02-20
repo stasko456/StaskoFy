@@ -1,4 +1,5 @@
 ﻿using StaskoFy.ViewModels.Album;
+using StaskoFy.ViewModels.Song;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,19 +10,24 @@ namespace StaskoFy.Core.IService
 {
     public interface IAlbumService
     {
-        Task<IEnumerable<AlbumIndexViewModel>> GetAllAsync();
+        Task<IEnumerable<AlbumIndexViewModel>> GetAlbumsAsync();
 
-        Task<IEnumerable<AlbumIndexViewModel>> GetSpecificArtistAlbumsAsync(Guid artistId);
+        Task<IEnumerable<AlbumIndexViewModel>> GetSpecificArtistAlbumsAsync(Guid userId);
 
-        Task<AlbumIndexViewModel?> GetByIdAsync(Guid id);
+        Task<AlbumIndexViewModel?> GetAlbumByIdAsync(Guid id);
 
-        Task<AlbumSongsIndexViewModel?> GetByIdWithSongsAsync(Guid id);
+        Task<AlbumSongsIndexViewModel?> GetAlbumByIdWithSongsAsync(Guid id);
 
-        Task AddAsync(AlbumCreateViewModel model, Guid artistId);
+        Task AddAlbumAsync(AlbumCreateViewModel model, Guid userId);
 
-        Task RemoveAsync(Guid id);
-        Task RemoveRangeAsync(IEnumerable<Guid> ids);
+        Task UpdateAlbumAsync(AlbumEditViewModel model, Guid userId);
+        
+        Task RemoveAlbumAsync(Guid id);
+        Task RemoveAlbumsRangeAsync(IEnumerable<Guid> ids);
 
-        Task UpdateAsync(AlbumEditViewModel model, Guid artistId);
+        Task<IEnumerable<AlbumIndexViewModel>> FilterAlbumsAsync(string searchItem, List<string> filters);
+
+        Task<IEnumerable<AlbumIndexViewModel>> FilterAlbumsForCurrentLoggedArtistAsync(Guid userId, string searchItem, List<string> filters);
+
     }
 }

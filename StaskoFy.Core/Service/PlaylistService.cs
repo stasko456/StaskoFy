@@ -28,7 +28,7 @@ namespace StaskoFy.Core.Service
             this.playlistSongRepo = _playlistSongRepo;
         }
 
-        public async Task <IEnumerable<PlaylistIndexViewModel>> GetAllFromCurrentLoggedUserAsync(Guid userId)
+        public async Task <IEnumerable<PlaylistIndexViewModel>> GetPlaylistsFromCurrentLoggedUserAsync(Guid userId)
         {
             return await playlistRepo.GetAllAttached()
                 .Where(x => x.UserId == userId)
@@ -46,7 +46,7 @@ namespace StaskoFy.Core.Service
                 }).ToListAsync();
         }
 
-        public async Task<PlaylistIndexViewModel?> GetByIdAsync(Guid id)
+        public async Task<PlaylistIndexViewModel?> GetPlaylistByIdAsync(Guid id)
         {
             var playlist = await playlistRepo.GetAllAttached()
                 .Include(x => x.PlaylistsSongs)
@@ -55,7 +55,7 @@ namespace StaskoFy.Core.Service
 
             if (playlist == null)
             {
-                throw new KeyNotFoundException("Playlist not found.");
+                return null;
             }
 
             return new PlaylistIndexViewModel
@@ -72,7 +72,7 @@ namespace StaskoFy.Core.Service
             };
         }
 
-        public async Task<PlaylistSongsIndexViewModel?> GetByIdWithSongsAsync(Guid id)
+        public async Task<PlaylistSongsIndexViewModel?> GetPlaylistByIdWithSongsAsync(Guid id)
         {
             var playlist = await playlistRepo.GetAllAttached()
                 .Include(x => x.PlaylistsSongs)
@@ -87,7 +87,7 @@ namespace StaskoFy.Core.Service
 
             if (playlist == null)
             {
-                throw new KeyNotFoundException("Playlist not found.");
+                return null;
             }
 
             return new PlaylistSongsIndexViewModel
@@ -111,7 +111,7 @@ namespace StaskoFy.Core.Service
             };
         }
 
-        public async Task AddAsync(PlaylistCreateViewModel model, Guid userId)
+        public async Task AddPlaylistAsync(PlaylistCreateViewModel model, Guid userId)
         {
             var playlistSongs = await songRepo.GetAllAttached()
                 .Where(x => model.SelectedSongIds.Contains(x.Id))
@@ -152,7 +152,7 @@ namespace StaskoFy.Core.Service
             await playlistRepo.AddAsync(playlist);
         }
 
-        public async Task UpdateAsync(PlaylistEditViewModel model, Guid userId)
+        public async Task UpdatePlaylistAsync(PlaylistEditViewModel model, Guid userId)
         {
             var playlistSongs = await songRepo.GetAllAttached()
                 .Where(x => model.SelectedSongIds.Contains(x.Id))
@@ -201,7 +201,7 @@ namespace StaskoFy.Core.Service
             }
         }
 
-        public async Task RemoveAsync(Guid id)
+        public async Task RemovePlaylistAsync(Guid id)
         {
             var playlist = await playlistRepo.GetByIdAsync(id);
 

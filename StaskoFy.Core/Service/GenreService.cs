@@ -20,7 +20,7 @@ namespace StaskoFy.Core.Service
             this.genreRepo = _genreRepo;
         }
 
-        public async Task<IEnumerable<GenreIndexViewModel>> GetAllAsync()
+        public async Task<IEnumerable<GenreIndexViewModel>> GetGenresAsync()
         {
             return await genreRepo.GetAllAttached()
                 .Select(g => new GenreIndexViewModel
@@ -30,13 +30,13 @@ namespace StaskoFy.Core.Service
                 }).ToListAsync();
         }
 
-        public async Task<GenreIndexViewModel?> GetByIdAsync(Guid id)
+        public async Task<GenreIndexViewModel?> GetGenreByIdAsync(Guid id)
         {
             var genre = await genreRepo.GetByIdAsync(id);
 
             if (genre == null)
             {
-                throw new KeyNotFoundException("Genre not found.");
+                return null;
             }
 
             return new GenreIndexViewModel
@@ -46,7 +46,7 @@ namespace StaskoFy.Core.Service
             };
         }
 
-        public async Task AddAsync(GenreCreateViewModel model)
+        public async Task AddGenreAsync(GenreCreateViewModel model)
         {
             var genre = new Genre
             {
@@ -56,7 +56,7 @@ namespace StaskoFy.Core.Service
             await genreRepo.AddAsync(genre);
         }
 
-        public async Task UpdateAsync(GenreEditViewModel model)
+        public async Task UpdateGenreAsync(GenreEditViewModel model)
         {
             var genre = await genreRepo.GetByIdAsync(model.Id);
 
@@ -65,7 +65,7 @@ namespace StaskoFy.Core.Service
             await genreRepo.UpdateAsync(genre);
         }
 
-        public async Task RemoveAsync(Guid id)
+        public async Task RemoveGenreAsync(Guid id)
         {
             var genre = await genreRepo.GetByIdAsync(id);
 
