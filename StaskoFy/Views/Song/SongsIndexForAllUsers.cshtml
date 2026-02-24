@@ -1,4 +1,4 @@
-﻿@model List<SongIndexViewModel>
+﻿@model SongsPageViewModel
 
 <div class="container py-5">
     <div class="text-center text-light">
@@ -44,7 +44,7 @@
     </form>
 </div>
 
-@if (!Model.Any())
+@if (!Model.Songs.Any())
 {
     <div class="alert alert-danger rounded-4 text-center fw-semibold shadow-sm fs-3">
         <i class="bi bi-search me-2"></i>
@@ -54,7 +54,7 @@
 else
 {
     <div class="row g-4 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
-        @foreach (var song in Model)
+        @foreach (var song in Model.Songs)
         {
             <div class="col">
                 <div class="card h-100 shadow-sm">
@@ -78,9 +78,54 @@ else
                         <p class="card-text mb-1"><strong><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="30" height="30" class="me-2"><!--!Font Awesome Free v7.1.0 by @@fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path d="M216 64C229.3 64 240 74.7 240 88L240 128L400 128L400 88C400 74.7 410.7 64 424 64C437.3 64 448 74.7 448 88L448 128L480 128C515.3 128 544 156.7 544 192L544 480C544 515.3 515.3 544 480 544L160 544C124.7 544 96 515.3 96 480L96 192C96 156.7 124.7 128 160 128L192 128L192 88C192 74.7 202.7 64 216 64zM216 176L160 176C151.2 176 144 183.2 144 192L144 240L496 240L496 192C496 183.2 488.8 176 480 176L216 176zM144 288L144 480C144 488.8 151.2 496 160 496L480 496C488.8 496 496 488.8 496 480L496 288L144 288z" /></svg>Release Date:</strong> @song.ReleaseDate</p>
                         @if (User?.Identity?.IsAuthenticated ?? false)
                         {
-                            <form method="post" asp-controller="LikedSongs" asp-action="Create" asp-route-songId="@song.Id">
-                                <button class="btn btn-primary btn-sm mt-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" class="me-2" width="30" height="30"><!--!Font Awesome Free v7.1.0 by @@fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path d="M320 576C461.4 576 576 461.4 576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320C64 461.4 178.6 576 320 576zM296 408L296 344L232 344C218.7 344 208 333.3 208 320C208 306.7 218.7 296 232 296L296 296L296 232C296 218.7 306.7 208 320 208C333.3 208 344 218.7 344 232L344 296L408 296C421.3 296 432 306.7 432 320C432 333.3 421.3 344 408 344L344 344L344 408C344 421.3 333.3 432 320 432C306.7 432 296 421.3 296 408z" /></svg>Add to Liked Songs</button>
-                            </form>
+                            <div class="dropdown mt-2">
+                                <!-- Main toggle -->
+                                <button class="btn btn-secondary dropdown-toggle"
+                                        type="button"
+                                        data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M0 256a56 56 0 1 1 112 0 56 56 0 1 1 -112 0zm168 0a56 56 0 1 1 112 0 56 56 0 1 1 -112 0zm224-56a56 56 0 1 1 0 112 56 56 0 1 1 0-112z" /></svg>
+                                </button>
+
+                                <!-- Main dropdown menu -->
+                                <ul class="dropdown-menu">
+
+                                    <!-- Submenu for "Add to Playlist" -->
+                                    <li class="dropdown-submenu">
+                                        <a class="dropdown-item dropdown-toggle">Add to Playlist</a>
+
+                                        <ul class="dropdown-menu">
+                                            @if (Model.Playlists != null && Model.Playlists.Any())
+                                            {
+                                                foreach (var playlist in Model.Playlists)
+                                                {
+                                                    <li>
+                                                        <form method="post" asp-controller="Playlist" asp-action="AddSongToPlaylist" asp-route-playlistId="@playlist.Id" asp-route-songId="@song.Id">
+                                                            @* <input type="hidden" name="playlistId" value="@playlist.Id" />
+                                                            <input type="hidden" name="songId" value="@song.Id" /> *@
+                                                            <button type="submit" class="dropdown-item">@playlist.Title</button>
+                                                        </form>
+                                                    </li>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <li class="dropdown-item text-muted">No playlists</li>
+                                            }
+                                        </ul>
+                                    </li>
+
+                                    <li><hr class="dropdown-divider" /></li>
+
+                                    <!-- Add to Liked Songs -->
+                                    <li>
+                                        <form method="post" asp-controller="LikedSongs" asp-action="AddLikedSong" asp-route-songId="@song.Id">
+                                            <button type="submit" class="dropdown-item">Add to Liked Songs</button>
+                                        </form>
+                                    </li>
+
+                                </ul>
+                            </div>
                         }
                     </div>
                 </div>

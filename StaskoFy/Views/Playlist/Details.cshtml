@@ -10,8 +10,8 @@
                     <!-- Header -->
                     <div class="text-center mb-4">
                         <h2 class="fw-bold">
-                            <i class="bi bi-music-note-list me-2"></i>
-                            <span class="text-secondary">@Model.Title</span>
+                            <i class="bi bi-heart-fill text-danger"></i>
+                            <span class="text-warning">@Model.Title</span>
                         </h2>
                         <p class="text-muted mb-0">
                             @Model.Songs.Count() Songs in this playlist
@@ -20,17 +20,19 @@
 
                     <hr class="mb-4" />
 
-                    <!-- Songs Table -->
+                    <!-- Songs List -->
                     <div class="table-responsive">
                         <table class="table align-middle mb-0">
 
                             <thead class="bg-light text-secondary">
                                 <tr class="small text-uppercase">
                                     <th class="ps-3">#</th>
-                                    <th>Title</th>
+                                    <th>Song</th>
+                                    <th>Album</th>
                                     <th>Length</th>
-                                    <th>Genre</th>
                                     <th>Artists</th>
+                                    <th>Date Added</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
 
@@ -48,22 +50,27 @@
                                             @index
                                         </td>
 
-                                        <!-- Title -->
+                                        <!-- Song + Image -->
                                         <td class="fw-semibold text-dark">
-                                            <i class="bi bi-music-note text-secondary me-2"></i>
-                                            @song.Title
+                                            <div class="d-flex align-items-center gap-3">
+                                                <img src="@song.ImageUrl"
+                                                     alt="@song.Title"
+                                                     width="50"
+                                                     height="50"
+                                                     class="rounded shadow-sm" />
+
+                                                <span>@song.Title</span>
+                                            </div>
                                         </td>
 
-                                        <!-- Duration -->
+                                        <!-- Album -->
+                                        <td class="text-muted">
+                                            @song.AlbumTitle
+                                        </td>
+
+                                        <!-- Length -->
                                         <td class="text-muted">
                                             @song.Minutes:@song.Seconds.ToString("D2")
-                                        </td>
-
-                                        <!-- Genre -->
-                                        <td>
-                                            <span class="badge bg-secondary bg-opacity-75 rounded-pill px-3">
-                                                @song.Genre
-                                            </span>
                                         </td>
 
                                         <!-- Artists -->
@@ -76,6 +83,18 @@
                                             }
                                         </td>
 
+                                        <!-- Date Added -->
+                                        <td class="text-muted">
+                                            @song.DateAdded.ToString("dd MMM yyyy")
+                                        </td>
+
+                                        <td>
+                                            <form method="post" asp-controller="Playlist" asp-action="RemoveSong" asp-route-songId="@song.Id" asp-route-playlistId="@Model.Id">
+                                                <button class="btn btn-danger btn-sm mt-2 px-4 py-2 rounded-pill shadow-sm d-flex align-items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" class="me-2" width="30" height="30"><!--!Font Awesome Free v7.2.0 by @@fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path d="M320 576C461.4 576 576 461.4 576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320C64 461.4 178.6 576 320 576zM232 296L408 296C421.3 296 432 306.7 432 320C432 333.3 421.3 344 408 344L232 344C218.7 344 208 333.3 208 320C208 306.7 218.7 296 232 296z" /></svg>Remove
+                                                </button>
+                                            </form>
+                                        </td>
                                     </tr>
 
                                     index++;
@@ -92,3 +111,4 @@
         </div>
     </div>
 </div>
+

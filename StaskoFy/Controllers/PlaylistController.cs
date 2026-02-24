@@ -86,7 +86,6 @@ namespace StaskoFy.Controllers
                 DateCreated = playlist.DateCreated,
                 ImageURL = playlist.ImageURL,
                 IsPublic = playlist.IsPublic,
-                Songs = new MultiSelectList(songs, "Id", "Title")
             };
 
             return View(model);
@@ -102,7 +101,6 @@ namespace StaskoFy.Controllers
 
             if (!ModelState.IsValid)
             {
-                model.Songs = new MultiSelectList(songs, "Id", "Title");
                 return View(model);
             }
 
@@ -140,6 +138,32 @@ namespace StaskoFy.Controllers
             }
 
             return View(playlist);
+        }
+
+        [HttpPost]
+        [Authorize(Policy = "ArtistOrUser")]
+        public async Task<IActionResult> AddSongToPlaylist(Guid playlistId, Guid songId)
+        {
+            if (songId == Guid.Empty || playlistId == Guid.Empty)
+            {
+                return BadRequest();
+            }
+
+            await playlistService.AddSongToPlaylistAsync(playlistId, songId);
+            return RedirectToAction("PlaylistsIndexForCurrentLoggedUser");
+        }
+
+        [HttpPost]
+        [Authorize(Policy = "ArtistOrUser")]
+        public async Task<IActionResult> RemoveSongFromPlaylist(Guid playlistId, Guid songId)
+        {
+            if (songId == Guid.Empty || playlistId == Guid.Empty)
+            {
+                return BadRequest();
+            }
+
+            await playlistService.RemoveSongFromPlaylistAsync(playlistId, songId);
+            return RedirectToAction("Details", new { id = playlistId });
         }
     }
 }

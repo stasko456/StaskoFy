@@ -34,7 +34,7 @@ namespace StaskoFy.Controllers
 
         [HttpPost]
         [Authorize(Policy = "ArtistOrUser")]
-        public async Task<IActionResult> Create(Guid songId)
+        public async Task<IActionResult> AddLikedSong(Guid songId)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
@@ -44,16 +44,16 @@ namespace StaskoFy.Controllers
             };
 
             await likedSongsService.AddLikedSongAsync(model, Guid.Parse(userId));
-            return RedirectToAction("LikedSongsIndexForCurrentLoggedUser");
+            return RedirectToAction("SongsIndexForAllUsers", "Song");
         }
 
         [HttpPost]
         [Authorize(Policy = "ArtistOrUser")]
-        public async Task<IActionResult> Delete(Guid songId)
+        public async Task<IActionResult> RemoveLikedSong(Guid songId)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            await likedSongsService.RemoveLikedSongAsync(Guid.Parse(userId), songId);
+                await likedSongsService.RemoveLikedSongAsync(Guid.Parse(userId), songId);
             return RedirectToAction("LikedSongsIndexForCurrentLoggedUser");
         }
     }

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using StaskoFy.Core.IService;
+using StaskoFy.ViewModels.Playlist;
 using StaskoFy.ViewModels.Song;
 using System.Security.Claims;
 
@@ -13,13 +14,15 @@ namespace StaskoFy.Controllers
         private readonly IGenreService genreService;
         private readonly IArtistService artistService;
         private readonly IImageService imageService;
+        private readonly IPlaylistService playlistService;
 
-        public SongController(ISongService _songService, IGenreService _genreService, IArtistService _artistService, IImageService _imageService)
+        public SongController(ISongService _songService, IGenreService _genreService, IArtistService _artistService, IImageService _imageService, IPlaylistService _playlistService)
         {
             this.songService = _songService;
             this.genreService = _genreService;
             this.artistService = _artistService;
             this.imageService = _imageService;
+            this.playlistService = _playlistService;
         }
 
         [HttpGet]
@@ -28,7 +31,7 @@ namespace StaskoFy.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var songs = await songService.FilterSongsForCurrentLoggedArtistAsync(Guid.Parse(userId), searchItem, filters);
+            var songs = await songService.FilterSongsForCurrentLoggedArtistAsync(Guid.Parse(userId), searchItem, filters);            
 
             if (!songs.Any())
             {
@@ -46,12 +49,20 @@ namespace StaskoFy.Controllers
 
             var songs = await songService.FilterSongsAsync(searchItem, filters);
 
+            var playlists = await playlistService.SelectPlaylistsFromCurrentLoggedUserAsync(Guid.Parse(userId));
+
+            var viewModel = new SongsPageViewModel
+            {
+                Songs = songs.ToList(),
+                Playlists = playlists.ToList()
+            };
+
             if (!songs.Any())
             {
                 ViewData["NoResult"] = "No songs found matching your search.";
             }
 
-            return View(songs);
+            return View(viewModel);
         }
 
         [HttpGet]
