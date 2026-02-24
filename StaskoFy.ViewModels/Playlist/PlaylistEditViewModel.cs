@@ -32,11 +32,8 @@ namespace StaskoFy.ViewModels.Playlist
 
         [Required(ErrorMessage = "Playlist cover is required!")]
         [StringLength(2048)]
-        public string ImageURL { get; set; } = "/images/defaults/default_album_cover.png";
+        public string ImageURL { get; set; }
 
-        public bool IsPublic { get; set; } = false; // false by default
-
-        public List<Guid> SelectedSongIds { get; set; } = new();
-        public Microsoft.AspNetCore.Mvc.Rendering.MultiSelectList? Songs { get; set; }
+        public bool IsPublic { get; set; }
     }
 }
