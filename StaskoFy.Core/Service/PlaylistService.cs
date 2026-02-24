@@ -100,12 +100,15 @@ namespace StaskoFy.Core.Service
                 SongsCount = playlist.SongCount,
                 DateCreated = playlist.DateCreated,
                 ImageURL = playlist.ImageURL,
-                Songs = playlist.PlaylistsSongs.Select(x => new SongAlbumIndexViewModel
+                Songs = playlist.PlaylistsSongs.Select(x => new SongPlaylistIndexViewModel
                 {
+                    Id = x.SongId,
                     Title = x.Song.Title,
-                    Minutes= x.Song.Length.Minutes,
+                    AlbumTitle = x.Song.Album == null ? "Single" : x.Song.Album.Title,
+                    Minutes = x.Song.Length.Minutes,
                     Seconds = x.Song.Length.Seconds,
-                    Genre = x.Song.Genre.Name,
+                    ImageUrl = x.Song.ImageURL,
+                    DateAdded = x.DateAdded,
                     Artists = x.Song.ArtistsSongs.Select(x => x.Artist.User.UserName).ToList(),
                 }).ToList(),
             };
@@ -154,9 +157,9 @@ namespace StaskoFy.Core.Service
 
         public async Task UpdatePlaylistAsync(PlaylistEditViewModel model, Guid userId)
         {
-            var playlistSongs = await songRepo.GetAllAttached()
-                .Where(x => model.SelectedSongIds.Contains(x.Id))
-                .ToListAsync();
+            //var playlistSongs = await songRepo.GetAllAttached()
+            //    .Where(x => model.SelectedSongIds.Contains(x.Id))
+            //    .ToListAsync();
 
             var playlist = await playlistRepo.GetByIdAsync(model.Id);
 
@@ -167,38 +170,41 @@ namespace StaskoFy.Core.Service
             playlist.UserId = userId;
 
             // add songs to the playlist if any are selected
-            if (playlistSongs.Count > 0)
-            {
-                // remove old playlistSong entities
-                var playlistSongsToRemove = await playlistSongRepo.GetAllAttached()
-                    .Where(x => x.PlaylistId == playlist.Id)
-                    .ToListAsync();
-                await playlistSongRepo.RemoveRangeAsync(playlistSongsToRemove);
+            //if (playlistSongs.Count > 0)
+            //{
+            //    // remove old playlistSong entities
+            //    var playlistSongsToRemove = await playlistSongRepo.GetAllAttached()
+            //        .Where(x => x.PlaylistId == playlist.Id)
+            //        .ToListAsync();
+            //    await playlistSongRepo.RemoveRangeAsync(playlistSongsToRemove);
 
-                // add new songs to playlist
-                foreach (var song in playlistSongs)
-                {
-                    playlist.PlaylistsSongs.Add(new PlaylistSong
-                    {
-                        Playlist = playlist,
-                        Song = song,
-                    });
-                }
+            //    // add new songs to playlist
+            //    foreach (var song in playlistSongs)
+            //    {
+            //        playlist.PlaylistsSongs.Add(new PlaylistSong
+            //        {
+            //            Playlist = playlist,
+            //            Song = song,
+            //        });
+            //    }
 
-                // update playlist length
-                TimeSpan playlistLength = TimeSpan.Zero;
-                foreach (var song in playlistSongs)
-                {
-                    playlistLength += song.Length;
-                }
-                playlist.Length = playlistLength;
+            //    // update playlist length
+            //    TimeSpan playlistLength = TimeSpan.Zero;
+            //    foreach (var song in playlistSongs)
+            //    {
+            //        playlistLength += song.Length;
+            //    }
+            //    playlist.Length = playlistLength;
 
-                // update playlist sogn count
-                playlist.SongCount = playlistSongs.Count();
+            //    // update playlist sogn count
+            //    playlist.SongCount = playlistSongs.Count();
 
-                // update entity
-                await playlistRepo.UpdateAsync(playlist);
-            }
+            //    // update entity
+            //    await playlistRepo.UpdateAsync(playlist);
+
+            //    // update date added on playlist songs
+            //    // TO DO
+            //}
         }
 
         public async Task RemovePlaylistAsync(Guid id)
@@ -206,6 +212,55 @@ namespace StaskoFy.Core.Service
             var playlist = await playlistRepo.GetByIdAsync(id);
 
             await playlistRepo.RemoveAsync(playlist);
+        }
+
+        public async Task AddSongToPlaylistAsync(Guid playlistId, Guid songId)
+        {
+            var playlistSongExists = playlistSongRepo.GetAllAttached()
+                .FirstOrDefaultAsync(x => x.PlaylistId == playlistId && x.SongId == songId);
+
+            if (playlistSongExists != null)
+            {
+                return;
+            }
+
+            var playlistSong = new PlaylistSong
+            {
+                PlaylistId = playlistId,
+                SongId = songId
+            };
+
+            var playlist = await playlistRepo.GetByIdAsync(playlistId);
+            playlist.SongCount++;
+
+            await playlistSongRepo.AddAsync(playlistSong);
+        }
+
+        public async Task RemoveSongFromPlaylistAsync(Guid playlistId, Guid songId)
+        {
+            var playlistSong = await playlistSongRepo.GetAllAttached()
+                .FirstOrDefaultAsync(p => p.PlaylistId == playlistId && p.SongId == songId);
+
+            if (playlistSong == null)
+            {
+                return;
+            }
+
+            var playlist = await playlistRepo.GetByIdAsync(playlistId);
+            playlist.SongCount--;
+
+            await playlistSongRepo.RemoveAsync(playlistSong);
+        }
+
+        public async Task<IEnumerable<PlaylistSelectViewModel>> SelectPlaylistsFromCurrentLoggedUserAsync(Guid userId)
+        {
+            return await playlistRepo.GetAllAttached()
+                .Where(x => x.UserId == userId)
+                .Select(p => new PlaylistSelectViewModel
+                {
+                    Id = p.Id,
+                    Title = p.Title,
+                }).ToListAsync();
         }
     }
 }

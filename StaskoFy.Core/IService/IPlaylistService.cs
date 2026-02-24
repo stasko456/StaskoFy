@@ -21,5 +21,11 @@ namespace StaskoFy.Core.IService
         Task UpdatePlaylistAsync(PlaylistEditViewModel model, Guid userId);
 
         Task RemovePlaylistAsync(Guid id);
+        
+        Task AddSongToPlaylistAsync(Guid playlistId, Guid songId);
+
+        Task RemoveSongFromPlaylistAsync(Guid playlistId, Guid songId);
+
+        Task<IEnumerable<PlaylistSelectViewModel>> SelectPlaylistsFromCurrentLoggedUserAsync(Guid userId);
     }
 }
