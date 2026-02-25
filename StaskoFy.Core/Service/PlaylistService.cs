@@ -137,6 +137,7 @@ namespace StaskoFy.Core.Service
                 {
                     Playlist = playlist,
                     Song = song,
+                    DateAdded = DateOnly.FromDateTime(DateTime.Now)
                 });
             }
 
@@ -216,7 +217,7 @@ namespace StaskoFy.Core.Service
 
         public async Task AddSongToPlaylistAsync(Guid playlistId, Guid songId)
         {
-            var playlistSongExists = playlistSongRepo.GetAllAttached()
+            var playlistSongExists = await playlistSongRepo.GetAllAttached()
                 .FirstOrDefaultAsync(x => x.PlaylistId == playlistId && x.SongId == songId);
 
             if (playlistSongExists != null)
@@ -227,11 +228,15 @@ namespace StaskoFy.Core.Service
             var playlistSong = new PlaylistSong
             {
                 PlaylistId = playlistId,
-                SongId = songId
+                SongId = songId,
+                DateAdded = DateOnly.FromDateTime(DateTime.Now)
             };
 
             var playlist = await playlistRepo.GetByIdAsync(playlistId);
             playlist.SongCount++;
+
+            var song = await songRepo.GetByIdAsync(songId);
+            playlist.Length = playlist.Length + song.Length;
 
             await playlistSongRepo.AddAsync(playlistSong);
         }
@@ -248,6 +253,9 @@ namespace StaskoFy.Core.Service
 
             var playlist = await playlistRepo.GetByIdAsync(playlistId);
             playlist.SongCount--;
+
+            var song = await songRepo.GetByIdAsync(songId);
+            playlist.Length = playlist.Length - song.Length;
 
             await playlistSongRepo.RemoveAsync(playlistSong);
         }

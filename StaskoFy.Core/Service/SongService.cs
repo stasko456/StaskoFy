@@ -290,5 +290,27 @@ namespace StaskoFy.Core.Service
                     Title = song.Title,
                 }).ToListAsync();
         }
+
+        public async Task<IEnumerable<SongIndexViewModel>> GetSinglesForCurrentLoggedArtistAsync(Guid userId)
+        {
+            return await songRepo.GetAllAttached()
+                .Where(song => song.ArtistsSongs.Any(a => a.Artist.UserId == userId) && song.Album == null)
+                .Select(song => new SongIndexViewModel
+                {
+                    Id = song.Id,
+                    Title = song.Title,
+                    Minutes = song.Length.Minutes,
+                    Seconds = song.Length.Seconds,
+                    ReleaseDate = song.ReleaseDate,
+                    AlbumName = "Single",
+                    AlbumId = song.AlbumId,
+                    GenreId = song.GenreId,
+                    GenreName = song.Genre.Name,
+                    ImageURL = song.ImageURL,
+                    CloudinaryPublicId = song.CloudinaryPublicId,
+                    Likes = song.Likes,
+                    Artists = song.ArtistsSongs.Select(x => x.Artist.User.UserName).ToList()
+                }).ToListAsync();
+        }
     }
 }

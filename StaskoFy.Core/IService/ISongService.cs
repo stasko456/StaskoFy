@@ -27,5 +27,7 @@ namespace StaskoFy.Core.IService
         Task<IEnumerable<SongSelectViewModel>> SelectSongsAsync();
 
         Task<IEnumerable<SongSelectViewModel>> SelectSongsByCurrentLoggedArtistAsync(Guid userId);
+
+        Task<IEnumerable<SongIndexViewModel>> GetSinglesForCurrentLoggedArtistAsync(Guid userId);
     }
 }

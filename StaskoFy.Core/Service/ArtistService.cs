@@ -4,6 +4,7 @@ using StaskoFy.DataAccess.Repository;
 using StaskoFy.Models.Entities;
 using StaskoFy.ViewModels.Album;
 using StaskoFy.ViewModels.Artist;
+using StaskoFy.ViewModels.Playlist;
 using StaskoFy.ViewModels.Song;
 using System;
 using System.Collections.Generic;
@@ -22,14 +23,15 @@ namespace StaskoFy.Core.Service
             this.artistRepo = _artistRepo;
         }
 
-        public async Task<IEnumerable<ArtistIndexWithSongsAndAlbumsViewModel>> GetArtistsAsync()
+        public async Task<IEnumerable<ArtistIndexWithProjects>> GetArtistsAsync(Guid userId)
         {
             return await artistRepo.GetAllAttached()
                 .Include(x => x.ArtistsAlbums)
                     .ThenInclude(album => album.Album)
                 .Include(x => x.ArtistsSongs)
                     .ThenInclude(song => song.Song)
-                .Select(a => new ArtistIndexWithSongsAndAlbumsViewModel
+                .Where(x => x.UserId != userId)
+                .Select(a => new ArtistIndexWithProjects
                 {
                     Id = a.Id,
                     Username = a.User.UserName,
@@ -70,6 +72,17 @@ namespace StaskoFy.Core.Service
                             Artists = song.ArtistsSongs.Select(artist => artist.Artist.User.UserName).ToList(),
                         }).ToList(),
                     }).ToList(),
+                    Playlists = a.User.Playlists.Select(pl => new PlaylistSongsIndexViewModel
+                    {
+                        Id = pl.Id,
+                        Title = pl.Title,
+                        Hours= pl.Length.Hours,
+                        Minutes = pl.Length.Minutes,
+                        Seconds = pl.Length.Seconds,
+                        SongCount = pl.SongCount,
+                        DateCreated = pl.DateCreated,
+                        ImageURL = pl.ImageURL,
+                    })
                 }).ToListAsync();
         }
 
@@ -118,5 +131,10 @@ namespace StaskoFy.Core.Service
 
             return artists;
         }
+
+        //public Task<ArtistIndexWithProjects?> GetArtistByIdWithProjectsAsync(Guid userId)
+        //{
+        //    return 
+        //}
     }
 }

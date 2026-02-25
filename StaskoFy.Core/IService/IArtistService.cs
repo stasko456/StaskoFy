@@ -9,7 +9,7 @@ namespace StaskoFy.Core.IService
 {
     public interface IArtistService
     {
-        Task<IEnumerable<ArtistIndexWithSongsAndAlbumsViewModel>> GetArtistsAsync();
+        Task<IEnumerable<ArtistIndexWithProjects>> GetArtistsAsync(Guid userId);
 
         Task<ArtistViewModel?> GetArtistByIdAsync(Guid id);
 
@@ -18,5 +18,7 @@ namespace StaskoFy.Core.IService
         Task RemoveArtistAsync(Guid id);
 
         Task<IEnumerable<ArtistSelectViewModel>> PopulateArtistSelectListAsync(Guid userId);
+
+        Task<ArtistIndexWithProjects?> GetArtistByIdWithProjectsAsync(Guid userId);
     }
 }
