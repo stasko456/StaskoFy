@@ -1,4 +1,5 @@
 ﻿using StaskoFy.ViewModels.Album;
+using StaskoFy.ViewModels.Playlist;
 using StaskoFy.ViewModels.Song;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace StaskoFy.ViewModels.Artist
 {
-    public class ArtistIndexWithSongsAndAlbumsViewModel
+    public class ArtistIndexWithProjects
     {
         public Guid Id { get; set; }
 
@@ -19,5 +20,7 @@ namespace StaskoFy.ViewModels.Artist
         public List<SongIndexViewModel> Singles { get; set; } = new();
 
         public List<AlbumSongsIndexViewModel> Albums { get; set; } = new();
+
+        public List<PlaylistSongsIndexViewModel> Playlists { get; set; } = new();
     }
 }

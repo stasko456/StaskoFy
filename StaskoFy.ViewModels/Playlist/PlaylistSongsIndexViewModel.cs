@@ -19,9 +19,11 @@ namespace StaskoFy.ViewModels.Playlist
 
         public DateOnly DateCreated { get; set; }
 
-        public int SongsCount { get; set; }
+        public int SongCount { get; set; }
 
         public string ImageURL { get; set; }
+
+        // add is public
 
         public List<SongPlaylistIndexViewModel> Songs { get; set; } = new();
     }
