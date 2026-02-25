@@ -53,7 +53,7 @@ namespace StaskoFy.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-                await likedSongsService.RemoveLikedSongAsync(Guid.Parse(userId), songId);
+            await likedSongsService.RemoveLikedSongAsync(Guid.Parse(userId), songId);
             return RedirectToAction("LikedSongsIndexForCurrentLoggedUser");
         }
     }

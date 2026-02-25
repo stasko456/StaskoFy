@@ -88,7 +88,7 @@ namespace StaskoFy.Controllers
             }
 
             await albumService.AddAlbumAsync(model, Guid.Parse(userId));
-            return RedirectToAction("AlbumsIndexForCurrentLoggedArtist");
+            return RedirectToAction("MyProjectsForCurrentLoggedArtistIndex", "Library");
         }
 
         [HttpGet]
@@ -138,7 +138,7 @@ namespace StaskoFy.Controllers
             }
 
             await albumService.UpdateAlbumAsync(model, Guid.Parse(userId));
-            return RedirectToAction("AlbumsIndexForCurrentLoggedArtist");
+            return RedirectToAction("MyProjectsForCurrentLoggedArtistIndex", "Library");
         }
 
         [HttpPost]
@@ -151,7 +151,7 @@ namespace StaskoFy.Controllers
             }
 
             await albumService.RemoveAlbumAsync(id);
-            return RedirectToAction("AlbumsIndexForCurrentLoggedArtist");
+            return RedirectToAction("MyProjectsForCurrentLoggedArtistIndex", "Library");
         }
 
         [HttpGet]

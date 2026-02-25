@@ -59,7 +59,7 @@ namespace StaskoFy.Controllers
             }
 
             await playlistService.AddPlaylistAsync(model, Guid.Parse(userId));
-            return RedirectToAction("PlaylistsIndexForCurrentLoggedUser");
+            return RedirectToAction("MyLibraryIndex", "Library");
         }
 
         [HttpGet]
@@ -105,7 +105,7 @@ namespace StaskoFy.Controllers
             }
 
             await playlistService.UpdatePlaylistAsync(model, Guid.Parse(userId));
-            return RedirectToAction("PlaylistsIndexForCurrentLoggedUser");
+            return RedirectToAction("MyLibraryIndex", "Library");
         }
 
         [HttpPost]
@@ -118,7 +118,7 @@ namespace StaskoFy.Controllers
             }
 
             await playlistService.RemovePlaylistAsync(id);
-            return RedirectToAction("PlaylistsIndexForCurrentLoggedUser");
+            return RedirectToAction("MyLibraryIndex", "Library");
         }
 
         [HttpGet]
@@ -150,7 +150,7 @@ namespace StaskoFy.Controllers
             }
 
             await playlistService.AddSongToPlaylistAsync(playlistId, songId);
-            return RedirectToAction("PlaylistsIndexForCurrentLoggedUser");
+            return RedirectToAction("MyLibraryIndex", "Library");
         }
 
         [HttpPost]

@@ -26,4 +26,8 @@
     <ProjectReference Include="..\StaskoFy.ViewModels\StaskoFy.ViewModels.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\app-icons\" />
+  </ItemGroup>
+
 </Project>

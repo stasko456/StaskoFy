@@ -103,7 +103,7 @@ namespace StaskoFy.Controllers
             var uploadResult = await imageService.UploadImageAsync(model.ImageFile, model.ImageFile.FileName, "songs");
 
             await songService.AddSongAsync(model, Guid.Parse(userId), uploadResult.Url, uploadResult.PublicId);
-            return RedirectToAction("SongsIndexForCurrentLoggedArtist");
+            return RedirectToAction("MyProjectsForCurrentLoggedArtistIndex", "Library");
         }
 
         [HttpGet]
@@ -162,7 +162,7 @@ namespace StaskoFy.Controllers
             }
 
             await songService.UpdateSongsAsync(model, Guid.Parse(userId));
-            return RedirectToAction("SongsIndexForCurrentLoggedArtist");
+            return RedirectToAction("MyProjectsForCurrentLoggedArtistIndex", "Library");
         }
 
         [HttpPost]
@@ -187,7 +187,7 @@ namespace StaskoFy.Controllers
             }
 
             await songService.RemoveSongAsync(id);
-            return RedirectToAction("SongsIndexForCurrentLoggedArtist");
+            return RedirectToAction("MyProjectsForCurrentLoggedArtistIndex", "Library");
         }
     }
 }
