@@ -7,6 +7,41 @@
             <div class="card shadow-lg border-0 rounded-4">
                 <div class="card-body p-4 p-md-5">
 
+                    <div class="d-flex flex-column flex-lg-row align-items-center align-items-lg-start gap-4 mb-5">
+
+                        <!-- Album Image -->
+                        <img src="@Model.ImageURL"
+                             alt="@Model.Title"
+                             class="rounded-4 shadow flex-shrink-0"
+                             style="width:300px; height:300px; object-fit:cover;">
+
+                        <!-- Album Info -->
+                        <div class="flex-grow-1 d-flex flex-column justify-content-center align-items-center text-center" style="min-height:300px;">
+
+                            <h2 class="fw-bold">
+                                <i class="bi bi-disc"></i>
+                                <span class="text-warning">@Model.Title</span>
+                            </h2>
+
+                            <p class="text-muted fw-bold fs-6 mb-2">
+                                @Model.SongCount songs •
+                                @Model.Hours.ToString("D2"):
+                                @Model.Minutes.ToString("D2"):
+                                @Model.Seconds.ToString("D2") •
+                                @Model.DateCreated.ToString("dd MMM yyyy")
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    @* <div class="mb-4 text-center">
+                        <img src="@Model.ImageURL"
+                             alt="@Model.Title"
+                             class="img-fluid rounded-4 shadow mx-auto d-block"
+                             style="max-width: 380px;">
+                    </div>
+
                     <!-- Header -->
                     <div class="text-center mb-4">
                         <h2 class="fw-bold">
@@ -16,7 +51,7 @@
                         <p class="text-muted mb-0">
                             @Model.Songs.Count() Songs in this playlist
                         </p>
-                    </div>
+                    </div> *@
 
                     <hr class="mb-4" />
 
@@ -70,7 +105,7 @@
 
                                         <!-- Length -->
                                         <td class="text-muted">
-                                            @song.Minutes:@song.Seconds.ToString("D2")
+                                            @song.Minutes.ToString("D2"):@song.Seconds.ToString("D2")
                                         </td>
 
                                         <!-- Artists -->

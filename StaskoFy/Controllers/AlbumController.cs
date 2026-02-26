@@ -23,22 +23,6 @@ namespace StaskoFy.Controllers
         }
 
         [HttpGet]
-        [Authorize(Policy = "Artist")]
-        public async Task<IActionResult> AlbumsIndexForCurrentLoggedArtist(string searchItem, List<string> filters)
-        {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            var albums = await albumService.FilterAlbumsForCurrentLoggedArtistAsync(Guid.Parse(userId), searchItem, filters);
-
-            if (!albums.Any())
-            {
-                ViewData["NoResult"] = "No albums found matching your search.";
-            }
-
-            return View(albums);
-        }
-
-        [HttpGet]
         [Authorize(Policy = "ArtistOrUser")]
         public async Task<IActionResult> AlbumsIndexForAllUsers(string searchItem, List<string> filters)
         {

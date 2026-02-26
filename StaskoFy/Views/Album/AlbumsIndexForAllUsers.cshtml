@@ -49,7 +49,13 @@ else
         {
             <div class="col">
                 <div class="card h-100 shadow-sm">
-                    <img src="@album.ImageURL" class="card-img-top" alt="@album.Title" style="height:180px; object-fit:cover;">
+                    <div class="card-img-top overflow-hidden" style="aspect-ratio: 1 / 1;">
+                        <img src="@album.ImageURL"
+                             alt="@album.Title"
+                             class="w-100 h-100"
+                             style="object-fit: contain;">
+                    </div>
+                    @*<img src="@album.ImageURL" class="card-img-top" alt="@album.Title" style="height:180px; object-fit:cover;">*@
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title">@album.Title</h5>
                         <p class="card-text mb-1">
@@ -59,8 +65,8 @@ else
                                 <span class="badge bg-secondary me-1">@artist</span>
                             }
                         </p>
-                        <p class="card-text mb-1"><svg viewBox="0 0 640 640" width="30" height="30" class="me-2"><path fill="rgb(255, 255, 255)" d="M528 320C528 434.9 434.9 528 320 528C205.1 528 112 434.9 112 320C112 205.1 205.1 112 320 112C434.9 112 528 205.1 528 320zM64 320C64 461.4 178.6 576 320 576C461.4 576 576 461.4 576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320zM296 184L296 320C296 328 300 335.5 306.7 340L402.7 404C413.7 411.4 428.6 408.4 436 397.3C443.4 386.2 440.4 371.4 429.3 364L344 307.2L344 184C344 170.7 333.3 160 320 160C306.7 160 296 170.7 296 184z" /></svg><strong>Length:</strong> @album.Hours:@album.Minutes:@album.Seconds</p>
-                        <p class="card-text mb-1"><svg viewBox="0 0 640 640" width="30" height="30" class="me-2"><path fill="rgb(255, 255, 255)" d="M216 64C229.3 64 240 74.7 240 88L240 128L400 128L400 88C400 74.7 410.7 64 424 64C437.3 64 448 74.7 448 88L448 128L480 128C515.3 128 544 156.7 544 192L544 480C544 515.3 515.3 544 480 544L160 544C124.7 544 96 515.3 96 480L96 192C96 156.7 124.7 128 160 128L192 128L192 88C192 74.7 202.7 64 216 64zM216 176L160 176C151.2 176 144 183.2 144 192L144 240L496 240L496 192C496 183.2 488.8 176 480 176L216 176zM144 288L144 480C144 488.8 151.2 496 160 496L480 496C488.8 496 496 488.8 496 480L496 288L144 288z" /></svg><strong>Release Date:</strong> @album.ReleaseDate</p>
+                        <p class="card-text mb-1"><svg viewBox="0 0 640 640" width="30" height="30" class="me-2"><path fill="rgb(255, 255, 255)" d="M528 320C528 434.9 434.9 528 320 528C205.1 528 112 434.9 112 320C112 205.1 205.1 112 320 112C434.9 112 528 205.1 528 320zM64 320C64 461.4 178.6 576 320 576C461.4 576 576 461.4 576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320zM296 184L296 320C296 328 300 335.5 306.7 340L402.7 404C413.7 411.4 428.6 408.4 436 397.3C443.4 386.2 440.4 371.4 429.3 364L344 307.2L344 184C344 170.7 333.3 160 320 160C306.7 160 296 170.7 296 184z" /></svg><strong>Length:</strong> @album.Hours.ToString("D2"):@album.Minutes.ToString("D2"):@album.Seconds.ToString("D2")</p>
+                        <p class="card-text mb-1"><svg viewBox="0 0 640 640" width="30" height="30" class="me-2"><path fill="rgb(255, 255, 255)" d="M216 64C229.3 64 240 74.7 240 88L240 128L400 128L400 88C400 74.7 410.7 64 424 64C437.3 64 448 74.7 448 88L448 128L480 128C515.3 128 544 156.7 544 192L544 480C544 515.3 515.3 544 480 544L160 544C124.7 544 96 515.3 96 480L96 192C96 156.7 124.7 128 160 128L192 128L192 88C192 74.7 202.7 64 216 64zM216 176L160 176C151.2 176 144 183.2 144 192L144 240L496 240L496 192C496 183.2 488.8 176 480 176L216 176zM144 288L144 480C144 488.8 151.2 496 160 496L480 496C488.8 496 496 488.8 496 480L496 288L144 288z" /></svg><strong>Release Date:</strong> @album.ReleaseDate.ToString("dd MMM yyyy")</p>
                         <p class="card-text mb-2"><svg viewBox="0 0 640 640" width="30" height="30" class="me-2"><path fill="rgb(255, 255, 255)" d="M532 71C539.6 77.1 544 86.3 544 96L544 400C544 444.2 501 480 448 480C395 480 352 444.2 352 400C352 355.8 395 320 448 320C459.2 320 470 321.6 480 324.6L480 207.9L256 257.7L256 464C256 508.2 213 544 160 544C107 544 64 508.2 64 464C64 419.8 107 384 160 384C171.2 384 182 385.6 192 388.6L192 160C192 145 202.4 132 217.1 128.8L505.1 64.8C514.6 62.7 524.5 65 532.1 71.1z" /></svg><strong>Songs Count:</strong> @album.SongsCount</p>
                         <a asp-action="Details" asp-route-id="@album.Id" class="btn btn-info btn-sm d-inline-flex align-items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="30" height="30" class="me-2">

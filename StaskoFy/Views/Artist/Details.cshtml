@@ -1,0 +1,184 @@
+﻿@model ArtistIndexWithProjects
+
+@{
+    ViewData["Title"] = $"{Model.Username} - Profile";
+}
+
+<div class="container mt-4">
+
+    <!-- Artist Header -->
+    <div class="text-center text-light mb-5">
+        <img src="@Model.ProfilePicture"
+             class="rounded-circle shadow mb-3"
+             width="150"
+             height="150"
+             style="object-fit:cover;" />
+
+        <h1 class="display-4 fw-bold">
+            @Model.Username
+        </h1>
+    </div>
+
+    <!-- ===================== SINGLES ===================== -->
+    <div class="text-light">
+        <h2 class="fw-bold mb-4">
+            <span class="text-warning">Singles</span>
+        </h2>
+    </div>
+
+    @if (!Model.Singles.Any())
+    {
+        <div class="alert alert-light text-center mb-5">
+            This artist has no singles yet.
+        </div>
+    }
+    else
+    {
+        <div class="row g-4 mb-5">
+            @foreach (var song in Model.Singles)
+            {
+                <div class="col-md-3">
+                    <div class="card h-100 shadow-sm">
+
+                        <img src="@song.ImageURL"
+                             class="card-img-top"
+                             style="height:200px; object-fit:cover;" />
+
+                        <div class="card-body">
+                            <h5 class="card-title">@song.Title</h5>
+
+                            <p class="mb-1">
+                                <strong>Genre:</strong> @song.GenreName
+                            </p>
+
+                            <p class="mb-1">
+                                <strong>Length:</strong>
+                                @song.Minutes:@song.Seconds.ToString("D2")
+                            </p>
+
+                            <p class="mb-1">
+                                <strong>Likes:</strong> @song.Likes
+                            </p>
+
+                            <div>
+                                @foreach (var artist in song.Artists)
+                                {
+                                    <span class="badge bg-secondary me-1">@artist</span>
+                                }
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
+    <!-- ===================== ALBUMS ===================== -->
+    <div class="text-light">
+        <h2 class="fw-bold mb-4">
+            <span class="text-warning">Albums</span>
+        </h2>
+    </div>
+
+    @if (!Model.Albums.Any())
+    {
+        <div class="alert alert-light text-center mb-5">
+            This artist has no albums yet.
+        </div>
+    }
+    else
+    {
+        <div class="row g-4 mb-5">
+            @foreach (var album in Model.Albums)
+            {
+                <div class="col-md-3">
+                    <div class="card h-100 shadow-sm">
+
+                        <img src="@album.ImageURL"
+                             class="card-img-top"
+                             style="height:200px; object-fit:cover;" />
+
+                        <div class="card-body">
+
+                            <h5 class="card-title">@album.Title</h5>
+
+                            <p class="mb-1">
+                                <strong>Release:</strong>
+                                @album.ReleaseDate.ToShortDateString()
+                            </p>
+
+                            <p class="mb-1">
+                                <strong>Songs:</strong> @album.SongsCount
+                            </p>
+
+                            <p class="mb-1">
+                                <strong>Length:</strong>
+                                @album.Hours:@album.Minutes:@album.Seconds
+                            </p>
+
+                            <div>
+                                @foreach (var artist in album.Artists)
+                                {
+                                    <span class="badge bg-secondary me-1">@artist</span>
+                                }
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
+    <!-- ===================== PLAYLISTS ===================== -->
+    <div class="text-light">
+        <h2 class="fw-bold mb-4">
+            <span class="text-warning">Playlists</span>
+        </h2>
+    </div>
+
+    @if (!Model.Playlists.Any())
+    {
+        <div class="alert alert-light text-center">
+            This artist has no playlists yet.
+        </div>
+    }
+    else
+    {
+        <div class="row g-4">
+            @foreach (var playlist in Model.Playlists)
+            {
+                <div class="col-md-3">
+                    <div class="card h-100 shadow-sm">
+
+                        <img src="@playlist.ImageURL"
+                             class="card-img-top"
+                             style="height:200px; object-fit:cover;" />
+
+                        <div class="card-body">
+
+                            <h5 class="card-title">@playlist.Title</h5>
+
+                            <p class="mb-1">
+                                <strong>Songs:</strong> @playlist.SongCount
+                            </p>
+
+                            <p class="mb-1">
+                                <strong>Length:</strong>
+                                @playlist.Hours:@playlist.Minutes:@playlist.Seconds
+                            </p>
+
+                            <p class="mb-1">
+                                <strong>Created:</strong>
+                                @playlist.DateCreated.ToShortDateString()
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
+</div>

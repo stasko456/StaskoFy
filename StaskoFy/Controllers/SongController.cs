@@ -26,22 +26,6 @@ namespace StaskoFy.Controllers
         }
 
         [HttpGet]
-        [Authorize(Policy = "Artist")]
-        public async Task<IActionResult> SongsIndexForCurrentLoggedArtist(string searchItem, List<string> filters)
-        {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            var songs = await songService.FilterSongsForCurrentLoggedArtistAsync(Guid.Parse(userId), searchItem, filters);            
-
-            if (!songs.Any())
-            {
-                ViewData["NoResult"] = "No songs found matching your search.";
-            }
-
-            return View(songs);
-        }
-
-        [HttpGet]
         [Authorize(Policy = "ArtistOrUser")]
         public async Task<IActionResult> SongsIndexForAllUsers(string searchItem, List<string> filters)
         {
@@ -188,6 +172,34 @@ namespace StaskoFy.Controllers
 
             await songService.RemoveSongAsync(id);
             return RedirectToAction("MyProjectsForCurrentLoggedArtistIndex", "Library");
+        }
+
+        [HttpPost]
+        [Authorize(Policy = "Artist")]
+        public async Task<IActionResult> MakeSongSingle(Guid songId, Guid albumId)
+        {
+            if (songId == Guid.Empty)
+            {
+                return BadRequest();
+            }
+
+            await songService.RemoveSongFromAlbumAsync(songId);
+
+            return RedirectToAction("Details", "Album", new { id = albumId });
+        }
+
+        [HttpPost]
+        [Authorize(Policy = "Artist")]
+        public async Task<IActionResult> AddSongToAlbum(Guid songId, Guid albumId)
+        {
+            if (songId == Guid.Empty)
+            {
+                return BadRequest();
+            }
+
+            await songService.AddSongToAlbumAsync(songId, albumId);
+
+            return RedirectToAction("Details", "Album", new { id = albumId });
         }
     }
 }
