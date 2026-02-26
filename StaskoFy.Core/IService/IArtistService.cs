@@ -11,7 +11,7 @@ namespace StaskoFy.Core.IService
     {
         Task<IEnumerable<ArtistIndexWithProjects>> GetArtistsAsync(Guid userId);
 
-        Task<ArtistViewModel?> GetArtistByIdAsync(Guid id);
+        Task<ArtistIndexWithProjects?> GetArtistByIdAsync(Guid id);
 
         Task AddArtistAsync(ArtistViewModel model);
 

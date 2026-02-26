@@ -28,22 +28,22 @@ namespace StaskoFy.Core.Service
             this.songRepo = _songRepo;
         }
 
-        public async Task<IEnumerable<AlbumIndexViewModel>> GetAlbumsAsync()
-        {
-            return await albumRepo.GetAllAttached()
-                .Select(a => new AlbumIndexViewModel
-                {
-                    Id = a.Id,
-                    Title = a.Title,
-                    Hours = a.Length.Hours,
-                    Minutes = a.Length.Minutes,
-                    Seconds = a.Length.Seconds,
-                    ReleaseDate = a.ReleaseDate,
-                    SongsCount = a.SongsCount,
-                    ImageURL = a.ImageURL,
-                    Artists = a.ArtistsAlbums.Select(x => x.Artist.User.UserName).ToList(),
-                }).ToListAsync();
-        }
+        //public async Task<IEnumerable<AlbumIndexViewModel>> GetAlbumsAsync()
+        //{
+        //    return await albumRepo.GetAllAttached()
+        //        .Select(a => new AlbumIndexViewModel
+        //        {
+        //            Id = a.Id,
+        //            Title = a.Title,
+        //            Hours = a.Length.Hours,
+        //            Minutes = a.Length.Minutes,
+        //            Seconds = a.Length.Seconds,
+        //            ReleaseDate = a.ReleaseDate,
+        //            SongsCount = a.SongsCount,
+        //            ImageURL = a.ImageURL,
+        //            Artists = a.ArtistsAlbums.Select(x => x.Artist.User.UserName).ToList(),
+        //        }).ToListAsync();
+        //}
 
         public async Task<IEnumerable<AlbumIndexViewModel>> GetSpecificArtistAlbumsAsync(Guid userId)
         {
@@ -126,6 +126,7 @@ namespace StaskoFy.Core.Service
                 Artists = album.ArtistsAlbums.Select(x => x.Artist.User.UserName).ToList(),
                 Songs = album.Songs.Select(s => new SongAlbumIndexViewModel
                 {
+                    Id = s.Id,
                     Title = s.Title,
                     Minutes = s.Length.Minutes,
                     Seconds = s.Length.Seconds,

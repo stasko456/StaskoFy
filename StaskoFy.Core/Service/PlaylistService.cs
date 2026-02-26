@@ -75,15 +75,18 @@ namespace StaskoFy.Core.Service
         public async Task<PlaylistSongsIndexViewModel?> GetPlaylistByIdWithSongsAsync(Guid id)
         {
             var playlist = await playlistRepo.GetAllAttached()
-                .Include(x => x.PlaylistsSongs)
-                    .ThenInclude(s => s.Song)
-                        .ThenInclude(g => g.Genre)
-                .Include(x => x.PlaylistsSongs)
-                    .ThenInclude(ps => ps.Song)
-                        .ThenInclude(s => s.ArtistsSongs)
-                            .ThenInclude(sa => sa.Artist)
-                                .ThenInclude(a => a.User)
-                .FirstOrDefaultAsync(x => x.Id == id);
+            .Include(x => x.PlaylistsSongs)
+                .ThenInclude(s => s.Song)
+                    .ThenInclude(g => g.Genre)
+            .Include(x => x.PlaylistsSongs)
+                .ThenInclude(ps => ps.Song)
+                    .ThenInclude(s => s.Album)
+            .Include(x => x.PlaylistsSongs)
+                .ThenInclude(ps => ps.Song)
+                    .ThenInclude(s => s.ArtistsSongs)
+                        .ThenInclude(sa => sa.Artist)
+                            .ThenInclude(a => a.User)
+            .FirstOrDefaultAsync(x => x.Id == id);
 
             if (playlist == null)
             {
@@ -97,7 +100,7 @@ namespace StaskoFy.Core.Service
                 Hours = playlist.Length.Hours,
                 Minutes = playlist.Length.Minutes,
                 Seconds = playlist.Length.Seconds,
-                SongsCount = playlist.SongCount,
+                SongCount = playlist.SongCount,
                 DateCreated = playlist.DateCreated,
                 ImageURL = playlist.ImageURL,
                 Songs = playlist.PlaylistsSongs.Select(x => new SongPlaylistIndexViewModel

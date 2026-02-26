@@ -18,41 +18,43 @@ namespace StaskoFy.Core.Service
         private readonly IRepository<Song> songRepo;
         private readonly IRepository<ArtistSong> artistSongRepo;
         private readonly IRepository<Artist> artistRepo;
+        private readonly IRepository<Album> albumRepo;
 
-        public SongService(IRepository<Song> _songRepo, IRepository<ArtistSong> _artistSongRepo, IRepository<Artist> _artistRepo)
+        public SongService(IRepository<Song> _songRepo, IRepository<ArtistSong> _artistSongRepo, IRepository<Artist> _artistRepo, IRepository<Album> _albumRepo)
         {
             this.songRepo = _songRepo;
             this.artistSongRepo = _artistSongRepo;
             this.artistRepo = _artistRepo;
+            this.albumRepo = _albumRepo;
         }
 
-        public async Task<IEnumerable<SongIndexViewModel>> GetSpecificArtistSongsAsync(Guid artistId)
-        {
-            return await songRepo.GetAllAttached()
-                .Include(x => x.Genre)
-                .Include(x => x.Album)
-                .Include(x => x.ArtistsSongs)
-                    .ThenInclude(a => a.Artist)
-                        .ThenInclude(u => u.User)
-                .Where(s => s.ArtistsSongs.Any(a => a.Artist.UserId == artistId))
-                .Select(song => new SongIndexViewModel
-                {
-                    Id = song.Id,
-                    Title = song.Title,
-                    Minutes = song.Length.Minutes,
-                    Seconds = song.Length.Seconds,
-                    ReleaseDate = song.ReleaseDate,
-                    AlbumName = song.Album != null ? song.Album.Title : "Single",
-                    AlbumId = song.AlbumId,
-                    GenreId = song.GenreId,
-                    GenreName = song.Genre.Name,
-                    ImageURL = song.ImageURL,
-                    CloudinaryPublicId = song.CloudinaryPublicId,
-                    Likes = song.Likes,
-                    Artists = song.ArtistsSongs.Select(x => x.Artist.User.UserName).ToList()
-                })
-                .ToListAsync();
-        }
+        //public async Task<IEnumerable<SongIndexViewModel>> GetSpecificArtistSongsAsync(Guid artistId)
+        //{
+        //    return await songRepo.GetAllAttached()
+        //        .Include(x => x.Genre)
+        //        .Include(x => x.Album)
+        //        .Include(x => x.ArtistsSongs)
+        //            .ThenInclude(a => a.Artist)
+        //                .ThenInclude(u => u.User)
+        //        .Where(s => s.ArtistsSongs.Any(a => a.Artist.UserId == artistId))
+        //        .Select(song => new SongIndexViewModel
+        //        {
+        //            Id = song.Id,
+        //            Title = song.Title,
+        //            Minutes = song.Length.Minutes,
+        //            Seconds = song.Length.Seconds,
+        //            ReleaseDate = song.ReleaseDate,
+        //            AlbumName = song.Album != null ? song.Album.Title : "Single",
+        //            AlbumId = song.AlbumId,
+        //            GenreId = song.GenreId,
+        //            GenreName = song.Genre.Name,
+        //            ImageURL = song.ImageURL,
+        //            CloudinaryPublicId = song.CloudinaryPublicId,
+        //            Likes = song.Likes,
+        //            Artists = song.ArtistsSongs.Select(x => x.Artist.User.UserName).ToList()
+        //        })
+        //        .ToListAsync();
+        //}
 
         public async Task<SongIndexViewModel?> GetSongByIdAsync(Guid id)
         {
@@ -76,9 +78,8 @@ namespace StaskoFy.Core.Service
                 Seconds = song.Length.Seconds,
                 ReleaseDate = song.ReleaseDate,
                 AlbumName = song.Album != null ? song.Album.Title : "Single",
-                AlbumId = song.AlbumId,
-                GenreId = song.GenreId,
                 GenreName = song.Genre.Name,
+                GenreId = song.GenreId,
                 ImageURL = song.ImageURL,
                 CloudinaryPublicId = song.CloudinaryPublicId,
                 Likes = song.Likes,
@@ -216,9 +217,8 @@ namespace StaskoFy.Core.Service
                     Seconds = song.Length.Seconds,
                     ReleaseDate = song.ReleaseDate,
                     AlbumName = song.Album != null ? song.Album.Title : "Single",
-                    AlbumId = song.AlbumId,
-                    GenreId = song.GenreId,
                     GenreName = song.Genre.Name,
+                    GenreId = song.GenreId,
                     ImageURL = song.ImageURL,
                     CloudinaryPublicId = song.CloudinaryPublicId,
                     Likes = song.Likes,
@@ -254,9 +254,8 @@ namespace StaskoFy.Core.Service
                     Seconds = song.Length.Seconds,
                     ReleaseDate = song.ReleaseDate,
                     AlbumName = song.Album != null ? song.Album.Title : "Single",
-                    AlbumId = song.AlbumId,
-                    GenreId = song.GenreId,
                     GenreName = song.Genre.Name,
+                    GenreId = song.GenreId,
                     ImageURL = song.ImageURL,
                     CloudinaryPublicId = song.CloudinaryPublicId,
                     Likes = song.Likes,
@@ -303,7 +302,6 @@ namespace StaskoFy.Core.Service
                     Seconds = song.Length.Seconds,
                     ReleaseDate = song.ReleaseDate,
                     AlbumName = "Single",
-                    AlbumId = song.AlbumId,
                     GenreId = song.GenreId,
                     GenreName = song.Genre.Name,
                     ImageURL = song.ImageURL,
@@ -311,6 +309,38 @@ namespace StaskoFy.Core.Service
                     Likes = song.Likes,
                     Artists = song.ArtistsSongs.Select(x => x.Artist.User.UserName).ToList()
                 }).ToListAsync();
+        }
+
+        public async Task RemoveSongFromAlbumAsync(Guid id)
+        {
+            var song = await songRepo.GetByIdAsync(id);
+
+            if (song == null)
+            {
+                return;
+            }
+
+            song.AlbumId = null;
+            song.ImageURL = "/images/defaults/default-song-cover-art.png";  
+
+            await songRepo.UpdateAsync(song);
+        }
+
+        public async Task AddSongToAlbumAsync(Guid id, Guid albumId)
+        {
+            var song = await songRepo.GetByIdAsync(id);
+
+            var album = await albumRepo.GetByIdAsync(albumId);
+
+            if (song == null || album == null)
+            {
+                return;
+            }
+
+            song.AlbumId = albumId;
+            song.ImageURL = album.ImageURL;
+
+            await songRepo.UpdateAsync(song);
         }
     }
 }

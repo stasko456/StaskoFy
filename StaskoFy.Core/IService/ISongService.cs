@@ -9,7 +9,7 @@ namespace StaskoFy.Core.IService
 {
     public interface ISongService
     {
-        Task<IEnumerable<SongIndexViewModel>> GetSpecificArtistSongsAsync(Guid artistId);
+        //Task<IEnumerable<SongIndexViewModel>> GetSpecificArtistSongsAsync(Guid artistId);
 
         Task<SongIndexViewModel?> GetSongByIdAsync(Guid id);
 
@@ -29,5 +29,9 @@ namespace StaskoFy.Core.IService
         Task<IEnumerable<SongSelectViewModel>> SelectSongsByCurrentLoggedArtistAsync(Guid userId);
 
         Task<IEnumerable<SongIndexViewModel>> GetSinglesForCurrentLoggedArtistAsync(Guid userId);
+
+        Task RemoveSongFromAlbumAsync(Guid id);
+
+        Task AddSongToAlbumAsync(Guid id, Guid albumId);
     }
 }

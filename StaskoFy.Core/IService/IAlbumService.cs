@@ -10,7 +10,7 @@ namespace StaskoFy.Core.IService
 {
     public interface IAlbumService
     {
-        Task<IEnumerable<AlbumIndexViewModel>> GetAlbumsAsync();
+        //Task<IEnumerable<AlbumIndexViewModel>> GetAlbumsAsync();
 
         Task<IEnumerable<AlbumIndexViewModel>> GetSpecificArtistAlbumsAsync(Guid userId);
 
