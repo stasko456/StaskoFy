@@ -15,10 +15,10 @@ namespace StaskoFy.ViewModels.Song
         public int Minutes { get; set; }
         public int Seconds { get; set; }
 
-        public string? AlbumName { get; set; }
-        public Guid? AlbumId { get; set; }
+        public string AlbumName { get; set; } = null!;
 
         public string GenreName { get; set; } = null!;
+
         public Guid GenreId { get; set; }
 
         public DateOnly ReleaseDate { get; set; }

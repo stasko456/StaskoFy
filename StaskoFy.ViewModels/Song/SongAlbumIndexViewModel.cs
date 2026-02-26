@@ -8,6 +8,8 @@ namespace StaskoFy.ViewModels.Song
 {
     public class SongAlbumIndexViewModel
     {
+        public Guid Id { get; set; }
+
         public string Title { get; set; } = null!;
 
         public int Minutes { get; set; }
