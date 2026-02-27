@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace StaskoFy.ViewModels.Artist
 {
-    public class ArtistViewModel
+    public class ArtistIndexViewModel
     {
-        [Required]
         public Guid Id { get; set; }
 
-        [Required]
-        public Guid UserId { get; set; }
+        public string Username { get; set; } = null!;
+
+        public string ProfilePicture { get; set; }
     }
 }

@@ -9,8 +9,8 @@ namespace StaskoFy.ViewModels.Song
 {
     public class SongsPageViewModel
     {
-        public List<SongIndexViewModel> Songs { get; set; }
+        public List<SongIndexViewModel> Songs { get; set; } = new();
 
-        public List<PlaylistSelectViewModel> Playlists { get; set; }
+        public List<PlaylistSelectViewModel> Playlists { get; set; } = new();
     }
 }

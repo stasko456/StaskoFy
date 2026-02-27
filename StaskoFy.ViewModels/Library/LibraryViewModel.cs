@@ -12,6 +12,6 @@ namespace StaskoFy.ViewModels.Library
     {
         public List<PlaylistIndexViewModel> Playlists { get; set; } = new();
 
-        public List<LikedSongsIndexViewModel> LikedSongs { get; set; } = new();
+        public LikedSongsPageViewModel LikedSongs { get; set; }
     }
 }

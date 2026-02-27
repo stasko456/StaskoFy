@@ -19,8 +19,8 @@ namespace StaskoFy.ViewModels.Artist
 
         public List<SongIndexViewModel> Singles { get; set; } = new();
 
-        public List<AlbumSongsIndexViewModel> Albums { get; set; } = new();
+        public List<AlbumIndexViewModel> Albums { get; set; } = new();
 
-        public List<PlaylistSongsIndexViewModel> Playlists { get; set; } = new();
+        public List<PlaylistIndexViewModel> Playlists { get; set; } = new();
     }
 }
