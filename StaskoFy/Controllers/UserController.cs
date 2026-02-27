@@ -74,7 +74,7 @@ namespace StaskoFy.Controllers
 
             if (model.Role == "Artist")
             {
-                var artist = new ArtistViewModel
+                var artist = new ArtistCreateViewModel
                 {
                     UserId = user.Id,
                 };

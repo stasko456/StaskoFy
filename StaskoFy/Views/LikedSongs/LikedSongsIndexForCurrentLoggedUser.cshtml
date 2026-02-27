@@ -1,4 +1,4 @@
-﻿@model List<LikedSongsIndexViewModel>
+﻿@model LikedSongsPageViewModel
 
 <div class="container py-5">
     <div class="row justify-content-center">
@@ -7,15 +7,28 @@
             <div class="card shadow-lg border-0 rounded-4">
                 <div class="card-body p-4 p-md-5">
 
-                    <!-- Header -->
-                    <div class="text-center mb-4">
-                        <h2 class="fw-bold">
-                            <i class="bi bi-heart-fill text-danger"></i>
-                            Your <span class="text-warning">Liked Songs</span>
-                        </h2>
-                        <p class="text-muted mb-0">
-                            @Model.Count Liked Songs
-                        </p>
+                    <div class="d-flex flex-column flex-lg-row align-items-center align-items-lg-start gap-4 mb-5">
+                        <!-- Liked songs Image -->
+                        <img src="/images/app-icons/liked_songs_icon.jpg"
+                             alt="Liked songs"
+                             class="rounded-4 shadow flex-shrink-0"
+                             style="width:300px; height:300px; object-fit:cover;">
+                        
+                        <!-- Liked songs Info -->
+                        <div class="flex-grow-1 d-flex flex-column justify-content-center align-items-center text-center" style="min-height:300px;">
+
+                            <h2 class="fw-bold">
+                                <i class="bi bi-disc"></i>
+                                <span class="text-warning">Liked songs</span>
+                            </h2>
+
+                            <p class="text-muted fw-bold fs-6 mb-2">
+                                @Model.SongsCount songs •
+                                @Model.Length.Hours.ToString("D2"):
+                                @Model.Length.Minutes.ToString("D2"):
+                                @Model.Length.Seconds.ToString("D2")
+                            </p>
+                        </div>
                     </div>
 
                     <hr class="mb-4" />
@@ -41,7 +54,7 @@
                                     int index = 1;
                                 }
 
-                                @foreach (var song in Model)
+                                @foreach (var song in Model.LikedSongs)
                                 {
                                     <tr class="border-top">
 
@@ -70,7 +83,7 @@
 
                                         <!-- Length -->
                                         <td class="text-muted">
-                                            @song.Minutes:@song.Seconds.ToString("D2")
+                                            @song.Minutes.ToString("D2"):@song.Seconds.ToString("D2")
                                         </td>
 
                                         <!-- Artists -->

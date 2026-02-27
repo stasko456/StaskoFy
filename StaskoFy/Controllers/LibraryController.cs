@@ -38,7 +38,7 @@ namespace StaskoFy.Controllers
             var viewModel = new LibraryViewModel
             {
                 Playlists = new List<PlaylistIndexViewModel>(playlists),
-                LikedSongs = new List<LikedSongsIndexViewModel>(likedSongs)
+                LikedSongs = likedSongs
             };
 
             return View(viewModel);

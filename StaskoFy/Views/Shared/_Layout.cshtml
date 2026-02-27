@@ -37,20 +37,6 @@
                         }
                         else if ((User?.Identity?.IsAuthenticated ?? false) && (User.IsInRole("Artist")))
                         {
-                            @* <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Songs</a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item text-white" asp-controller="Song" asp-action="SongsIndexForCurrentLoggedArtist">View my songs</a>
-                                    <a class="dropdown-item text-white" asp-controller="Song" asp-action="Create">Create a song</a>
-                                </div>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Albums</a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item text-white" asp-controller="Album" asp-action="AlbumsIndexForCurrentLoggedArtist">View my albums</a>
-                                    <a class="dropdown-item text-white" asp-controller="Album" asp-action="Create">Create an album</a>
-                                </div>
-                            </li> *@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-controller="Song" asp-action="SongsIndexForAllUsers">Browse Songs</a>
                             </li>

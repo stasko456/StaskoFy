@@ -13,21 +13,21 @@
         </p>
 
         <div class="d-flex justify-content-center gap-3">
-            <a asp-controller="Playlist" asp-action="Create" class="btn btn-warning btn-lg">
-                Create a playlist
+            <a asp-controller="Playlist" asp-action="Create" class="btn btn-outline-warning btn-lg">
+                Create playlist
             </a>
-            <a asp-controller="Song" asp-action="SongsIndexForAllUsers" class="btn btn-warning btn-lg">
+            <a asp-controller="Song" asp-action="SongsIndexForAllUsers" class="btn btn-outline-warning btn-lg">
                 Browse Songs
             </a>
-            <a asp-controller="Album" asp-action="AlbumsIndexForAllUsers" class="btn btn-warning btn-lg">
+            <a asp-controller="Album" asp-action="AlbumsIndexForAllUsers" class="btn btn-outline-warning btn-lg">
                 Browse Albums
             </a>
             @if ((User?.Identity?.IsAuthenticated ?? false) && User.IsInRole("Artist"))
             {
-                <a asp-controller="Song" asp-action="Create" class="btn btn-outline-light btn-lg">
+                <a asp-controller="Song" asp-action="Create" class="btn btn-outline-warning btn-lg">
                     Upload Music
                 </a>
-                <a asp-controller="Album" asp-action="Create" class="btn btn-outline-light btn-lg">
+                <a asp-controller="Album" asp-action="Create" class="btn btn-outline-warning btn-lg">
                     Upload Album
                 </a>
             }

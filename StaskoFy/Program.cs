@@ -55,13 +55,16 @@ namespace StaskoFy
             });
 
 
-            var cloudinarySettings = builder.Configuration
-                .GetSection("CloudinarySettings").Get<CloudinarySettings>();
-            builder.Services.AddSingleton<Cloudinary>((sp) =>
-            {
-                return new Cloudinary(new Account(cloudinarySettings.CloudName, cloudinarySettings.ApiKey,
-                    cloudinarySettings.ApiSecret));
-            });
+            //var cloudinarySettings = builder.Configuration
+            //    .GetSection("CloudinarySettings").Get<CloudinarySettings>();
+            //builder.Services.AddSingleton<Cloudinary>((sp) =>
+            //{
+            //    return new Cloudinary(new Account(cloudinarySettings.CloudName, cloudinarySettings.ApiKey,
+            //        cloudinarySettings.ApiSecret));
+            //});
+
+            builder.Services.Configure<CloudinarySettings>(
+            builder.Configuration.GetSection("Cloudinary"));
 
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             builder.Services.AddScoped<IArtistService, ArtistService>();

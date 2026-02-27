@@ -16,11 +16,17 @@ namespace StaskoFy.Controllers
 
         [HttpGet]
         [Authorize(Policy = "ArtistOrUser")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string username)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var artists = await artistService.GetArtistsAsync(Guid.Parse(userId));
+            var artists = await artistService.GetFilteredArtistsAsync(Guid.Parse(userId), username);
+
+            if (!artists.Any())
+            {
+                ViewData["NoResult"] = "No artist found matching your search.";
+            }
+
             return View(artists);
         }
 
@@ -33,7 +39,7 @@ namespace StaskoFy.Controllers
                 return BadRequest();
             }
 
-            var artists = await artistService.GetArtistByIdAsync(id);
+            var artists = await artistService.GetArtistByIdWithProjectsAsync(id);
 
             if (artists == null)
             {

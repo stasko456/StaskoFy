@@ -38,7 +38,7 @@ namespace StaskoFy.Controllers
             var viewModel = new SongsPageViewModel
             {
                 Songs = songs.ToList(),
-                Playlists = playlists.ToList()
+                Playlists = playlists.ToList(),
             };
 
             if (!songs.Any())

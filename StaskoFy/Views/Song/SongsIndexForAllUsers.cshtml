@@ -12,7 +12,7 @@
         <div class="d-flex align-items-center gap-4 mb-4">
             <input class="form-control form-control-lg"
                    type="search"
-                   placeholder="Search..."
+                   placeholder="Search songs..."
                    name="searchItem"
                    value="@Context.Request.Query["searchItem"]" />
             <button type="submit" fix class="btn btn-warning btn-lg fw-semibold d-inline-flex align-items-center">
@@ -60,8 +60,7 @@ else
             <div class="col">
                 <div class="card h-100 shadow-sm">
                        <img src="@song.ImageURL" class="w-100 h-100" alt="@song.Title" style="object-fit:contain;">
-@*                     <img src="@song.ImageURL" class="card-img-top mt-2 rounded-3" alt="@song.Title" style="height:180px; object-fit:contain;">
- *@                    <div class="card-body d-flex flex-column">
+                        <div class="card-body d-flex flex-column">
                         <h5 class="card-title">@song.Title</h5>
                         <p class="card-text mb-1"><strong>Genre:</strong> @song.GenreName</p>
                         @if (!string.IsNullOrEmpty(song.AlbumName))
