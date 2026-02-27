@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StaskoFy.Core.IService;
 using StaskoFy.DataAccess.Repository;
 using StaskoFy.Models.Entities;
@@ -24,11 +26,26 @@ namespace StaskoFy.Core.Service
             this.songRepo = _songRepo;
         }
 
-        public async Task<IEnumerable<LikedSongsIndexViewModel>> GetLikedSongsFromCurrentLoggedUserAsync(Guid userId)
+        public async Task<LikedSongsPageViewModel> GetLikedSongsFromCurrentLoggedUserAsync(Guid userId)
         {
-            return await likedSongsRepo.GetAllAttached()
-                .Where(x => x.UserId == userId)
-                .Select(x => new LikedSongsIndexViewModel
+            var likedSongs = await likedSongsRepo.GetAllAttached()
+            .Where(x => x.UserId == userId)
+            .Include(x => x.Song)
+                .ThenInclude(s => s.Album)
+            .Include(x => x.Song)
+                .ThenInclude(s => s.ArtistsSongs)
+                    .ThenInclude(a => a.Artist)
+                        .ThenInclude(ar => ar.User)
+            .ToListAsync();
+
+            var totalLength = TimeSpan.FromTicks(
+                likedSongs.Sum(x => x.Song.Length.Ticks));
+
+            return new LikedSongsPageViewModel
+            {
+                SongsCount = likedSongs.Count,
+                Length = totalLength,
+                LikedSongs = likedSongs.Select(x => new LikedSongsIndexViewModel
                 {
                     Id = x.Id,
                     SongId = x.SongId,
@@ -38,8 +55,9 @@ namespace StaskoFy.Core.Service
                     Seconds = x.Song.Length.Seconds,
                     ImageUrl = x.Song.ImageURL,
                     DateAdded = x.DateAdded,
-                    Artists = x.Song.ArtistsSongs.Select(x => x.Artist.User.UserName).ToList(),
-                }).ToListAsync(); 
+                    Artists = x.Song.ArtistsSongs.Select(a => a.Artist.User.UserName).ToList()
+                }).ToList()
+            };
         }
 
         public async Task<LikedSongsIndexViewModel?> GetLikedSongByIdAsync(Guid id)

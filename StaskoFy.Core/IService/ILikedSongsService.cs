@@ -10,7 +10,7 @@ namespace StaskoFy.Core.IService
 {
     public interface ILikedSongsService
     {
-        Task<IEnumerable<LikedSongsIndexViewModel>> GetLikedSongsFromCurrentLoggedUserAsync(Guid userId);
+        Task<LikedSongsPageViewModel> GetLikedSongsFromCurrentLoggedUserAsync(Guid userId);
 
         Task<LikedSongsIndexViewModel?> GetLikedSongByIdAsync(Guid id);
 

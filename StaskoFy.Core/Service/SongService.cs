@@ -1,12 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc.Formatters.Internal;
+﻿using DocumentFormat.OpenXml.Spreadsheet;
+using Microsoft.AspNetCore.Mvc.Formatters.Internal;
 using Microsoft.EntityFrameworkCore;
 using StaskoFy.Core.IService;
- using StaskoFy.DataAccess.Repository;
+using StaskoFy.DataAccess.Repository;
 using StaskoFy.Models.Entities;
+using StaskoFy.ViewModels.PageViewModel;
 using StaskoFy.ViewModels.Song;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
@@ -207,6 +210,7 @@ namespace StaskoFy.Core.Service
                     (filters.Contains("Artist") && s.ArtistsSongs.Any(a => EF.Functions.Like(a.Artist.User.UserName, $"%{searchItem}%")))
                 );
             }
+
 
             return await query
                 .Select(song => new SongIndexViewModel

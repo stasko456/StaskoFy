@@ -2,7 +2,9 @@
 using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using StaskoFy.Core.IService;
+using StaskoFy.Models.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,9 +17,17 @@ namespace StaskoFy.Core.Service
     {
         private readonly Cloudinary cloudinary;
 
-        public ImageService(Cloudinary _cloudinary)
+        public ImageService(IOptions<CloudinarySettings> options)
         {
-            this.cloudinary = _cloudinary;
+            var settings = options.Value;
+
+            var account = new Account(
+                settings.CloudName,
+                settings.ApiKey,
+                settings.ApiSecret
+            );
+
+            this.cloudinary = new Cloudinary(account);
         }
 
         public async Task<(string Url, string PublicId)> UploadImageAsync(IFormFile imageFile, string name, string folder)

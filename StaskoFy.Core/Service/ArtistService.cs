@@ -25,14 +25,83 @@ namespace StaskoFy.Core.Service
             this.artistRepo = _artistRepo;
         }
 
-        public async Task<IEnumerable<ArtistIndexWithProjects>> GetArtistsAsync(Guid userId)
+        public async Task<IEnumerable<ArtistIndexViewModel>> GetFilteredArtistsAsync(Guid userId, string username)
+        {
+            var query = artistRepo.GetAllAttached()
+                .Where(a => a.UserId != userId);
+
+            if (!string.IsNullOrEmpty(username))
+            {
+                query = query.Where(a =>
+                EF.Functions.Like(a.User.UserName, $"%{username}%"));
+            }
+
+            return await query
+                .Select(x => new ArtistIndexViewModel
+                {
+                    Id = x.Id,
+                    Username = x.User.UserName,
+                    ProfilePicture = x.User.ImageURL
+                }).ToListAsync();
+        }
+
+        public async Task<ArtistIndexViewModel?> GetArtistByIdAsync(Guid id)
+        {
+            var artist = await artistRepo.GetByIdAsync(id);
+
+            if (artist == null)
+            {
+                return null;
+            }
+
+            return new ArtistIndexViewModel
+            {
+                Id = artist.Id,
+                Username = artist.User.UserName,
+                ProfilePicture = artist.User.ImageURL
+            };
+        }
+
+        public async Task AddArtistAsync(ArtistCreateViewModel model)
+        {
+            var artist = new Artist
+            {
+                UserId = model.UserId,
+            };
+
+            await artistRepo.AddAsync(artist);
+        }
+
+        public async Task RemoveArtistAsync(Guid id)
+        {
+            var artist = await artistRepo.GetByIdAsync(id);
+
+            await artistRepo.RemoveAsync(artist);
+        }
+
+        public async Task<IEnumerable<ArtistIndexViewModel>> PopulateArtistSelectListAsync(Guid userId)
+        {
+            var artists = await artistRepo.GetAllAttached()
+                .Where(a => a.UserId != userId)
+                .Select(x => new ArtistIndexViewModel
+                {
+                    Id = x.Id,
+                    Username = x.User.UserName,
+                    ProfilePicture = x.User.ImageURL
+                }).ToListAsync();
+
+            return artists;
+        }
+
+        public async Task<ArtistIndexWithProjects?> GetArtistByIdWithProjectsAsync(Guid id)
         {
             return await artistRepo.GetAllAttached()
                 .Include(x => x.ArtistsAlbums)
                     .ThenInclude(album => album.Album)
                 .Include(x => x.ArtistsSongs)
                     .ThenInclude(song => song.Song)
-                .Where(x => x.UserId != userId)
+                .Include(user => user.User)
+                .Where(x => x.Id == id)
                 .Select(a => new ArtistIndexWithProjects
                 {
                     Id = a.Id,
@@ -53,7 +122,7 @@ namespace StaskoFy.Core.Service
                         Likes = x.Song.Likes,
                         Artists = x.Song.ArtistsSongs.Select(s => s.Artist.User.UserName).ToList()
                     }).ToList(),
-                    Albums = a.ArtistsAlbums.Select(x => new AlbumSongsIndexViewModel
+                    Albums = a.ArtistsAlbums.Select(x => new AlbumIndexViewModel
                     {
                         Id = x.Album.Id,
                         Title = x.Album.Title,
@@ -64,156 +133,19 @@ namespace StaskoFy.Core.Service
                         SongsCount = x.Album.SongsCount,
                         ImageURL = x.Album.ImageURL,
                         Artists = x.Album.ArtistsAlbums.Select(x => x.Artist.User.UserName).ToList(),
-                        Songs = x.Album.Songs.Select(song => new SongAlbumIndexViewModel
-                        {
-                            Title = song.Title,
-                            Minutes = song.Length.Minutes,
-                            Seconds = song.Length.Seconds,
-                            Genre = song.Genre.Name,
-                            Artists = song.ArtistsSongs.Select(artist => artist.Artist.User.UserName).ToList(),
-                        }).ToList(),
                     }).ToList(),
-                    Playlists = a.User.Playlists.Select(pl => new PlaylistSongsIndexViewModel
+                    Playlists = a.User.Playlists.Select(pl => new PlaylistIndexViewModel
                     {
                         Id = pl.Id,
                         Title = pl.Title,
-                        Hours= pl.Length.Hours,
+                        Hours = pl.Length.Hours,
                         Minutes = pl.Length.Minutes,
                         Seconds = pl.Length.Seconds,
                         SongCount = pl.SongCount,
                         DateCreated = pl.DateCreated,
                         ImageURL = pl.ImageURL,
-                        Songs = pl.PlaylistsSongs.Select(s => new SongPlaylistIndexViewModel
-                        {
-                            Id = s.SongId,
-                            Title = s.Song.Title,
-                            AlbumTitle = s.Song.Album == null ? "Single" : s.Song.Album.Title,
-                            Minutes = s.Song.Length.Minutes,
-                            Seconds = s.Song.Length.Seconds,
-                            ImageUrl = s.Song.ImageURL,
-                            DateAdded = s.DateAdded,
-                            Artists = s.Song.ArtistsSongs.Select(x => x.Artist.User.UserName).ToList(),
-                        }).ToList()
                     }).ToList(),
-                }).ToListAsync();
-        }
-
-        public async Task<ArtistIndexWithProjects?> GetArtistByIdAsync(Guid id)
-        {
-            var artist = await artistRepo.GetAllAttached()
-                .Include(x => x.ArtistsAlbums)
-                    .ThenInclude(album => album.Album)
-                        .ThenInclude(album => album.Songs)
-                .Include(x => x.ArtistsSongs)
-                    .ThenInclude(song => song.Song)
-                        .ThenInclude(genre => genre.Genre)
-                .Include(x => x.User)
-                    .ThenInclude(playlist => playlist.Playlists)
-                    .FirstOrDefaultAsync(x => x.Id == id);
-
-            if (artist == null)
-            {
-                return null;
-            }
-
-            return new ArtistIndexWithProjects
-            {
-                Id = artist.Id,
-                Username = artist.User.UserName,
-                ProfilePicture = artist.User.ImageURL,
-                Singles = artist.ArtistsSongs.Where(x => x.Song.AlbumId == null).Select(x => new SongIndexViewModel
-                {
-                    Id = x.Song.Id,
-                    Title = x.Song.Title,
-                    Minutes = x.Song.Length.Minutes,
-                    Seconds = x.Song.Length.Seconds,
-                    ReleaseDate = x.Song.ReleaseDate,
-                    AlbumName = "Single",
-                    GenreId = x.Song.GenreId,
-                    GenreName = x.Song.Genre.Name,
-                    ImageURL = x.Song.ImageURL,
-                    CloudinaryPublicId = x.Song.CloudinaryPublicId,
-                    Likes = x.Song.Likes,
-                    Artists = x.Song.ArtistsSongs.Select(s => s.Artist.User.UserName).ToList()
-                }).ToList(),
-                Albums = artist.ArtistsAlbums.Select(x => new AlbumSongsIndexViewModel
-                {
-                    Id = x.Album.Id,
-                    Title = x.Album.Title,
-                    Hours = x.Album.Length.Hours,
-                    Minutes = x.Album.Length.Minutes,
-                    Seconds = x.Album.Length.Seconds,
-                    ReleaseDate = x.Album.ReleaseDate,
-                    SongsCount = x.Album.SongsCount,
-                    ImageURL = x.Album.ImageURL,
-                    Artists = x.Album.ArtistsAlbums.Select(x => x.Artist.User.UserName).ToList(),
-                    Songs = x.Album.Songs.Select(song => new SongAlbumIndexViewModel
-                    {
-                        Title = song.Title,
-                        Minutes = song.Length.Minutes,
-                        Seconds = song.Length.Seconds,
-                        Genre = song.Genre.Name,
-                        Artists = song.ArtistsSongs.Select(artist => artist.Artist.User.UserName).ToList(),
-                    }).ToList(),
-                }).ToList(),
-                Playlists = artist.User.Playlists.Select(pl => new PlaylistSongsIndexViewModel
-                {
-                    Id = pl.Id,
-                    Title = pl.Title,
-                    Hours = pl.Length.Hours,
-                    Minutes = pl.Length.Minutes,
-                    Seconds = pl.Length.Seconds,
-                    SongCount = pl.SongCount,
-                    DateCreated = pl.DateCreated,
-                    ImageURL = pl.ImageURL,
-                    Songs = pl.PlaylistsSongs.Select(s => new SongPlaylistIndexViewModel
-                    {
-                        Id = s.SongId,
-                        Title = s.Song.Title,
-                        AlbumTitle = s.Song.Album == null ? "Single" : s.Song.Album.Title,
-                        Minutes = s.Song.Length.Minutes,
-                        Seconds = s.Song.Length.Seconds,
-                        ImageUrl = s.Song.ImageURL,
-                        DateAdded = s.DateAdded,
-                        Artists = s.Song.ArtistsSongs.Select(x => x.Artist.User.UserName).ToList(),
-                    }).ToList()
-                }).ToList(),
-            };
-        }
-
-        public async Task AddArtistAsync(ArtistViewModel model)
-        {
-            var artist = new Artist
-            {
-                UserId = model.UserId,
-            };
-
-            await artistRepo.AddAsync(artist);
-        }
-
-        public async Task RemoveArtistAsync(Guid id)
-        {
-            var artist = await artistRepo.GetByIdAsync(id);
-
-            await artistRepo.RemoveAsync(artist);
-        }
-
-        public async Task<IEnumerable<ArtistSelectViewModel>> PopulateArtistSelectListAsync(Guid userId)
-        {
-            var artists = await artistRepo.GetAllAttached()
-                .Where(a => a.UserId != userId)
-                .Select(x => new ArtistSelectViewModel
-                {
-                    Id = x.Id,
-                    Username = x.User.UserName
-                }).ToListAsync();
-
-            return artists;
-        }
-
-        public Task<ArtistIndexWithProjects?> GetArtistByIdWithProjectsAsync(Guid userId)
-        {
-            return null;
+                }).FirstOrDefaultAsync();
         }
     }
 }
