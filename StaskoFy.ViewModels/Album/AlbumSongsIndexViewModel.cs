@@ -11,6 +11,8 @@ namespace StaskoFy.ViewModels.Album
     {
         public Guid Id { get; set; }
 
+        public List<Guid> UserIds { get; set; }
+
         public string Title { get; set; }
 
         public int Hours { get; set; }

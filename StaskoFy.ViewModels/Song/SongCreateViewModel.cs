@@ -27,7 +27,7 @@ namespace StaskoFy.ViewModels.Song
         [Required(ErrorMessage = "Genre is required!")]
         public Guid GenreId { get; set; }
 
-        public IFormFile ImageFile { get; set; } = null!; // = "/images/defaults/default-song-cover-art.png";
+        public IFormFile? ImageFile { get; set; }
 
         public List<Guid> SelectedArtistIds { get; set; } = new();
         public Microsoft.AspNetCore.Mvc.Rendering.MultiSelectList? Artists { get; set; }

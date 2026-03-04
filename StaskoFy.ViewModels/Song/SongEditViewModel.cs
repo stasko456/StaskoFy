@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -31,9 +32,7 @@ namespace StaskoFy.ViewModels.Song
         [Required(ErrorMessage = "Genre is required!")]
         public Guid GenreId { get; set; }
 
-        [Required(ErrorMessage = "Song cover is required!")]
-        [StringLength(2048)]
-        public string ImageURL { get; set; } = null!;
+        public IFormFile? ImageFile { get; set; }
 
         public List<Guid> SelectedArtistIds { get; set; } = new();
         public Microsoft.AspNetCore.Mvc.Rendering.MultiSelectList? Artists { get; set; }

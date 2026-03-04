@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -21,9 +22,7 @@ namespace StaskoFy.ViewModels.Album
         [DataType(DataType.Date)]
         public DateOnly ReleaseDate { get; set; }
 
-        [Required(ErrorMessage = "Album cover is required.")]
-        [StringLength(2048)]
-        public string ImageURL { get; set; } = null!;
+        public IFormFile? ImageFile { get; set; }
 
         public List<Guid> SelectedArtistIds { get; set; } = new();
         public Microsoft.AspNetCore.Mvc.Rendering.MultiSelectList? Artists { get; set; }

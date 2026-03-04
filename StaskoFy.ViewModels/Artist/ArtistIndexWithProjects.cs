@@ -22,5 +22,7 @@ namespace StaskoFy.ViewModels.Artist
         public List<AlbumIndexViewModel> Albums { get; set; } = new();
 
         public List<PlaylistIndexViewModel> Playlists { get; set; } = new();
+
+        public List<PlaylistSelectViewModel> LoggedUserPlaylists { get; set; } = new();
     }
 }
