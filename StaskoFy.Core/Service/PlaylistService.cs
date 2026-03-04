@@ -88,6 +88,12 @@ namespace StaskoFy.Core.Service
                             .ThenInclude(a => a.User)
             .FirstOrDefaultAsync(x => x.Id == id);
 
+            Guid isAuthorized = await playlistRepo.GetAllAttached()
+                .Where(x => x.Id == playlist.Id)
+                .Include(x => x.User)
+                .Select(x => x.UserId)
+                .FirstOrDefaultAsync();
+
             if (playlist == null)
             {
                 return null;
@@ -96,6 +102,7 @@ namespace StaskoFy.Core.Service
             return new PlaylistSongsIndexViewModel
             {
                 Id = playlist.Id,
+                UserId = isAuthorized,
                 Title = playlist.Title,
                 Hours = playlist.Length.Hours,
                 Minutes = playlist.Length.Minutes,

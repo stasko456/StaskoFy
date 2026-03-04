@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using StaskoFy.Core.IService;
 using StaskoFy.DataAccess.Repository;
 using StaskoFy.Models.Entities;
-using StaskoFy.ViewModels.PageViewModel;
 using StaskoFy.ViewModels.Song;
 using System;
 using System.Collections.Generic;
@@ -22,13 +21,15 @@ namespace StaskoFy.Core.Service
         private readonly IRepository<ArtistSong> artistSongRepo;
         private readonly IRepository<Artist> artistRepo;
         private readonly IRepository<Album> albumRepo;
+        private readonly IImageService imageService;
 
-        public SongService(IRepository<Song> _songRepo, IRepository<ArtistSong> _artistSongRepo, IRepository<Artist> _artistRepo, IRepository<Album> _albumRepo)
+        public SongService(IRepository<Song> _songRepo, IRepository<ArtistSong> _artistSongRepo, IRepository<Artist> _artistRepo, IRepository<Album> _albumRepo, IImageService _imageService)
         {
             this.songRepo = _songRepo;
             this.artistSongRepo = _artistSongRepo;
             this.artistRepo = _artistRepo;
             this.albumRepo = _albumRepo;
+            this.imageService = _imageService;
         }
 
         //public async Task<IEnumerable<SongIndexViewModel>> GetSpecificArtistSongsAsync(Guid artistId)
@@ -84,13 +85,12 @@ namespace StaskoFy.Core.Service
                 GenreName = song.Genre.Name,
                 GenreId = song.GenreId,
                 ImageURL = song.ImageURL,
-                CloudinaryPublicId = song.CloudinaryPublicId,
                 Likes = song.Likes,
                 Artists = song.ArtistsSongs.Select(x => x.Artist.User.UserName).ToList()
             };
         }
 
-        public async Task AddSongAsync(SongCreateViewModel model, Guid userId, string imageURL, string publicId)
+        public async Task AddSongAsync(SongCreateViewModel model, Guid userId)
         {
             var mainArtist = await artistRepo.GetAllAttached().
                 FirstOrDefaultAsync(x => x.UserId == userId);
@@ -98,6 +98,23 @@ namespace StaskoFy.Core.Service
             var featuredArtists = await artistRepo.GetAllAttached().
                 Where(x => model.SelectedArtistIds.Contains(x.Id))
                 .ToListAsync();
+
+            string imageURL = "";
+            string publicId = "";
+
+            if (model.ImageFile != null && model.ImageFile.Length > 0)
+            {
+                // Artist uploaded a cover → use Cloudinary
+                var uploadResult = await imageService.UploadImageAsync(model.ImageFile, model.Title, "songs");
+                imageURL = uploadResult.Url;
+                publicId = uploadResult.PublicId;
+            }
+            else
+            {
+                // No upload → use default cover
+                imageURL = "/images/defaults/default-song-cover-art.png";
+                publicId = ""; // No publicId because we didn’t upload
+            }
 
             var song = new Song
             {
@@ -107,7 +124,7 @@ namespace StaskoFy.Core.Service
                 GenreId = model.GenreId,
                 ImageURL = imageURL,
                 CloudinaryPublicId = publicId,
-                ArtistsSongs = new List<ArtistSong>(),
+                ArtistsSongs = new List<ArtistSong>()
             };
 
             song.ArtistsSongs.Add(new ArtistSong
@@ -134,26 +151,45 @@ namespace StaskoFy.Core.Service
                 .FirstOrDefaultAsync(x => x.UserId == userId);
 
             var featuredArtists = await artistRepo.GetAllAttached()
-                .Where(x => model.SelectedArtistIds.Contains(model.Id))
+                .Where(x => model.SelectedArtistIds.Contains(x.Id))
                 .ToListAsync();
 
             var song = await songRepo.GetByIdAsync(model.Id);
+
+            if (model.ImageFile != null && model.ImageFile.Length > 0)
+            {
+                // delete image from Cloudinary
+                await imageService.DestroyImageAsync(song.CloudinaryPublicId);
+
+                // Artist uploaded a cover → use Cloudinary
+                var uploadResult = await imageService.UploadImageAsync(model.ImageFile, model.Title, "songs");
+                song.ImageURL = uploadResult.Url;
+                song.CloudinaryPublicId = uploadResult.PublicId;
+            }
 
             song.Title = model.Title;
             song.Length = new TimeSpan(0, model.Minutes, model.Seconds);
             song.ReleaseDate = model.ReleaseDate;
             song.GenreId = model.GenreId;
-            song.ImageURL = model.ImageURL;
+
+            // remove ArtistSong for this song from the DB 
+            var artistsSong = await artistSongRepo.GetAllAttached()
+                .Where(x => x.SongId == song.Id)
+                .ToListAsync();
+            await artistSongRepo.RemoveRangeAsync(artistsSong);
 
             // add featured artists to the song if any are selected
-            if (featuredArtists.Count > 0)
+            if (featuredArtists.Count == 0)
             {
-                // remove ArtistSong for this song from the DB 
-                var artistsSong = await artistSongRepo.GetAllAttached()
-                    .Where(x => x.SongId == song.Id)
-                    .ToListAsync();
-                await artistSongRepo.RemoveRangeAsync(artistsSong);
-
+                // add main artist to the song
+                song.ArtistsSongs.Add(new ArtistSong
+                {
+                    ArtistId = mainArtist.Id,
+                    SongId = song.Id,
+                });
+            }
+            else
+            {
                 // add main artist to the song
                 song.ArtistsSongs.Add(new ArtistSong
                 {
@@ -179,6 +215,11 @@ namespace StaskoFy.Core.Service
         public async Task RemoveSongAsync(Guid id)
         {
             var song = await songRepo.GetByIdAsync(id);
+
+            if (!string.IsNullOrEmpty(song.CloudinaryPublicId))
+            {
+                await imageService.DestroyImageAsync(song.CloudinaryPublicId);
+            }
 
             await songRepo.RemoveAsync(song);
         }
@@ -224,7 +265,6 @@ namespace StaskoFy.Core.Service
                     GenreName = song.Genre.Name,
                     GenreId = song.GenreId,
                     ImageURL = song.ImageURL,
-                    CloudinaryPublicId = song.CloudinaryPublicId,
                     Likes = song.Likes,
                     Artists = song.ArtistsSongs.Select(x => x.Artist.User.UserName).ToList()
                 }).ToListAsync();
@@ -261,7 +301,6 @@ namespace StaskoFy.Core.Service
                     GenreName = song.Genre.Name,
                     GenreId = song.GenreId,
                     ImageURL = song.ImageURL,
-                    CloudinaryPublicId = song.CloudinaryPublicId,
                     Likes = song.Likes,
                     Artists = song.ArtistsSongs.Select(x => x.Artist.User.UserName).ToList()
                 }).ToListAsync();
@@ -280,13 +319,13 @@ namespace StaskoFy.Core.Service
                 }).ToListAsync();
         }
 
-        public async Task<IEnumerable<SongSelectViewModel>> SelectSongsByCurrentLoggedArtistAsync(Guid userId)
+        public async Task<IEnumerable<SongSelectViewModel>> SelectSinglesByCurrentLoggedArtistAsync(Guid userId)
         {
             return await songRepo.GetAllAttached()
                 .Include(s => s.ArtistsSongs)
                 .ThenInclude(x => x.Artist)
                     .ThenInclude(a => a.User)
-                 .Where(s => s.ArtistsSongs.Any(a => a.Artist.UserId == userId))
+                 .Where(s => s.ArtistsSongs.Any(a => a.Artist.UserId == userId) && s.Album == null)
                 .Select(song => new SongSelectViewModel
                 {
                     Id = song.Id,
@@ -309,7 +348,6 @@ namespace StaskoFy.Core.Service
                     GenreId = song.GenreId,
                     GenreName = song.Genre.Name,
                     ImageURL = song.ImageURL,
-                    CloudinaryPublicId = song.CloudinaryPublicId,
                     Likes = song.Likes,
                     Artists = song.ArtistsSongs.Select(x => x.Artist.User.UserName).ToList()
                 }).ToListAsync();

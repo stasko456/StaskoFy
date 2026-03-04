@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DocumentFormat.OpenXml.Spreadsheet;
+using Microsoft.EntityFrameworkCore;
 using StaskoFy.Core.IService;
 using StaskoFy.DataAccess.Repository;
 using StaskoFy.Models.Entities;
@@ -19,13 +20,15 @@ namespace StaskoFy.Core.Service
         private readonly IRepository<Artist> artistRepo;
         private readonly IRepository<ArtistAlbum> artistAlbumRepo;
         private readonly IRepository<Song> songRepo;
+        private readonly IImageService imageService;
 
-        public AlbumService(IRepository<Album> _albumRepo, IRepository<Artist> _artistRepo, IRepository<ArtistAlbum> _artistAlbumRepo, IRepository<Song> _songRepo)
+        public AlbumService(IRepository<Album> _albumRepo, IRepository<Artist> _artistRepo, IRepository<ArtistAlbum> _artistAlbumRepo, IRepository<Song> _songRepo, IImageService _imageService)
         {
             this.albumRepo = _albumRepo;
             this.artistRepo = _artistRepo;
             this.artistAlbumRepo = _artistAlbumRepo;
             this.songRepo = _songRepo;
+            this.imageService = _imageService;
         }
 
         //public async Task<IEnumerable<AlbumIndexViewModel>> GetAlbumsAsync()
@@ -113,9 +116,15 @@ namespace StaskoFy.Core.Service
                 return null;
             }
 
+            List<Guid> areAuthorized = await artistRepo.GetAllAttached()
+                .Where(x => x.ArtistsAlbums.Any(aa => aa.AlbumId == album.Id))
+                .Select(x => x.UserId)
+                .ToListAsync();
+
             return new AlbumSongsIndexViewModel
             {
                 Id = id,
+                UserIds = areAuthorized,
                 Title = album.Title,
                 Hours = album.Length.Hours,
                 Minutes = album.Length.Minutes,
@@ -149,13 +158,31 @@ namespace StaskoFy.Core.Service
                 .Where(x => model.SelectedSongIds.Contains(x.Id))
                 .ToListAsync();
 
+            string imageURL = "";
+            string publicId = "";
+
+            if (model.ImageFile != null && model.ImageFile.Length > 0)
+            {
+                // Artist uploaded a cover → use Cloudinary
+                var uploadResult = await imageService.UploadImageAsync(model.ImageFile, model.Title, "albums");
+                imageURL = uploadResult.Url;
+                publicId = uploadResult.PublicId;
+            }
+            else
+            {
+                // No upload → use default cover
+                imageURL = "/images/defaults/default-album-cover-art.png";
+                publicId = ""; // No publicId because we didn’t upload
+            }
+
             // make new album entity
             var album = new Album
             {
                 Title = model.Title,
                 ReleaseDate = DateOnly.FromDateTime(DateTime.Now),
-                ImageURL = model.ImageURL,
-                ArtistsAlbums = new List<ArtistAlbum>(),
+                ImageURL = imageURL,
+                CloudinaryPublicId = publicId,
+                ArtistsAlbums = new List<ArtistAlbum>()
             };
 
 
@@ -179,6 +206,7 @@ namespace StaskoFy.Core.Service
             // add songs from the album
             foreach (var song in albumSongs)
             {
+                song.ImageURL = album.ImageURL;
                 album.Songs.Add(song);
             }
 
@@ -217,9 +245,19 @@ namespace StaskoFy.Core.Service
 
             var album = await albumRepo.GetByIdAsync(model.Id);
 
+            if (model.ImageFile != null && model.ImageFile.Length > 0)
+            {
+                // delete image from Cloudinary
+                await imageService.DestroyImageAsync(album.CloudinaryPublicId);
+
+                // Artist uploaded a cover → use Cloudinary
+                var uploadResult = await imageService.UploadImageAsync(model.ImageFile, model.Title, "albums");
+                album.ImageURL = uploadResult.Url;
+                album.CloudinaryPublicId = uploadResult.PublicId;
+            }
+
             album.Title = model.Title;
             album.ReleaseDate = model.ReleaseDate;
-            album.ImageURL = model.ImageURL;
 
             // add featured artists to the album if any are selected
             if (featuredArtists.Count > 0)
@@ -257,6 +295,7 @@ namespace StaskoFy.Core.Service
                 // add new songs to album
                 foreach (var song in albumSongs)
                 {
+                    song.ImageURL = album.ImageURL;
                     album.Songs.Add(song);
                 }
 

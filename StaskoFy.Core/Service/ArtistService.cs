@@ -118,7 +118,6 @@ namespace StaskoFy.Core.Service
                         GenreId = x.Song.GenreId,
                         GenreName = x.Song.Genre.Name,
                         ImageURL = x.Song.ImageURL,
-                        CloudinaryPublicId = x.Song.CloudinaryPublicId,
                         Likes = x.Song.Likes,
                         Artists = x.Song.ArtistsSongs.Select(s => s.Artist.User.UserName).ToList()
                     }).ToList(),

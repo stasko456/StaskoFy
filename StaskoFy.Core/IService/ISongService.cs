@@ -1,5 +1,4 @@
-﻿using StaskoFy.ViewModels.PageViewModel;
-using StaskoFy.ViewModels.Song;
+﻿using StaskoFy.ViewModels.Song;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +14,7 @@ namespace StaskoFy.Core.IService
 
         Task<SongIndexViewModel?> GetSongByIdAsync(Guid id);
 
-        Task AddSongAsync(SongCreateViewModel model, Guid userId, string imageURL, string publicId);
+        Task AddSongAsync(SongCreateViewModel model, Guid userId);
 
         Task UpdateSongsAsync(SongEditViewModel model, Guid userId);
 
@@ -28,7 +27,7 @@ namespace StaskoFy.Core.IService
 
         Task<IEnumerable<SongSelectViewModel>> SelectSongsAsync();
 
-        Task<IEnumerable<SongSelectViewModel>> SelectSongsByCurrentLoggedArtistAsync(Guid userId);
+        Task<IEnumerable<SongSelectViewModel>> SelectSinglesByCurrentLoggedArtistAsync(Guid userId);
 
         Task<IEnumerable<SongIndexViewModel>> GetSinglesForCurrentLoggedArtistAsync(Guid userId);
 
