@@ -1,5 +1,9 @@
 ﻿@model AlbumSongsIndexViewModel
 
+@{
+    var currentUserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+}
+
 <div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-12 col-xl-10">
@@ -58,7 +62,7 @@
                                     <th>Length</th>
                                     <th>Genre</th>
                                     <th>Artists</th>
-                                    @if (User.IsInRole("Artist"))
+                                    @if (User.IsInRole("Artist") && Model.UserIds.Contains(currentUserId))
                                     {
                                         <th>Actions</th>
                                     }
@@ -102,11 +106,11 @@
                                             }
                                         </td>
 
-                                        @if (User.IsInRole("Artist"))
+                                        @if (User.IsInRole("Artist") && Model.UserIds.Contains(currentUserId))
                                         {
                                             <td>
                                                 <form asp-controller="Song" asp-action="MakeSongSingle" asp-route-songId="@song.Id" asp-route-albumId="@Model.Id">
-                                                    <button class="btn btn-lg btn-warning">Make single</button>
+                                                    <button class="btn btn-lg btn-warning rounded-5"><svg viewBox="0 0 640 640" width="30" height="30" class="me-2"><path fill="rgb(255, 255, 255)" d="M532 71C539.6 77.1 544 86.3 544 96L544 400C544 444.2 501 480 448 480C395 480 352 444.2 352 400C352 355.8 395 320 448 320C459.2 320 470 321.6 480 324.6L480 207.9L256 257.7L256 464C256 508.2 213 544 160 544C107 544 64 508.2 64 464C64 419.8 107 384 160 384C171.2 384 182 385.6 192 388.6L192 160C192 145 202.4 132 217.1 128.8L505.1 64.8C514.6 62.7 524.5 65 532.1 71.1z" /></svg>Single</button>
                                                 </form>
                                             </td>
                                         }

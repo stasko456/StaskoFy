@@ -2,16 +2,19 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using StaskoFy.Core.IService;
+using StaskoFy.ViewModels.Playlist;
 using System.Security.Claims;
 namespace StaskoFy.Controllers
 {
     public class ArtistController : Controller
     {
         private readonly IArtistService artistService;
+        private readonly IPlaylistService playlistService;
 
-        public ArtistController(IArtistService _artistService)
+        public ArtistController(IArtistService _artistService, IPlaylistService _playlistService)
         {
             this.artistService = _artistService;
+            this.playlistService = _playlistService;
         }
 
         [HttpGet]
@@ -34,19 +37,25 @@ namespace StaskoFy.Controllers
         [Authorize(Policy = "ArtistOrUser")]
         public async Task<IActionResult> Details(Guid id)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
             if (id == Guid.Empty)
             {
                 return BadRequest();
             }
 
-            var artists = await artistService.GetArtistByIdWithProjectsAsync(id);
+            var artist = await artistService.GetArtistByIdWithProjectsAsync(id);
 
-            if (artists == null)
+            var playlists = await playlistService.SelectPlaylistsFromCurrentLoggedUserAsync(Guid.Parse(userId));
+
+            artist.LoggedUserPlaylists = playlists.ToList();
+
+            if (artist == null)
             {
                 return NotFound();
             }
 
-            return View(artists);
+            return View(artist);
         }
     }
 }

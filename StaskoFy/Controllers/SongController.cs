@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using StaskoFy.Core.IService;
+using StaskoFy.Models.Entities;
 using StaskoFy.ViewModels.Playlist;
 using StaskoFy.ViewModels.Song;
 using System.Security.Claims;
@@ -84,9 +85,7 @@ namespace StaskoFy.Controllers
                 return View(model);
             }
 
-            var uploadResult = await imageService.UploadImageAsync(model.ImageFile, model.ImageFile.FileName, "songs");
-
-            await songService.AddSongAsync(model, Guid.Parse(userId), uploadResult.Url, uploadResult.PublicId);
+            await songService.AddSongAsync(model, Guid.Parse(userId));
             return RedirectToAction("MyProjectsForCurrentLoggedArtistIndex", "Library");
         }
 
@@ -121,7 +120,6 @@ namespace StaskoFy.Controllers
                 Seconds = song.Seconds,
                 ReleaseDate = song.ReleaseDate,
                 GenreId = song.GenreId,
-                ImageURL = song.ImageURL,
                 Artists = new MultiSelectList(artists, "Id", "Username")
             };
 
@@ -163,11 +161,6 @@ namespace StaskoFy.Controllers
             if (song == null)
             {
                 return NotFound();
-            }
-
-            if (!string.IsNullOrEmpty(song.CloudinaryPublicId))
-            {
-                await imageService.DestroyImageAsync(song.CloudinaryPublicId);
             }
 
             await songService.RemoveSongAsync(id);

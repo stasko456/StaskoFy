@@ -43,7 +43,7 @@ namespace StaskoFy.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             var artists = await artistService.PopulateArtistSelectListAsync(Guid.Parse(userId));
-            var songs = await songService.SelectSongsByCurrentLoggedArtistAsync(Guid.Parse(userId));
+            var songs = await songService.SelectSinglesByCurrentLoggedArtistAsync(Guid.Parse(userId));
 
             var model = new AlbumCreateViewModel
             {
@@ -65,7 +65,7 @@ namespace StaskoFy.Controllers
                 var artists = await artistService.PopulateArtistSelectListAsync(Guid.Parse(userId));
                 model.Artists = new MultiSelectList(artists, "Id", "Username");
 
-                var songs = await songService.SelectSongsByCurrentLoggedArtistAsync(Guid.Parse(userId));
+                var songs = await songService.SelectSinglesByCurrentLoggedArtistAsync(Guid.Parse(userId));
                 model.Songs = new MultiSelectList(songs, "Id", "Title");
 
                 return View(model);
@@ -89,14 +89,13 @@ namespace StaskoFy.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             var artists = await artistService.PopulateArtistSelectListAsync(Guid.Parse(userId));
-            var songs = await songService.SelectSongsByCurrentLoggedArtistAsync(Guid.Parse(userId));
+            var songs = await songService.SelectSinglesByCurrentLoggedArtistAsync(Guid.Parse(userId));
 
             var model = new AlbumEditViewModel
             {
                 Id = album.Id,
                 Title = album.Title,
                 ReleaseDate = album.ReleaseDate,
-                ImageURL = album.ImageURL,
                 Artists = new MultiSelectList(artists, "Id", "Username"),
                 Songs = new MultiSelectList(songs, "Id", "Title"),
             };
@@ -115,7 +114,7 @@ namespace StaskoFy.Controllers
                 var artists = await artistService.PopulateArtistSelectListAsync(Guid.Parse(userId));
                 model.Artists = new MultiSelectList(artists, "Id", "Username");
                 
-                var songs = await songService.SelectSongsByCurrentLoggedArtistAsync(Guid.Parse(userId));
+                var songs = await songService.SelectSinglesByCurrentLoggedArtistAsync(Guid.Parse(userId));
                 model.Songs = new MultiSelectList(songs, "Id", "Title");
                 
                 return View(model);
