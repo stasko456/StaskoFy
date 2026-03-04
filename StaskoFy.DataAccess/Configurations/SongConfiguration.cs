@@ -313,6 +313,66 @@ namespace StaskoFy.DataAccess.Configurations
                 CloudinaryPublicId = ""
             },
 
+            new Song
+            {
+                Id = Guid.Parse("29111111-1111-1111-1111-111111111111"),
+                Title = "Lord Of Chaos",
+                Length = new TimeSpan(0, 2, 1),
+                ReleaseDate = new DateOnly(2025, 4, 11),
+                AlbumId = null,
+                Likes = 4566,
+                GenreId = Guid.Parse("41111111-1111-1111-1111-111111111111"),
+                ImageURL = "/images/songs-art-covers/more_chaos.jpg",
+                CloudinaryPublicId = ""
+            },
+            new Song
+            {
+                Id = Guid.Parse("30111111-1111-1111-1111-111111111111"),
+                Title = "Money Spread",
+                Length = new TimeSpan(0, 1, 45),
+                ReleaseDate = new DateOnly(2025, 4, 11),
+                AlbumId = null,
+                Likes = 55883,
+                GenreId = Guid.Parse("41111111-1111-1111-1111-111111111111"),
+                ImageURL = "/images/songs-art-covers/more_chaos.jpg",
+                CloudinaryPublicId = ""
+            },
+            new Song
+            {
+                Id = Guid.Parse("31111111-1111-1111-1111-111111111111"),
+                Title = "Trap Jump",
+                Length = new TimeSpan(0, 2, 30),
+                ReleaseDate = new DateOnly(2025, 4, 11),
+                AlbumId = null,
+                Likes = 4444678,
+                GenreId = Guid.Parse("41111111-1111-1111-1111-111111111111"),
+                ImageURL = "/images/songs-art-covers/more_chaos.jpg",
+                CloudinaryPublicId = ""
+            },
+            new Song
+            {
+                Id = Guid.Parse("32111111-1111-1111-1111-111111111111"),
+                Title = "Blakk Rokkstar",
+                Length = new TimeSpan(0, 3, 50),
+                ReleaseDate = new DateOnly(2025, 4, 11),
+                AlbumId = null,
+                Likes = 123876,
+                GenreId = Guid.Parse("41111111-1111-1111-1111-111111111111"),
+                ImageURL = "/images/songs-art-covers/more_chaos.jpg",
+                CloudinaryPublicId = ""
+            },
+            new Song
+            {
+                Id = Guid.Parse("33111111-1111-1111-1111-111111111111"),
+                Title = "LiveLeak",
+                Length = new TimeSpan(0, 3, 10),
+                ReleaseDate = new DateOnly(2025, 4, 11),
+                AlbumId = null,
+                Likes = 56834,
+                GenreId = Guid.Parse("41111111-1111-1111-1111-111111111111"),
+                ImageURL = "/images/songs-art-covers/more_chaos.jpg",
+                CloudinaryPublicId = ""
+            },
             // XTENDED
             new Song
             {

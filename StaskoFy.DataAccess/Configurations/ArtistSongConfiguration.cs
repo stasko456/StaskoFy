@@ -60,7 +60,13 @@ namespace StaskoFy.DataAccess.Configurations
                 new ArtistSong { ArtistId = Guid.Parse("91111111-1111-1111-1111-111111111111"), SongId = Guid.Parse("24111111-1111-1111-1111-111111111111") },
                 new ArtistSong { ArtistId = Guid.Parse("71111111-1111-1111-1111-111111111111"), SongId = Guid.Parse("13111111-1111-1111-1111-111111111111") },
                 new ArtistSong { ArtistId = Guid.Parse("81111111-1111-1111-1111-111111111111"), SongId = Guid.Parse("13111111-1111-1111-1111-111111111111") },
-                new ArtistSong { ArtistId = Guid.Parse("10111111-1111-1111-1111-111111111111"), SongId = Guid.Parse("27111111-1111-1111-1111-111111111111") });
+                new ArtistSong { ArtistId = Guid.Parse("10111111-1111-1111-1111-111111111111"), SongId = Guid.Parse("27111111-1111-1111-1111-111111111111") },
+
+                new ArtistSong { ArtistId = Guid.Parse("11111111-1111-1111-1111-111111111111"), SongId = Guid.Parse("29111111-1111-1111-1111-111111111111") },
+                new ArtistSong { ArtistId = Guid.Parse("11111111-1111-1111-1111-111111111111"), SongId = Guid.Parse("30111111-1111-1111-1111-111111111111") },
+                new ArtistSong { ArtistId = Guid.Parse("11111111-1111-1111-1111-111111111111"), SongId = Guid.Parse("31111111-1111-1111-1111-111111111111") },
+                new ArtistSong { ArtistId = Guid.Parse("11111111-1111-1111-1111-111111111111"), SongId = Guid.Parse("32111111-1111-1111-1111-111111111111") },
+                new ArtistSong { ArtistId = Guid.Parse("11111111-1111-1111-1111-111111111111"), SongId = Guid.Parse("33111111-1111-1111-1111-111111111111") });
         }
     }
 }
