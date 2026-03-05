@@ -176,7 +176,7 @@ namespace StaskoFy.Controllers
                 return BadRequest();
             }
 
-            await songService.RemoveSongFromAlbumAsync(songId);
+            await songService.RemoveSongFromAlbumAsync(songId, albumId);
 
             return RedirectToAction("Details", "Album", new { id = albumId });
         }
