@@ -21,8 +21,8 @@ namespace StaskoFy.DataAccess.Configurations
                     Length = new TimeSpan(1, 5, 0),
                     ReleaseDate = new DateOnly(2024, 7, 5),
                     SongsCount = 5,
-                    ImageURL = "/images/songs-art-covers/a_great_chaos_deluxe.jpg",
-                    CloudinaryPublicId = ""
+                    ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698280/a_great_chaos_deluxe_d2vxhf.jpg",
+                    CloudinaryPublicId = "a_great_chaos_deluxe_d2vxhf"
                 },
                 new Album
                 {
@@ -31,8 +31,8 @@ namespace StaskoFy.DataAccess.Configurations
                     Length = new TimeSpan(0, 40, 49),
                     ReleaseDate = new DateOnly(2017, 10, 20),
                     SongsCount = 6,
-                    ImageURL = "/images/songs-art-covers/super_slimey.jpg",
-                    CloudinaryPublicId = ""
+                    ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698283/super_slimey_v5r2c1.jpg",
+                    CloudinaryPublicId = "super_slimey_v5r2c1"
                 },
                 new Album
                 {
@@ -41,8 +41,8 @@ namespace StaskoFy.DataAccess.Configurations
                     Length = new TimeSpan(0, 36, 25),
                     ReleaseDate = new DateOnly(2020, 4, 17),
                     SongsCount = 4,
-                    ImageURL = "/images/songs-art-covers/pray_for_paris.jpg",
-                    CloudinaryPublicId = ""
+                    ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698283/pray_for_paris_rx4tq8.jpg",
+                    CloudinaryPublicId = "pray_for_paris_rx4tq8"
                 },
                 new Album
                 {
@@ -51,8 +51,8 @@ namespace StaskoFy.DataAccess.Configurations
                     Length = new TimeSpan(1, 17, 0),
                     ReleaseDate = new DateOnly(2023, 3, 31),
                     SongsCount = 6,
-                    ImageURL = "/images/songs-art-covers/call_me_if_you_get_lost_the_estate_sale.jpg",
-                    CloudinaryPublicId = ""
+                    ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698281/call_me_if_you_get_lost_the_estate_sale_xiqapi.jpg",
+                    CloudinaryPublicId = "call_me_if_you_get_lost_the_estate_sale_xiqapi"
                 },
                 new Album
                 {
@@ -61,8 +61,8 @@ namespace StaskoFy.DataAccess.Configurations
                     Length = new TimeSpan(1, 1, 0),
                     ReleaseDate = new DateOnly(2022, 10, 31),
                     SongsCount = 4,
-                    ImageURL = "/images/songs-art-covers/xtended.jpg",
-                    CloudinaryPublicId = ""
+                    ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698284/xtended_wemgwk.jpg",
+                    CloudinaryPublicId = "xtended_wemgwk"
                 },
                 new Album
                 {
@@ -71,8 +71,8 @@ namespace StaskoFy.DataAccess.Configurations
                     Length = new TimeSpan(0, 54, 32),
                     ReleaseDate = new DateOnly(2025, 9, 22),
                     SongsCount = 6, // risk, no presure, stfu, jumanji, not the mayor, soooo high // TO BE ADDED!!!
-                    ImageURL = "/images/songs-art-covers/broken_hearts_3.jpg",
-                    CloudinaryPublicId = ""
+                    ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698280/broken_hearts_3_xm79ww.jpg",
+                    CloudinaryPublicId = "broken_hearts_3_xm79ww"
                 });
         }
     }
