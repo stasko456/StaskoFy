@@ -1,4 +1,5 @@
-﻿using DocumentFormat.OpenXml.Spreadsheet;
+﻿using DocumentFormat.OpenXml.Office2010.Excel;
+using DocumentFormat.OpenXml.Spreadsheet;
 using Microsoft.EntityFrameworkCore;
 using StaskoFy.Core.IService;
 using StaskoFy.DataAccess.Repository;
@@ -164,7 +165,7 @@ namespace StaskoFy.Core.Service
             if (model.ImageFile != null && model.ImageFile.Length > 0)
             {
                 // Artist uploaded a cover → use Cloudinary
-                var uploadResult = await imageService.UploadImageAsync(model.ImageFile, model.Title, "albums");
+                var uploadResult = await imageService.UploadImageAsync(model.ImageFile, model.Title, "art-covers");
                 imageURL = uploadResult.Url;
                 publicId = uploadResult.PublicId;
             }
@@ -204,10 +205,23 @@ namespace StaskoFy.Core.Service
             }
 
             // add songs from the album
-            foreach (var song in albumSongs)
+            if (album.ImageURL == "/images/defaults/default-album-cover-art.png")
             {
-                song.ImageURL = album.ImageURL;
-                album.Songs.Add(song);
+                foreach (var song in albumSongs)
+                {
+                    song.ImageURL = "/images/defaults/default-song-cover-art.png";
+                    song.CloudinaryPublicId = "";
+                    album.Songs.Add(song);
+                }
+            }
+            else
+            {
+                foreach (var song in albumSongs)
+                {
+                    song.ImageURL = album.ImageURL;
+                    song.CloudinaryPublicId = album.CloudinaryPublicId;
+                    album.Songs.Add(song);
+                }
             }
 
             // update album SongCount
@@ -245,13 +259,18 @@ namespace StaskoFy.Core.Service
 
             var album = await albumRepo.GetByIdAsync(model.Id);
 
+            if (album == null)
+            {
+                throw new KeyNotFoundException($"Album with ID {model.Id} is not found!");
+            }
+
             if (model.ImageFile != null && model.ImageFile.Length > 0)
             {
                 // delete image from Cloudinary
                 await imageService.DestroyImageAsync(album.CloudinaryPublicId);
 
                 // Artist uploaded a cover → use Cloudinary
-                var uploadResult = await imageService.UploadImageAsync(model.ImageFile, model.Title, "albums");
+                var uploadResult = await imageService.UploadImageAsync(model.ImageFile, model.Title, "art-covers");
                 album.ImageURL = uploadResult.Url;
                 album.CloudinaryPublicId = uploadResult.PublicId;
             }
@@ -286,21 +305,29 @@ namespace StaskoFy.Core.Service
                 }
             }
 
-            // add songs to the album if any are selected
+            // add more songs to the album if any are selected
             if (albumSongs.Count > 0)
             {
-                // delete songs from album
-                album.Songs.Clear();
-
-                // add new songs to album
-                foreach (var song in albumSongs)
+                if (album.ImageURL == "/images/defaults/default-album-cover-art.png")
                 {
-                    song.ImageURL = album.ImageURL;
-                    album.Songs.Add(song);
+                    foreach (var song in albumSongs)
+                    {
+                        song.ImageURL = "/images/defaults/default-song-cover-art.png";
+                        song.CloudinaryPublicId = "";
+                        album.Songs.Add(song);
+                        album.SongsCount++;
+                    }
                 }
-
-                // update SongCount
-                album.SongsCount = albumSongs.Count();
+                else
+                {
+                    foreach (var song in albumSongs)
+                    {
+                        song.ImageURL = album.ImageURL;
+                        song.CloudinaryPublicId = album.CloudinaryPublicId;
+                        album.Songs.Add(song);
+                        album.SongsCount++;
+                    }
+                }
 
                 // update Length
                 TimeSpan albumLength = TimeSpan.Zero;
@@ -318,6 +345,17 @@ namespace StaskoFy.Core.Service
         public async Task RemoveAlbumAsync(Guid id)
         {
             var album = await albumRepo.GetByIdAsync(id);
+
+            if (album == null)
+            {
+                throw new KeyNotFoundException($"Album with ID {id} is not found!");
+            }
+
+            // delete songs from the album and from the DB
+            await songRepo.RemoveRangeAsync(album.Songs);
+
+            // delete album image for the songs and the album
+            await imageService.DestroyImageAsync(album.CloudinaryPublicId);
 
             await albumRepo.RemoveAsync(album);
         }

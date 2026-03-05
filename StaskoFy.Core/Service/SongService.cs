@@ -105,7 +105,7 @@ namespace StaskoFy.Core.Service
             if (model.ImageFile != null && model.ImageFile.Length > 0)
             {
                 // Artist uploaded a cover → use Cloudinary
-                var uploadResult = await imageService.UploadImageAsync(model.ImageFile, model.Title, "songs");
+                var uploadResult = await imageService.UploadImageAsync(model.ImageFile, model.Title, "art-covers");
                 imageURL = uploadResult.Url;
                 publicId = uploadResult.PublicId;
             }
@@ -156,13 +156,19 @@ namespace StaskoFy.Core.Service
 
             var song = await songRepo.GetByIdAsync(model.Id);
 
-            if (model.ImageFile != null && model.ImageFile.Length > 0)
+            if (song == null)
+            {
+                throw new KeyNotFoundException($"Song with ID {model.Id} is not found!");
+            }
+
+            // if song is part of album do not remove the image
+            if (model.ImageFile != null && model.ImageFile.Length > 0 && song.AlbumId == null)
             {
                 // delete image from Cloudinary
                 await imageService.DestroyImageAsync(song.CloudinaryPublicId);
 
                 // Artist uploaded a cover → use Cloudinary
-                var uploadResult = await imageService.UploadImageAsync(model.ImageFile, model.Title, "songs");
+                var uploadResult = await imageService.UploadImageAsync(model.ImageFile, model.Title, "art-covers");
                 song.ImageURL = uploadResult.Url;
                 song.CloudinaryPublicId = uploadResult.PublicId;
             }
@@ -216,26 +222,24 @@ namespace StaskoFy.Core.Service
         {
             var song = await songRepo.GetByIdAsync(id);
 
-            if (!string.IsNullOrEmpty(song.CloudinaryPublicId))
+            if (song == null)
             {
+                throw new KeyNotFoundException($"Song with ID {id} is not found!");
+            }
+
+            // if song is part of album do not remove the image
+            if (!string.IsNullOrEmpty(song.ImageURL) && !string.IsNullOrEmpty(song.CloudinaryPublicId) && song.AlbumId == null)
+            {
+                // delete image from Cloudinary
                 await imageService.DestroyImageAsync(song.CloudinaryPublicId);
             }
 
-            await songRepo.RemoveAsync(song);
-        }
-
-        public async Task RemoveSongsRangeAsync(IEnumerable<Guid> ids)
-        {
-            List<Song> songsToRemove = new List<Song>();
-
-            foreach (var id in ids)
+            if (song.AlbumId != null)
             {
-                var song = await songRepo.GetByIdAsync(id);
-
-                songsToRemove.Add(song);
+                song.Album.SongsCount--;
             }
 
-            await songRepo.RemoveRangeAsync(songsToRemove);
+            await songRepo.RemoveAsync(song);
         }
 
         public async Task<IEnumerable<SongIndexViewModel>> FilterSongsAsync(string searchItem, List<string> filters)
@@ -353,34 +357,58 @@ namespace StaskoFy.Core.Service
                 }).ToListAsync();
         }
 
-        public async Task RemoveSongFromAlbumAsync(Guid id)
+        public async Task RemoveSongFromAlbumAsync(Guid songId, Guid albumId)
         {
-            var song = await songRepo.GetByIdAsync(id);
+            var song = await songRepo.GetByIdAsync(songId);;
+
+            var album = await albumRepo.GetByIdAsync(albumId);
 
             if (song == null)
             {
-                return;
+                throw new KeyNotFoundException($"Song with ID {songId} is not found!");
             }
 
+            if (album == null)
+            {
+                throw new KeyNotFoundException($"Album with ID {albumId} is not found!");
+            }
+
+            album.SongsCount--;
             song.AlbumId = null;
-            song.ImageURL = "/images/defaults/default-song-cover-art.png";  
+            song.ImageURL = "/images/defaults/default-song-cover-art.png";
+            song.CloudinaryPublicId = "";
+            album.Length = album.Length - song.Length;
 
             await songRepo.UpdateAsync(song);
         }
 
-        public async Task AddSongToAlbumAsync(Guid id, Guid albumId)
+        public async Task AddSongToAlbumAsync(Guid songId, Guid albumId)
         {
-            var song = await songRepo.GetByIdAsync(id);
+            var song = await songRepo.GetByIdAsync(songId);
 
             var album = await albumRepo.GetByIdAsync(albumId);
 
-            if (song == null || album == null)
+            if (song == null)
             {
-                return;
+                throw new KeyNotFoundException($"Song with ID {songId} is not found!");
             }
 
+            if (album == null)
+            {
+                throw new KeyNotFoundException($"Album with ID {albumId} is not found!");
+            }
+
+            // delete song from cloudinary for the single if one exists in the cloud
+            if (!string.IsNullOrEmpty(song.CloudinaryPublicId) && !string.IsNullOrEmpty(song.ImageURL))
+            {
+                await imageService.DestroyImageAsync(song.CloudinaryPublicId);
+            }
+
+            album.SongsCount++;
             song.AlbumId = albumId;
             song.ImageURL = album.ImageURL;
+            song.CloudinaryPublicId = album.CloudinaryPublicId;
+            album.Length = album.Length + song.Length;
 
             await songRepo.UpdateAsync(song);
         }

@@ -19,7 +19,6 @@ namespace StaskoFy.Core.IService
         Task UpdateSongsAsync(SongEditViewModel model, Guid userId);
 
         Task RemoveSongAsync(Guid id);
-        Task RemoveSongsRangeAsync(IEnumerable<Guid> ids);
 
         Task<IEnumerable<SongIndexViewModel>> FilterSongsAsync(string searchItem, List<string> filters);
 
@@ -31,8 +30,8 @@ namespace StaskoFy.Core.IService
 
         Task<IEnumerable<SongIndexViewModel>> GetSinglesForCurrentLoggedArtistAsync(Guid userId);
 
-        Task RemoveSongFromAlbumAsync(Guid id);
+        Task RemoveSongFromAlbumAsync(Guid songId, Guid albumId);
 
-        Task AddSongToAlbumAsync(Guid id, Guid albumId);
+        Task AddSongToAlbumAsync(Guid songId, Guid albumId);
     }
 }
