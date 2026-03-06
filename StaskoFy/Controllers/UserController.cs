@@ -1,10 +1,14 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using CloudinaryDotNet.Core;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using StaskoFy.Core.IService;
 using StaskoFy.Models.Entities;
 using StaskoFy.ViewModels.Artist;
 using StaskoFy.ViewModels.User;
+using System.Runtime.CompilerServices;
+using System.Runtime.Versioning;
+using System.Security.Claims;
 
 namespace StaskoFy.Controllers
 {
@@ -14,16 +18,19 @@ namespace StaskoFy.Controllers
         private readonly SignInManager<User> signInManager;
         private readonly RoleManager<IdentityRole<Guid>> roleManager;
         private readonly IArtistService artistService;
+        private readonly IImageService imageService;
 
         public UserController(UserManager<User> _userManager,
                               SignInManager<User> _signInManager,
                               RoleManager<IdentityRole<Guid>> _roleManager,
-                              IArtistService _artistService)
+                              IArtistService _artistService,
+                              IImageService _imageService)
         {
             this.userManager = _userManager;
             this.signInManager = _signInManager;
             this.roleManager = _roleManager;
             this.artistService = _artistService;
+            this.imageService = _imageService;
         }
 
         [HttpGet]
@@ -125,6 +132,58 @@ namespace StaskoFy.Controllers
         {
             await signInManager.SignOutAsync();
             return RedirectToAction("Login", "User");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Details()
+        {
+            var user = await userManager.GetUserAsync(User);
+
+            var viewModel = new ProfileIndexViewModel
+            {
+                Username = user.UserName,
+                ProfilePicture = user.ImageURL,
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Manage()
+        {
+            var user = await userManager.GetUserAsync(User);
+
+            var viewModel = new EditProfileViewModel
+            {
+                Username = user.UserName,
+                CurrentProfilePicture = user.ImageURL,
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Manage(EditProfileViewModel model)
+        {
+            var user = await userManager.GetUserAsync(User);
+
+            if (ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            user.UserName = model.Username;
+            
+            if (model.ImageFile != null && model.ImageFile.Length > 0)
+            {
+                var uploadResult = await imageService.UploadImageAsync(model.ImageFile, model.ImageFile.FileName, "user-profile-pictures");
+                user.ImageURL = uploadResult.Url;
+                user.CloudinaryPublicId = uploadResult.PublicId;
+            }
+
+            await userManager.UpdateAsync(user);
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Threading.Tasks;
+using System.Web.Razor.Generator;
 
 namespace StaskoFy.Controllers
 {
@@ -79,13 +80,9 @@ namespace StaskoFy.Controllers
             {
                 Id = id,
                 Title = playlist.Title,
-                Hours = playlist.Hours,
-                Minutes = playlist.Minutes,
-                Seconds = playlist.Seconds,
-                SongCount = playlist.SongCount,
-                DateCreated = playlist.DateCreated,
-                ImageURL = playlist.ImageURL,
+                DateCreated = playlist.DateCreated, 
                 IsPublic = playlist.IsPublic,
+                Songs = new MultiSelectList(songs, "Id", "Title")
             };
 
             return View(model);

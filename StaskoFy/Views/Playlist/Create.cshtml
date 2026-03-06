@@ -9,7 +9,7 @@
                         <i class="bi bi-music-note-list"></i> Create <span class="text-success">Playlist</span>
                     </h2>
 
-                    <form method="post" asp-action="Create">
+                    <form method="post" asp-action="Create" enctype="multipart/form-data">
                         <div class="row g-4 align-items-stretch">
                             <!-- LEFT COLUMN -->
                             <div class="col-12 col-lg-6 d-flex">
@@ -23,9 +23,8 @@
 
                                     <!-- Image URL -->
                                     <div class="mb-3">
-                                        <label asp-for="ImageURL" class="form-label fw-semibold">Cover Image URL</label>
-                                        <input asp-for="ImageURL" class="form-control" placeholder="Enter image URL" aria-required="true" />
-                                        <span asp-validation-for="ImageURL" class="text-danger small"></span>
+                                        <label asp-for="ImageFile" class="form-label fw-semibold">Art Cover</label>
+                                        <input type="file" asp-for="ImageFile" class="form-control" />
                                     </div>
                                 </div>
                             </div>
