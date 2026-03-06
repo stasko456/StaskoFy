@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -16,23 +17,12 @@ namespace StaskoFy.ViewModels.Playlist
         public string Title { get; set; } = null!;
 
         [Required]
-        public int Hours { get; set; }
-
-        [Required]
-        public int Minutes { get; set; }
-        
-        [Required]
-        public int Seconds { get; set; }
-
-        [Required]
-        public int SongCount { get; set; }
-
-        [Required]
         public DateOnly DateCreated { get; set; }
 
-        [Required(ErrorMessage = "Playlist cover is required!")]
-        [StringLength(2048)]
-        public string ImageURL { get; set; }
+        public IFormFile? ImageFile { get; set; } //" /images/defaults/default-album-cover-art.png";
+
+        public List<Guid> SelectedSongIds { get; set; } = new();
+        public Microsoft.AspNetCore.Mvc.Rendering.MultiSelectList? Songs { get; set; }
 
         public bool IsPublic { get; set; }
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -13,9 +14,7 @@ namespace StaskoFy.ViewModels.Playlist
         [StringLength(100, MinimumLength = 1, ErrorMessage = "Album title must be between 1 and 100 characters.")]
         public string Title { get; set; } = null!;
 
-        [Required(ErrorMessage = "Playlist cover is required!")]
-        [StringLength(2048)]
-        public string ImageURL { get; set; } = "/images/defaults/default-album-cover-art.png";
+        public IFormFile? ImageFile { get; set; } //" /images/defaults/default-album-cover-art.png";
 
         public bool IsPublic { get; set; } = false; // false by default
 
