@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DocumentFormat.OpenXml.Office2010.Excel;
+using DocumentFormat.OpenXml.Office2019.Drawing.Model3D;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using Microsoft.IdentityModel.Tokens;
 using StaskoFy.Core.IService;
@@ -20,12 +22,14 @@ namespace StaskoFy.Core.Service
         private readonly IRepository<Playlist> playlistRepo;
         private readonly IRepository<Song> songRepo;
         private readonly IRepository<PlaylistSong> playlistSongRepo;
+        private readonly IImageService imageService;
 
-        public PlaylistService(IRepository<Playlist> _playlistRepo, IRepository<Song> _songRepo, IRepository<PlaylistSong> _playlistSongRepo)
+        public PlaylistService(IRepository<Playlist> _playlistRepo, IRepository<Song> _songRepo, IRepository<PlaylistSong> _playlistSongRepo, IImageService _imageService)
         {
             this.playlistRepo = _playlistRepo;
             this.songRepo = _songRepo;
             this.playlistSongRepo = _playlistSongRepo;
+            this.imageService = _imageService;
         }
 
         public async Task <IEnumerable<PlaylistIndexViewModel>> GetPlaylistsFromCurrentLoggedUserAsync(Guid userId)
@@ -130,15 +134,33 @@ namespace StaskoFy.Core.Service
                 .Where(x => model.SelectedSongIds.Contains(x.Id))
                 .ToListAsync();
 
+            string imageURL = "";
+            string publicId = "";
+
             var playlist = new Playlist
             {
                 Title = model.Title,
                 DateCreated = DateOnly.FromDateTime(DateTime.Now),
-                ImageURL = model.ImageURL,
                 IsPublic = model.IsPublic,
                 PlaylistsSongs = new List<PlaylistSong>(),
                 UserId = userId
             };
+
+            if (model.ImageFile != null && model.ImageFile.Length > 0)
+            {
+                var uploadResult = await imageService.UploadImageAsync(model.ImageFile, model.ImageFile.FileName, "playlist-covers");
+                imageURL = uploadResult.Url;
+                publicId = uploadResult.PublicId;
+            }
+            else
+            {
+                // No upload → use default cover
+                imageURL = "/images/defaults/default-album-cover-art.png";
+                publicId = ""; // No publicId because we didn’t upload
+            }
+
+            playlist.ImageURL = imageURL;
+            playlist.CloudinaryPublicId = publicId;
 
             // add songs to playlist
             foreach (var song in playlistSongs)
@@ -168,59 +190,78 @@ namespace StaskoFy.Core.Service
 
         public async Task UpdatePlaylistAsync(PlaylistEditViewModel model, Guid userId)
         {
-            //var playlistSongs = await songRepo.GetAllAttached()
-            //    .Where(x => model.SelectedSongIds.Contains(x.Id))
-            //    .ToListAsync();
+            var playlistSongs = await songRepo.GetAllAttached()
+                .Where(x => model.SelectedSongIds.Contains(x.Id))
+                .ToListAsync();
+
+            string imageURL = "";
+            string publicId = "";
 
             var playlist = await playlistRepo.GetByIdAsync(model.Id);
 
+            if (playlist == null)
+            {
+                throw new KeyNotFoundException($"Playlist with ID {model.Id} is not found!");
+            }
+
+            if (model.ImageFile != null && model.ImageFile.Length > 0)
+            {
+                // delete image from Cloudinary
+                await imageService.DestroyImageAsync(playlist.CloudinaryPublicId);
+
+                // add image to Cloudinary
+                var uploadResult = await imageService.UploadImageAsync(model.ImageFile, model.ImageFile.FileName, "playlist-covers");
+                playlist.ImageURL = uploadResult.Url;
+                playlist.CloudinaryPublicId = uploadResult.PublicId;
+            }
+
             playlist.Title = model.Title;
             playlist.DateCreated = model.DateCreated;
-            playlist.ImageURL = model.ImageURL;
             playlist.IsPublic = model.IsPublic;
             playlist.UserId = userId;
 
-            // add songs to the playlist if any are selected
-            //if (playlistSongs.Count > 0)
-            //{
-            //    // remove old playlistSong entities
-            //    var playlistSongsToRemove = await playlistSongRepo.GetAllAttached()
-            //        .Where(x => x.PlaylistId == playlist.Id)
-            //        .ToListAsync();
-            //    await playlistSongRepo.RemoveRangeAsync(playlistSongsToRemove);
+            //add songs to the playlist if any are selected
+            if (playlistSongs.Count > 0)
+            {
+                // add new songs to playlist
+                foreach (var song in playlistSongs)
+                {
+                    playlist.PlaylistsSongs.Add(new PlaylistSong
+                    {
+                        Playlist = playlist,
+                        Song = song,
+                        DateAdded = DateOnly.FromDateTime(DateTime.Now)
+                    });
+                    playlist.SongCount++;
+                }
 
-            //    // add new songs to playlist
-            //    foreach (var song in playlistSongs)
-            //    {
-            //        playlist.PlaylistsSongs.Add(new PlaylistSong
-            //        {
-            //            Playlist = playlist,
-            //            Song = song,
-            //        });
-            //    }
+                // update playlist length
+                TimeSpan playlistLength = TimeSpan.Zero;
+                foreach (var song in playlistSongs)
+                {
+                    playlistLength += song.Length;
+                }
+                playlist.Length = playlist.Length + playlistLength;
+            }
 
-            //    // update playlist length
-            //    TimeSpan playlistLength = TimeSpan.Zero;
-            //    foreach (var song in playlistSongs)
-            //    {
-            //        playlistLength += song.Length;
-            //    }
-            //    playlist.Length = playlistLength;
-
-            //    // update playlist sogn count
-            //    playlist.SongCount = playlistSongs.Count();
-
-            //    // update entity
-            //    await playlistRepo.UpdateAsync(playlist);
-
-            //    // update date added on playlist songs
-            //    // TO DO
-            //}
+            // update entity
+            await playlistRepo.UpdateAsync(playlist);
         }
 
         public async Task RemovePlaylistAsync(Guid id)
         {
             var playlist = await playlistRepo.GetByIdAsync(id);
+
+            if (playlist == null)
+            {
+                throw new KeyNotFoundException($"Playlist with ID {id} is not found!");
+            }
+
+            if (!string.IsNullOrEmpty(playlist.ImageURL) && !string.IsNullOrEmpty(playlist.CloudinaryPublicId))
+            {
+                // delete image from Cloudinary
+                await imageService.DestroyImageAsync(playlist.CloudinaryPublicId);
+            }
 
             await playlistRepo.RemoveAsync(playlist);
         }

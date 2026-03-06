@@ -105,7 +105,7 @@ namespace StaskoFy.Core.Service
             if (model.ImageFile != null && model.ImageFile.Length > 0)
             {
                 // Artist uploaded a cover → use Cloudinary
-                var uploadResult = await imageService.UploadImageAsync(model.ImageFile, model.Title, "art-covers");
+                var uploadResult = await imageService.UploadImageAsync(model.ImageFile, model.ImageFile.FileName, "art-covers");
                 imageURL = uploadResult.Url;
                 publicId = uploadResult.PublicId;
             }
@@ -168,7 +168,7 @@ namespace StaskoFy.Core.Service
                 await imageService.DestroyImageAsync(song.CloudinaryPublicId);
 
                 // Artist uploaded a cover → use Cloudinary
-                var uploadResult = await imageService.UploadImageAsync(model.ImageFile, model.Title, "art-covers");
+                var uploadResult = await imageService.UploadImageAsync(model.ImageFile, model.ImageFile.FileName, "art-covers");
                 song.ImageURL = uploadResult.Url;
                 song.CloudinaryPublicId = uploadResult.PublicId;
             }

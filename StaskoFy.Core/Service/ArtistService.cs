@@ -133,7 +133,8 @@ namespace StaskoFy.Core.Service
                         ImageURL = x.Album.ImageURL,
                         Artists = x.Album.ArtistsAlbums.Select(x => x.Artist.User.UserName).ToList(),
                     }).ToList(),
-                    Playlists = a.User.Playlists.Select(pl => new PlaylistIndexViewModel
+                    Playlists = a.User.Playlists.Where(x => x.IsPublic == true)
+                    .Select(pl => new PlaylistIndexViewModel
                     {
                         Id = pl.Id,
                         Title = pl.Title,
@@ -143,6 +144,7 @@ namespace StaskoFy.Core.Service
                         SongCount = pl.SongCount,
                         DateCreated = pl.DateCreated,
                         ImageURL = pl.ImageURL,
+                        IsPublic = pl.IsPublic
                     }).ToList(),
                 }).FirstOrDefaultAsync();
         }
