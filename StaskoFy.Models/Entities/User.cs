@@ -9,7 +9,9 @@ namespace StaskoFy.Models.Entities
 {
     public class User : IdentityUser<Guid>
     {
-        public string ImageURL { get; set; }
+        public string ImageURL { get; set; } = null!;
+
+        public string? CloudinaryPublicId { get; set; }
 
         public ICollection<LikedSongs> LikedSongs { get; set; } = new List<LikedSongs>();
 
