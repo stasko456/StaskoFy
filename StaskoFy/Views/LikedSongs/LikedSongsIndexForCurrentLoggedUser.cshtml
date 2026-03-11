@@ -9,7 +9,7 @@
 
                     <div class="d-flex flex-column flex-lg-row align-items-center align-items-lg-start gap-4 mb-5">
                         <!-- Liked songs Image -->
-                        <img src="/images/app-icons/liked_songs_icon.jpg"
+                        <img src="/images/defaults/liked_songs.jpg"
                              alt="Liked songs"
                              class="rounded-4 shadow flex-shrink-0"
                              style="width:300px; height:300px; object-fit:cover;">
@@ -102,7 +102,7 @@
                                         </td>
 
                                         <td>
-                                            <form method="post" asp-controller="LikedSongs" asp-action="RemoveLikedSong" asp-route-songId="@song.Id">
+                                            <form method="post" asp-controller="LikedSongs" asp-action="RemoveLikedSong" asp-route-songId="@song.SongId">
                                                 <button class="btn btn-danger btn-md d-inline-flex align-items-center">
                                                     <svg viewBox="0 0 640 640" width="25" height="25" class="me-2">
                                                         <path fill="rgb(0, 0, 0)" d="M320 576C461.4 576 576 461.4 576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320C64 461.4 178.6 576 320 576zM232 296L408 296C421.3 296 432 306.7 432 320C432 333.3 421.3 344 408 344L232 344C218.7 344 208 333.3 208 320C208 306.7 218.7 296 232 296z" />

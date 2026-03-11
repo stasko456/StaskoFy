@@ -12,25 +12,49 @@
             Music streaming platform
         </p>
 
-        <div class="d-flex justify-content-center gap-3">
-            <a asp-controller="Playlist" asp-action="Create" class="btn btn-outline-warning btn-lg">
-                Create playlist
-            </a>
-            <a asp-controller="Song" asp-action="SongsIndexForAllUsers" class="btn btn-outline-warning btn-lg">
-                Browse Songs
-            </a>
-            <a asp-controller="Album" asp-action="AlbumsIndexForAllUsers" class="btn btn-outline-warning btn-lg">
-                Browse Albums
-            </a>
-            @if ((User?.Identity?.IsAuthenticated ?? false) && User.IsInRole("Artist"))
-            {
-                <a asp-controller="Song" asp-action="Create" class="btn btn-outline-warning btn-lg">
-                    Upload Music
+        @if (User?.Identity?.IsAuthenticated ?? false)
+        {
+            <div class="d-flex justify-content-center gap-3">
+                <a asp-controller="Playlist" asp-action="Create" class="btn btn-outline-warning btn-lg">
+                    Create playlist
                 </a>
-                <a asp-controller="Album" asp-action="Create" class="btn btn-outline-warning btn-lg">
-                    Upload Album
+                <a asp-controller="Song" asp-action="SongsIndexForAllUsers" class="btn btn-outline-warning btn-lg">
+                    Browse Songs
                 </a>
-            }
-        </div>
+                <a asp-controller="Album" asp-action="AlbumsIndexForAllUsers" class="btn btn-outline-warning btn-lg">
+                    Browse Albums
+                </a>
+                @if ((User?.Identity?.IsAuthenticated ?? false) && User.IsInRole("Artist"))
+                {
+                    <a asp-controller="Song" asp-action="Create" class="btn btn-outline-warning btn-lg">
+                        Upload Music
+                    </a>
+                    <a asp-controller="Album" asp-action="Create" class="btn btn-outline-warning btn-lg">
+                        Upload Album
+                    </a>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="d-flex justify-content-center align-items-center" style="min-height: 70vh;">
+                <div class="card shadow-lg p-5 text-center" style="max-width: 650px; width: 100%;">
+                    <div class="card-body">
+                        <h4 class="card-title mb-5 fw-bold">Login or Create an Account</h4>
+
+                        <div class="d-flex justify-content-center gap-3">
+                            <a asp-controller="User" asp-action="Login" class="btn btn-outline-warning btn-lg">
+                                Login
+                            </a>
+
+                            <a asp-controller="User" asp-action="Register" class="btn btn-outline-warning btn-lg">
+                                Register
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        }
     </div>
 </div>

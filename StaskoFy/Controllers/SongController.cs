@@ -194,5 +194,36 @@ namespace StaskoFy.Controllers
 
             return RedirectToAction("Details", "Album", new { id = albumId });
         }
+
+        // -------------------- //
+
+        [HttpPost]
+        [Authorize(Policy = "Admin")]
+        public async Task<IActionResult> AcceptSongUpload(Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                return BadRequest();
+            }
+
+            await songService.AcceptSongUploadAsync(id);
+
+            return RedirectToAction("ManageSongsStatus", "Admin");
+        }
+
+        [HttpPost]
+        [Authorize(Policy = "Admin")]
+        public async Task<IActionResult> RejectSongUpload(Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                return BadRequest();
+            }
+
+            await songService.RejectSongUploadAsync(id);
+
+            return RedirectToAction("ManageSongsStatus", "Admin");
+        }
+
     }
 }

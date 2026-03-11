@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StaskoFy.Models.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -41,6 +42,8 @@ namespace StaskoFy.Models.Entities
         public string ImageURL { get; set; } = null!;
 
         public string CloudinaryPublicId { get; set; } = null!;
+
+        public UploadStatus Status { get; set; }
 
         public ICollection<ArtistSong> ArtistsSongs { get; set; } = new List<ArtistSong>();
 

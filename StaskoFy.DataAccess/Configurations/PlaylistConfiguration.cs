@@ -23,7 +23,8 @@ namespace StaskoFy.DataAccess.Configurations
                     DateCreated = new DateOnly(2024, 12, 4),
                     UserId = Guid.Parse("01111111-1111-1111-1111-111111111111"),
                     IsPublic = true,
-                    ImageURL = "/images/playlists-art-covers/hip-hop-trap-filmar.jpg"
+                    ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698406/hip-hop-trap-filmar_n5y3kx.jpg",
+                    CloudinaryPublicId = "hip-hop-trap-filmar_n5y3kx"
                 },
                 new Playlist
                 {
@@ -34,7 +35,8 @@ namespace StaskoFy.DataAccess.Configurations
                     DateCreated = new DateOnly(2024, 12, 10),
                     UserId = Guid.Parse("02111111-1111-1111-1111-111111111111"),
                     IsPublic = true,
-                    ImageURL = "/images/playlists-art-covers/opium_filmar.jpg"
+                    ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698406/opium_filmar_ntgsib.jpg",
+                    CloudinaryPublicId = "opium_filmar_ntgsib"
                 },
                 new Playlist
                 {
@@ -45,7 +47,8 @@ namespace StaskoFy.DataAccess.Configurations
                     DateCreated = new DateOnly(2022, 6, 27),
                     UserId = Guid.Parse("03111111-1111-1111-1111-111111111111"),
                     IsPublic = false,
-                    ImageURL = "/images/playlists-art-covers/mnooo_cherno.jpg"
+                    ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698405/mnooo_cherno_zrfd5j.jpg",
+                    CloudinaryPublicId = "mnooo_cherno_zrfd5j"
                 });
 
 

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.Storage.Json;
 using StaskoFy.Core.IService;
 using StaskoFy.DataAccess.Repository;
 using StaskoFy.Models.Entities;
+using StaskoFy.Models.Enums;
 using StaskoFy.ViewModels.Album;
 using StaskoFy.ViewModels.Artist;
 using StaskoFy.ViewModels.Playlist;
@@ -107,7 +108,7 @@ namespace StaskoFy.Core.Service
                     Id = a.Id,
                     Username = a.User.UserName,
                     ProfilePicture = a.User.ImageURL,
-                    Singles = a.ArtistsSongs.Where(x => x.Song.AlbumId == null).Select(x => new SongIndexViewModel
+                    Singles = a.ArtistsSongs.Where(x => x.Song.AlbumId == null && x.Song.Status == UploadStatus.Approved).Select(x => new SongIndexViewModel
                     {
                         Id = x.Song.Id,
                         Title = x.Song.Title,

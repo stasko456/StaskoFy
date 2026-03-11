@@ -42,6 +42,7 @@ namespace StaskoFy.DataAccess
                     UserName = adminUsername,
                     Email = adminEmail,
                     ImageURL = "/images/defaults/default-user-pfp.png",
+                    CloudinaryPublicId = "",
                 };
 
                 await userManager.CreateAsync(user, "Admin1234*");

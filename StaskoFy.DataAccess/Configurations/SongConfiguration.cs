@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using StaskoFy.Models.Entities;
+using StaskoFy.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,8 @@ namespace StaskoFy.DataAccess.Configurations
                 Likes = 10044245,
                 GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698280/a_great_chaos_deluxe_d2vxhf.jpg",
-                CloudinaryPublicId = "a_great_chaos_deluxe_d2vxhf"
+                CloudinaryPublicId = "a_great_chaos_deluxe_d2vxhf",
+                Status = UploadStatus.Approved
             },
             // https://res.cloudinary.com/stasko456cloud/image/upload/v1772698280/a_great_chaos_deluxe_d2vxhf.jpg
             new Song
@@ -38,7 +40,8 @@ namespace StaskoFy.DataAccess.Configurations
                 Likes = 643545,
                 GenreId = Guid.Parse("41111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698280/a_great_chaos_deluxe_d2vxhf.jpg",
-                CloudinaryPublicId = "a_great_chaos_deluxe_d2vxhf"
+                CloudinaryPublicId = "a_great_chaos_deluxe_d2vxhf",
+                Status = UploadStatus.Approved
             },
 
             new Song
@@ -51,7 +54,8 @@ namespace StaskoFy.DataAccess.Configurations
                 Likes = 234566,
                 GenreId = Guid.Parse("41111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698280/a_great_chaos_deluxe_d2vxhf.jpg",
-                CloudinaryPublicId = "a_great_chaos_deluxe_d2vxhf"
+                CloudinaryPublicId = "a_great_chaos_deluxe_d2vxhf",
+                Status = UploadStatus.Approved
             },
             new Song
             {
@@ -63,7 +67,8 @@ namespace StaskoFy.DataAccess.Configurations
                 Likes = 8384754,
                 GenreId = Guid.Parse("31111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698280/a_great_chaos_deluxe_d2vxhf.jpg",
-                CloudinaryPublicId = "a_great_chaos_deluxe_d2vxhf"
+                CloudinaryPublicId = "a_great_chaos_deluxe_d2vxhf",
+                Status = UploadStatus.Approved
             },
             new Song
             {
@@ -75,7 +80,8 @@ namespace StaskoFy.DataAccess.Configurations
                 Likes = 3647835,
                 GenreId = Guid.Parse("31111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698280/a_great_chaos_deluxe_d2vxhf.jpg",
-                CloudinaryPublicId = "a_great_chaos_deluxe_d2vxhf"
+                CloudinaryPublicId = "a_great_chaos_deluxe_d2vxhf",
+                Status = UploadStatus.Approved
             },
 
             // Super Slimey
@@ -89,7 +95,8 @@ namespace StaskoFy.DataAccess.Configurations
                 Likes = 125467,
                 GenreId = Guid.Parse("21111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698283/super_slimey_v5r2c1.jpg",
-                CloudinaryPublicId = "super_slimey_v5r2c1"
+                CloudinaryPublicId = "super_slimey_v5r2c1",
+                Status = UploadStatus.Approved
             },
             new Song
             {
@@ -101,7 +108,8 @@ namespace StaskoFy.DataAccess.Configurations
                 Likes = 125467,
                 GenreId = Guid.Parse("21111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698283/super_slimey_v5r2c1.jpg",
-                CloudinaryPublicId = "super_slimey_v5r2c1"
+                CloudinaryPublicId = "super_slimey_v5r2c1",
+                Status = UploadStatus.Approved
             },
             new Song
             {
@@ -113,7 +121,8 @@ namespace StaskoFy.DataAccess.Configurations
                 Likes = 125467,
                 GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698283/super_slimey_v5r2c1.jpg",
-                CloudinaryPublicId = "super_slimey_v5r2c1"
+                CloudinaryPublicId = "super_slimey_v5r2c1",
+                Status = UploadStatus.Approved
             },
             new Song
             {
@@ -125,7 +134,8 @@ namespace StaskoFy.DataAccess.Configurations
                 Likes = 125467,
                 GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698283/super_slimey_v5r2c1.jpg",
-                CloudinaryPublicId = "super_slimey_v5r2c1"
+                CloudinaryPublicId = "super_slimey_v5r2c1",
+                Status = UploadStatus.Approved
             },
             new Song
             {
@@ -137,7 +147,8 @@ namespace StaskoFy.DataAccess.Configurations
                 Likes = 235678,
                 GenreId = Guid.Parse("21111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698283/super_slimey_v5r2c1.jpg",
-                CloudinaryPublicId = "super_slimey_v5r2c1"
+                CloudinaryPublicId = "super_slimey_v5r2c1",
+                Status = UploadStatus.Approved
             },
             new Song
             {
@@ -149,7 +160,8 @@ namespace StaskoFy.DataAccess.Configurations
                 Likes = 98765,
                 GenreId = Guid.Parse("21111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698283/super_slimey_v5r2c1.jpg",
-                CloudinaryPublicId = "super_slimey_v5r2c1"
+                CloudinaryPublicId = "super_slimey_v5r2c1",
+                Status = UploadStatus.Approved
             },
 
             // Pray For Paris
@@ -163,7 +175,8 @@ namespace StaskoFy.DataAccess.Configurations
                 Likes = 123456,
                 GenreId = Guid.Parse("51111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698283/pray_for_paris_rx4tq8.jpg",
-                CloudinaryPublicId = "pray_for_paris_rx4tq8"
+                CloudinaryPublicId = "pray_for_paris_rx4tq8",
+                Status = UploadStatus.Approved
             },
             new Song
             {
@@ -175,7 +188,8 @@ namespace StaskoFy.DataAccess.Configurations
                 Likes = 654321,
                 GenreId = Guid.Parse("51111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698283/pray_for_paris_rx4tq8.jpg",
-                CloudinaryPublicId = "pray_for_paris_rx4tq8"
+                CloudinaryPublicId = "pray_for_paris_rx4tq8",
+                Status = UploadStatus.Approved
             },
             new Song
             {
@@ -187,7 +201,8 @@ namespace StaskoFy.DataAccess.Configurations
                 Likes = 234567,
                 GenreId = Guid.Parse("51111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698283/pray_for_paris_rx4tq8.jpg",
-                CloudinaryPublicId = "pray_for_paris_rx4tq8"
+                CloudinaryPublicId = "pray_for_paris_rx4tq8",
+                Status = UploadStatus.Approved
             },
             new Song
             {
@@ -199,7 +214,8 @@ namespace StaskoFy.DataAccess.Configurations
                 Likes = 345678,
                 GenreId = Guid.Parse("51111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698283/pray_for_paris_rx4tq8.jpg",
-                CloudinaryPublicId = "pray_for_paris_rx4tq8"
+                CloudinaryPublicId = "pray_for_paris_rx4tq8",
+                Status = UploadStatus.Approved
             },
 
             // CALL ME IF YOU GET LOST: THE ESTATE SALE
@@ -213,7 +229,8 @@ namespace StaskoFy.DataAccess.Configurations
                 Likes = 456789,
                 GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698281/call_me_if_you_get_lost_the_estate_sale_xiqapi.jpg",
-                CloudinaryPublicId = "call_me_if_you_get_lost_the_estate_sale_xiqapi"
+                CloudinaryPublicId = "call_me_if_you_get_lost_the_estate_sale_xiqapi",
+                Status = UploadStatus.Approved
             },
             new Song
             {
@@ -225,7 +242,8 @@ namespace StaskoFy.DataAccess.Configurations
                 Likes = 567890,
                 GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698281/call_me_if_you_get_lost_the_estate_sale_xiqapi.jpg",
-                CloudinaryPublicId = "call_me_if_you_get_lost_the_estate_sale_xiqapi"
+                CloudinaryPublicId = "call_me_if_you_get_lost_the_estate_sale_xiqapi",
+                Status = UploadStatus.Approved
             },
             new Song
             {
@@ -237,7 +255,8 @@ namespace StaskoFy.DataAccess.Configurations
                 Likes = 678901,
                 GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698281/call_me_if_you_get_lost_the_estate_sale_xiqapi.jpg",
-                CloudinaryPublicId = "call_me_if_you_get_lost_the_estate_sale_xiqapi"
+                CloudinaryPublicId = "call_me_if_you_get_lost_the_estate_sale_xiqapi",
+                Status = UploadStatus.Approved
             },
             new Song
             {
@@ -249,7 +268,8 @@ namespace StaskoFy.DataAccess.Configurations
                 Likes = 789012,
                 GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698281/call_me_if_you_get_lost_the_estate_sale_xiqapi.jpg",
-                CloudinaryPublicId = "call_me_if_you_get_lost_the_estate_sale_xiqapi"
+                CloudinaryPublicId = "call_me_if_you_get_lost_the_estate_sale_xiqapi",
+                Status = UploadStatus.Approved
             },
             new Song
             {
@@ -261,7 +281,8 @@ namespace StaskoFy.DataAccess.Configurations
                 Likes = 890123,
                 GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698281/call_me_if_you_get_lost_the_estate_sale_xiqapi.jpg",
-                CloudinaryPublicId = "call_me_if_you_get_lost_the_estate_sale_xiqapi"
+                CloudinaryPublicId = "call_me_if_you_get_lost_the_estate_sale_xiqapi",
+                Status = UploadStatus.Approved
             },
             new Song
             {
@@ -273,7 +294,8 @@ namespace StaskoFy.DataAccess.Configurations
                 Likes = 901234,
                 GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698281/call_me_if_you_get_lost_the_estate_sale_xiqapi.jpg",
-                CloudinaryPublicId = "call_me_if_you_get_lost_the_estate_sale_xiqapi"
+                CloudinaryPublicId = "call_me_if_you_get_lost_the_estate_sale_xiqapi",
+                Status = UploadStatus.Approved
             },
 
             // NULL AlbumId songs
@@ -287,7 +309,8 @@ namespace StaskoFy.DataAccess.Configurations
                 Likes = 12345,
                 GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698280/bane_v4s8f8.jpg",
-                CloudinaryPublicId = "bane_v4s8f8"
+                CloudinaryPublicId = "bane_v4s8f8",
+                Status = UploadStatus.Approved
             },
             new Song
             {
@@ -299,7 +322,8 @@ namespace StaskoFy.DataAccess.Configurations
                 Likes = 23456,
                 GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698281/if_looks_could_kill_qesda4.jpg",
-                CloudinaryPublicId = "if_looks_could_kill_qesda4"
+                CloudinaryPublicId = "if_looks_could_kill_qesda4",
+                Status = UploadStatus.Approved
             },
             new Song
             {
@@ -311,7 +335,8 @@ namespace StaskoFy.DataAccess.Configurations
                 Likes = 34567,
                 GenreId = Guid.Parse("31111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698282/kat_food_z2ime5.jpg",
-                CloudinaryPublicId = "kat_food_z2ime5"
+                CloudinaryPublicId = "kat_food_z2ime5",
+                Status = UploadStatus.Approved
             },
 
             new Song
@@ -324,7 +349,8 @@ namespace StaskoFy.DataAccess.Configurations
                 Likes = 4566,
                 GenreId = Guid.Parse("41111111-1111-1111-1111-111111111111"),
                 ImageURL = "/images/defaults/default-song-cover-art.png",
-                CloudinaryPublicId = ""
+                CloudinaryPublicId = "",
+                Status = UploadStatus.Approved
             },
             new Song
             {
@@ -336,7 +362,8 @@ namespace StaskoFy.DataAccess.Configurations
                 Likes = 55883,
                 GenreId = Guid.Parse("41111111-1111-1111-1111-111111111111"),
                 ImageURL = "/images/defaults/default-song-cover-art.png",
-                CloudinaryPublicId = ""
+                CloudinaryPublicId = "",
+                Status = UploadStatus.Approved
             },
             new Song
             {
@@ -348,7 +375,8 @@ namespace StaskoFy.DataAccess.Configurations
                 Likes = 4444678,
                 GenreId = Guid.Parse("41111111-1111-1111-1111-111111111111"),
                 ImageURL = "/images/defaults/default-song-cover-art.png",
-                CloudinaryPublicId = ""
+                CloudinaryPublicId = "",
+                Status = UploadStatus.Approved
             },
             new Song
             {
@@ -360,7 +388,8 @@ namespace StaskoFy.DataAccess.Configurations
                 Likes = 123876,
                 GenreId = Guid.Parse("41111111-1111-1111-1111-111111111111"),
                 ImageURL = "/images/defaults/default-song-cover-art.png",
-                CloudinaryPublicId = ""
+                CloudinaryPublicId = "",
+                Status = UploadStatus.Approved
             },
             new Song
             {
@@ -372,7 +401,8 @@ namespace StaskoFy.DataAccess.Configurations
                 Likes = 56834,
                 GenreId = Guid.Parse("41111111-1111-1111-1111-111111111111"),
                 ImageURL = "/images/defaults/default-song-cover-art.png",
-                CloudinaryPublicId = ""
+                CloudinaryPublicId = "",
+                Status = UploadStatus.Approved
             },
             // XTENDED
             new Song
@@ -385,7 +415,8 @@ namespace StaskoFy.DataAccess.Configurations
                 Likes = 45678,
                 GenreId = Guid.Parse("31111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698284/xtended_wemgwk.jpg",
-                CloudinaryPublicId = "xtended_wemgwk"
+                CloudinaryPublicId = "xtended_wemgwk",
+                Status = UploadStatus.Approved
             },
             new Song
             {
@@ -398,7 +429,8 @@ namespace StaskoFy.DataAccess.Configurations
                 Likes = 78901,
                 GenreId = Guid.Parse("41111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698284/xtended_wemgwk.jpg",
-                CloudinaryPublicId = "xtended_wemgwk"
+                CloudinaryPublicId = "xtended_wemgwk",
+                Status = UploadStatus.Approved
             },
             new Song
             {
@@ -410,7 +442,8 @@ namespace StaskoFy.DataAccess.Configurations
                 Likes = 56789,
                 GenreId = Guid.Parse("41111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698284/xtended_wemgwk.jpg",
-                CloudinaryPublicId = "xtended_wemgwk"
+                CloudinaryPublicId = "xtended_wemgwk",
+                Status = UploadStatus.Approved
             },
             new Song
             {
@@ -422,7 +455,8 @@ namespace StaskoFy.DataAccess.Configurations
                 Likes = 67890,
                 GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698284/xtended_wemgwk.jpg",
-                CloudinaryPublicId = "xtended_wemgwk"
+                CloudinaryPublicId = "xtended_wemgwk",
+                Status = UploadStatus.Approved
             });
         }
     }

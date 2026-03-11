@@ -10,7 +10,7 @@ namespace StaskoFy.Core.IService
 {
     public interface ISongService
     {
-        //Task<IEnumerable<SongIndexViewModel>> GetSpecificArtistSongsAsync(Guid artistId);
+        Task<IEnumerable<SongApprovalViewModel>> GetSongsWithPendingStatusAsync();
 
         Task<SongIndexViewModel?> GetSongByIdAsync(Guid id);
 
@@ -33,5 +33,9 @@ namespace StaskoFy.Core.IService
         Task RemoveSongFromAlbumAsync(Guid songId, Guid albumId);
 
         Task AddSongToAlbumAsync(Guid songId, Guid albumId);
+
+        Task AcceptSongUploadAsync(Guid id);
+
+        Task RejectSongUploadAsync(Guid id);
     }
 }
