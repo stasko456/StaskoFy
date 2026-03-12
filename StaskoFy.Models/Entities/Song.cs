@@ -48,5 +48,7 @@ namespace StaskoFy.Models.Entities
         public ICollection<ArtistSong> ArtistsSongs { get; set; } = new List<ArtistSong>();
 
         public ICollection<PlaylistSong> PlaylistSongs { get; set; } = new List<PlaylistSong>();
+
+        public ICollection<LikedSongs> LikedSongs { get; set; } = new List<LikedSongs>();
     }
 }

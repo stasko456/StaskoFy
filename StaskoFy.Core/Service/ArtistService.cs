@@ -48,19 +48,14 @@ namespace StaskoFy.Core.Service
 
         public async Task<ArtistIndexViewModel?> GetArtistByIdAsync(Guid id)
         {
-            var artist = await artistRepo.GetByIdAsync(id);
-
-            if (artist == null)
-            {
-                return null;
-            }
-
-            return new ArtistIndexViewModel
-            {
-                Id = artist.Id,
-                Username = artist.User.UserName,
-                ProfilePicture = artist.User.ImageURL
-            };
+            return await artistRepo.GetAllAttached()
+                .Where(a => a.Id == id)
+                .Select(a => new ArtistIndexViewModel
+                {
+                    Id = a.Id,
+                    Username = a.User.UserName,
+                    ProfilePicture = a.User.ImageURL
+                }).FirstOrDefaultAsync();
         }
 
         public async Task AddArtistAsync(ArtistCreateViewModel model)
@@ -82,7 +77,7 @@ namespace StaskoFy.Core.Service
 
         public async Task<IEnumerable<ArtistIndexViewModel>> PopulateArtistSelectListAsync(Guid userId)
         {
-            var artists = await artistRepo.GetAllAttached()
+            return await artistRepo.GetAllAttached()
                 .Where(a => a.UserId != userId)
                 .Select(x => new ArtistIndexViewModel
                 {
@@ -90,18 +85,11 @@ namespace StaskoFy.Core.Service
                     Username = x.User.UserName,
                     ProfilePicture = x.User.ImageURL
                 }).ToListAsync();
-
-            return artists;
         }
 
         public async Task<ArtistIndexWithProjects?> GetArtistByIdWithProjectsAsync(Guid id)
         {
             return await artistRepo.GetAllAttached()
-                .Include(x => x.ArtistsAlbums)
-                    .ThenInclude(album => album.Album)
-                .Include(x => x.ArtistsSongs)
-                    .ThenInclude(song => song.Song)
-                .Include(user => user.User)
                 .Where(x => x.Id == id)
                 .Select(a => new ArtistIndexWithProjects
                 {

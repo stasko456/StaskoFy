@@ -32,18 +32,13 @@ namespace StaskoFy.Core.Service
 
         public async Task<GenreIndexViewModel?> GetGenreByIdAsync(Guid id)
         {
-            var genre = await genreRepo.GetByIdAsync(id);
-
-            if (genre == null)
-            {
-                return null;
-            }
-
-            return new GenreIndexViewModel
-            {
-                Id = genre.Id,
-                Name = genre.Name,
-            };
+            return await genreRepo.GetAllAttached()
+                .Where(g => g.Id == id)
+                .Select(g => new GenreIndexViewModel
+                {
+                    Id = g.Id,
+                    Name = g.Name,
+                }).FirstOrDefaultAsync();
         }
 
         public async Task AddGenreAsync(GenreCreateViewModel model)

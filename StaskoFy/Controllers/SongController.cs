@@ -16,14 +16,16 @@ namespace StaskoFy.Controllers
         private readonly IArtistService artistService;
         private readonly IImageService imageService;
         private readonly IPlaylistService playlistService;
+        private readonly IAlbumService albumService;
 
-        public SongController(ISongService _songService, IGenreService _genreService, IArtistService _artistService, IImageService _imageService, IPlaylistService _playlistService)
+        public SongController(ISongService _songService, IGenreService _genreService, IArtistService _artistService, IImageService _imageService, IPlaylistService _playlistService, IAlbumService _albumService)
         {
             this.songService = _songService;
             this.genreService = _genreService;
             this.artistService = _artistService;
             this.imageService = _imageService;
             this.playlistService = _playlistService;
+            this.albumService = _albumService;
         }
 
         [HttpGet]
@@ -176,7 +178,7 @@ namespace StaskoFy.Controllers
                 return BadRequest();
             }
 
-            await songService.RemoveSongFromAlbumAsync(songId, albumId);
+            await albumService.RemoveSongFromAlbumAsync(songId, albumId);
 
             return RedirectToAction("Details", "Album", new { id = albumId });
         }
@@ -190,12 +192,10 @@ namespace StaskoFy.Controllers
                 return BadRequest();
             }
 
-            await songService.AddSongToAlbumAsync(songId, albumId);
+            await albumService.AddSongToAlbumAsync(songId, albumId);
 
             return RedirectToAction("Details", "Album", new { id = albumId });
         }
-
-        // -------------------- //
 
         [HttpPost]
         [Authorize(Policy = "Admin")]

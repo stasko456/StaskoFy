@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using StaskoFy.Core.IService;
 using StaskoFy.DataAccess.Repository;
 using StaskoFy.Models.Entities;
+using StaskoFy.Models.Enums;
 using StaskoFy.ViewModels.Playlist;
 using StaskoFy.ViewModels.Song;
 using System;
@@ -24,7 +25,10 @@ namespace StaskoFy.Core.Service
         private readonly IRepository<PlaylistSong> playlistSongRepo;
         private readonly IImageService imageService;
 
-        public PlaylistService(IRepository<Playlist> _playlistRepo, IRepository<Song> _songRepo, IRepository<PlaylistSong> _playlistSongRepo, IImageService _imageService)
+        public PlaylistService(IRepository<Playlist> _playlistRepo,
+                               IRepository<Song> _songRepo,
+                               IRepository<PlaylistSong> _playlistSongRepo,
+                               IImageService _imageService)
         {
             this.playlistRepo = _playlistRepo;
             this.songRepo = _songRepo;
@@ -52,80 +56,49 @@ namespace StaskoFy.Core.Service
 
         public async Task<PlaylistIndexViewModel?> GetPlaylistByIdAsync(Guid id)
         {
-            var playlist = await playlistRepo.GetAllAttached()
-                .Include(x => x.PlaylistsSongs)
-                    .ThenInclude(s => s.Song)
-                    .FirstOrDefaultAsync(x => x.Id == id);
-
-            if (playlist == null)
+            return await playlistRepo.GetAllAttached()
+            .Where(p => p.Id == id)
+            .Select(p => new PlaylistIndexViewModel
             {
-                return null;
-            }
-
-            return new PlaylistIndexViewModel
-            {
-                Id = playlist.Id,
-                Title = playlist.Title,
-                Hours = playlist.Length.Hours,
-                Minutes = playlist.Length.Minutes,
-                Seconds = playlist.Length.Seconds,
-                SongCount = playlist.SongCount,
-                DateCreated = playlist.DateCreated,
-                ImageURL = playlist.ImageURL,
-                IsPublic = playlist.IsPublic,
-            };
+                Id = p.Id,
+                Title = p.Title,
+                Hours = p.Length.Hours,
+                Minutes = p.Length.Minutes,
+                Seconds = p.Length.Seconds,
+                SongCount = p.SongCount,
+                DateCreated = p.DateCreated,
+                ImageURL = p.ImageURL,
+                IsPublic = p.IsPublic,
+            }).FirstOrDefaultAsync();
         }
 
         public async Task<PlaylistSongsIndexViewModel?> GetPlaylistByIdWithSongsAsync(Guid id)
         {
-            var playlist = await playlistRepo.GetAllAttached()
-            .Include(x => x.PlaylistsSongs)
-                .ThenInclude(s => s.Song)
-                    .ThenInclude(g => g.Genre)
-            .Include(x => x.PlaylistsSongs)
-                .ThenInclude(ps => ps.Song)
-                    .ThenInclude(s => s.Album)
-            .Include(x => x.PlaylistsSongs)
-                .ThenInclude(ps => ps.Song)
-                    .ThenInclude(s => s.ArtistsSongs)
-                        .ThenInclude(sa => sa.Artist)
-                            .ThenInclude(a => a.User)
-            .FirstOrDefaultAsync(x => x.Id == id);
-
-            Guid isAuthorized = await playlistRepo.GetAllAttached()
-                .Where(x => x.Id == playlist.Id)
-                .Include(x => x.User)
-                .Select(x => x.UserId)
-                .FirstOrDefaultAsync();
-
-            if (playlist == null)
-            {
-                return null;
-            }
-
-            return new PlaylistSongsIndexViewModel
-            {
-                Id = playlist.Id,
-                UserId = isAuthorized,
-                Title = playlist.Title,
-                Hours = playlist.Length.Hours,
-                Minutes = playlist.Length.Minutes,
-                Seconds = playlist.Length.Seconds,
-                SongCount = playlist.SongCount,
-                DateCreated = playlist.DateCreated,
-                ImageURL = playlist.ImageURL,
-                Songs = playlist.PlaylistsSongs.Select(x => new SongPlaylistIndexViewModel
+            return await playlistRepo.GetAllAttached()
+                .Where(p => p.Id == id)
+                .Select(p => new PlaylistSongsIndexViewModel
                 {
-                    Id = x.SongId,
-                    Title = x.Song.Title,
-                    AlbumTitle = x.Song.Album == null ? "Single" : x.Song.Album.Title,
-                    Minutes = x.Song.Length.Minutes,
-                    Seconds = x.Song.Length.Seconds,
-                    ImageUrl = x.Song.ImageURL,
-                    DateAdded = x.DateAdded,
-                    Artists = x.Song.ArtistsSongs.Select(x => x.Artist.User.UserName).ToList(),
-                }).ToList(),
-            };
+                    Id = p.Id,
+                    UserId = p.UserId,
+                    Title = p.Title,
+                    Hours = p.Length.Hours,
+                    Minutes = p.Length.Minutes,
+                    Seconds = p.Length.Seconds,
+                    SongCount = p.SongCount,
+                    DateCreated = p.DateCreated,
+                    ImageURL = p.ImageURL,
+                    Songs = p.PlaylistsSongs.Select(s => new SongPlaylistIndexViewModel
+                    {
+                        Id = s.SongId,
+                        Title = s.Song.Title,
+                        AlbumTitle = s.Song.Album == null ? "Single" : s.Song.Album.Title,
+                        Minutes = s.Song.Length.Minutes,
+                        Seconds = s.Song.Length.Seconds,
+                        ImageUrl = s.Song.ImageURL,
+                        DateAdded = s.DateAdded,
+                        Artists = s.Song.ArtistsSongs.Select(a => a.Artist.User.UserName).ToList(),
+                    }).ToList(),
+                }).FirstOrDefaultAsync();
         }
 
         public async Task AddPlaylistAsync(PlaylistCreateViewModel model, Guid userId)

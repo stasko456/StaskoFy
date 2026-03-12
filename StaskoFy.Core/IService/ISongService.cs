@@ -30,10 +30,6 @@ namespace StaskoFy.Core.IService
 
         Task<IEnumerable<SongIndexViewModel>> GetSinglesForCurrentLoggedArtistAsync(Guid userId);
 
-        Task RemoveSongFromAlbumAsync(Guid songId, Guid albumId);
-
-        Task AddSongToAlbumAsync(Guid songId, Guid albumId);
-
         Task AcceptSongUploadAsync(Guid id);
 
         Task RejectSongUploadAsync(Guid id);

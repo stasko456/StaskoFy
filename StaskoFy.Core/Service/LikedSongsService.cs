@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DocumentFormat.OpenXml.Office2010.Excel;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StaskoFy.Core.IService;
@@ -20,13 +21,14 @@ namespace StaskoFy.Core.Service
         private readonly IRepository<LikedSongs> likedSongsRepo;
         private readonly IRepository<Song> songRepo;
 
-        public LikedSongsService(IRepository<LikedSongs> _likedSongsRepo, IRepository<Song> _songRepo)
+        public LikedSongsService(IRepository<LikedSongs> _likedSongsRepo, 
+                                 IRepository<Song> _songRepo)
         {
             this.likedSongsRepo = _likedSongsRepo;
             this.songRepo = _songRepo;
         }
 
-        public async Task<LikedSongsPageViewModel> GetLikedSongsFromCurrentLoggedUserAsync(Guid userId)
+        public async Task<LikedSongsPageViewModel?> GetLikedSongsFromCurrentLoggedUserAsync(Guid userId)
         {
             var likedSongs = await likedSongsRepo.GetAllAttached()
             .Where(x => x.UserId == userId)
@@ -62,25 +64,20 @@ namespace StaskoFy.Core.Service
 
         public async Task<LikedSongsIndexViewModel?> GetLikedSongByIdAsync(Guid id)
         {
-            var likedSong = await likedSongsRepo.GetByIdAsync(id);
-
-            if (likedSong == null)
-            {
-                return null;
-            }
-
-            return new LikedSongsIndexViewModel
-            {
-                Id = id,
-                SongId = likedSong.SongId,
-                Title = likedSong.Song.Title,
-                AlbumTitle = likedSong.Song.Album == null ? "Single" : likedSong.Song.Album.Title,
-                Minutes = likedSong.Song.Length.Minutes,
-                Seconds = likedSong.Song.Length.Seconds,
-                ImageUrl = likedSong.Song.ImageURL,
-                DateAdded = likedSong.DateAdded,
-                Artists = likedSong.Song.ArtistsSongs.Select(x => x.Artist.User.UserName).ToList(),
-            };
+            return await likedSongsRepo.GetAllAttached()
+                .Where(ls => ls.Id == id)
+                .Select(ls => new LikedSongsIndexViewModel
+                {
+                    Id = id,
+                    SongId = ls.SongId,
+                    Title = ls.Song.Title,
+                    AlbumTitle = ls.Song.Album == null ? "Single" : ls.Song.Album.Title,
+                    Minutes = ls.Song.Length.Minutes,
+                    Seconds = ls.Song.Length.Seconds,
+                    ImageUrl = ls.Song.ImageURL,
+                    DateAdded = ls.DateAdded,
+                    Artists = ls.Song.ArtistsSongs.Select(x => x.Artist.User.UserName).ToList(),
+                }).FirstOrDefaultAsync();
         }
 
         public async Task<LikedSongs?> GetLikedSongByUserAndSongAsync(Guid userId, Guid songId)
@@ -91,18 +88,20 @@ namespace StaskoFy.Core.Service
 
         public async Task AddLikedSongAsync(LikedSongsCreateViewModel model, Guid userId)
         {
-            var isLiked = await likedSongsRepo.GetAllAttached()
-                .AnyAsync(x => x.UserId == userId && x.SongId == model.SongId);
+            var isLiked = await GetLikedSongByUserAndSongAsync(userId, model.SongId);
 
-            if (isLiked)
+            //likedSongsRepo.GetAllAttached()
+            //    .AnyAsync(x => x.UserId == userId && x.SongId == model.SongId);
+
+            if (isLiked == null)
             {
-                return;
+                throw new KeyNotFoundException($"Liked song with Id of song {model.SongId} does not exists!");
             }
 
             var song = await songRepo.GetByIdAsync(model.SongId);
             if (song == null)
             {
-                return;
+                throw new KeyNotFoundException($"Song with ID {model.SongId} is not found!");
             }
 
             var likedSong = new LikedSongs
@@ -124,7 +123,7 @@ namespace StaskoFy.Core.Service
 
             if (likedSong == null)
             {
-                return;
+                throw new KeyNotFoundException($"Song with ID {songId} is not found!");
             }
 
             var song = await songRepo.GetByIdAsync(songId);
