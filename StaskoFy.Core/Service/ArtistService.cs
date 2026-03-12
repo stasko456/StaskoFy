@@ -122,7 +122,7 @@ namespace StaskoFy.Core.Service
                         Likes = x.Song.Likes,
                         Artists = x.Song.ArtistsSongs.Select(s => s.Artist.User.UserName).ToList()
                     }).ToList(),
-                    Albums = a.ArtistsAlbums.Select(x => new AlbumIndexViewModel
+                    Albums = a.ArtistsAlbums.Where(x => x.Album.Status == UploadStatus.Approved).Select(x => new AlbumIndexViewModel
                     {
                         Id = x.Album.Id,
                         Title = x.Album.Title,

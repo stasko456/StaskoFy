@@ -1,9 +1,11 @@
 ﻿using DocumentFormat.OpenXml.Office2010.Excel;
 using DocumentFormat.OpenXml.Spreadsheet;
+using Microsoft.AspNetCore.Mvc.ViewFeatures.Internal;
 using Microsoft.EntityFrameworkCore;
 using StaskoFy.Core.IService;
 using StaskoFy.DataAccess.Repository;
 using StaskoFy.Models.Entities;
+using StaskoFy.Models.Enums;
 using StaskoFy.ViewModels.Album;
 using StaskoFy.ViewModels.Song;
 using System;
@@ -32,22 +34,24 @@ namespace StaskoFy.Core.Service
             this.imageService = _imageService;
         }
 
-        //public async Task<IEnumerable<AlbumIndexViewModel>> GetAlbumsAsync()
-        //{
-        //    return await albumRepo.GetAllAttached()
-        //        .Select(a => new AlbumIndexViewModel
-        //        {
-        //            Id = a.Id,
-        //            Title = a.Title,
-        //            Hours = a.Length.Hours,
-        //            Minutes = a.Length.Minutes,
-        //            Seconds = a.Length.Seconds,
-        //            ReleaseDate = a.ReleaseDate,
-        //            SongsCount = a.SongsCount,
-        //            ImageURL = a.ImageURL,
-        //            Artists = a.ArtistsAlbums.Select(x => x.Artist.User.UserName).ToList(),
-        //        }).ToListAsync();
-        //}
+        public async Task<IEnumerable<AlbumApprovalViewModel>> GetAlbumsWithPendingStatusAsync()
+        {
+            return await albumRepo.GetAllAttached()
+                .Where(a => a.Status != UploadStatus.Approved)
+                .Select(a => new AlbumApprovalViewModel
+                {
+                    Id = a.Id,
+                    Title = a.Title,
+                    Hours = a.Length.Hours,
+                    Minutes = a.Length.Minutes,
+                    Seconds = a.Length.Seconds,
+                    ReleaseDate = a.ReleaseDate,
+                    SongsCount = a.SongsCount,
+                    ImageURL = a.ImageURL,
+                    Status = a.Status,
+                    Artists = a.ArtistsAlbums.Select(x => x.Artist.User.UserName).ToList(),
+                }).ToListAsync();
+        }
 
         public async Task<IEnumerable<AlbumIndexViewModel>> GetSpecificArtistAlbumsAsync(Guid userId)
         {
@@ -55,7 +59,7 @@ namespace StaskoFy.Core.Service
                 .Include(x => x.ArtistsAlbums)
                     .ThenInclude(a => a.Artist)
                         .ThenInclude(u => u.User)
-                .Where(s => s.ArtistsAlbums.Any(a => a.Artist.UserId == userId))
+                .Where(s => s.ArtistsAlbums.Any(a => a.Artist.UserId == userId) && s.Status == UploadStatus.Approved)
                 .Select(album => new AlbumIndexViewModel
                 {
                     Id = album.Id,
@@ -183,6 +187,7 @@ namespace StaskoFy.Core.Service
                 ReleaseDate = DateOnly.FromDateTime(DateTime.Now),
                 ImageURL = imageURL,
                 CloudinaryPublicId = publicId,
+                Status = UploadStatus.Pending,
                 ArtistsAlbums = new List<ArtistAlbum>()
             };
 
@@ -249,15 +254,13 @@ namespace StaskoFy.Core.Service
                 .ToListAsync();
 
             var albumSongs = await songRepo.GetAllAttached()
-                .Include(x => x.Genre)
-                .Include(x => x.Album)
-                .Include(x => x.ArtistsSongs)
-                    .ThenInclude(a => a.Artist)
-                        .ThenInclude(u => u.User)
                 .Where(x => model.SelectedSongIds.Contains(x.Id))
                 .ToListAsync();
 
-            var album = await albumRepo.GetByIdAsync(model.Id);
+            var album = await albumRepo.GetAllAttached()
+            .Include(a => a.Songs)
+            .Include(a => a.ArtistsAlbums)
+            .FirstOrDefaultAsync(a => a.Id == model.Id);
 
             if (album == null)
             {
@@ -273,6 +276,13 @@ namespace StaskoFy.Core.Service
                 var uploadResult = await imageService.UploadImageAsync(model.ImageFile, model.ImageFile.FileName, "art-covers");
                 album.ImageURL = uploadResult.Url;
                 album.CloudinaryPublicId = uploadResult.PublicId;
+
+                // change the covers of the songs that are already in the album to the album cover
+                foreach (var song in album.Songs)
+                {
+                    song.ImageURL = album.ImageURL;
+                    song.CloudinaryPublicId = album.CloudinaryPublicId;
+                }
             }
 
             album.Title = model.Title;
@@ -335,7 +345,7 @@ namespace StaskoFy.Core.Service
                 {
                     albumLength += song.Length;
                 }
-                album.Length = albumLength;
+                album.Length = album.Length + albumLength;
             }
 
             // update entity
@@ -346,37 +356,41 @@ namespace StaskoFy.Core.Service
         {
             var album = await albumRepo.GetByIdAsync(id);
 
+            var albumSongs = await songRepo.GetAllAttached()
+                .Where(s => s.AlbumId == id)
+                .ToListAsync();
+
             if (album == null)
             {
                 throw new KeyNotFoundException($"Album with ID {id} is not found!");
             }
 
-            // delete songs from the album and from the DB
-            await songRepo.RemoveRangeAsync(album.Songs);
+            // album soft delete
+            album.Status = UploadStatus.Deleted;
 
-            // delete album image for the songs and the album
+            // destroy image from cloudinary
             await imageService.DestroyImageAsync(album.CloudinaryPublicId);
 
-            await albumRepo.RemoveAsync(album);
-        }
+            // change image of album to default
+            album.ImageURL = "/images/defaults/default-album-cover-art.png";
+            album.CloudinaryPublicId = "";
 
-        public async Task RemoveAlbumsRangeAsync(IEnumerable<Guid> ids)
-        {
-            List<Album> albumsToRemove = new List<Album>();
-
-            foreach (var id in ids)
+            // chnage images of songs to default
+            foreach (var song in albumSongs)
             {
-                var song = await albumRepo.GetByIdAsync(id);
-
-                albumsToRemove.Add(song);
+                song.ImageURL = "/images/defaults/default-song-cover-art.png";
+                song.CloudinaryPublicId = "";
+                // album's songs soft delete
+                song.Status = UploadStatus.Deleted;
             }
 
-            await albumRepo.RemoveRangeAsync(albumsToRemove);
+            await albumRepo.UpdateAsync(album);
         }
 
         public async Task<IEnumerable<AlbumIndexViewModel>> FilterAlbumsAsync(string searchItem, List<string> filters)
         {
-            var query = albumRepo.GetAllAttached();
+            var query = albumRepo.GetAllAttached()
+                .Where(x => x.Status == UploadStatus.Approved);
 
             if (!string.IsNullOrEmpty(searchItem) && filters != null && filters.Any())
             {
@@ -404,7 +418,7 @@ namespace StaskoFy.Core.Service
         public async Task<IEnumerable<AlbumIndexViewModel>> FilterAlbumsForCurrentLoggedArtistAsync(Guid userId, string searchItem, List<string> filters)
         {
             var query = albumRepo.GetAllAttached()
-            .Where(s => s.ArtistsAlbums.Any(x => x.Artist.UserId == userId));
+            .Where(s => s.ArtistsAlbums.Any(x => x.Artist.UserId == userId) && s.Status == UploadStatus.Approved);
 
             if (!string.IsNullOrEmpty(searchItem) && filters != null && filters.Any())
             {
@@ -426,6 +440,52 @@ namespace StaskoFy.Core.Service
                     ImageURL = album.ImageURL,
                     Artists = album.ArtistsAlbums.Select(x => x.Artist.User.UserName).ToList()
                 }).ToListAsync();
+        }
+
+        public async Task AcceptAlbumUploadAsync(Guid id)
+        {
+            var album = await albumRepo.GetByIdAsync(id);
+
+            var songs = await songRepo.GetAllAttached()
+                .Where(s => s.AlbumId == id)
+                .ToListAsync();
+
+            if (album == null)
+            {
+                throw new KeyNotFoundException($"Album with ID {id} is not found!");
+            }
+
+            album.Status = UploadStatus.Approved;
+
+            foreach (var song in songs)
+            {
+                // album's songs soft delete
+                song.Status = UploadStatus.Approved;
+            }
+
+            await albumRepo.UpdateAsync(album);
+        }
+
+        public async Task RejectAlbumUploadAsync(Guid id)
+        {
+            var album = await albumRepo.GetByIdAsync(id);
+
+            if (album == null)
+            {
+                throw new KeyNotFoundException($"Album with ID {id} is not found!");
+            }
+
+            if (album.Songs.Count > 0)
+            {
+                foreach (var song in album.Songs)
+                {
+                    song.Status = UploadStatus.Rejected;
+                }
+            }
+
+            album.Status = UploadStatus.Rejected;
+
+            await albumRepo.UpdateAsync(album);
         }
     }
 }

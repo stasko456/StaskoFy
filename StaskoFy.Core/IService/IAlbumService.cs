@@ -10,7 +10,7 @@ namespace StaskoFy.Core.IService
 {
     public interface IAlbumService
     {
-        //Task<IEnumerable<AlbumIndexViewModel>> GetAlbumsAsync();
+        Task<IEnumerable<AlbumApprovalViewModel>> GetAlbumsWithPendingStatusAsync();
 
         Task<IEnumerable<AlbumIndexViewModel>> GetSpecificArtistAlbumsAsync(Guid userId);
 
@@ -23,11 +23,13 @@ namespace StaskoFy.Core.IService
         Task UpdateAlbumAsync(AlbumEditViewModel model, Guid userId);
         
         Task RemoveAlbumAsync(Guid id);
-        Task RemoveAlbumsRangeAsync(IEnumerable<Guid> ids);
 
         Task<IEnumerable<AlbumIndexViewModel>> FilterAlbumsAsync(string searchItem, List<string> filters);
 
         Task<IEnumerable<AlbumIndexViewModel>> FilterAlbumsForCurrentLoggedArtistAsync(Guid userId, string searchItem, List<string> filters);
 
+        Task AcceptAlbumUploadAsync(Guid id);
+
+        Task RejectAlbumUploadAsync(Guid id);
     }
 }

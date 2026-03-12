@@ -10,6 +10,7 @@ namespace StaskoFy.Models.Enums
     {
         Pending,
         Approved,
-        Rejected
+        Rejected,
+        Deleted
     }
 }

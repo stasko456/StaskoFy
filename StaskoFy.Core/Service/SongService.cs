@@ -41,7 +41,7 @@ namespace StaskoFy.Core.Service
                 .Include(x => x.ArtistsSongs)
                     .ThenInclude(a => a.Artist)
                         .ThenInclude(u => u.User)
-                .Where(s => s.Status == UploadStatus.Pending)
+                .Where(s => s.Status != UploadStatus.Approved)
                 .Select(song => new SongApprovalViewModel
                 {
                     Id = song.Id,
@@ -226,14 +226,21 @@ namespace StaskoFy.Core.Service
             {
                 // delete image from Cloudinary
                 await imageService.DestroyImageAsync(song.CloudinaryPublicId);
+                song.ImageURL = "/images/defaults/default-song-cover-art.png";
+                song.CloudinaryPublicId = "";
             }
 
+            // if song is part of album decrease the count of songs in that album
             if (song.AlbumId != null)
             {
-                song.Album.SongsCount--;
+                var album = await albumRepo.GetByIdAsync(song.AlbumId.Value);
+                album.SongsCount--;
             }
 
-            await songRepo.RemoveAsync(song);
+            // soft delete song
+            song.Status = UploadStatus.Deleted;
+
+            await songRepo.UpdateAsync(song);
         }
 
         public async Task<IEnumerable<SongIndexViewModel>> FilterSongsAsync(string searchItem, List<string> filters)
@@ -336,7 +343,7 @@ namespace StaskoFy.Core.Service
         public async Task<IEnumerable<SongIndexViewModel>> GetSinglesForCurrentLoggedArtistAsync(Guid userId)
         {
             return await songRepo.GetAllAttached()
-                .Where(song => song.ArtistsSongs.Any(a => a.Artist.UserId == userId) && song.Album == null && song.Status == UploadStatus.Approved)
+                .Where(song => song.ArtistsSongs.Any(a => a.Artist.UserId == userId) && song.AlbumId == null && song.Status == UploadStatus.Approved)
                 .Select(song => new SongIndexViewModel
                 {
                     Id = song.Id,

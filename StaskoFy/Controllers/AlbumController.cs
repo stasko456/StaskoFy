@@ -155,5 +155,33 @@ namespace StaskoFy.Controllers
 
             return View(album);
         }
+
+        [HttpPost]
+        [Authorize(Policy = "Admin")]
+        public async Task<IActionResult> AcceptAlbumUpload(Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                return BadRequest();
+            }
+
+            await albumService.AcceptAlbumUploadAsync(id);
+
+            return RedirectToAction("ManageAlbumsStatus", "Admin");
+        }
+
+        [HttpPost]
+        [Authorize(Policy = "Admin")]
+        public async Task<IActionResult> RejectAlbumUpload(Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                return BadRequest();
+            }
+
+            await albumService.AcceptAlbumUploadAsync(id);
+
+            return RedirectToAction("ManageAlbumsStatus", "Admin");
+        }
     }
 }
