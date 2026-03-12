@@ -4,7 +4,14 @@
     <h1 class="display-4 fw-bold">
         Discover <span class="text-warning">Songs</span>
     </h1>
-    <p class="text-muted">Explore all songs on the platform</p>
+    @if (User.IsInRole("Admin"))
+    {
+        <p class="text-muted">Browse all songs on the platform and <span class="text-danger">remove</span> any that <span class="text-danger">violate the rules</span>.</p>
+    }
+    else
+    {
+        <p class="text-muted">Explore all songs on the platform</p>
+    }
 </div>
 
 <div class="col-12 col-md-6 col-lg-4 mb-4">
@@ -77,7 +84,21 @@ else
                         <p class="card-text mb-1"><strong><svg viewBox="0 0 640 640" width="30" height="30" class="me-2"><path fill="rgb(255, 255, 255)" d="M528 320C528 434.9 434.9 528 320 528C205.1 528 112 434.9 112 320C112 205.1 205.1 112 320 112C434.9 112 528 205.1 528 320zM64 320C64 461.4 178.6 576 320 576C461.4 576 576 461.4 576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320zM296 184L296 320C296 328 300 335.5 306.7 340L402.7 404C413.7 411.4 428.6 408.4 436 397.3C443.4 386.2 440.4 371.4 429.3 364L344 307.2L344 184C344 170.7 333.3 160 320 160C306.7 160 296 170.7 296 184z" /></svg>Length:</strong> @song.Minutes.ToString("D2"):@song.Seconds.ToString("D2") minutes</p>
                         <p class="card-text mb-1"><strong><svg viewBox="0 0 640 640" width="30" height="30" class="me-2"><path fill="rgb(255, 255, 255)" d="M216 64C229.3 64 240 74.7 240 88L240 128L400 128L400 88C400 74.7 410.7 64 424 64C437.3 64 448 74.7 448 88L448 128L480 128C515.3 128 544 156.7 544 192L544 480C544 515.3 515.3 544 480 544L160 544C124.7 544 96 515.3 96 480L96 192C96 156.7 124.7 128 160 128L192 128L192 88C192 74.7 202.7 64 216 64zM216 176L160 176C151.2 176 144 183.2 144 192L144 240L496 240L496 192C496 183.2 488.8 176 480 176L216 176zM144 288L144 480C144 488.8 151.2 496 160 496L480 496C488.8 496 496 488.8 496 480L496 288L144 288z" /></svg>Release Date:</strong> @song.ReleaseDate.ToString("dd MMM yyyy")</p>
                         <p class="card-text mb-1"><strong><svg viewBox="0 0 640 640" width="30" height="30" class="me-2"><path fill="rgb(255, 255, 255)" d="M442.9 144C415.6 144 389.9 157.1 373.9 179.2L339.5 226.8C335 233 327.8 236.7 320.1 236.7C312.4 236.7 305.2 233 300.7 226.8L266.3 179.2C250.3 157.1 224.6 144 197.3 144C150.3 144 112.2 182.1 112.2 229.1C112.2 279 144.2 327.5 180.3 371.4C221.4 421.4 271.7 465.4 306.2 491.7C309.4 494.1 314.1 495.9 320.2 495.9C326.3 495.9 331 494.1 334.2 491.7C368.7 465.4 419 421.3 460.1 371.4C496.3 327.5 528.2 279 528.2 229.1C528.2 182.1 490.1 144 443.1 144zM335 151.1C360 116.5 400.2 96 442.9 96C516.4 96 576 155.6 576 229.1C576 297.7 533.1 358 496.9 401.9C452.8 455.5 399.6 502 363.1 529.8C350.8 539.2 335.6 543.9 320 543.9C304.4 543.9 289.2 539.2 276.9 529.8C240.4 502 187.2 455.5 143.1 402C106.9 358.1 64 297.7 64 229.1C64 155.6 123.6 96 197.1 96C239.8 96 280 116.5 305 151.1L320 171.8L335 151.1z" /></svg>Likes:</strong> @song.Likes</p>
-                        @if (User?.Identity?.IsAuthenticated ?? false)
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <div class="d-flex">
+
+                            </div>
+                            <form asp-controller="Song" asp-action="Delete" method="post" asp-route-id="@song.Id">
+                                <button class="btn btn-danger btn-sm d-inline-flex align-items-center">
+                                    <svg viewBox="0 0 640 640" width="25" height="25" class="me-2">
+                                        <path fill="rgb(0, 0, 0)" d="M232.7 69.9L224 96L128 96C110.3 96 96 110.3 96 128C96 145.7 110.3 160 128 160L512 160C529.7 160 544 145.7 544 128C544 110.3 529.7 96 512 96L416 96L407.3 69.9C402.9 56.8 390.7 48 376.9 48L263.1 48C249.3 48 237.1 56.8 232.7 69.9zM512 208L128 208L149.1 531.1C150.7 556.4 171.7 576 197 576L443 576C468.3 576 489.3 556.4 490.9 531.1L512 208z" />
+                                    </svg>
+                                    Delete
+                                </button>
+                            </form>
+                        }
+                        else if (User.IsInRole("Artist") || User.IsInRole("User"))
                         {
                             <div class="dropup mt-auto">
                                 <button class="btn btn-md btn-secondary dropdown-toggle"
@@ -86,7 +107,6 @@ else
                                         aria-expanded="false">
                                     <svg viewBox="0 0 640 640" width="25" height="25"><path fill="rgb(255, 255, 255)" d="M96 320C96 289.1 121.1 264 152 264C182.9 264 208 289.1 208 320C208 350.9 182.9 376 152 376C121.1 376 96 350.9 96 320zM264 320C264 289.1 289.1 264 320 264C350.9 264 376 289.1 376 320C376 350.9 350.9 376 320 376C289.1 376 264 350.9 264 320zM488 264C518.9 264 544 289.1 544 320C544 350.9 518.9 376 488 376C457.1 376 432 350.9 432 320C432 289.1 457.1 264 488 264z" /></svg>
                                 </button>
-
                                 <ul class="dropdown-menu">
 
                                     <li class="dropdown-submenu">

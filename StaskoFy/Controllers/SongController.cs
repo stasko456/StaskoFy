@@ -34,7 +34,7 @@ namespace StaskoFy.Controllers
         }
 
         [HttpGet]
-        [Authorize(Policy = "ArtistOrUser")]
+        [Authorize(Policy = "ArtistOrAdminOrUser")]
         public async Task<IActionResult> SongsIndexForAllUsers(string searchItem, List<string> filters)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -155,7 +155,7 @@ namespace StaskoFy.Controllers
         }
 
         [HttpPost]
-        [Authorize(Policy = "Artist")]
+        [Authorize(Policy = "ArtistOrAdmin")]
         public async Task<IActionResult> Delete(Guid id)
         {
             if (id == Guid.Empty)

@@ -294,5 +294,12 @@ namespace StaskoFy.Core.Service
                     Title = p.Title,
                 }).ToListAsync();
         }
+
+        public Task<int> GetTotalPlaylistsCountByCurrentLoggedUserAsync(Guid userId)
+        {
+            return playlistRepo.GetAllAttached()
+                .Where(p => p.UserId == userId)
+                .CountAsync();
+        }
     }
 }

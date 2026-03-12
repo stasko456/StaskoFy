@@ -19,5 +19,7 @@ namespace StaskoFy.Core.IService
         Task AddLikedSongAsync(LikedSongsCreateViewModel model, Guid userId);
 
         Task RemoveLikedSongAsync(Guid userId, Guid songId);
+
+        Task<int> GetTotalLikedSongsByCurrentLoggedUserAsync(Guid userId);
     }
 }

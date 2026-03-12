@@ -6,6 +6,7 @@ using StaskoFy.Core.IService;
 using StaskoFy.DataAccess.Repository;
 using StaskoFy.Models.Entities;
 using StaskoFy.Models.Enums;
+using StaskoFy.ViewModels.LikedSongs;
 using StaskoFy.ViewModels.Song;
 using System;
 using System.Collections.Generic;
@@ -55,9 +56,16 @@ namespace StaskoFy.Core.Service
                 {
                     Id = song.Id,
                     Title = song.Title,
+                    Minutes = song.Length.Minutes,
+                    Seconds = song.Length.Seconds,
+                    ReleaseDate = song.ReleaseDate,
+                    AlbumName = song.Album != null ? song.Album.Title : "Single",
+                    GenreName = song.Genre.Name,
                     Genre = song.Genre.Name,
-                    Status = song.Status,
+                    ImageURL = song.ImageURL,
+                    Likes = song.Likes,
                     Artists = song.ArtistsSongs.Select(a => a.Artist.User.UserName).ToList(),
+                    Status = song.Status,
                 })
                 .ToListAsync();
         }
@@ -426,6 +434,51 @@ namespace StaskoFy.Core.Service
             song.Status = UploadStatus.Rejected;
 
             await songRepo.UpdateAsync(song);
+        }
+
+        public async Task<int> GetTotalSongsCountAsync()
+        {
+            return await songRepo.GetAllAttached()
+                .CountAsync(s => s.Status != UploadStatus.Deleted);
+        }
+
+        public async Task<int> GetTotalPendingSongsCountAsync()
+        {
+            return await songRepo.GetAllAttached()
+                .CountAsync(s => s.Status != UploadStatus.Approved);
+        }
+
+        public async Task<int> GetTotalSongsCountByCurrentLoggedArtistAsync(Guid userId)
+        {
+            return await songRepo.GetAllAttached()
+                .Where(s => s.ArtistsSongs.Any(a => a.Artist.UserId == userId) && s.Status != UploadStatus.Deleted)
+                .CountAsync();
+        }
+
+        public async Task<int> GetTotalPendingSongsCountByCurrentLoggedArtistAsync(Guid userId)
+        {
+            return await songRepo.GetAllAttached()
+                .Where(s => s.ArtistsSongs.Any(a => a.Artist.UserId == userId) && s.Status != UploadStatus.Approved)
+                .CountAsync();
+        }
+
+        public async Task<int> GetTotalSongsLikesByCurrentLoggedArtistAsync(Guid userId)
+        {
+            return await songRepo.GetAllAttached()
+                .Where(s => s.ArtistsSongs.Any(a => a.Artist.UserId == userId))
+                .SumAsync(s => s.Likes);
+        }
+
+        public async Task<MostLikedSongViewModel?> GetMostLikedSongAsync(Guid userId)
+        {
+            return await songRepo.GetAllAttached()
+                .Where(s => s.ArtistsSongs.Any(a => a.Artist.UserId == userId))
+                .OrderByDescending(s => s.Likes)
+                .Select(s => new MostLikedSongViewModel
+                {
+                    MostLikedSongTitle = s.Title,
+                    MostLikedSongCount = s.Likes
+                }).FirstOrDefaultAsync();
         }
     }
 }

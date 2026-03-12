@@ -527,5 +527,31 @@ namespace StaskoFy.Core.Service
 
             await albumRepo.UpdateAsync(album);
         }
+
+        public async Task<int> GetTotalAlbumsCountAsync()
+        {
+            return await albumRepo.GetAllAttached()
+                .CountAsync(a => a.Status != UploadStatus.Deleted);
+        }
+
+        public async Task<int> GetTotalPendingAlbumsCountAsync()
+        {
+            return await albumRepo.GetAllAttached()
+                .CountAsync(a => a.Status != UploadStatus.Approved);
+        }
+
+        public async Task<int> GetTotalAlbumsCountByCurrentLoggedArtistAsync(Guid userId)
+        {
+            return await albumRepo.GetAllAttached()
+                .Where(s => s.ArtistsAlbums.Any(a => a.Artist.UserId == userId) && s.Status != UploadStatus.Deleted)
+                .CountAsync();
+        }
+
+        public async Task<int> GetTotalPendingAlbumsCountByCurrentLoggedArtistAsync(Guid userId)
+        {
+            return await albumRepo.GetAllAttached()
+                .Where(s => s.ArtistsAlbums.Any(a => a.Artist.UserId == userId) && s.Status != UploadStatus.Approved)
+                .CountAsync();
+        }
     }
 }

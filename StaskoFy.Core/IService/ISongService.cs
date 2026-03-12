@@ -1,4 +1,5 @@
-﻿using StaskoFy.ViewModels.Song;
+﻿using StaskoFy.ViewModels.LikedSongs;
+using StaskoFy.ViewModels.Song;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,5 +34,17 @@ namespace StaskoFy.Core.IService
         Task AcceptSongUploadAsync(Guid id);
 
         Task RejectSongUploadAsync(Guid id);
+
+        Task<int> GetTotalSongsCountAsync();
+
+        Task<int> GetTotalPendingSongsCountAsync();
+
+        Task<int> GetTotalSongsCountByCurrentLoggedArtistAsync(Guid userId);
+
+        Task<int> GetTotalPendingSongsCountByCurrentLoggedArtistAsync(Guid userId);
+
+        Task<int> GetTotalSongsLikesByCurrentLoggedArtistAsync(Guid userId);
+
+        Task<MostLikedSongViewModel?> GetMostLikedSongAsync(Guid userId);
     }
 }

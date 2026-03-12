@@ -1,58 +1,131 @@
 ﻿@model List<AlbumApprovalViewModel>
 
-<h2>Pending Album Approvals</h2>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-xl-10">
 
-<table class="table table-striped table-bordered">
-    <thead>
-        <tr>
-            <th>Title</th>
-            <th>Length</th>
-            <th>Release Date</th>
-            <th>Songs Count</th>
-            <th>Artist</th>
-            <th>Status</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-body p-4 p-md-5">
 
-    ```
-    <tbody>
-        @if (Model != null && Model.Any())
-        {
-            foreach (var album in Model)
-            {
-                <tr>
-                    <td>@album.Title</td>
-                    <td>@album.Hours.ToString("D2"):@album.Minutes.ToString("D2"):@album.Seconds.ToString("D2")</td>
-                    <td>@album.ReleaseDate.ToString("dd MMM yyyy")</td>
-                    <td>@album.SongsCount</td>
-                    <td>
-                        @foreach (var artist in album.Artists)
-                        {
-                            <span class="badge bg-light text-dark border rounded-pill me-1 px-3">
-                                @artist
-                            </span>
-                        }
-                    </td>
-                    <td>@album.Status.ToString()</td>
-                    <td>
-                        <form method="post" asp-controller="Album" asp-action="AcceptAlbumUpload" asp-route-id="@album.Id">
-                            <button type="submit" class="btn btn-success btn-sm">Accept</button>
-                        </form>
-                        <form method="post" asp-controller="Album" asp-action="RejectAlbumUpload" asp-route-id="@album.Id">
-                            <button type="submit" class="btn btn-danger btn-sm">Reject</button>
-                        </form>
-                    </td>
-                </tr>
-            }
-        }
-        else
-        {
-            <tr>
-                <td colspan="5" class="text-center">
-                    No songs waiting for approval.
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                    <div class="mb-5 text-center text-lg-start">
+
+                        <h2 class="fw-bold mb-2">
+                            Pending or Deleted Album Approvals
+                        </h2>
+
+                        <p class="text-muted fs-5">
+                            Review submitted albums and
+                            <span class="text-success fw-semibold">accept</span> or
+                            <span class="text-danger fw-semibold">reject</span> them.
+                        </p>
+
+                    </div>
+                    <hr class="mb-4" />
+
+                    <div class="table-responsive">
+                        <table class="table align-middle mb-0">
+                            <thead class="bg-light text-secondary">
+                                <tr class="small text-uppercase">
+                                    <th class="ps-3">#</th>
+                                    <th>Title</th>
+                                    <th>Length</th>
+                                    <th>Release Date</th>
+                                    <th>Songs Count</th>
+                                    <th>Artists</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    int index = 1;
+                                }
+                                @if (!Model.Any())
+                                {
+                                    <tr>
+                                        <td colspan="8" class="text-center">
+                                            @ViewData["NoResult"]
+                                        </td>
+                                    </tr>
+                                }
+                                else
+                                {
+                                    foreach (var album in Model)
+                                    {
+                                        <tr class="border-top">
+                                            <td class="ps-3 text-muted fw-semibold">
+                                                @index
+                                            </td>
+
+                                            <td class="fw-semibold text-dark">
+                                                <div class="d-flex align-items-center gap-3">
+                                                    <img src="@album.ImageURL"
+                                                         alt="@album.Title"
+                                                         width="50"
+                                                         height="50"
+                                                         class="rounded shadow-sm" />
+
+                                                    <span>@album.Title</span>
+                                                </div>
+                                            </td>
+
+                                            <td class="text-muted">
+                                                @album.Hours.ToString("D2"):@album.Minutes.ToString("D2"):@album.Seconds.ToString("D2")
+                                            </td>
+
+                                            <td>
+                                                <span class="text-muted">
+                                                    @album.ReleaseDate.ToString("dd MMM yyyy")
+                                                </span>
+                                            </td>
+
+                                            <td class="text-muted">
+                                                @album.SongsCount
+                                            </td>
+
+                                            <td>
+                                                @foreach (var artist in album.Artists)
+                                                {
+                                                    <span class="badge bg-light text-dark border rounded-pill me-1 px-3">
+                                                        @artist
+                                                    </span>
+                                                }
+                                            </td>
+
+                                            <td>
+                                                <span class="badge bg-secondary bg-opacity-75 rounded-pill px-3">@album.Status.ToString()</span>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex gap-2">
+                                                    <form method="post" asp-controller="Album" asp-action="AcceptAlbumUpload" asp-route-id="@album.Id">
+                                                        <button type="submit" class="btn btn-success btn-sm fw-bold d-inline-flex align-items-center">
+                                                            <svg viewBox="0 0 640 640" width="30" height="30" class="me-2">
+                                                                <path fill="rgb(255, 255, 255)" d="M320 576C178.6 576 64 461.4 64 320C64 178.6 178.6 64 320 64C461.4 64 576 178.6 576 320C576 461.4 461.4 576 320 576zM320 112C205.1 112 112 205.1 112 320C112 434.9 205.1 528 320 528C434.9 528 528 434.9 528 320C528 205.1 434.9 112 320 112zM390.7 233.9C398.5 223.2 413.5 220.8 424.2 228.6C434.9 236.4 437.3 251.4 429.5 262.1L307.4 430.1C303.3 435.8 296.9 439.4 289.9 439.9C282.9 440.4 276 437.9 271.1 433L215.2 377.1C205.8 367.7 205.8 352.5 215.2 343.2C224.6 333.9 239.8 333.8 249.1 343.2L285.1 379.2L390.7 234z" />
+                                                            </svg>
+                                                            Accept
+                                                        </button>
+                                                    </form>
+                                                    <form method="post" asp-controller="Album" asp-action="RejectAlbumUpload" asp-route-id="@album.Id">
+                                                        <button type="submit" class="btn btn-danger btn-sm fw-bold d-inline-flex align-items-center">
+                                                            <svg viewBox="0 0 640 640" width="30" height="30" class="me-2">
+                                                                <path fill="rgb(255, 255, 255)" d="M320 112C434.9 112 528 205.1 528 320C528 434.9 434.9 528 320 528C205.1 528 112 434.9 112 320C112 205.1 205.1 112 320 112zM320 576C461.4 576 576 461.4 576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320C64 461.4 178.6 576 320 576zM231 231C221.6 240.4 221.6 255.6 231 264.9L286 319.9L231 374.9C221.6 384.3 221.6 399.5 231 408.8C240.4 418.1 255.6 418.2 264.9 408.8L319.9 353.8L374.9 408.8C384.3 418.2 399.5 418.2 408.8 408.8C418.1 399.4 418.2 384.2 408.8 374.9L353.8 319.9L408.8 264.9C418.2 255.5 418.2 240.3 408.8 231C399.4 221.7 384.2 221.6 374.9 231L319.9 286L264.9 231C255.5 221.6 240.3 221.6 231 231z" />
+                                                            </svg>
+                                                            Reject
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        index++;
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,86 @@
+﻿@model HomeArtistIndexViewModel
+
+<div class="container py-5">
+    <div class="text-center text-light">
+        <h1 class="display-4 fw-bold mb-3">
+            Welcome to <span class="text-warning">StaskoFy</span>
+        </h1>
+
+        <p class="lead text-secondary mb-1">
+            Manage your music and track your projects.
+        </p>
+        <p class="lead text-secondary mb-5">
+            Upload songs, create albums, and see how your audience is engaging with your work.
+        </p>
+        <div class="row justify-content-center text-center mb-3">
+
+            <div class="col-md-4 mb-3">
+                <div class="card shadow-sm">
+                    <div class="card-body dashboard-card">
+                        <h5 class="card-title">Your uploaded songs</h5>
+                        <p class="card-text fw-bold">@Model.TotalSongsByArtist</p>
+                        <a asp-controller="Library" asp-action="MyProjectsForCurrentLoggedArtistIndex"
+                           class="btn btn-outline-warning btn-md">Manage</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <div class="card shadow-sm">
+                    <div class="card-body dashboard-card">
+                        <h5 class="card-title">Your uploaded albums</h5>
+                        <p class="card-text fw-bold">@Model.TotalAlbumsByArtist</p>
+                        <a asp-controller="Library" asp-action="MyProjectsForCurrentLoggedArtistIndex"
+                           class="btn btn-outline-warning btn-md">Manage</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row justify-content-center text-center mb-3">
+
+            <div class="col-md-4 mb-3">
+                <div class="card shadow-sm">
+                    <div class="card-body dashboard-card">
+                        <h5 class="card-title">Your pending songs</h5>
+                        <p class="card-text fw-bold">@Model.TotalPendingSongsByArtist</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <div class="card shadow-sm">
+                    <div class="card-body dashboard-card">
+                        <h5 class="card-title">Your pending albums</h5>
+                        <p class="card-text fw-bold">@Model.TotalPendingAlbumsByArtist</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row justify-content-center text-center mb-3">
+
+            <div class="col-md-4 mb-3">
+                <div class="card shadow-sm">
+                    <div class="card-body dashboard-card">
+                        <h5 class="card-title">Likes</h5>
+                        <p class="card-text fw-bold">@Model.TotalLikesOfSongsByArtist</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <div class="card shadow-sm">
+                    <div class="card-body dashboard-card">
+                        <h5 class="card-title">Most liked song</h5>
+                        <p class="card-text fw-bold">@Model.MostLikedSongTitleByArtist</p>
+                        <p class="card-text fw-bold">@Model.MostLikedSongCountByArtist likes</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

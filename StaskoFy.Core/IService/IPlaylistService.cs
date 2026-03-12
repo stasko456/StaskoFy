@@ -27,5 +27,7 @@ namespace StaskoFy.Core.IService
         Task RemoveSongFromPlaylistAsync(Guid playlistId, Guid songId);
 
         Task<IEnumerable<PlaylistSelectViewModel>> SelectPlaylistsFromCurrentLoggedUserAsync(Guid userId);
+
+        Task<int> GetTotalPlaylistsCountByCurrentLoggedUserAsync(Guid userId);
     }
 }

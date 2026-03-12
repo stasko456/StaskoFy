@@ -17,16 +17,30 @@ namespace StaskoFy.Controllers
         }
 
         [Authorize(Policy = "Admin")]
+        [HttpGet]
         public async Task<IActionResult> ManageSongsStatus()
         {
             var songs = await songService.GetSongsWithPendingStatusAsync();
+
+            if (!songs.Any())
+            {
+                ViewData["NoResult"] = "No songs waiting for acception."; 
+            }
+
             return View(songs);
         }
 
         [Authorize(Policy = "Admin")]
+        [HttpGet]
         public async Task<IActionResult> ManageAlbumsStatus()
         {
             var albums = await albumService.GetAlbumsWithPendingStatusAsync();
+
+            if (!albums.Any())
+            {
+                ViewData["NoResult"] = "No albums waiting for acception.";
+            }
+
             return View(albums);
         }
     }

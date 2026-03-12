@@ -1,0 +1,54 @@
+﻿@model HomeAdminIndexViewModel
+
+<div class="container py-5">
+    <div class="text-center text-light">
+        <h1 class="display-4 fw-bold mb-3">
+            Welcome to <span class="text-warning">StaskoFy</span>
+        </h1>
+
+        <p class="lead text-secondary mb-1">
+            Platform Administration
+        </p>
+        <p class="lead text-secondary mb-4">
+            Review uploaded content and manage songs and albums across the platform.
+        </p>
+        <div class="row text-center mb-5">
+            <div class="col-md-3 mb-3">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Browse Songs</h5>
+                        <p class="card-text fw-bold">@Model.TotalSongs</p>
+                        <a asp-controller="Song" asp-action="SongsIndexForAllUsers" class="btn btn-outline-warning btn-md">Manage</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Browse Albums</h5>
+                        <p class="card-text fw-bold">@Model.TotalAlbums</p>
+                        <a asp-controller="Album" asp-action="AlbumsIndexForAllUsers" class="btn btn-outline-warning btn-md">Manage</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Pending Songs</h5>
+                        <p class="card-text fw-bold">@Model.TotalPendingSongs</p>
+                        <a asp-controller="Admin" asp-action="ManageSongsStatus" class="btn btn-outline-danger btn-md">Review</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Pending Albums</h5>
+                        <p class="card-text fw-bold">@Model.TotalPendingAlbums</p>
+                        <a asp-controller="Admin" asp-action="ManageAlbumsStatus" class="btn btn-outline-danger btn-md">Review</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

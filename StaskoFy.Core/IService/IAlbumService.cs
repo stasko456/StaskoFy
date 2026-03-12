@@ -35,5 +35,13 @@ namespace StaskoFy.Core.IService
         Task AcceptAlbumUploadAsync(Guid id);
 
         Task RejectAlbumUploadAsync(Guid id);
+
+        Task<int> GetTotalAlbumsCountAsync();
+
+        Task<int> GetTotalPendingAlbumsCountAsync();
+
+        Task<int> GetTotalAlbumsCountByCurrentLoggedArtistAsync(Guid userId);
+
+        Task<int> GetTotalPendingAlbumsCountByCurrentLoggedArtistAsync(Guid userIds);
     }
 }

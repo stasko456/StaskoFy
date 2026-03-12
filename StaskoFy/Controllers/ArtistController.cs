@@ -19,7 +19,7 @@ namespace StaskoFy.Controllers
         }
 
         [HttpGet]
-        [Authorize(Policy = "ArtistOrUser")]
+        [Authorize(Policy = "ArtistOrAdminOrUser")]
         public async Task<IActionResult> Index(string username)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -35,7 +35,7 @@ namespace StaskoFy.Controllers
         }
 
         [HttpGet]
-        [Authorize(Policy = "ArtistOrUser")]
+        [Authorize(Policy = "ArtistOrAdminOrUser")]
         public async Task<IActionResult> Details(Guid id)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);

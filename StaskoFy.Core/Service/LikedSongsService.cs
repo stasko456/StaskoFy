@@ -141,5 +141,12 @@ namespace StaskoFy.Core.Service
 
             await likedSongsRepo.RemoveAsync(likedSong);
         }
+
+        public Task<int> GetTotalLikedSongsByCurrentLoggedUserAsync(Guid userId)
+        {
+            return likedSongsRepo.GetAllAttached()
+                .Where(ls => ls.UserId == userId)
+                .CountAsync();
+        }
     }
 }

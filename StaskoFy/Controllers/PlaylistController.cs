@@ -25,16 +25,6 @@ namespace StaskoFy.Controllers
 
         [HttpGet]
         [Authorize(Policy = "ArtistOrUser")]
-        public async Task<IActionResult> PlaylistsIndexForCurrentLoggedUser()
-        {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            var playlists = await playlistService.GetPlaylistsFromCurrentLoggedUserAsync(Guid.Parse(userId));
-            return View(playlists);
-        }
-
-        [HttpGet]
-        [Authorize(Policy = "ArtistOrUser")]
         public async Task<IActionResult> Create()
         {
             var songs = await songService.SelectSongsAsync();

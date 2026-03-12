@@ -25,7 +25,7 @@ namespace StaskoFy.Controllers
         }
 
         [HttpGet]
-        [Authorize(Policy = "ArtistOrUser")]
+        [Authorize(Policy = "ArtistOrAdminOrUser")]
         public async Task<IActionResult> AlbumsIndexForAllUsers(string searchItem, List<string> filters)
         {
             var albums = await albumService.FilterAlbumsAsync(searchItem, filters);
@@ -132,7 +132,7 @@ namespace StaskoFy.Controllers
         }
 
         [HttpPost]
-        [Authorize(Policy = "Artist")]
+        [Authorize(Policy = "ArtistOrAdmin")]
         public async Task<IActionResult> Delete(Guid id)
         {
             if (id == Guid.Empty)
@@ -145,7 +145,7 @@ namespace StaskoFy.Controllers
         }
 
         [HttpGet]
-        [Authorize(Policy = "ArtistOrUser")]
+        [Authorize(Policy = "ArtistOrAdminOrUser")]
         public async Task<IActionResult> Details(Guid id)
         {
             if (id == Guid.Empty)
