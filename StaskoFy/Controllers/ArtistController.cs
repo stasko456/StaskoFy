@@ -11,7 +11,8 @@ namespace StaskoFy.Controllers
         private readonly IArtistService artistService;
         private readonly IPlaylistService playlistService;
 
-        public ArtistController(IArtistService _artistService, IPlaylistService _playlistService)
+        public ArtistController(IArtistService _artistService,
+                                IPlaylistService _playlistService)
         {
             this.artistService = _artistService;
             this.playlistService = _playlistService;
@@ -46,14 +47,14 @@ namespace StaskoFy.Controllers
 
             var artist = await artistService.GetArtistByIdWithProjectsAsync(id);
 
-            var playlists = await playlistService.SelectPlaylistsFromCurrentLoggedUserAsync(Guid.Parse(userId));
-
-            artist.LoggedUserPlaylists = playlists.ToList();
-
             if (artist == null)
             {
                 return NotFound();
             }
+
+            var playlists = await playlistService.SelectPlaylistsFromCurrentLoggedUserAsync(Guid.Parse(userId));
+
+            artist.LoggedUserPlaylists = playlists.ToList();
 
             return View(artist);
         }

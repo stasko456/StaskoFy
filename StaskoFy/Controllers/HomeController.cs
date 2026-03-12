@@ -18,14 +18,6 @@ namespace StaskoFy.Controllers
 
         public IActionResult Index()
         {
-            //var songs = await songService.FilterSongsAsync(searchItem, filters);
-
-            //if (!songs.Any())
-            //{
-            //    ViewData["NoResult"] = "No songs found matching your search.";
-            //}
-
-            //return View(songs);
             return View();
         }
 

@@ -42,29 +42,30 @@ namespace StaskoFy.Controllers
             }
             List<string> roles = new List<string>() { "Artist", "User" };
             ViewBag.Roles = new SelectList(roles);
-            var model = new RegisterViewModel();
-            return View(model);
+            var viewModel = new RegisterViewModel();
+            return View(viewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel model)
+        public async Task<IActionResult> Register(RegisterViewModel viewModel)
         {
             List<string> roles = new List<string>() { "Artist", "User" };
 
             if (!ModelState.IsValid)
             {
                 ViewBag.Roles = new SelectList(roles);
-                return View(model);
+                return View(viewModel);
             }
 
             var user = new User
             {
-                UserName = model.Username,
-                Email = model.EmailAddress,
+                UserName = viewModel.Username,
+                Email = viewModel.EmailAddress,
                 ImageURL = "/images/defaults/default-user-pfp.png",
+                CloudinaryPublicId = ""
             };
 
-            var result = await userManager.CreateAsync(user, model.Password);
+            var result = await userManager.CreateAsync(user, viewModel.Password);
 
             if (!result.Succeeded)
             {
@@ -74,12 +75,12 @@ namespace StaskoFy.Controllers
                 }
 
                 ViewBag.Roles = new SelectList(roles);
-                return View(model);
+                return View(viewModel);
             }
 
-            await userManager.AddToRoleAsync(user, model.Role);
+            await userManager.AddToRoleAsync(user, viewModel.Role);
 
-            if (model.Role == "Artist")
+            if (viewModel.Role == "Artist")
             {
                 var artist = new ArtistCreateViewModel
                 {
@@ -99,23 +100,23 @@ namespace StaskoFy.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            var model = new LoginViewModel();
-            return View(model);
+            var viewModel = new LoginViewModel();
+            return View(viewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel model)
+        public async Task<IActionResult> Login(LoginViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return View(viewModel);
             }
 
-            var user = await userManager.FindByNameAsync(model.Username);
+            var user = await userManager.FindByNameAsync(viewModel.Username);
 
             if (user != null)
             {
-                var result = await signInManager.PasswordSignInAsync(user, model.Password, false, false);
+                var result = await signInManager.PasswordSignInAsync(user, viewModel.Password, false, false);
 
                 if (result.Succeeded)
                 {
@@ -124,7 +125,7 @@ namespace StaskoFy.Controllers
             }
 
             ModelState.AddModelError("", "Invalid Login");
-            return View(model);
+            return View(viewModel);
         }
 
         [HttpPost]
@@ -163,20 +164,20 @@ namespace StaskoFy.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Manage(EditProfileViewModel model)
+        public async Task<IActionResult> Manage(EditProfileViewModel viewModel)
         {
             var user = await userManager.GetUserAsync(User);
 
             if (ModelState.IsValid)
             {
-                return View(model);
+                return View(viewModel);
             }
 
-            user.UserName = model.Username;
+            user.UserName = viewModel.Username;
             
-            if (model.ImageFile != null && model.ImageFile.Length > 0)
+            if (viewModel.ImageFile != null && viewModel.ImageFile.Length > 0)
             {
-                var uploadResult = await imageService.UploadImageAsync(model.ImageFile, model.ImageFile.FileName, "user-profile-pictures");
+                var uploadResult = await imageService.UploadImageAsync(viewModel.ImageFile, viewModel.ImageFile.FileName, "user-profile-pictures");
                 user.ImageURL = uploadResult.Url;
                 user.CloudinaryPublicId = uploadResult.PublicId;
             }

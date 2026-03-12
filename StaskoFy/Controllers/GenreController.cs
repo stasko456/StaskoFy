@@ -27,20 +27,20 @@ namespace StaskoFy.Controllers
         [Authorize(Policy = "Admin")]
         public IActionResult Create()
         {
-            var model = new GenreCreateViewModel();
-            return View(model);
+            var viewModel = new GenreCreateViewModel();
+            return View(viewModel);
         }
 
         [HttpPost]
         [Authorize(Policy = "Admin")]
-        public async Task<IActionResult> Create(GenreCreateViewModel model)
+        public async Task<IActionResult> Create(GenreCreateViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return View(viewModel);
             }
 
-            await genreService.AddGenreAsync(model);
+            await genreService.AddGenreAsync(viewModel);
             return RedirectToAction("Index");
         }
 
@@ -60,25 +60,25 @@ namespace StaskoFy.Controllers
                 return NotFound();
             }
 
-            var model = new GenreEditViewModel
+            var viewModel = new GenreEditViewModel
             {
                 Id = genre.Id,
                 Name = genre.Name,
             };
 
-            return View(model);
+            return View(viewModel);
         }
 
         [HttpPost]
         [Authorize(Policy = "Admin")]
-        public async Task<IActionResult> Edit(GenreEditViewModel model)
+        public async Task<IActionResult> Edit(GenreEditViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return View(viewModel);
             }
 
-            await genreService.UpdateGenreAsync(model);
+            await genreService.UpdateGenreAsync(viewModel);
 
             return RedirectToAction("Index");
         }

@@ -18,7 +18,12 @@ namespace StaskoFy.Controllers
         private readonly IPlaylistService playlistService;
         private readonly IAlbumService albumService;
 
-        public SongController(ISongService _songService, IGenreService _genreService, IArtistService _artistService, IImageService _imageService, IPlaylistService _playlistService, IAlbumService _albumService)
+        public SongController(ISongService _songService,
+                              IGenreService _genreService,
+                              IArtistService _artistService,
+                              IImageService _imageService,
+                              IPlaylistService _playlistService,
+                              IAlbumService _albumService)
         {
             this.songService = _songService;
             this.genreService = _genreService;
@@ -62,17 +67,17 @@ namespace StaskoFy.Controllers
             ViewBag.Genres = new SelectList(genres, "Id", "Name");
 
             var artists = await artistService.PopulateArtistSelectListAsync(Guid.Parse(userId));
-            var model = new SongCreateViewModel
+            var viewModel = new SongCreateViewModel
             {
                 Artists = new MultiSelectList(artists, "Id", "Username")
             };
 
-            return View(model);
+            return View(viewModel);
         }
 
         [HttpPost]
         [Authorize(Policy = "Artist")]
-        public async Task<IActionResult> Create(SongCreateViewModel model)
+        public async Task<IActionResult> Create(SongCreateViewModel viewModel)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
@@ -82,12 +87,12 @@ namespace StaskoFy.Controllers
                 ViewBag.Genres = new SelectList(genres, "Id", "Name");
 
                 var artists = await artistService.PopulateArtistSelectListAsync(Guid.Parse(userId));
-                model.Artists = new MultiSelectList(artists, "Id", "Username");
+                viewModel.Artists = new MultiSelectList(artists, "Id", "Username");
 
-                return View(model);
+                return View(viewModel);
             }
 
-            await songService.AddSongAsync(model, Guid.Parse(userId));
+            await songService.AddSongAsync(viewModel, Guid.Parse(userId));
             return RedirectToAction("MyProjectsForCurrentLoggedArtistIndex", "Library");
         }
 
@@ -114,7 +119,7 @@ namespace StaskoFy.Controllers
                 return NotFound();
             }
 
-            var model = new SongEditViewModel
+            var viewModel = new SongEditViewModel
             {
                 Id = song.Id,
                 Title = song.Title,
@@ -125,12 +130,12 @@ namespace StaskoFy.Controllers
                 Artists = new MultiSelectList(artists, "Id", "Username")
             };
 
-            return View(model);
+            return View(viewModel);
         }
 
         [HttpPost]
         [Authorize(Policy = "Artist")]
-        public async Task<IActionResult> Edit(SongEditViewModel model)
+        public async Task<IActionResult> Edit(SongEditViewModel viewModel)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
@@ -140,12 +145,12 @@ namespace StaskoFy.Controllers
                 ViewBag.Genres = new SelectList(genres, "Id", "Name");
 
                 var artists = await artistService.PopulateArtistSelectListAsync(Guid.Parse(userId));
-                model.Artists = new MultiSelectList(artists, "Id", "Username");
+                viewModel.Artists = new MultiSelectList(artists, "Id", "Username");
 
-                return View(model);
+                return View(viewModel);
             }
 
-            await songService.UpdateSongsAsync(model, Guid.Parse(userId));
+            await songService.UpdateSongsAsync(viewModel, Guid.Parse(userId));
             return RedirectToAction("MyProjectsForCurrentLoggedArtistIndex", "Library");
         }
 

@@ -16,7 +16,8 @@ namespace StaskoFy.Controllers
         private readonly IPlaylistService playlistService;
         private readonly ISongService songService;
 
-        public PlaylistController(IPlaylistService _playlistService, ISongService _songService)
+        public PlaylistController(IPlaylistService _playlistService,
+                                  ISongService _songService)
         {
             this.playlistService = _playlistService;
             this.songService = _songService;
@@ -38,16 +39,16 @@ namespace StaskoFy.Controllers
         {
             var songs = await songService.SelectSongsAsync();
 
-            var model = new PlaylistCreateViewModel
+            var viewModel = new PlaylistCreateViewModel
             {
                 Songs = new MultiSelectList(songs, "Id", "Title")
             };
-            return View(model);
+            return View(viewModel);
         }
 
         [HttpPost]
         [Authorize(Policy = "ArtistOrUser")]
-        public async Task<IActionResult> Create(PlaylistCreateViewModel model)
+        public async Task<IActionResult> Create(PlaylistCreateViewModel viewModel)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
@@ -55,11 +56,11 @@ namespace StaskoFy.Controllers
 
             if (!ModelState.IsValid)
             {
-                model.Songs = new MultiSelectList(songs, "Id", "Title");
-                return View(model);
+                viewModel.Songs = new MultiSelectList(songs, "Id", "Title");
+                return View(viewModel);
             }
 
-            await playlistService.AddPlaylistAsync(model, Guid.Parse(userId));
+            await playlistService.AddPlaylistAsync(viewModel, Guid.Parse(userId));
             return RedirectToAction("MyLibraryIndex", "Library");
         }
 
@@ -74,9 +75,14 @@ namespace StaskoFy.Controllers
 
             var playlist = await playlistService.GetPlaylistByIdAsync(id);
 
+            if (playlist == null)
+            {
+                return NotFound();
+            }
+
             var songs = await songService.SelectSongsAsync();
 
-            var model = new PlaylistEditViewModel
+            var viewModel = new PlaylistEditViewModel
             {
                 Id = id,
                 Title = playlist.Title,
@@ -85,12 +91,12 @@ namespace StaskoFy.Controllers
                 Songs = new MultiSelectList(songs, "Id", "Title")
             };
 
-            return View(model);
+            return View(viewModel);
         }
 
         [HttpPost]
         [Authorize(Policy = "ArtistOrUser")]
-        public async Task<IActionResult> Edit(PlaylistEditViewModel model)
+        public async Task<IActionResult> Edit(PlaylistEditViewModel viewModel)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
@@ -98,10 +104,10 @@ namespace StaskoFy.Controllers
 
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return View(viewModel);
             }
 
-            await playlistService.UpdatePlaylistAsync(model, Guid.Parse(userId));
+            await playlistService.UpdatePlaylistAsync(viewModel, Guid.Parse(userId));
             return RedirectToAction("MyLibraryIndex", "Library");
         }
 

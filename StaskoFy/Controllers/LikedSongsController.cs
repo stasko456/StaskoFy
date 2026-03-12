@@ -13,12 +13,10 @@ namespace StaskoFy.Controllers
     public class LikedSongsController : Controller
     {
         private readonly ILikedSongsService likedSongsService;
-        private readonly ISongService songService;
 
-        public LikedSongsController(ILikedSongsService _likedSongsService, ISongService _songService)
+        public LikedSongsController(ILikedSongsService _likedSongsService)
         {
             this.likedSongsService = _likedSongsService;
-            this.songService = _songService;
         }
 
         [HttpGet]
@@ -38,12 +36,12 @@ namespace StaskoFy.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var model = new LikedSongsCreateViewModel
+            var viewModel = new LikedSongsCreateViewModel
             {
                 SongId = songId,
             };
 
-            await likedSongsService.AddLikedSongAsync(model, Guid.Parse(userId));
+            await likedSongsService.AddLikedSongAsync(viewModel, Guid.Parse(userId));
             return RedirectToAction("SongsIndexForAllUsers", "Song");
         }
 

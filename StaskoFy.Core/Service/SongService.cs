@@ -263,10 +263,11 @@ namespace StaskoFy.Core.Service
                 song.CloudinaryPublicId = "";
             }
 
-            if (song.Album != null)
+            if (song.AlbumId != null)
             {
                 song.Album.SongsCount--;
                 song.Album.Length = song.Album.Length - song.Length;
+                song.AlbumId = null;
             }
 
             // remove from playlists

@@ -18,7 +18,10 @@ namespace StaskoFy.Controllers
         private readonly ISongService songService;
         private readonly IAlbumService albumService;
 
-        public LibraryController(IPlaylistService _playlistService, ILikedSongsService _likedSongsService, ISongService _songService, IAlbumService _albumService)
+        public LibraryController(IPlaylistService _playlistService,
+                                 ILikedSongsService _likedSongsService,
+                                 ISongService _songService,
+                                 IAlbumService _albumService)
         {
             this.playlistService = _playlistService;
             this.likedSongsService = _likedSongsService;

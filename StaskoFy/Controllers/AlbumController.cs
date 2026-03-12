@@ -15,7 +15,9 @@ namespace StaskoFy.Controllers
         private readonly IArtistService artistService;
         private readonly ISongService songService;
 
-        public AlbumController(IAlbumService _albumService, IArtistService _artistService, ISongService _songService)
+        public AlbumController(IAlbumService _albumService,
+                               IArtistService _artistService,
+                               ISongService _songService)
         {
             this.albumService = _albumService;
             this.artistService = _artistService;
@@ -45,33 +47,33 @@ namespace StaskoFy.Controllers
             var artists = await artistService.PopulateArtistSelectListAsync(Guid.Parse(userId));
             var songs = await songService.SelectSinglesByCurrentLoggedArtistAsync(Guid.Parse(userId));
 
-            var model = new AlbumCreateViewModel
+            var viewModel = new AlbumCreateViewModel
             {
                 Artists = new MultiSelectList(artists, "Id", "Username"),
                 Songs = new MultiSelectList(songs, "Id", "Title"),
             };
 
-            return View(model);
+            return View(viewModel);
         }
 
         [HttpPost]
         [Authorize(Policy = "Artist")]
-        public async Task<IActionResult> Create(AlbumCreateViewModel model)
+        public async Task<IActionResult> Create(AlbumCreateViewModel viewModel)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             if (!ModelState.IsValid)
             {
                 var artists = await artistService.PopulateArtistSelectListAsync(Guid.Parse(userId));
-                model.Artists = new MultiSelectList(artists, "Id", "Username");
+                viewModel.Artists = new MultiSelectList(artists, "Id", "Username");
 
                 var songs = await songService.SelectSinglesByCurrentLoggedArtistAsync(Guid.Parse(userId));
-                model.Songs = new MultiSelectList(songs, "Id", "Title");
+                viewModel.Songs = new MultiSelectList(songs, "Id", "Title");
 
-                return View(model);
+                return View(viewModel);
             }
 
-            await albumService.AddAlbumAsync(model, Guid.Parse(userId));
+            await albumService.AddAlbumAsync(viewModel, Guid.Parse(userId));
             return RedirectToAction("MyProjectsForCurrentLoggedArtistIndex", "Library");
         }
 
@@ -86,12 +88,17 @@ namespace StaskoFy.Controllers
 
             var album = await albumService.GetAlbumByIdAsync(id);
 
+            if (album == null)
+            {
+                return NotFound();
+            }
+
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             var artists = await artistService.PopulateArtistSelectListAsync(Guid.Parse(userId));
             var songs = await songService.SelectSinglesByCurrentLoggedArtistAsync(Guid.Parse(userId));
 
-            var model = new AlbumEditViewModel
+            var viewModel = new AlbumEditViewModel
             {
                 Id = album.Id,
                 Title = album.Title,
@@ -100,27 +107,27 @@ namespace StaskoFy.Controllers
                 Songs = new MultiSelectList(songs, "Id", "Title"),
             };
 
-            return View(model);
+            return View(viewModel);
         }
 
         [HttpPost]
         [Authorize(Policy = "Artist")]
-        public async Task<IActionResult> Edit(AlbumEditViewModel model)
+        public async Task<IActionResult> Edit(AlbumEditViewModel viewModel)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             if (!ModelState.IsValid)
             {
                 var artists = await artistService.PopulateArtistSelectListAsync(Guid.Parse(userId));
-                model.Artists = new MultiSelectList(artists, "Id", "Username");
+                viewModel.Artists = new MultiSelectList(artists, "Id", "Username");
                 
                 var songs = await songService.SelectSinglesByCurrentLoggedArtistAsync(Guid.Parse(userId));
-                model.Songs = new MultiSelectList(songs, "Id", "Title");
+                viewModel.Songs = new MultiSelectList(songs, "Id", "Title");
                 
-                return View(model);
+                return View(viewModel);
             }
 
-            await albumService.UpdateAlbumAsync(model, Guid.Parse(userId));
+            await albumService.UpdateAlbumAsync(viewModel, Guid.Parse(userId));
             return RedirectToAction("MyProjectsForCurrentLoggedArtistIndex", "Library");
         }
 
