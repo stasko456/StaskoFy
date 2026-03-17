@@ -100,15 +100,7 @@ namespace StaskoFy.Core.Service
                     {
                         Id = x.Song.Id,
                         Title = x.Song.Title,
-                        Minutes = x.Song.Length.Minutes,
-                        Seconds = x.Song.Length.Seconds,
-                        ReleaseDate = x.Song.ReleaseDate,
-                        AlbumName = "Single",
-                        GenreId = x.Song.GenreId,
-                        GenreName = x.Song.Genre.Name,
                         ImageURL = x.Song.ImageURL,
-                        Likes = x.Song.Likes,
-                        Artists = x.Song.ArtistsSongs.Select(s => s.Artist.User.UserName).ToList()
                     }).ToList(),
                     Albums = a.ArtistsAlbums.Where(x => x.Album.Status == UploadStatus.Approved).Select(x => new AlbumIndexViewModel
                     {

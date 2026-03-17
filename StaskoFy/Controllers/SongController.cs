@@ -96,42 +96,42 @@ namespace StaskoFy.Controllers
             return RedirectToAction("MyProjectsForCurrentLoggedArtistIndex", "Library");
         }
 
-        [HttpGet]
-        [Authorize(Policy = "Artist")]
-        public async Task<IActionResult> Edit(Guid id)
-        {
-            if (id == Guid.Empty)
-            {
-                return BadRequest();
-            }
+        //[HttpGet]
+        //[Authorize(Policy = "Artist")]
+        //public async Task<IActionResult> Edit(Guid id)
+        //{
+        //    if (id == Guid.Empty)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        //    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var genres = await genreService.GetGenresAsync();
-            ViewBag.Genres = new SelectList(genres, "Id", "Name");
+        //    var genres = await genreService.GetGenresAsync();
+        //    ViewBag.Genres = new SelectList(genres, "Id", "Name");
 
-            var artists = await artistService.PopulateArtistSelectListAsync(Guid.Parse(userId));
+        //    var artists = await artistService.PopulateArtistSelectListAsync(Guid.Parse(userId));
 
-            var song = await songService.GetSongByIdAsync(id);
+        //    var song = await songService.GetSongByIdAsync(id);
 
-            if (song == null)
-            {
-                return NotFound();
-            }
+        //    if (song == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var viewModel = new SongEditViewModel
-            {
-                Id = song.Id,
-                Title = song.Title,
-                Minutes = song.Minutes,
-                Seconds = song.Seconds,
-                ReleaseDate = song.ReleaseDate,
-                GenreId = song.GenreId,
-                Artists = new MultiSelectList(artists, "Id", "Username")
-            };
+        //    var viewModel = new SongEditViewModel
+        //    {
+        //        Id = song.Id,
+        //        Title = song.Title,
+        //        Minutes = song.Minutes,
+        //        Seconds = song.Seconds,
+        //        ReleaseDate = song.ReleaseDate,
+        //        GenreId = song.GenreId,
+        //        Artists = new MultiSelectList(artists, "Id", "Username")
+        //    };
 
-            return View(viewModel);
-        }
+        //    return View(viewModel);
+        //}
 
         [HttpPost]
         [Authorize(Policy = "Artist")]

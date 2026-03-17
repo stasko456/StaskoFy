@@ -17,8 +17,10 @@
     @foreach (var playlist in Model.Playlists)
     {
         <div class="col">
-            <div class="card h-100 shadow-sm">
-                <img src="@playlist.ImageURL" class="card-img-top" alt="@playlist.Title" style="height:180px; object-fit:cover;">
+            <div class="card h-100 shadow-sm overflow-hidden" style="border-radius: 12px;">
+                <a asp-controller="Playlist" asp-action="Details" asp-route-id="@playlist.Id">
+                    <img src="@playlist.ImageURL" alt="@playlist.Title" class="w-100 h-100" style="object-fit: contain;">
+                </a>
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title">@playlist.Title</h5>
                     <p class="card-text mb-1"><svg viewBox="0 0 640 640" width="30" height="30" class="me-2"><path fill="rgb(255, 255, 255)" d="M528 320C528 434.9 434.9 528 320 528C205.1 528 112 434.9 112 320C112 205.1 205.1 112 320 112C434.9 112 528 205.1 528 320zM64 320C64 461.4 178.6 576 320 576C461.4 576 576 461.4 576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320zM296 184L296 320C296 328 300 335.5 306.7 340L402.7 404C413.7 411.4 428.6 408.4 436 397.3C443.4 386.2 440.4 371.4 429.3 364L344 307.2L344 184C344 170.7 333.3 160 320 160C306.7 160 296 170.7 296 184z" /></svg><strong>Length:</strong> @playlist.Hours:@playlist.Minutes.ToString("D2"):@playlist.Seconds.ToString("D2")</p>
@@ -32,28 +34,35 @@
                     {
                         <p class="card-text mb-1"><svg viewBox="0 0 640 640" width="30" height="30" class="me-2"><path fill="rgb(255, 255, 255)" d="M320 112C434.9 112 528 205.1 528 320C528 434.9 434.9 528 320 528C205.1 528 112 434.9 112 320C112 205.1 205.1 112 320 112zM320 576C461.4 576 576 461.4 576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320C64 461.4 178.6 576 320 576zM231 231C221.6 240.4 221.6 255.6 231 264.9L286 319.9L231 374.9C221.6 384.3 221.6 399.5 231 408.8C240.4 418.1 255.6 418.2 264.9 408.8L319.9 353.8L374.9 408.8C384.3 418.2 399.5 418.2 408.8 408.8C418.1 399.4 418.2 384.2 408.8 374.9L353.8 319.9L408.8 264.9C418.2 255.5 418.2 240.3 408.8 231C399.4 221.7 384.2 221.6 374.9 231L319.9 286L264.9 231C255.5 221.6 240.3 221.6 231 231z" /></svg><strong>Is Public:</strong> @playlist.IsPublic</p>
                     }
-                    <div class="d-flex gap-2">
-                        <a asp-controller="Playlist" asp-action="Edit" asp-route-id="@playlist.Id" class="btn btn-warning btn-sm d-inline-flex align-items-center">
-                            <svg viewBox="0 0 640 640" width="25" height="25" class="me-2">
-                                <path fill="rgb(0, 0, 0)" d="M535.6 85.7C513.7 63.8 478.3 63.8 456.4 85.7L432 110.1L529.9 208L554.3 183.6C576.2 161.7 576.2 126.3 554.3 104.4L535.6 85.7zM236.4 305.7C230.3 311.8 225.6 319.3 222.9 327.6L193.3 416.4C190.4 425 192.7 434.5 199.1 441C205.5 447.5 215 449.7 223.7 446.8L312.5 417.2C320.7 414.5 328.2 409.8 334.4 403.7L496 241.9L398.1 144L236.4 305.7zM160 128C107 128 64 171 64 224L64 480C64 533 107 576 160 576L416 576C469 576 512 533 512 480L512 384C512 366.3 497.7 352 480 352C462.3 352 448 366.3 448 384L448 480C448 497.7 433.7 512 416 512L160 512C142.3 512 128 497.7 128 480L128 224C128 206.3 142.3 192 160 192L256 192C273.7 192 288 177.7 288 160C288 142.3 273.7 128 256 128L160 128z" />
+                    <div class="dropup mt-auto">
+                        <button class="btn btn-md btn-secondary dropdown-toggle"
+                                type="button"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                            <svg viewBox="0 0 640 640" width="18" height="18" class="me-2">
+                                <path fill="rgb(255, 255, 255)" d="M96 320C96 289.1 121.1 264 152 264C182.9 264 208 289.1 208 320C208 350.9 182.9 376 152 376C121.1 376 96 350.9 96 320zM264 320C264 289.1 289.1 264 320 264C350.9 264 376 289.1 376 320C376 350.9 350.9 376 320 376C289.1 376 264 350.9 264 320zM488 264C518.9 264 544 289.1 544 320C544 350.9 518.9 376 488 376C457.1 376 432 350.9 432 320C432 289.1 457.1 264 488 264z" />
                             </svg>
-                            Edit
-                        </a>
-
-                        <form asp-controller="Playlist" asp-action="Delete" method="post" asp-route-id="@playlist.Id">
-                            <button class="btn btn-danger btn-sm d-inline-flex align-items-center">
-                                <svg viewBox="0 0 640 640" width="25" height="25" class="me-2">
-                                    <path fill="rgb(0, 0, 0)" d="M232.7 69.9L224 96L128 96C110.3 96 96 110.3 96 128C96 145.7 110.3 160 128 160L512 160C529.7 160 544 145.7 544 128C544 110.3 529.7 96 512 96L416 96L407.3 69.9C402.9 56.8 390.7 48 376.9 48L263.1 48C249.3 48 237.1 56.8 232.7 69.9zM512 208L128 208L149.1 531.1C150.7 556.4 171.7 576 197 576L443 576C468.3 576 489.3 556.4 490.9 531.1L512 208z" />
-                                </svg>
-                                Delete
-                            </button>
-                        </form>
-                        <a asp-controller="Playlist" asp-action="Details" asp-route-id="@playlist.Id" class="btn btn-info btn-sm d-inline-flex align-items-center">
-                            <svg viewBox="0 0 640 640" width="25" height="25" class="me-2">
-                                <path fill="rgb(0, 0, 0)" d="M320 576C461.4 576 576 461.4 576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320C64 461.4 178.6 576 320 576zM288 224C288 206.3 302.3 192 320 192C337.7 192 352 206.3 352 224C352 241.7 337.7 256 320 256C302.3 256 288 241.7 288 224zM280 288L328 288C341.3 288 352 298.7 352 312L352 400L360 400C373.3 400 384 410.7 384 424C384 437.3 373.3 448 360 448L280 448C266.7 448 256 437.3 256 424C256 410.7 266.7 400 280 400L304 400L304 336L280 336C266.7 336 256 325.3 256 312C256 298.7 266.7 288 280 288z" />
-                            </svg>
-                            Details
-                        </a>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-dark shadow">
+                            <li>
+                                <a asp-controller="Playlist" asp-action="Edit" asp-route-id="@playlist.Id" class="dropdown-item d-flex align-items-center py-2">
+                                    <svg viewBox="0 0 512 512" width="18" height="18" class="me-2">
+                                        <path fill="rgb(255, 212, 59)" d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L368 46.1 465.9 144 490.3 119.6c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L432 177.9 334.1 80 172.4 241.7zM96 64C43 64 0 107 0 160L0 416c0 53 43 96 96 96l256 0c53 0 96-43 96-96l0-96c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 96c0 17.7-14.3 32-32 32L96 448c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l96 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 64z" />
+                                    </svg>
+                                    Edit playlist
+                                </a>
+                            </li>
+                            <li>
+                                <form asp-controller="Playlist" asp-action="Delete" asp-route-id="@playlist.Id" method="post">
+                                    <button class="dropdown-item d-flex align-items-center py-2" onclick="return confirm('Are you sure you want to delete this playlist?');">
+                                        <svg viewBox="0 0 448 512" width="18" height="18" class="me-2">
+                                            <path fill="rgb(255, 0, 0)" d="M136.7 5.9L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-8.7-26.1C306.9-7.2 294.7-16 280.9-16L167.1-16c-13.8 0-26 8.8-30.4 21.9zM416 144L32 144 53.1 467.1C54.7 492.4 75.7 512 101 512L347 512c25.3 0 46.3-19.6 47.9-44.9L416 144z" />
+                                        </svg>
+                                        Delete playlist
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -61,22 +70,14 @@
     }
 
     <div class="col">
-        <div class="card h-100 shadow-sm">
-            <img src="/images/defaults/liked_songs.jpg" class="card-img-top" alt="Liked songs" style="height:180px; object-fit:cover;">
+        <div class="card h-100 shadow-sm overflow-hidden" style="border-radius: 12px;">
+            <a asp-controller="LikedSongs" asp-action="LikedSongsIndexForCurrentLoggedUser">
+                <img src="/images/defaults/liked_songs.jpg" alt="Liked songs" class="w-100 h-100" style="object-fit: contain; border-top-left-radius: 12px; border-top-right-radius: 12px;">
+            </a>
             <div class="card-body d-flex flex-column">
                 <h5 class="card-title">Liked songs</h5>
                 <p class="card-text mb-1"><svg viewBox="0 0 640 640" width="30" height="30" class="me-2"><path fill="rgb(255, 255, 255)" d="M528 320C528 434.9 434.9 528 320 528C205.1 528 112 434.9 112 320C112 205.1 205.1 112 320 112C434.9 112 528 205.1 528 320zM64 320C64 461.4 178.6 576 320 576C461.4 576 576 461.4 576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320zM296 184L296 320C296 328 300 335.5 306.7 340L402.7 404C413.7 411.4 428.6 408.4 436 397.3C443.4 386.2 440.4 371.4 429.3 364L344 307.2L344 184C344 170.7 333.3 160 320 160C306.7 160 296 170.7 296 184z" /></svg><strong>Length:</strong> @Model.LikedSongs.Length.Hours:@Model.LikedSongs.Length.Minutes.ToString("D2"):@Model.LikedSongs.Length.Seconds.ToString("D2")</p>
                 <p class="card-text mb-1"><svg viewBox="0 0 640 640" width="30" height="30" class="me-2"><path fill="rgb(255, 255, 255)" d="M532 71C539.6 77.1 544 86.3 544 96L544 400C544 444.2 501 480 448 480C395 480 352 444.2 352 400C352 355.8 395 320 448 320C459.2 320 470 321.6 480 324.6L480 207.9L256 257.7L256 464C256 508.2 213 544 160 544C107 544 64 508.2 64 464C64 419.8 107 384 160 384C171.2 384 182 385.6 192 388.6L192 160C192 145 202.4 132 217.1 128.8L505.1 64.8C514.6 62.7 524.5 65 532.1 71.1z" /></svg><strong>Songs Count:</strong> @Model.LikedSongs.SongsCount</p>
-                <div class="mt-auto d-flex">
-                    <a asp-controller="LikedSongs"
-                       asp-action="LikedSongsIndexForCurrentLoggedUser"
-                       class="btn btn-info d-inline-flex align-items-center">
-                        <svg viewBox="0 0 640 640" width="25" height="25" class="me-2">
-                            <path fill="rgb(0, 0, 0)" d="M320 576C461.4 576 576 461.4 576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320C64 461.4 178.6 576 320 576zM288 224C288 206.3 302.3 192 320 192C337.7 192 352 206.3 352 224C352 241.7 337.7 256 320 256C302.3 256 288 241.7 288 224zM280 288L328 288C341.3 288 352 298.7 352 312L352 400L360 400C373.3 400 384 410.7 384 424C384 437.3 373.3 448 360 448L280 448C266.7 448 256 437.3 256 424C256 410.7 266.7 400 280 400L304 400L304 336L280 336C266.7 336 256 325.3 256 312C256 298.7 266.7 288 280 288z" />
-                        </svg>
-                        Details
-                    </a>
-                </div>
             </div>
         </div>
     </div>

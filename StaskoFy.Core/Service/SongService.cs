@@ -78,15 +78,7 @@ namespace StaskoFy.Core.Service
                 {
                     Id = s.Id,
                     Title = s.Title,
-                    Minutes = s.Length.Minutes,
-                    Seconds = s.Length.Seconds,
-                    ReleaseDate = s.ReleaseDate,
-                    AlbumName = s.Album != null ? s.Album.Title : "Single",
-                    GenreName = s.Genre.Name,
-                    GenreId = s.GenreId,
                     ImageURL = s.ImageURL,
-                    Likes = s.Likes,
-                    Artists = s.ArtistsSongs.Select(a => a.Artist.User.UserName).ToList()
                 }).FirstOrDefaultAsync();
         }
 
@@ -187,6 +179,9 @@ namespace StaskoFy.Core.Service
             song.Length = new TimeSpan(0, model.Minutes, model.Seconds);
             song.ReleaseDate = model.ReleaseDate;
             song.GenreId = model.GenreId;
+
+            // make status of song pending
+            song.Status = UploadStatus.Pending;
 
             // remove ArtistSong for this song from the DB 
             var artistsSong = await artistSongRepo.GetAllAttached()
@@ -296,6 +291,7 @@ namespace StaskoFy.Core.Service
             if (song.LikedSongs.Any())
             {
                 await likedSongsRepo.RemoveRangeAsync(song.LikedSongs);
+                song.Likes = 0;
             }
 
             // soft delete
@@ -324,15 +320,7 @@ namespace StaskoFy.Core.Service
                 {
                     Id = song.Id,
                     Title = song.Title,
-                    Minutes = song.Length.Minutes,
-                    Seconds = song.Length.Seconds,
-                    ReleaseDate = song.ReleaseDate,
-                    AlbumName = song.Album != null ? song.Album.Title : "Single",
-                    GenreName = song.Genre.Name,
-                    GenreId = song.GenreId,
                     ImageURL = song.ImageURL,
-                    Likes = song.Likes,
-                    Artists = song.ArtistsSongs.Select(x => x.Artist.User.UserName).ToList()
                 }).ToListAsync();
         }
 
@@ -355,15 +343,7 @@ namespace StaskoFy.Core.Service
                 {
                     Id = song.Id,
                     Title = song.Title,
-                    Minutes = song.Length.Minutes,
-                    Seconds = song.Length.Seconds,
-                    ReleaseDate = song.ReleaseDate,
-                    AlbumName = song.Album != null ? song.Album.Title : "Single",
-                    GenreName = song.Genre.Name,
-                    GenreId = song.GenreId,
                     ImageURL = song.ImageURL,
-                    Likes = song.Likes,
-                    Artists = song.ArtistsSongs.Select(x => x.Artist.User.UserName).ToList()
                 }).ToListAsync();
         }
 
@@ -396,15 +376,7 @@ namespace StaskoFy.Core.Service
                 {
                     Id = song.Id,
                     Title = song.Title,
-                    Minutes = song.Length.Minutes,
-                    Seconds = song.Length.Seconds,
-                    ReleaseDate = song.ReleaseDate,
-                    AlbumName = "Single",
-                    GenreId = song.GenreId,
-                    GenreName = song.Genre.Name,
                     ImageURL = song.ImageURL,
-                    Likes = song.Likes,
-                    Artists = song.ArtistsSongs.Select(x => x.Artist.User.UserName).ToList()
                 }).ToListAsync();
         }
 

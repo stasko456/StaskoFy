@@ -301,6 +301,9 @@ namespace StaskoFy.Core.Service
             album.Title = model.Title;
             album.ReleaseDate = model.ReleaseDate;
 
+            // make status of album pending
+            album.Status = UploadStatus.Pending;
+
             // add featured artists to the album if any are selected
             if (featuredArtists.Count > 0)
             {
