@@ -18,10 +18,8 @@ namespace StaskoFy.Models.Entities
         [MaxLength(100)]
         public string Title { get; set; } = null!;
 
-        [Required]
         public TimeSpan Length { get; set; }
 
-        [Required]
         public DateOnly ReleaseDate { get; set; }
 
         // can be a single or part of an album
@@ -34,13 +32,15 @@ namespace StaskoFy.Models.Entities
         public Guid GenreId { get; set; }
         public Genre Genre { get; set; } = null!;
 
-        // not required
+        // not required because likes can increase or decrease
         public int Likes { get; set; }
 
         [Required]
-        [StringLength(2048)]
+        [MaxLength(2048)]
         public string ImageURL { get; set; } = null!;
 
+        [Required]
+        [MaxLength(255)]
         public string CloudinaryPublicId { get; set; } = null!;
 
         public UploadStatus Status { get; set; }

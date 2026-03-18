@@ -24,7 +24,6 @@ namespace StaskoFy.Core.Service
         private readonly IRepository<Song> songRepo;
         private readonly IRepository<ArtistSong> artistSongRepo;
         private readonly IRepository<Artist> artistRepo;
-        private readonly IRepository<Album> albumRepo;
         private readonly IImageService imageService;
         private readonly IRepository<PlaylistSong> playlistSongRepo;
         private readonly IRepository<LikedSongs> likedSongsRepo;
@@ -33,7 +32,6 @@ namespace StaskoFy.Core.Service
         public SongService(IRepository<Song> _songRepo,
                            IRepository<ArtistSong> _artistSongRepo,
                            IRepository<Artist> _artistRepo,
-                           IRepository<Album> _albumRepo,
                            IImageService _imageService,
                            IRepository<PlaylistSong> _playlistSongRepo,
                            IRepository<LikedSongs> _likedSongsRepo,
@@ -42,7 +40,6 @@ namespace StaskoFy.Core.Service
             this.songRepo = _songRepo;
             this.artistSongRepo = _artistSongRepo;
             this.artistRepo = _artistRepo;
-            this.albumRepo = _albumRepo;
             this.imageService = _imageService;
             this.playlistSongRepo = _playlistSongRepo;
             this.likedSongsRepo = _likedSongsRepo;

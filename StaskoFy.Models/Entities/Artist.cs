@@ -15,7 +15,7 @@ namespace StaskoFy.Models.Entities
 
         [ForeignKey(nameof(User))]
         public Guid UserId { get; set; }
-        public User User { get; set; }
+        public User User { get; set; } = null!;
 
         public ICollection<ArtistSong> ArtistsSongs { get; set; } = new List<ArtistSong>();
 

@@ -16,12 +16,12 @@ namespace StaskoFy.Models.Entities
         [Required]
         [ForeignKey(nameof(User))]
         public Guid UserId { get; set; }
-        public User User { get; set; }
+        public User User { get; set; } = null!;
 
         [Required]
         [ForeignKey(nameof(Song))]
         public Guid SongId { get; set; }
-        public Song Song { get; set; }
+        public Song Song { get; set; } = null!;
 
         [Required]
         public DateOnly DateAdded { get; set; }

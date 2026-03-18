@@ -13,11 +13,11 @@ namespace StaskoFy.Models.Entities
         [Required]
         [ForeignKey(nameof(Artist))]
         public Guid ArtistId { get; set; }
-        public Artist Artist { get; set; }
+        public Artist Artist { get; set; } = null!;
 
         [Required]
         [ForeignKey(nameof(Song))]
         public Guid SongId { get; set; }
-        public Song Song { get; set; }
+        public Song Song { get; set; } = null!;
     }
 }

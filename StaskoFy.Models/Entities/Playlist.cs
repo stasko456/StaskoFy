@@ -23,16 +23,20 @@ namespace StaskoFy.Models.Entities
         // non required because I am summing the songCOunt of the playlist's songs
         public int SongCount { get; set; }
 
-        [Required]
+        // cannot be null
         public DateOnly DateCreated { get; set; }
 
         [Required]
         [ForeignKey(nameof(User))]
         public Guid UserId { get; set; }
-        public User User { get; set; }
+        public User User { get; set; } = null!;
 
+        [Required]
+        [MaxLength(2048)]
         public string ImageURL { get; set; } = null!;
 
+        [Required]
+        [MaxLength(255)]
         public string CloudinaryPublicId { get; set; } = null!;
 
         public bool IsPublic { get; set; } = false; // false by default

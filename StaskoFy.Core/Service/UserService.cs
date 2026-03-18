@@ -21,7 +21,7 @@ namespace StaskoFy.Core.Service
 
         public async Task<UserIndexViewModel> GetUsersWithoutAdminAsync(Guid userId)
         {
-
+            return null;
         }
     }
 }
