@@ -16,7 +16,7 @@ namespace StaskoFy.ViewModels.Song
 
         public int Seconds { get; set; }
 
-        public string Genre { get; set; }
+        public string Genre { get; set; } = null!;
 
         public List<string> Artists { get; set; } = new();
     }

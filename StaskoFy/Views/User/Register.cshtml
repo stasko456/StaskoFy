@@ -47,6 +47,7 @@
                                         <select asp-for="Role" asp-items="ViewBag.Roles" class="form-select">
                                             <option value="">-- Select role --</option>
                                         </select>
+                                        <span asp-validation-for="Role" class="text-danger"></span>
                                     </div>
                                 </div>
                             </div>

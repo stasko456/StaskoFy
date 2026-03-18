@@ -13,15 +13,15 @@ namespace StaskoFy.ViewModels.Song
     {
         public Guid Id { get; set; }
 
-        [Required(ErrorMessage = "Song title is required!")]
+        [Required(ErrorMessage = "Title is required!")]
         [StringLength(100, MinimumLength = 1, ErrorMessage = "Song's title must be between 1 and 100 characters long.")]
         public string Title { get; set; } = null!;
 
-        [Required(ErrorMessage = "Song minutes are required!")]
+        [Required(ErrorMessage = "Minutes are required!")]
         [Range(0, 59, ErrorMessage = "Minutes must be between 0 and 59.")]
         public int Minutes { get; set; }
 
-        [Required(ErrorMessage = "Song secnods are required!")]
+        [Required(ErrorMessage = "Seconds are required!")]
         [Range(0, 59, ErrorMessage = "Seconds must be between 0 and 59.")]
         public int Seconds { get; set; }
 

@@ -13,7 +13,7 @@ namespace StaskoFy.ViewModels.Playlist
 
         public Guid UserId { get; set; }
 
-        public string Title { get; set; }
+        public string Title { get; set; } = null!;
 
         public int Hours { get; set; }
         public int Minutes { get; set; }
@@ -23,7 +23,7 @@ namespace StaskoFy.ViewModels.Playlist
 
         public int SongCount { get; set; }
 
-        public string ImageURL { get; set; }
+        public string ImageURL { get; set; } = null!;
 
         // add is public
 

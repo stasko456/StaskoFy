@@ -10,8 +10,8 @@ namespace StaskoFy.ViewModels.Library
 {
     public class MyProjectsViewModel
     {
-        public List<AlbumIndexViewModel> Albums { get; set; }
+        public List<AlbumIndexViewModel> Albums { get; set; } = new();
 
-        public List<SongIndexViewModel> Singles { get; set; }
+        public List<SongIndexViewModel> Singles { get; set; } = new();
     }
 }

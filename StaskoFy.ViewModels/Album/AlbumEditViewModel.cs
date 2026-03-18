@@ -14,8 +14,8 @@ namespace StaskoFy.ViewModels.Album
         [Required]
         public Guid Id { get; set; }
 
-        [Required(ErrorMessage = "Album title is required!")]
-        [StringLength(100, MinimumLength = 1, ErrorMessage = "Album title must be between 1 and 100 characters.")]
+        [Required(ErrorMessage = "Title is required!")]
+        [StringLength(100, MinimumLength = 1, ErrorMessage = "Title must be between 1 and 100 characters.")]
         public string Title { get; set; } = null!;
 
         [Required(ErrorMessage = "Release date is required.")]

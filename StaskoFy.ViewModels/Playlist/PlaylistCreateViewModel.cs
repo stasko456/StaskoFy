@@ -10,17 +10,17 @@ namespace StaskoFy.ViewModels.Playlist
 {
     public class PlaylistCreateViewModel
     {
-        [Required(ErrorMessage = "Playlist title is required!")]
-        [StringLength(100, MinimumLength = 1, ErrorMessage = "Album title must be between 1 and 100 characters.")]
+        [Required(ErrorMessage = "Title is required!")]
+        [StringLength(100, MinimumLength = 1, ErrorMessage = "Title must be between 1 and 100 characters.")]
         public string Title { get; set; } = null!;
 
-        public IFormFile? ImageFile { get; set; } //" /images/defaults/default-album-cover-art.png";
+        public IFormFile? ImageFile { get; set; }
 
-        public bool IsPublic { get; set; } = false; // false by default
+        public bool IsPublic { get; set; }
 
         [Required(ErrorMessage = "Please select at least one song.")]
         [MinLength(1, ErrorMessage = "Please select at least one song.")]
-        public List<Guid> SelectedSongIds { get; set; } = new();
+        public List<Guid>? SelectedSongIds { get; set; }
         public Microsoft.AspNetCore.Mvc.Rendering.MultiSelectList? Songs { get; set; }
     }
 }

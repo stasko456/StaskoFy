@@ -20,7 +20,7 @@ namespace StaskoFy.ViewModels.Song
 
         public string GenreName { get; set; } = null!;
 
-        public string Genre { get; set; }
+        public string Genre { get; set; } = null!;
 
         public DateOnly ReleaseDate { get; set; }
 

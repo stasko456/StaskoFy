@@ -11,9 +11,9 @@ namespace StaskoFy.ViewModels.Album
     {
         public Guid Id { get; set; }
 
-        public List<Guid> UserIds { get; set; }
+        public List<Guid> UserIds { get; set; } = null!;
 
-        public string Title { get; set; }
+        public string Title { get; set; } = null!;
 
         public int Hours { get; set; }
         public int Minutes { get; set; }
@@ -23,7 +23,7 @@ namespace StaskoFy.ViewModels.Album
 
         public int SongsCount { get; set; }
 
-        public string ImageURL { get; set; }
+        public string ImageURL { get; set; } = null!;
 
         public List<string> Artists { get; set; } = new();
 
