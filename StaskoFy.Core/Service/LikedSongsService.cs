@@ -93,10 +93,10 @@ namespace StaskoFy.Core.Service
             //likedSongsRepo.GetAllAttached()
             //    .AnyAsync(x => x.UserId == userId && x.SongId == model.SongId);
 
-            if (isLiked == null)
-            {
-                throw new KeyNotFoundException($"Liked song with Id of song {model.SongId} does not exists!");
-            }
+            //if (isLiked == null)
+            //{
+            //    throw new KeyNotFoundException($"Liked song with Id of song {model.SongId} does not exists!");
+            //}
 
             var song = await songRepo.GetByIdAsync(model.SongId);
             if (song == null)

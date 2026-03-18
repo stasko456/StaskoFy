@@ -32,7 +32,7 @@ namespace StaskoFy.Controllers
 
         [HttpPost]
         [Authorize(Policy = "ArtistOrUser")]
-        public async Task<IActionResult> AddLikedSong(Guid songId)
+        public async Task<IActionResult> AddLikedSong(Guid songId, string? returnURL)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
@@ -42,6 +42,11 @@ namespace StaskoFy.Controllers
             };
 
             await likedSongsService.AddLikedSongAsync(viewModel, Guid.Parse(userId));
+
+            if (!string.IsNullOrEmpty(returnURL) && Url.IsLocalUrl(returnURL))
+            {
+                return Redirect(returnURL);
+            }
             return RedirectToAction("SongsIndexForAllUsers", "Song");
         }
 

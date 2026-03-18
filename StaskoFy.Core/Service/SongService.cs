@@ -7,6 +7,7 @@ using StaskoFy.DataAccess.Repository;
 using StaskoFy.Models.Entities;
 using StaskoFy.Models.Enums;
 using StaskoFy.ViewModels.LikedSongs;
+using StaskoFy.ViewModels.Playlist;
 using StaskoFy.ViewModels.Song;
 using System;
 using System.Collections.Generic;
@@ -70,16 +71,48 @@ namespace StaskoFy.Core.Service
                 .ToListAsync();
         }
 
-        public async Task<SongIndexViewModel?> GetSongByIdAsync(Guid id)
+        public async Task<SongDetailsViewModel?> GetSongDetailsByIdAsync(Guid id, Guid userId)
         {
             return await songRepo.GetAllAttached()
                 .Where(s => s.Id == id)
-                .Select(s => new SongIndexViewModel
+                .Select(s => new SongDetailsViewModel
                 {
                     Id = s.Id,
                     Title = s.Title,
+                    Minutes = s.Length.Minutes,
+                    Seconds = s.Length.Seconds,
+                    AlbumName = s.Album != null ? s.Album.Title : "Single",
+                    GenreName = s.Genre.Name,
+                    ReleaseDate = s.ReleaseDate,
                     ImageURL = s.ImageURL,
+                    Likes = s.Likes,
+                    Artists = s.ArtistsSongs.Select(a => a.Artist.User.UserName).ToList(),
+                    CurrentLoggedUserPlaylists = playlistRepo.GetAllAttached().Where(p => p.UserId == userId).Select(p => new PlaylistSelectViewModel
+                    {
+                        Id = p.Id,
+                        Title = p.Title
+                    }).ToList()
                 }).FirstOrDefaultAsync();
+        }
+
+        public async Task<SongViewModel?> GetSongByIdAsync(Guid id)
+        {
+            return await songRepo.GetAllAttached()
+                .Where(s => s.Id == id)
+                .Select(s => new SongViewModel
+                {
+                    Id = s.Id,
+                    Title = s.Title,
+                    Minutes = s.Length.Minutes,
+                    Seconds = s.Length.Seconds,
+                    AlbumId = s.AlbumId,
+                    GenreId = s.GenreId,
+                    ReleaseDate = s.ReleaseDate,
+                    ImageURL = s.ImageURL,
+                    Likes = s.Likes,
+                    Artists = s.ArtistsSongs.Select(a => a.Artist.User.UserName).ToList(),
+                })
+                .FirstOrDefaultAsync();
         }
 
         public async Task AddSongAsync(SongCreateViewModel model, Guid userId)

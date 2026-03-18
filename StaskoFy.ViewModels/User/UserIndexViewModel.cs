@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StaskoFy.ViewModels.Artist
+namespace StaskoFy.ViewModels.User
 {
-    public class ArtistIndexViewModel
+    public class UserIndexViewModel
     {
         public Guid Id { get; set; }
 

@@ -96,42 +96,42 @@ namespace StaskoFy.Controllers
             return RedirectToAction("MyProjectsForCurrentLoggedArtistIndex", "Library");
         }
 
-        //[HttpGet]
-        //[Authorize(Policy = "Artist")]
-        //public async Task<IActionResult> Edit(Guid id)
-        //{
-        //    if (id == Guid.Empty)
-        //    {
-        //        return BadRequest();
-        //    }
+        [HttpGet]
+        [Authorize(Policy = "Artist")]
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                return BadRequest();
+            }
 
-        //    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-        //    var genres = await genreService.GetGenresAsync();
-        //    ViewBag.Genres = new SelectList(genres, "Id", "Name");
+            var genres = await genreService.GetGenresAsync();
+            ViewBag.Genres = new SelectList(genres, "Id", "Name");
 
-        //    var artists = await artistService.PopulateArtistSelectListAsync(Guid.Parse(userId));
+            var artists = await artistService.PopulateArtistSelectListAsync(Guid.Parse(userId));
 
-        //    var song = await songService.GetSongByIdAsync(id);
+            var song = await songService.GetSongByIdAsync(id);
 
-        //    if (song == null)
-        //    {
-        //        return NotFound();
-        //    }
+            if (song == null)
+            {
+                return NotFound();
+            }
 
-        //    var viewModel = new SongEditViewModel
-        //    {
-        //        Id = song.Id,
-        //        Title = song.Title,
-        //        Minutes = song.Minutes,
-        //        Seconds = song.Seconds,
-        //        ReleaseDate = song.ReleaseDate,
-        //        GenreId = song.GenreId,
-        //        Artists = new MultiSelectList(artists, "Id", "Username")
-        //    };
+            var viewModel = new SongEditViewModel
+            {
+                Id = song.Id,
+                Title = song.Title,
+                Minutes = song.Minutes,
+                Seconds = song.Seconds,
+                ReleaseDate = song.ReleaseDate,
+                GenreId = song.GenreId,
+                Artists = new MultiSelectList(artists, "Id", "Username", song.Artists)
+            };
 
-        //    return View(viewModel);
-        //}
+            return View(viewModel);
+        }
 
         [HttpPost]
         [Authorize(Policy = "Artist")]
@@ -145,7 +145,7 @@ namespace StaskoFy.Controllers
                 ViewBag.Genres = new SelectList(genres, "Id", "Name");
 
                 var artists = await artistService.PopulateArtistSelectListAsync(Guid.Parse(userId));
-                viewModel.Artists = new MultiSelectList(artists, "Id", "Username");
+                viewModel.Artists = new MultiSelectList(artists, "Id", "Username", viewModel.Artists);
 
                 return View(viewModel);
             }
@@ -174,6 +174,27 @@ namespace StaskoFy.Controllers
             return RedirectToAction("MyProjectsForCurrentLoggedArtistIndex", "Library");
         }
 
+        [HttpGet]
+        [Authorize(Policy = "ArtistOrAdmin")]
+        public async Task<IActionResult> Details(Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                return BadRequest();
+            }
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var song = await songService.GetSongDetailsByIdAsync(id, Guid.Parse(userId));
+
+            if (song == null)
+            {
+                return NotFound();
+            }
+
+            return View(song);
+        }
+
         [HttpPost]
         [Authorize(Policy = "Artist")]
         public async Task<IActionResult> MakeSongSingle(Guid songId, Guid albumId)
@@ -190,7 +211,7 @@ namespace StaskoFy.Controllers
 
         [HttpPost]
         [Authorize(Policy = "Artist")]
-        public async Task<IActionResult> AddSongToAlbum(Guid songId, Guid albumId)
+        public async Task<IActionResult> AddSongToAlbum(Guid songId, Guid albumId, string? returnUrl)
         {
             if (songId == Guid.Empty)
             {
@@ -199,6 +220,10 @@ namespace StaskoFy.Controllers
 
             await albumService.AddSongToAlbumAsync(songId, albumId);
 
+            if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
             return RedirectToAction("Details", "Album", new { id = albumId });
         }
 

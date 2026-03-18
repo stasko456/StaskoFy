@@ -103,7 +103,7 @@ namespace StaskoFy.Controllers
 
         [HttpPost]
         [Authorize(Policy = "ArtistOrUser")]
-        public async Task<IActionResult> Delete(Guid id)
+        public async Task<IActionResult> Delete(Guid id, string? returnUrl)
         {
             if (id == Guid.Empty)
             {
@@ -111,6 +111,11 @@ namespace StaskoFy.Controllers
             }
 
             await playlistService.RemovePlaylistAsync(id);
+
+            if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
             return RedirectToAction("MyLibraryIndex", "Library");
         }
 
@@ -135,7 +140,7 @@ namespace StaskoFy.Controllers
 
         [HttpPost]
         [Authorize(Policy = "ArtistOrUser")]
-        public async Task<IActionResult> AddSongToPlaylist(Guid playlistId, Guid songId)
+        public async Task<IActionResult> AddSongToPlaylist(Guid playlistId, Guid songId, string? returnURL)
         {
             if (songId == Guid.Empty || playlistId == Guid.Empty)
             {
@@ -143,6 +148,11 @@ namespace StaskoFy.Controllers
             }
 
             await playlistService.AddSongToPlaylistAsync(playlistId, songId);
+
+            if (!string.IsNullOrEmpty(returnURL) && Url.IsLocalUrl(returnURL))
+            {
+                return Redirect(returnURL);
+            }
             return RedirectToAction("MyLibraryIndex", "Library");
         }
 

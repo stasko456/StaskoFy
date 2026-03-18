@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using StaskoFy.Core.IService;
 using StaskoFy.Models;
 using StaskoFy.ViewModels.Home;
+using StaskoFy.ViewModels.LikedSongs;
 
 namespace StaskoFy.Controllers
 {
@@ -59,6 +60,15 @@ namespace StaskoFy.Controllers
                 int totalPendingAlbumsByArtist = await albumService.GetTotalPendingAlbumsCountByCurrentLoggedArtistAsync(Guid.Parse(userId));
                 int TotalLikesOfSongs = await songService.GetTotalSongsLikesByCurrentLoggedArtistAsync(Guid.Parse(userId));
                 var mostLikedSongByArtist = await songService.GetMostLikedSongAsync(Guid.Parse(userId));
+
+                if (mostLikedSongByArtist == null)
+                {
+                    mostLikedSongByArtist = new MostLikedSongViewModel
+                    {
+                        MostLikedSongTitle = "You have not uploaded any songs!",
+                        MostLikedSongCount = 0
+                    };
+                }
 
                 var viewModel = new HomeArtistIndexViewModel
                 {

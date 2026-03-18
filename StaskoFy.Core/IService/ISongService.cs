@@ -13,7 +13,9 @@ namespace StaskoFy.Core.IService
     {
         Task<IEnumerable<SongApprovalViewModel>> GetSongsWithPendingStatusAsync();
 
-        Task<SongIndexViewModel?> GetSongByIdAsync(Guid id);
+        Task<SongDetailsViewModel?> GetSongDetailsByIdAsync(Guid id, Guid userId);
+
+        Task<SongViewModel?> GetSongByIdAsync(Guid id); 
 
         Task AddSongAsync(SongCreateViewModel model, Guid userId);
 

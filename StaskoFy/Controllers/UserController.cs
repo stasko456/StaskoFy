@@ -141,7 +141,7 @@ namespace StaskoFy.Controllers
             var user = await userManager.GetUserAsync(User);
 
             var viewModel = new ProfileIndexViewModel
-            {
+            { 
                 Username = user.UserName,
                 ProfilePicture = user.ImageURL,
             };
