@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using StaskoFy.Core.IService;
 using StaskoFy.Models.Entities;
+using StaskoFy.ViewModels.Pagination;
 using StaskoFy.ViewModels.Playlist;
 using StaskoFy.ViewModels.Song;
 using System.Security.Claims;
@@ -35,18 +36,21 @@ namespace StaskoFy.Controllers
 
         [HttpGet]
         [Authorize(Policy = "ArtistOrAdminOrUser")]
-        public async Task<IActionResult> SongsIndexForAllUsers(string searchItem, List<string> filters)
+        public async Task<IActionResult> SongsIndexForAllUsers(string searchItem, List<string> filters, int pageNumber = 1)
         {
+            int pageSize = 12;
+            var songs = await songService.FilterSongsAsync(searchItem, filters, pageNumber, pageSize);
+            int totalPages = await songService.GetTotalPagesAsync(pageSize);
+
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            var songs = await songService.FilterSongsAsync(searchItem, filters);
-
             var playlists = await playlistService.SelectPlaylistsFromCurrentLoggedUserAsync(Guid.Parse(userId));
 
-            var viewModel = new SongsPageViewModel
+            var viewModel = new SongsPaginationViewModel()
             {
                 Songs = songs.ToList(),
-                Playlists = playlists.ToList(),
+                TotalPages = totalPages,
+                CurrentPage = pageNumber,
+                CurrentLoggedUserPlaylists = playlists.ToList(),
             };
 
             if (!songs.Any())

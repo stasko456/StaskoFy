@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using StaskoFy.Core.IService;
 using StaskoFy.Models.Entities;
 using StaskoFy.ViewModels.Artist;
+using StaskoFy.ViewModels.Pagination;
 using StaskoFy.ViewModels.User;
 using System.Runtime.CompilerServices;
 using System.Runtime.Versioning;
@@ -201,20 +202,27 @@ namespace StaskoFy.Controllers
 
         [HttpGet]
         [Authorize(Policy = "ArtistOrAdminOrUser")]
-        public async Task<IActionResult> Index(string username)
+        public async Task<IActionResult> Index(string username, int pageNumber = 1)
         {
+            int pageSize = 8;
             var admin = await userManager.FindByNameAsync("admin");
-
             var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var users = await userService.FilteredUsersWithoutAdminAsync(admin.Id, Guid.Parse(currentUserId), username, pageNumber, pageSize);
+            int totalPages = await userService.GetTotalPagesAsync(pageSize);
 
-            var users = await userService.GetFilteredUsersWithoutAdminAsync(admin.Id, Guid.Parse(currentUserId), username);
+            var viewModel = new UsersPaginationViewModel
+            {
+                Users = users.ToList(),
+                TotalPages = totalPages,
+                CurrentPage = pageNumber,
+            };
 
             if (!users.Any())
             {
                 ViewData["NoResult"] = "No users found matching your search.";
             }
 
-            return View(users);
+            return View(viewModel);
         }
 
         [HttpGet]

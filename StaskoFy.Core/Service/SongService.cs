@@ -330,7 +330,17 @@ namespace StaskoFy.Core.Service
             await songRepo.UpdateAsync(song);
         }
 
-        public async Task<IEnumerable<SongIndexViewModel>> FilterSongsAsync(string searchItem, List<string> filters)
+        public async Task<int> GetTotalPagesAsync(int pageSize = 12)
+        {
+            var totalSongs = await songRepo
+                .GetAllAttached()
+                .Where(s => s.Status == UploadStatus.Approved)
+                .CountAsync();
+
+            return (int)Math.Ceiling(totalSongs / (double)pageSize);
+        }
+
+        public async Task<IEnumerable<SongIndexViewModel>> FilterSongsAsync(string searchItem, List<string> filters, int pageNumber = 1, int pageSize = 12)
         {
             var query = songRepo.GetAllAttached()
                 .Where(x => x.Status == UploadStatus.Approved);
@@ -351,7 +361,9 @@ namespace StaskoFy.Core.Service
                     Id = song.Id,
                     Title = song.Title,
                     ImageURL = song.ImageURL,
-                }).ToListAsync();
+                }).Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<SongIndexViewModel>> FilterSongsForCurrentLoggedArtistAsync(Guid userId, string searchItem, List<string> filters)

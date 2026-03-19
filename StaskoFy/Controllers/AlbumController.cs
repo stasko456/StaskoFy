@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using StaskoFy.Core.IService;
 using StaskoFy.Models.Entities;
 using StaskoFy.ViewModels.Album;
+using StaskoFy.ViewModels.Pagination;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -26,16 +27,25 @@ namespace StaskoFy.Controllers
 
         [HttpGet]
         [Authorize(Policy = "ArtistOrAdminOrUser")]
-        public async Task<IActionResult> AlbumsIndexForAllUsers(string searchItem, List<string> filters)
+        public async Task<IActionResult> AlbumsIndexForAllUsers(string searchItem, List<string> filters, int pageNumber = 1)
         {
-            var albums = await albumService.FilterAlbumsAsync(searchItem, filters);
+            int pageSize = 4;
+            var albums = await albumService.FilterAlbumsAsync(searchItem, filters, pageNumber, pageSize);
+            int totalPages = await albumService.GetTotalPagesAsync(pageSize);
+
+            var viewModel = new AlbumsPaginationViewModel
+            {
+                Albums = albums.ToList(),
+                TotalPages = totalPages,
+                CurrentPage = pageNumber,
+            };
 
             if (!albums.Any())
             {
                 ViewData["NoResult"] = "No albums found matching your search.";
             }
 
-            return View(albums);
+            return View(viewModel);
         }
 
         [HttpGet]

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using StaskoFy.Core.IService;
 using StaskoFy.DataAccess.Repository;
 using StaskoFy.Models.Entities;
+using StaskoFy.Models.Enums;
 using StaskoFy.ViewModels.Playlist;
 using StaskoFy.ViewModels.User;
 using System;
@@ -25,7 +26,15 @@ namespace StaskoFy.Core.Service
             this.artistRepo = _artistRepo;
         }
 
-        public async Task<IEnumerable<UserIndexViewModel>> GetFilteredUsersWithoutAdminAsync(Guid adminId, Guid currentLoggedUserId, string username)
+        public async Task<int> GetTotalPagesAsync(int pageSize = 8)
+        {
+            var totalSongs = await userManager.Users
+                .CountAsync();
+
+            return (int)Math.Ceiling(totalSongs / (double)pageSize);
+        }
+
+        public async Task<IEnumerable<UserIndexViewModel>> FilteredUsersWithoutAdminAsync(Guid adminId, Guid currentLoggedUserId, string username, int pageNumber = 1, int pageSize = 8)
         {
             var query = userManager.Users
                 .Where(u => u.Id != adminId && u.Id != currentLoggedUserId);
@@ -42,7 +51,9 @@ namespace StaskoFy.Core.Service
                     Id = u.Id,
                     Username = u.UserName,
                     ProfilePicture = u.ImageURL,
-                }).ToListAsync();
+                }).Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
         }
 
         public async Task<UserWithPlaylistsViewModel?> GetUserWithPlaylistsByIdAsync(Guid id)

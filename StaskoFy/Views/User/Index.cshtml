@@ -1,21 +1,25 @@
-﻿@model List<UserIndexViewModel>
+﻿@model UsersPaginationViewModel
 
 @{
     ViewData["Title"] = "Users";
 }
 
-<div class="container py-5">
-    <div class="text-center mb-5">
-        <h1 class="display-4 fw-bold">
-            Discover <span class="text-warning">Users</span>
-        </h1>
+<div class="text-center mb-5">
+    <h1 class="display-4 fw-bold">
+        Discover <span class="text-warning">Users</span>
+    </h1>
+    @if (User.IsInRole("Admin"))
+    {
+        <p class="text-muted">Browse all songs on the platform and <span class="text-danger">remove</span> any that <span class="text-danger">violate the rules</span>.</p>
+    }
+    else
+    {
         <p class="text-muted">Explore all users on the platform</p>
-    </div>
+    }
+</div>
 
-    <div class="row justify-content-center mb-4">
-    </div>
-
-    <div class="col-12 col-md-6 col-lg-4 mb-4">
+<div class="row justify-content-center w-100 mx-0">
+    <div class="col-12 col-md-8 col-lg-6 mb-4 mx-auto">
         <form asp-controller="User" asp-action="Index" method="get">
             <div class="d-flex align-items-center gap-4 mb-4">
                 <input class="form-control form-control-lg"
@@ -30,12 +34,13 @@
             </div>
         </form>
     </div>
+</div>
 
+<div class="container py-5">
     <div class="row g-4">
-
-        @if (Model.Any())
+        @if (Model.Users.Any())
         {
-            @foreach (var user in Model)
+            @foreach (var user in Model.Users)
             {
                 <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                     <div class="card border-0 shadow-sm h-100 text-center artist-card">
@@ -75,4 +80,55 @@
         }
 
     </div>
+</div>
+
+<div class="d-flex justify-content-center mt-4">
+    <nav>
+        <ul class="pagination">
+            @if (Model.CurrentPage > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-action="Index" asp-route-pageNumber="@(Model.CurrentPage - 1)" asp-route-pageSize="3">Previous</a>
+                </li>
+            }
+
+            @if (Model.CurrentPage > 2)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-action="Index" asp-route-pageNumber="1" asp-route-pageSize="3">1</a>
+                </li>
+                <li class="page-item disabled">
+                    <span class="page-link">...</span>
+                </li>
+            }
+
+            @for (int i = Model.CurrentPage - 1; i <= Model.CurrentPage + 1; i++)
+            {
+                if (i > 0 && i <= Model.TotalPages)
+                {
+                    <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                        <a class="page-link" asp-action="Index" asp-route-pageNumber="@i" asp-route-pageSize="3">@i</a>
+                    </li>
+                }
+            }
+
+            @if (Model.CurrentPage < Model.TotalPages - 1)
+            {
+                <li class="page-item disabled">
+                    <span class="page-link">...</span>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" asp-action="Index" asp-route-pageNumber="@Model.TotalPages" asp-route-pageSize="3">@Model.TotalPages</a>
+                </li>
+            }
+
+            <!-- Next Page Link -->
+            @if (Model.CurrentPage < Model.TotalPages)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-action="Index" asp-route-pageNumber="@(Model.CurrentPage + 1)" asp-route-pageSize="3">Next</a>
+                </li>
+            }
+        </ul>
+    </nav>
 </div>

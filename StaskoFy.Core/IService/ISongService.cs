@@ -23,7 +23,9 @@ namespace StaskoFy.Core.IService
 
         Task RemoveSongAsync(Guid id);
 
-        Task<IEnumerable<SongIndexViewModel>> FilterSongsAsync(string searchItem, List<string> filters);
+        Task<int> GetTotalPagesAsync(int pageSize = 12);
+
+        Task<IEnumerable<SongIndexViewModel>> FilterSongsAsync(string searchItem, List<string> filters, int pageNumber = 1, int pageSize = 12);
 
         Task<IEnumerable<SongIndexViewModel>> FilterSongsForCurrentLoggedArtistAsync(Guid userId, string searchItem, List<string> filters);
 

@@ -1,4 +1,5 @@
-﻿using StaskoFy.ViewModels.Album;
+﻿using StaskoFy.Models.Enums;
+using StaskoFy.ViewModels.Album;
 using StaskoFy.ViewModels.Song;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,9 @@ namespace StaskoFy.Core.IService
         
         Task RemoveAlbumAsync(Guid id);
 
-        Task<IEnumerable<AlbumIndexViewModel>> FilterAlbumsAsync(string searchItem, List<string> filters);
+        Task<int> GetTotalPagesAsync(int pageSize = 4);
+
+        Task<IEnumerable<AlbumIndexViewModel>> FilterAlbumsAsync(string searchItem, List<string> filters, int pageNumber = 1, int pageSize = 4);
 
         Task<IEnumerable<AlbumIndexViewModel>> FilterAlbumsForCurrentLoggedArtistAsync(Guid userId, string searchItem, List<string> filters);
 

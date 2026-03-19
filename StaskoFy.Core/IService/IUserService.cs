@@ -9,7 +9,9 @@ namespace StaskoFy.Core.IService
 {
     public interface IUserService
     {
-        Task <IEnumerable<UserIndexViewModel>> GetFilteredUsersWithoutAdminAsync(Guid adminId, Guid currentLoggedUserId, string username);
+        Task<int> GetTotalPagesAsync(int pageSize = 8);
+
+        Task<IEnumerable<UserIndexViewModel>> FilteredUsersWithoutAdminAsync(Guid adminId, Guid currentLoggedUserId, string username, int pageNumber = 1, int pageSize = 8);
 
         Task<UserWithPlaylistsViewModel?> GetUserWithPlaylistsByIdAsync(Guid id);
 
