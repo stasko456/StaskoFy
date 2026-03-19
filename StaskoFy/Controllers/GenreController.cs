@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using StaskoFy.Core.IService;
 using StaskoFy.ViewModels.Genre;
+using StaskoFy.ViewModels.Pagination;
 
 namespace StaskoFy.Controllers
 {
@@ -16,11 +17,25 @@ namespace StaskoFy.Controllers
 
         [HttpGet]
         [Authorize(Policy = "Admin")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string name, int pageNumber = 1)
         {
-            var genres = await genreService.GetGenresAsync();
+            int pageSize = 5;
+            var genres = await genreService.FilterGenresAsync(name, pageNumber, pageSize);
+            int totalPages = await genreService.GetTotalPagesAsync(pageSize);
 
-            return View(genres);
+            var viewModel = new GenresPaginationViewModel
+            {
+                Genres = genres.ToList(),
+                TotalPages = totalPages,
+                CurrentPage = pageNumber
+            };
+
+            if (!genres.Any())
+            {
+                ViewData["NoResult"] = "No genres found matching your search.";
+            }
+
+            return View(viewModel);
         }
 
         [HttpGet]

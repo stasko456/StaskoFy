@@ -16,12 +16,16 @@
     </div>
 
 <div class="d-flex align-items-center gap-4 mb-4">
-        <a asp-controller="Song" asp-action="Create" class="btn btn-warning btn-lg d-inline-flex align-items-center mb-4">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="30" height="30" class="me-2"><path fill="rgb(0, 0, 0)" d="M320 576C461.4 576 576 461.4 576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320C64 461.4 178.6 576 320 576zM296 408L296 344L232 344C218.7 344 208 333.3 208 320C208 306.7 218.7 296 232 296L296 296L296 232C296 218.7 306.7 208 320 208C333.3 208 344 218.7 344 232L344 296L408 296C421.3 296 432 306.7 432 320C432 333.3 421.3 344 408 344L344 344L344 408C344 421.3 333.3 432 320 432C306.7 432 296 421.3 296 408z" /></svg>Upload music
+        <a asp-controller="Song" asp-action="Create" class="btn btn-outline-warning btn-lg d-inline-flex align-items-center mb-4">
+        <svg viewBox="0 0 640 640" width="30" height="30" class="me-2">
+            <path fill="currentColor" d="M320 576C461.4 576 576 461.4 576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320C64 461.4 178.6 576 320 576zM296 408L296 344L232 344C218.7 344 208 333.3 208 320C208 306.7 218.7 296 232 296L296 296L296 232C296 218.7 306.7 208 320 208C333.3 208 344 218.7 344 232L344 296L408 296C421.3 296 432 306.7 432 320C432 333.3 421.3 344 408 344L344 344L344 408C344 421.3 333.3 432 320 432C306.7 432 296 421.3 296 408z" />
+        </svg>Upload music
     </a>
 
-        <a asp-controller="Album" asp-action="Create" class="btn btn-warning btn-lg d-inline-flex align-items-center mb-4">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="30" height="30" class="me-2"><path fill="rgb(0, 0, 0)" d="M320 576C461.4 576 576 461.4 576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320C64 461.4 178.6 576 320 576zM296 408L296 344L232 344C218.7 344 208 333.3 208 320C208 306.7 218.7 296 232 296L296 296L296 232C296 218.7 306.7 208 320 208C333.3 208 344 218.7 344 232L344 296L408 296C421.3 296 432 306.7 432 320C432 333.3 421.3 344 408 344L344 344L344 408C344 421.3 333.3 432 320 432C306.7 432 296 421.3 296 408z" /></svg>Upload album
+        <a asp-controller="Album" asp-action="Create" class="btn btn-outline-warning btn-lg d-inline-flex align-items-center mb-4">
+        <svg viewBox="0 0 640 640" width="30" height="30" class="me-2">
+            <path fill="currentColor" d="M320 576C461.4 576 576 461.4 576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320C64 461.4 178.6 576 320 576zM296 408L296 344L232 344C218.7 344 208 333.3 208 320C208 306.7 218.7 296 232 296L296 296L296 232C296 218.7 306.7 208 320 208C333.3 208 344 218.7 344 232L344 296L408 296C421.3 296 432 306.7 432 320C432 333.3 421.3 344 408 344L344 344L344 408C344 421.3 333.3 432 320 432C306.7 432 296 421.3 296 408z" />
+        </svg>Upload album
     </a>
 </div>
 
@@ -113,9 +117,9 @@
 
                                                 <li>
                                                     <a asp-controller="Song" asp-action="Edit" asp-route-id="@song.Id"
-                                                       class="dropdown-item d-flex align-items-center py-2">
+                                                       class="dropdown-item d-flex align-items-center py-2 text-warning">
                                                         <svg viewBox="0 0 512 512" width="18" height="18" class="me-2">
-                                                            <path fill="rgb(255, 212, 59)" d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L368 46.1 465.9 144 490.3 119.6c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L432 177.9 334.1 80 172.4 241.7zM96 64C43 64 0 107 0 160L0 416c0 53 43 96 96 96l256 0c53 0 96-43 96-96l0-96c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 96c0 17.7-14.3 32-32 32L96 448c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l96 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 64z" />
+                                                            <path fill="currentColor" d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L368 46.1 465.9 144 490.3 119.6c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L432 177.9 334.1 80 172.4 241.7zM96 64C43 64 0 107 0 160L0 416c0 53 43 96 96 96l256 0c53 0 96-43 96-96l0-96c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 96c0 17.7-14.3 32-32 32L96 448c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l96 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 64z" />
                                                         </svg>
                                                         Edit Song
                                                     </a>
@@ -124,10 +128,10 @@
                                                 <li>
                                                     <form asp-controller="Song" asp-action="Delete" method="post" asp-route-id="@song.Id" id="deleteForm-@song.Id">
                                                         <input type="hidden" name="returnUrl" value="@Context.Request.Path@Context.Request.QueryString#song-@song.Id" />
-                                                        <button type="submit" class="dropdown-item d-flex align-items-center py-2"
+                                                        <button type="submit" class="dropdown-item d-flex align-items-center py-2 text-danger"
                                                                 onclick="return confirm('Are you sure you want to delete this song?');">
                                                             <svg viewBox="0 0 448 512" width="18" height="18" class="me-2">
-                                                                <path fill="rgb(255, 0, 0)" d="M136.7 5.9L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-8.7-26.1C306.9-7.2 294.7-16 280.9-16L167.1-16c-13.8 0-26 8.8-30.4 21.9zM416 144L32 144 53.1 467.1C54.7 492.4 75.7 512 101 512L347 512c25.3 0 46.3-19.6 47.9-44.9L416 144z" />
+                                                                <path fill="currentColor" d="M136.7 5.9L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-8.7-26.1C306.9-7.2 294.7-16 280.9-16L167.1-16c-13.8 0-26 8.8-30.4 21.9zM416 144L32 144 53.1 467.1C54.7 492.4 75.7 512 101 512L347 512c25.3 0 46.3-19.6 47.9-44.9L416 144z" />
                                                             </svg>
                                                             Delete Song
                                                         </button>
@@ -199,9 +203,9 @@
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-dark shadow">
                                         <li>
-                                            <a asp-controller="Album" asp-action="Edit" asp-route-id="@album.Id" class="dropdown-item d-flex align-items-center py-2">
+                                            <a asp-controller="Album" asp-action="Edit" asp-route-id="@album.Id" class="dropdown-item d-flex align-items-center py-2 text-warning">
                                                 <svg viewBox="0 0 512 512" width="18" height="18" class="me-2">
-                                                    <path fill="rgb(255, 212, 59)" d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L368 46.1 465.9 144 490.3 119.6c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L432 177.9 334.1 80 172.4 241.7zM96 64C43 64 0 107 0 160L0 416c0 53 43 96 96 96l256 0c53 0 96-43 96-96l0-96c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 96c0 17.7-14.3 32-32 32L96 448c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l96 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 64z" />
+                                                    <path fill="currentColor" d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L368 46.1 465.9 144 490.3 119.6c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L432 177.9 334.1 80 172.4 241.7zM96 64C43 64 0 107 0 160L0 416c0 53 43 96 96 96l256 0c53 0 96-43 96-96l0-96c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 96c0 17.7-14.3 32-32 32L96 448c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l96 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 64z" />
                                                 </svg>
                                                 Edit album
                                             </a>
@@ -209,9 +213,9 @@
                                         <li>
                                             <form asp-controller="Album" asp-action="Delete" method="post" asp-route-id="@album.Id">
                                                 <input type="hidden" name="returnUrl" value="@Context.Request.Path@Context.Request.QueryString#album-@album.Id" />
-                                                <button class="dropdown-item d-flex align-items-center py-2" onclick="return confirm('Are you sure you want to delete this album?');">
+                                                <button class="dropdown-item d-flex align-items-center py-2 text-danger" onclick="return confirm('Are you sure you want to delete this album?');">
                                                     <svg viewBox="0 0 448 512" width="18" height="18" class="me-2">
-                                                        <path fill="rgb(255, 0, 0)" d="M136.7 5.9L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-8.7-26.1C306.9-7.2 294.7-16 280.9-16L167.1-16c-13.8 0-26 8.8-30.4 21.9zM416 144L32 144 53.1 467.1C54.7 492.4 75.7 512 101 512L347 512c25.3 0 46.3-19.6 47.9-44.9L416 144z" />
+                                                        <path fill="currentColor" d="M136.7 5.9L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-8.7-26.1C306.9-7.2 294.7-16 280.9-16L167.1-16c-13.8 0-26 8.8-30.4 21.9zM416 144L32 144 53.1 467.1C54.7 492.4 75.7 512 101 512L347 512c25.3 0 46.3-19.6 47.9-44.9L416 144z" />
                                                     </svg>
                                                     Delete album
                                                 </button>

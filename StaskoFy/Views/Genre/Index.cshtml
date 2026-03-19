@@ -1,4 +1,4 @@
-﻿@model List<GenreIndexViewModel>
+﻿@model GenresPaginationViewModel
 
 <div class="container py-5">
     <div class="row justify-content-center">
@@ -7,15 +7,37 @@
             <div class="card shadow-lg border-0 rounded-4">
                 <div class="card-body p-5">
 
-                    <!-- Header -->
-                    <div class="text-center mb-5">
-                        <h1 class="fw-bold display-5">
-                            <i class="bi bi-collection me-2"></i>
-                            <span class="text-warning">Genres</span>
-                        </h1>
-                        <p class="text-muted fs-5 mb-0">
-                            @Model.Count Genres Available
-                        </p>
+                    <div class="d-flex align-items-center w-100">
+
+                        <div class="text-center flex-shrink-0 mb-0 px-4">
+                            <h1 class="fw-bold display-5 mb-0">
+                                <i class="bi bi-collection me-2"></i>
+                                <span class="text-warning">Genres</span>
+                            </h1>
+                            <p class="text-muted fs-5 mb-0">
+                                @Model.Genres.Count Genres Available
+                            </p>
+                        </div>
+
+                        <div class="row justify-content-center flex-grow-1 mx-0">
+                            <div class="col-12 col-md-10 col-lg-8 mx-auto">
+                                <form asp-controller="Genre" asp-action="Index" method="get" class="mb-0">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <input class="form-control form-control-lg"
+                                               type="search"
+                                               placeholder="Search genres..."
+                                               name="name"
+                                               value="@Context.Request.Query["name"]" />
+                                        <button type="submit" class="btn btn-warning btn-lg fw-semibold d-inline-flex align-items-center">
+                                            <svg viewBox="0 0 640 640" width="24" height="24" class="me-2">
+                                                <path fill="white" d="M480 272C480 317.9 465.1 360.3 440 394.7L566.6 521.4C579.1 533.9 579.1 554.2 566.6 566.7C554.1 579.2 533.8 579.2 521.3 566.7L394.7 440C360.3 465.1 317.9 480 272 480C157.1 480 64 386.9 64 272C64 157.1 157.1 64 272 64C386.9 64 480 157.1 480 272zM272 416C351.5 416 416 351.5 416 272C416 192.5 351.5 128 272 128C192.5 128 128 192.5 128 272C128 351.5 192.5 416 272 416z" />
+                                            </svg>
+                                            Search
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
 
                     <hr class="mb-5" />
@@ -36,55 +58,62 @@
                                 @{
                                     int index = 1;
                                 }
-
-                                @foreach (var genre in Model)
+                                @if (!Model.Genres.Any())
                                 {
-                                    <tr class="border-top">
-
-                                        <!-- Index -->
-                                        <td class="ps-3 text-muted fw-semibold py-2">
-                                            @index
+                                    <tr>
+                                        <td colspan="3" class="text-center">
+                                            @ViewData["NoResult"]
                                         </td>
-
-                                        <!-- Genre Name -->
-                                        <td class="fw-bold text-dark py-2 fs-5">
-                                            <i class="bi bi-music-note-beamed text-secondary me-2"></i>
-                                            @genre.Name
-                                        </td>
-
-                                        <!-- Actions -->
-                                        <td class="py-2">
-                                            <div class="d-flex justify-content-center gap-3">
-
-                                                <!-- Edit -->
-                                                <a class="btn btn-warning btn-md mb-3 d-inline-flex align-items-center" asp-route-id="@genre.Id" asp-action="Edit">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="30" height="30" class="me-2">
-                                                        <path d="M535.6 85.7C513.7 63.8 478.3 63.8 456.4 85.7L432 110.1L529.9 208L554.3 183.6C576.2 161.7 576.2 126.3 554.3 104.4L535.6 85.7zM236.4 305.7C230.3 311.8 225.6 319.3 222.9 327.6L193.3 416.4C190.4 425 192.7 434.5 199.1 441C205.5 447.5 215 449.7 223.7 446.8L312.5 417.2C320.7 414.5 328.2 409.8 334.4 403.7L496 241.9L398.1 144L236.4 305.7zM160 128C107 128 64 171 64 224L64 480C64 533 107 576 160 576L416 576C469 576 512 533 512 480L512 384C512 366.3 497.7 352 480 352C462.3 352 448 366.3 448 384L448 480C448 497.7 433.7 512 416 512L160 512C142.3 512 128 497.7 128 480L128 224C128 206.3 142.3 192 160 192L256 192C273.7 192 288 177.7 288 160C288 142.3 273.7 128 256 128L160 128z" />
-                                                    </svg>
-                                                    Edit
-                                                </a>
-
-
-
-                                                <!-- Delete -->
-                                                <form asp-action="Delete" method="post" asp-route-id="@genre.Id">
-                                                    <button class="btn btn-danger btn-md d-inline-flex align-items-center" onclick="return confirm('Are you sure you want to delete this genre?');">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="30" height="30" class="me-2">
-                                                            <path d="M232.7 69.9L224 96L128 96C110.3 96 96 110.3 96 128C96 145.7 110.3 160 128 160L512 160C529.7 160 544 145.7 544 128C544 110.3 529.7 96 512 96L416 96L407.3 69.9C402.9 56.8 390.7 48 376.9 48L263.1 48C249.3 48 237.1 56.8 232.7 69.9zM512 208L128 208L149.1 531.1C150.7 556.4 171.7 576 197 576L443 576C468.3 576 489.3 556.4 490.9 531.1L512 208z" />
-                                                        </svg>
-                                                        Delete
-                                                    </button>
-                                                </form>
-
-
-                                            </div>
-                                        </td>
-
                                     </tr>
-
-                                    index++;
                                 }
+                                else
+                                {
+                                    @foreach (var genre in Model.Genres)
+                                    {
+                                        <tr class="border-top" id="genre-@genre.Id">
 
+                                            <!-- Index -->
+                                            <td class="ps-3 text-muted fw-semibold py-2">
+                                                @index
+                                            </td>
+
+                                            <!-- Genre Name -->
+                                            <td class="fw-bold text-dark py-2 fs-5">
+                                                <i class="bi bi-music-note-beamed text-secondary me-2"></i>
+                                                @genre.Name
+                                            </td>
+
+                                            <!-- Actions -->
+                                            <td class="py-2">
+                                                <div class="d-flex justify-content-center gap-3">
+
+                                                    <!-- Edit -->
+                                                    <a class="btn btn-outline-warning btn-md" asp-route-id="@genre.Id" asp-action="Edit">
+                                                        <svg viewBox="0 0 512 512" width="20" height="20" class="me-2">
+                                                            <path fill="currentColor" d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L368 46.1 465.9 144 490.3 119.6c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L432 177.9 334.1 80 172.4 241.7zM96 64C43 64 0 107 0 160L0 416c0 53 43 96 96 96l256 0c53 0 96-43 96-96l0-96c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 96c0 17.7-14.3 32-32 32L96 448c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l96 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 64z" />
+                                                        </svg>
+                                                        Edit
+                                                    </a>
+
+                                                    <!-- Delete -->
+                                                    <form asp-action="Delete" method="post" asp-route-id="@genre.Id">
+                                                        <input type="hidden" name="returnUrl" value="@Context.Request.Path@Context.Request.QueryString#album-@genre.Id" />
+                                                        <button class="btn btn-outline-danger btn-md"
+                                                        onclick="return confirm('Are you sure you want to delete this genre?');">
+                                                            <svg viewBox="0 0 448 512" width="20" height="20" class="me-2">
+                                                                <path fill="currentColor" d="M136.7 5.9L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-8.7-26.1C306.9-7.2 294.7-16 280.9-16L167.1-16c-13.8 0-26 8.8-30.4 21.9zM416 144L32 144 53.1 467.1C54.7 492.4 75.7 512 101 512L347 512c25.3 0 46.3-19.6 47.9-44.9L416 144z" />
+                                                            </svg>
+                                                            Delete
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </td>
+
+                                        </tr>
+
+                                        index++;
+                                    }
+                                }
                             </tbody>
 
                         </table>
@@ -95,4 +124,55 @@
 
         </div>
     </div>
+</div>
+
+<div class="d-flex justify-content-center mt-4">
+    <nav>
+        <ul class="pagination">
+            @if (Model.CurrentPage > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-action="Index" asp-route-pageNumber="@(Model.CurrentPage - 1)" asp-route-pageSize="3">Previous</a>
+                </li>
+            }
+
+            @if (Model.CurrentPage > 2)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-action="Index" asp-route-pageNumber="1" asp-route-pageSize="3">1</a>
+                </li>
+                <li class="page-item disabled">
+                    <span class="page-link">...</span>
+                </li>
+            }
+
+            @for (int i = Model.CurrentPage - 1; i <= Model.CurrentPage + 1; i++)
+            {
+                if (i > 0 && i <= Model.TotalPages)
+                {
+                    <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                        <a class="page-link" asp-action="Index" asp-route-pageNumber="@i" asp-route-pageSize="3">@i</a>
+                    </li>
+                }
+            }
+
+            @if (Model.CurrentPage < Model.TotalPages - 1)
+            {
+                <li class="page-item disabled">
+                    <span class="page-link">...</span>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" asp-action="Index" asp-route-pageNumber="@Model.TotalPages" asp-route-pageSize="3">@Model.TotalPages</a>
+                </li>
+            }
+
+            <!-- Next Page Link -->
+            @if (Model.CurrentPage < Model.TotalPages)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-action="Index" asp-route-pageNumber="@(Model.CurrentPage + 1)" asp-route-pageSize="3">Next</a>
+                </li>
+            }
+        </ul>
+    </nav>
 </div>

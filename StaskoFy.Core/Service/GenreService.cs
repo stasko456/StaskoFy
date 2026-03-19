@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using StaskoFy.Core.IService;
 using StaskoFy.DataAccess.Repository;
 using StaskoFy.Models.Entities;
@@ -65,6 +66,33 @@ namespace StaskoFy.Core.Service
             var genre = await genreRepo.GetByIdAsync(id);
 
             await genreRepo.RemoveAsync(genre);
+        }
+
+        public async Task<int> GetTotalPagesAsync(int pageSize = 5)
+        {
+            int totalGenres = await genreRepo.GetAllAttached()
+                .CountAsync();
+
+            return (int)Math.Ceiling(totalGenres / (double)pageSize);
+        }
+
+        public async Task<IEnumerable<GenreIndexViewModel>> FilterGenresAsync(string name, int pageNumber = 1, int pageSize = 5)
+        {
+            var query = genreRepo.GetAllAttached();
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                query = query.Where(g => EF.Functions.Like(g.Name, $"%{name}%"));
+            }
+
+            return await query
+                .Select(g => new GenreIndexViewModel
+                {
+                    Id = g.Id,
+                    Name = g.Name,
+                }).Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
         }
     }
 }
