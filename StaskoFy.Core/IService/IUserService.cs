@@ -9,6 +9,10 @@ namespace StaskoFy.Core.IService
 {
     public interface IUserService
     {
-        Task<UserIndexViewModel> GetUsersWithoutAdminAsync(Guid userId);
+        Task <IEnumerable<UserIndexViewModel>> GetFilteredUsersWithoutAdminAsync(Guid adminId, Guid currentLoggedUserId, string username);
+
+        Task<UserWithPlaylistsViewModel?> GetUserWithPlaylistsByIdAsync(Guid id);
+
+        Task<bool> IsUserArtistAsync(Guid userId);
     }
 }

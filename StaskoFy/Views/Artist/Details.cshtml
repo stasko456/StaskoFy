@@ -32,7 +32,7 @@
     {
         <div class="alert alert-light border rounded-4 text-center fw-semibold shadow-sm fs-5 mb-5">
             <i class="bi bi-search me-2 text-muted"></i>
-            This artist has no singles yet.
+            @ViewData["NoSingles"]
         </div>
     }
     else
@@ -104,7 +104,7 @@
                                                         }
                                                         else
                                                         {
-                                                            <li><span class="dropdown-item-text text-muted">No playlists found</span></li>
+                                                            <li><span class="dropdown-item-text text-muted">@ViewData["NoCurrentLoggedUserPlaylists"]</span></li>
                                                         }
                                                     </ul>
                                                 </li>
@@ -140,7 +140,7 @@
     {
         <div class="alert alert-light border rounded-4 text-center fw-semibold shadow-sm fs-5 mb-5">
             <i class="bi bi-search me-2 text-muted"></i>
-            This artist has no albums yet.
+            @ViewData["NoAlbums"]
         </div>
     }
     else
@@ -197,7 +197,7 @@
     {
         <div class="alert alert-light border rounded-4 text-center fw-semibold shadow-sm fs-5 mb-5">
             <i class="bi bi-search me-2 text-muted"></i>
-            This artist has no playlists yet.
+            @ViewData["NoPlaylists"]
         </div>
     }
     else

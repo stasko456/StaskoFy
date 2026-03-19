@@ -1,0 +1,78 @@
+﻿@model List<UserIndexViewModel>
+
+@{
+    ViewData["Title"] = "Users";
+}
+
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold">
+            Discover <span class="text-warning">Users</span>
+        </h1>
+        <p class="text-muted">Explore all users on the platform</p>
+    </div>
+
+    <div class="row justify-content-center mb-4">
+    </div>
+
+    <div class="col-12 col-md-6 col-lg-4 mb-4">
+        <form asp-controller="User" asp-action="Index" method="get">
+            <div class="d-flex align-items-center gap-4 mb-4">
+                <input class="form-control form-control-lg"
+                       type="search"
+                       placeholder="Search artist..."
+                       name="username"
+                       value="@Context.Request.Query["username"]" />
+                <button type="submit" fix class="btn btn-warning btn-lg fw-semibold d-inline-flex align-items-center">
+                    <svg viewBox="0 0 640 640" width="30" height="30" class="me-2"><path fill="rgb(255, 255, 255)" d="M480 272C480 317.9 465.1 360.3 440 394.7L566.6 521.4C579.1 533.9 579.1 554.2 566.6 566.7C554.1 579.2 533.8 579.2 521.3 566.7L394.7 440C360.3 465.1 317.9 480 272 480C157.1 480 64 386.9 64 272C64 157.1 157.1 64 272 64C386.9 64 480 157.1 480 272zM272 416C351.5 416 416 351.5 416 272C416 192.5 351.5 128 272 128C192.5 128 128 192.5 128 272C128 351.5 192.5 416 272 416z" /></svg>
+                    Search
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div class="row g-4">
+
+        @if (Model.Any())
+        {
+            @foreach (var user in Model)
+            {
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                    <div class="card border-0 shadow-sm h-100 text-center artist-card">
+
+                        <img src="@(string.IsNullOrEmpty(user.ProfilePicture)
+                                    ? "/images/default-artist.png"
+                                    : user.ProfilePicture)"
+                             class="card-img-top rounded-circle mx-auto mt-4"
+                             alt="@user.Username"
+                             style="width:150px; height:150px; object-fit:cover;">
+
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title mt-3 fw-bold">
+                                @user.Username
+                            </h5>
+
+                            <div class="mt-auto">
+                                <a asp-controller="User" asp-action="Details2" asp-route-id="@user.Id" class="btn btn-warning btn-sm px-4">
+                                    <svg viewBox="0 0 640 640" width="30" height="30" class="me-2">
+                                        <path fill="rgb(0, 0, 0)" d="M320 576C461.4 576 576 461.4 576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320C64 461.4 178.6 576 320 576zM288 224C288 206.3 302.3 192 320 192C337.7 192 352 206.3 352 224C352 241.7 337.7 256 320 256C302.3 256 288 241.7 288 224zM280 288L328 288C341.3 288 352 298.7 352 312L352 400L360 400C373.3 400 384 410.7 384 424C384 437.3 373.3 448 360 448L280 448C266.7 448 256 437.3 256 424C256 410.7 266.7 400 280 400L304 400L304 336L280 336C266.7 336 256 325.3 256 312C256 298.7 266.7 288 280 288z" />
+                                    </svg>View Profile
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-12 text-center">
+                <p class="text-muted fs-5">
+                    @ViewData["NoResult"]
+                </p>
+            </div>
+        }
+
+    </div>
+</div>

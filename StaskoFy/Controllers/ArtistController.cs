@@ -20,36 +20,37 @@ namespace StaskoFy.Controllers
 
         [HttpGet]
         [Authorize(Policy = "ArtistOrAdminOrUser")]
-        public async Task<IActionResult> Index(string username)
+        public async Task<IActionResult> Details(Guid artistUserId)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var artists = await artistService.GetFilteredArtistsAsync(Guid.Parse(userId), username);
-
-            if (!artists.Any())
-            {
-                ViewData["NoResult"] = "No artist found matching your search.";
-            }
-
-            return View(artists);
-        }
-
-        [HttpGet]
-        [Authorize(Policy = "ArtistOrAdminOrUser")]
-        public async Task<IActionResult> Details(Guid id)
-        {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            if (id == Guid.Empty)
+            if (artistUserId == Guid.Empty)
             {
                 return BadRequest();
             }
 
-            var artist = await artistService.GetArtistByIdWithProjectsAsync(id);
+            var artist = await artistService.GetArtistByIdWithProjectsAsync(artistUserId);
 
             if (artist == null)
             {
                 return NotFound();
+            }
+
+            if (!artist.Singles.Any())
+            {
+                ViewData["NoSingles"] = "This artist has not uploaded any singles.";
+            }
+            if (!artist.Albums.Any())
+            {
+                ViewData["NoAlbums"] = "This artist has not uploaded any albums.";
+            }
+            if (!artist.Singles.Any())
+            {
+                ViewData["NoPlaylists"] = "This artist has not uploaded any public playlists.";
+            }
+            if (!artist.LoggedUserPlaylists.Any())
+            {
+                ViewData["NoCurrentLoggedUserPlaylists"] = "No playlists found.";
             }
 
             var playlists = await playlistService.SelectPlaylistsFromCurrentLoggedUserAsync(Guid.Parse(userId));

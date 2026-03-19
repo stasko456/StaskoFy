@@ -20,6 +20,6 @@ namespace StaskoFy.Core.IService
 
         Task<IEnumerable<ArtistIndexViewModel>> PopulateArtistSelectListAsync(Guid userId);
 
-        Task<ArtistIndexWithProjects?> GetArtistByIdWithProjectsAsync(Guid id);
+        Task<ArtistIndexWithProjects?> GetArtistByIdWithProjectsAsync(Guid userId);
     }
 }

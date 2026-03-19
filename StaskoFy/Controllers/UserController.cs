@@ -1,4 +1,7 @@
 ﻿using CloudinaryDotNet.Core;
+using DocumentFormat.OpenXml.Bibliography;
+using DocumentFormat.OpenXml.Office2010.Drawing;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -19,18 +22,24 @@ namespace StaskoFy.Controllers
         private readonly RoleManager<IdentityRole<Guid>> roleManager;
         private readonly IArtistService artistService;
         private readonly IImageService imageService;
+        private readonly IUserService userService;
+        private readonly IPlaylistService playlistService;
 
         public UserController(UserManager<User> _userManager,
                               SignInManager<User> _signInManager,
                               RoleManager<IdentityRole<Guid>> _roleManager,
                               IArtistService _artistService,
-                              IImageService _imageService)
+                              IImageService _imageService,
+                              IUserService _userService,
+                              IPlaylistService _playlistService)
         {
             this.userManager = _userManager;
             this.signInManager = _signInManager;
             this.roleManager = _roleManager;
             this.artistService = _artistService;
             this.imageService = _imageService;
+            this.userService = _userService;
+            this.playlistService = _playlistService;
         }
 
         [HttpGet]
@@ -136,6 +145,7 @@ namespace StaskoFy.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = "ArtistOrAdminOrUser")]
         public async Task<IActionResult> Details()
         {
             var user = await userManager.GetUserAsync(User);
@@ -150,6 +160,7 @@ namespace StaskoFy.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = "ArtistOrAdminOrUser")]
         public async Task<IActionResult> Manage()
         {
             var user = await userManager.GetUserAsync(User);
@@ -164,6 +175,7 @@ namespace StaskoFy.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = "ArtistOrAdminOrUser")]
         public async Task<IActionResult> Manage(EditProfileViewModel viewModel)
         {
             var user = await userManager.GetUserAsync(User);
@@ -185,6 +197,49 @@ namespace StaskoFy.Controllers
             await userManager.UpdateAsync(user);
 
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        [Authorize(Policy = "ArtistOrAdminOrUser")]
+        public async Task<IActionResult> Index(string username)
+        {
+            var admin = await userManager.FindByNameAsync("admin");
+
+            var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var users = await userService.GetFilteredUsersWithoutAdminAsync(admin.Id, Guid.Parse(currentUserId), username);
+
+            if (!users.Any())
+            {
+                ViewData["NoResult"] = "No users found matching your search.";
+            }
+
+            return View(users);
+        }
+
+        [HttpGet]
+        [Authorize(Policy = "ArtistOrAdminOrUser")]
+        public async Task<IActionResult> Details2(Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                return BadRequest();
+            }
+
+            bool isArtist = await userService.IsUserArtistAsync(id);
+            if (isArtist == true)
+            {
+                return RedirectToAction("Details", "Artist", new { artistUserId = id});
+            }
+
+            var user = await userService.GetUserWithPlaylistsByIdAsync(id);
+
+            if (!user.Playlists.Any())
+            {
+                ViewData["NoPlaylists"] = "This user has not uploaded public playlists!";
+            }
+
+            return View(user);
         }
     }
 }

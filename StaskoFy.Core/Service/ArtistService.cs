@@ -87,10 +87,10 @@ namespace StaskoFy.Core.Service
                 }).ToListAsync();
         }
 
-        public async Task<ArtistIndexWithProjects?> GetArtistByIdWithProjectsAsync(Guid id)
+        public async Task<ArtistIndexWithProjects?> GetArtistByIdWithProjectsAsync(Guid userId)
         {
             return await artistRepo.GetAllAttached()
-                .Where(x => x.Id == id)
+                .Where(x => x.UserId == userId)
                 .Select(a => new ArtistIndexWithProjects
                 {
                     Id = a.Id,

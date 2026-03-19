@@ -48,7 +48,7 @@
                                 <a class="nav-link text-white" asp-controller="Album" asp-action="AlbumsIndexForAllUsers">Browse Albums</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Artist" asp-action="Index">Browse Artists</a>
+                                <a class="nav-link text-white" asp-controller="User" asp-action="Index">Browse Users</a>
                             </li>
                         }
                         else if ((User?.Identity?.IsAuthenticated ?? false) && (User.IsInRole("Artist")))
@@ -60,13 +60,13 @@
                                 <a class="nav-link text-white" asp-controller="Album" asp-action="AlbumsIndexForAllUsers">Browse Albums</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Artist" asp-action="Index">Browse Artists</a>
+                                <a class="nav-link text-white" asp-controller="User" asp-action="Index">Browse Users</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Library" asp-action="MyLibraryIndex">My Library</a>
+                                <a class="nav-link text-white" asp-controller="Library" asp-action="MyLibraryIndex">My Library</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Library" asp-action="MyProjectsForCurrentLoggedArtistIndex">My Projects</a>
+                                <a class="nav-link text-white" asp-controller="Library" asp-action="MyProjectsForCurrentLoggedArtistIndex">My Projects</a>
                             </li>
                         }
                         else if ((User?.Identity?.IsAuthenticated ?? false) && (User.IsInRole("User")))
@@ -78,10 +78,10 @@
                                 <a class="nav-link text-white" asp-controller="Album" asp-action="AlbumsIndexForAllUsers">Browse Albums</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Artist" asp-action="Index">Browse Artists</a>
+                                <a class="nav-link text-white" asp-controller="User" asp-action="Index">Browse Users</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Library" asp-action="MyLibraryIndex">My Library</a>
+                                <a class="nav-link text-white" asp-controller="Library" asp-action="MyLibraryIndex">My Library</a>
                             </li>
                         }
                     </ul>
