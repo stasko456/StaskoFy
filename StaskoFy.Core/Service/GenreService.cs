@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using DocumentFormat.OpenXml.Wordprocessing;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using StaskoFy.Core.IService;
 using StaskoFy.DataAccess.Repository;
@@ -139,16 +140,25 @@ namespace StaskoFy.Core.Service
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<GenreApprovalViewModel>> GetDeletedGenresAsync()
+        public async Task<IEnumerable<GenreApprovalViewModel>> FilterDeletedGenresAsync(string name, int pageNumber = 1, int pageSize = 5)
         {
-            return await genreRepo.GetAllAttached()
-                .Where(g => g.Status == UploadStatus.Deleted)
+            var query = genreRepo.GetAllAttached()
+                .Where(g => g.Status == UploadStatus.Deleted);
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                query = query.Where(g => EF.Functions.Like(g.Name, $"%{name}%"));
+            }
+
+            return await query
                 .Select(g => new GenreApprovalViewModel
                 {
                     Id = g.Id,
                     Name= g.Name,
                     Status = g.Status
-                }).ToListAsync();
+                }).Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
         }
 
         public async Task AcceptGenreUploadAsync(Guid id)

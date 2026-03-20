@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using StaskoFy.Core.IService;
 using System.Threading.Tasks;
+using StaskoFy.ViewModels.Pagination;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
 namespace StaskoFy.Controllers
 {
@@ -22,44 +24,71 @@ namespace StaskoFy.Controllers
 
         [Authorize(Policy = "Admin")]
         [HttpGet]
-        public async Task<IActionResult> ManageSongsStatus()
+        public async Task<IActionResult> ManageSongsStatus(string title, int pageNumber = 1)
         {
-            var songs = await songService.GetSongsWithPendingStatusAsync();
+            int pageSize = 5;
+            var songs = await songService.FilterSongsWithPendingStatusAsync(title, pageNumber, pageSize);
+            int totalPendingSongs = await songService.GetTotalPendingPagesAsync(pageSize);
+
+            var viewModel = new PendingSongsViewModel
+            {
+                Songs = songs.ToList(),
+                TotalPages = totalPendingSongs,
+                CurrentPage = pageNumber
+            };
 
             if (!songs.Any())
             {
                 ViewData["NoResult"] = "No songs waiting for acception."; 
             }
 
-            return View(songs);
+            return View(viewModel);
         }
 
         [Authorize(Policy = "Admin")]
         [HttpGet]
-        public async Task<IActionResult> ManageAlbumsStatus()
+        public async Task<IActionResult> ManageAlbumsStatus(string title, int pageNumber = 1)
         {
-            var albums = await albumService.GetAlbumsWithPendingStatusAsync();
+            int pageSize = 5;
+            var albums = await albumService.FilterAlbumsWithPendingStatusAsync(title, pageNumber, pageSize);
+            int totalPendingSongs = await songService.GetTotalPendingPagesAsync(pageSize);
+
+            var viewModel = new PendingAlbumsViewModel
+            {
+                Albums = albums.ToList(),
+                TotalPages = totalPendingSongs,
+                CurrentPage = pageNumber
+            };
 
             if (!albums.Any())
             {
                 ViewData["NoResult"] = "No albums waiting for acception.";
             }
 
-            return View(albums);
+            return View(viewModel);
         }
 
         [Authorize(Policy = "Admin")]
         [HttpGet]
-        public async Task<IActionResult> ManageGenresStatus()
+        public async Task<IActionResult> ManageGenresStatus(string name, int pageNumber = 1)
         {
-            var genres = await genreService.GetDeletedGenresAsync();
+            int pageSize = 5;
+            var genres = await genreService.FilterDeletedGenresAsync(name, pageNumber, pageSize);
+            int totalPages = await genreService.GetTotalPagesAsync(pageSize);
+
+            var viewModel = new DeletedGenresPaginationViewModel
+            {
+                Genres = genres.ToList(),
+                TotalPages = totalPages,
+                CurrentPage = pageNumber,
+            };
 
             if (!genres.Any())
             {
                 ViewData["NoResult"] = "No genres waiting for acception.";
             }
 
-            return View(genres);
+            return View(viewModel);
         }
     }
 }

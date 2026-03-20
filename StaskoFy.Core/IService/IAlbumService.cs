@@ -11,7 +11,9 @@ namespace StaskoFy.Core.IService
 {
     public interface IAlbumService
     {
-        Task<IEnumerable<AlbumApprovalViewModel>> GetAlbumsWithPendingStatusAsync();
+        Task<int> GetTotalPendingPagesAsync(int pageSize = 4);
+
+        Task<IEnumerable<AlbumApprovalViewModel>> FilterAlbumsWithPendingStatusAsync(string title, int pageNumber = 1, int pageSize = 4);
 
         Task<IEnumerable<AlbumIndexViewModel>> GetSpecificArtistAlbumsAsync(Guid userId);
 

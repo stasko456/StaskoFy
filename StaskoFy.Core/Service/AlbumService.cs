@@ -39,10 +39,27 @@ namespace StaskoFy.Core.Service
             this.imageService = _imageService;
         }
 
-        public async Task<IEnumerable<AlbumApprovalViewModel>> GetAlbumsWithPendingStatusAsync()
+        public async Task<int> GetTotalPendingPagesAsync(int pageSize = 4)
         {
-            return await albumRepo.GetAllAttached()
-                .Where(a => a.Status != UploadStatus.Approved)
+            var totalPendingAlbums = await songRepo
+                .GetAllAttached()
+                .Where(s => s.Status != UploadStatus.Approved)
+                .CountAsync();
+
+            return (int)Math.Ceiling(totalPendingAlbums / (double)pageSize);
+        }
+
+        public async Task<IEnumerable<AlbumApprovalViewModel>> FilterAlbumsWithPendingStatusAsync(string title, int pageNumber = 1, int pageSize = 4)
+        {
+            var query = albumRepo.GetAllAttached()
+                .Where(a => a.Status != UploadStatus.Approved);
+
+            if (!string.IsNullOrEmpty(title))
+            {
+                query = query.Where(s => EF.Functions.Like(s.Title, $"%{title}%"));
+            }
+
+            return await query
                 .Select(a => new AlbumApprovalViewModel
                 {
                     Id = a.Id,
@@ -55,7 +72,9 @@ namespace StaskoFy.Core.Service
                     ImageURL = a.ImageURL,
                     Status = a.Status,
                     Artists = a.ArtistsAlbums.Select(x => x.Artist.User.UserName).ToList(),
-                }).ToListAsync();
+                }).Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<AlbumIndexViewModel>> GetSpecificArtistAlbumsAsync(Guid userId)

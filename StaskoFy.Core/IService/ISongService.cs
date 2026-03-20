@@ -11,7 +11,9 @@ namespace StaskoFy.Core.IService
 {
     public interface ISongService
     {
-        Task<IEnumerable<SongApprovalViewModel>> GetSongsWithPendingStatusAsync();
+        Task<int> GetTotalPendingPagesAsync(int pageSize = 5);
+
+        Task<IEnumerable<SongApprovalViewModel>> FilterSongsWithPendingStatusAsync(string name, int pageNumber = 1, int pageSize = 5);
 
         Task<SongDetailsViewModel?> GetSongDetailsByIdAsync(Guid id, Guid userId);
 

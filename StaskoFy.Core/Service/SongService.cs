@@ -46,10 +46,27 @@ namespace StaskoFy.Core.Service
             this.playlistRepo = _playlistRepo;
         }
 
-        public async Task<IEnumerable<SongApprovalViewModel>> GetSongsWithPendingStatusAsync()
+        public async Task<int> GetTotalPendingPagesAsync(int pageSize = 5)
         {
-            return await songRepo.GetAllAttached()
+            var totalPendingSongs = await songRepo
+                .GetAllAttached()
                 .Where(s => s.Status != UploadStatus.Approved)
+                .CountAsync();
+
+            return (int)Math.Ceiling(totalPendingSongs / (double)pageSize);
+        }
+
+        public async Task<IEnumerable<SongApprovalViewModel>> FilterSongsWithPendingStatusAsync(string title, int pageNumber = 1, int pageSize = 5)
+        {
+            var query = songRepo.GetAllAttached()
+                .Where(s => s.Status != UploadStatus.Approved);
+
+            if (!string.IsNullOrEmpty(title))
+            {
+                query = query.Where(s => EF.Functions.Like(s.Title, $"%{title}%"));
+            }
+
+            return await query
                 .Select(song => new SongApprovalViewModel
                 {
                     Id = song.Id,
@@ -64,7 +81,8 @@ namespace StaskoFy.Core.Service
                     Likes = song.Likes,
                     Artists = song.ArtistsSongs.Select(a => a.Artist.User.UserName).ToList(),
                     Status = song.Status,
-                })
+                }).Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
                 .ToListAsync();
         }
 
