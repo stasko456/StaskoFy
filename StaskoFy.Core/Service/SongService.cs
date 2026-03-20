@@ -298,7 +298,6 @@ namespace StaskoFy.Core.Service
 
             if (song.AlbumId != null)
             {
-                song.Album.SongsCount--;
                 song.Album.Length = song.Album.Length - song.Length;
                 song.AlbumId = null;
             }
@@ -310,7 +309,6 @@ namespace StaskoFy.Core.Service
                 {
                     var playlist = playlistSong.Playlist;
 
-                    playlist.SongCount--;
                     playlist.Length = playlist.Length - song.Length;
                 }
 

@@ -1,24 +1,19 @@
 ﻿using StaskoFy.Models.Enums;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StaskoFy.Models.Entities
+namespace StaskoFy.ViewModels.Genre
 {
-    public class Genre
+    public class GenreApprovalViewModel
     {
-        [Key]
         public Guid Id { get; set; }
 
-        [Required]
-        [MaxLength(100)]
         public string Name { get; set; } = null!;
 
         public UploadStatus Status { get; set; }
-
-        public ICollection<Song> Songs { get; set; } = new List<Song>();
     }
 }

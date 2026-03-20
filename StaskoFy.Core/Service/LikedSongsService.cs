@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StaskoFy.Core.IService;
 using StaskoFy.DataAccess.Repository;
 using StaskoFy.Models.Entities;
+using StaskoFy.Models.Enums;
 using StaskoFy.ViewModels.LikedSongs;
 using System;
 using System.Collections.Generic;
@@ -31,7 +32,7 @@ namespace StaskoFy.Core.Service
         public async Task<LikedSongsPageViewModel?> GetLikedSongsFromCurrentLoggedUserAsync(Guid userId)
         {
             var likedSongs = await likedSongsRepo.GetAllAttached()
-            .Where(x => x.UserId == userId)
+            .Where(x => x.UserId == userId && x.Song.Status == UploadStatus.Approved)
             .Include(x => x.Song)
                 .ThenInclude(s => s.Album)
             .Include(x => x.Song)
@@ -89,14 +90,6 @@ namespace StaskoFy.Core.Service
         public async Task AddLikedSongAsync(LikedSongsCreateViewModel model, Guid userId)
         {
             var isLiked = await GetLikedSongByUserAndSongAsync(userId, model.SongId);
-
-            //likedSongsRepo.GetAllAttached()
-            //    .AnyAsync(x => x.UserId == userId && x.SongId == model.SongId);
-
-            //if (isLiked == null)
-            //{
-            //    throw new KeyNotFoundException($"Liked song with Id of song {model.SongId} does not exists!");
-            //}
 
             var song = await songRepo.GetByIdAsync(model.SongId);
             if (song == null)

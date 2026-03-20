@@ -72,7 +72,7 @@ namespace StaskoFy.Core.Service
                         Hours = p.Length.Hours,
                         Minutes = p.Length.Minutes,
                         Seconds = p.Length.Seconds,
-                        SongCount = p.SongCount,
+                        SongCount = p.PlaylistsSongs.Where(ps => ps.PlaylistId == p.Id).Count(),
                         DateCreated = p.DateCreated,
                         ImageURL = p.ImageURL,
                         IsPublic = p.IsPublic,

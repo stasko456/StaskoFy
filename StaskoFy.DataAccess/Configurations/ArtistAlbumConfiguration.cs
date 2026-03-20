@@ -21,8 +21,8 @@ namespace StaskoFy.DataAccess.Configurations
                 new ArtistAlbum { ArtistId = Guid.Parse("31111111-1111-1111-1111-111111111111"), AlbumId = Guid.Parse("21111111-1111-1111-1111-111111111111") },
                 new ArtistAlbum { ArtistId = Guid.Parse("41111111-1111-1111-1111-111111111111"), AlbumId = Guid.Parse("31111111-1111-1111-1111-111111111111") },
                 new ArtistAlbum { ArtistId = Guid.Parse("51111111-1111-1111-1111-111111111111"), AlbumId = Guid.Parse("41111111-1111-1111-1111-111111111111") },
-                new ArtistAlbum { ArtistId = Guid.Parse("11111111-1111-1111-1111-111111111111"), AlbumId = Guid.Parse("51111111-1111-1111-1111-111111111111") }
-                );
+                new ArtistAlbum { ArtistId = Guid.Parse("11111111-1111-1111-1111-111111111111"), AlbumId = Guid.Parse("51111111-1111-1111-1111-111111111111") },
+                new ArtistAlbum { ArtistId = Guid.Parse("61111111-1111-1111-1111-111111111111"), AlbumId = Guid.Parse("61111111-1111-1111-1111-111111111111") });
         }
     }
 }

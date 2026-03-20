@@ -21,7 +21,6 @@ namespace StaskoFy.DataAccess.Migrations
                     Title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Length = table.Column<TimeSpan>(type: "time", nullable: false),
                     ReleaseDate = table.Column<DateOnly>(type: "date", nullable: false),
-                    SongsCount = table.Column<int>(type: "int", nullable: false),
                     ImageURL = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false),
                     CloudinaryPublicId = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false)
@@ -77,7 +76,8 @@ namespace StaskoFy.DataAccess.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -215,7 +215,6 @@ namespace StaskoFy.DataAccess.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Length = table.Column<TimeSpan>(type: "time", nullable: false),
-                    SongCount = table.Column<int>(type: "int", nullable: false),
                     DateCreated = table.Column<DateOnly>(type: "date", nullable: false),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ImageURL = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false),
@@ -255,8 +254,7 @@ namespace StaskoFy.DataAccess.Migrations
                         name: "FK_Songs_Albums_AlbumId",
                         column: x => x.AlbumId,
                         principalTable: "Albums",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Songs_Genres_GenreId",
                         column: x => x.GenreId,
@@ -286,7 +284,7 @@ namespace StaskoFy.DataAccess.Migrations
                         column: x => x.ArtistId,
                         principalTable: "Artists",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -304,7 +302,7 @@ namespace StaskoFy.DataAccess.Migrations
                         column: x => x.ArtistId,
                         principalTable: "Artists",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ArtistsSongs_Songs_SongId",
                         column: x => x.SongId,
@@ -367,15 +365,15 @@ namespace StaskoFy.DataAccess.Migrations
 
             migrationBuilder.InsertData(
                 table: "Albums",
-                columns: new[] { "Id", "CloudinaryPublicId", "ImageURL", "Length", "ReleaseDate", "SongsCount", "Status", "Title" },
+                columns: new[] { "Id", "CloudinaryPublicId", "ImageURL", "Length", "ReleaseDate", "Status", "Title" },
                 values: new object[,]
                 {
-                    { new Guid("11111111-1111-1111-1111-111111111111"), "a_great_chaos_deluxe_d2vxhf", "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698280/a_great_chaos_deluxe_d2vxhf.jpg", new TimeSpan(0, 1, 5, 0, 0), new DateOnly(2024, 7, 5), 5, 1, "A Great Chaos (Deluxe)" },
-                    { new Guid("21111111-1111-1111-1111-111111111111"), "super_slimey_v5r2c1", "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698283/super_slimey_v5r2c1.jpg", new TimeSpan(0, 0, 40, 49, 0), new DateOnly(2017, 10, 20), 6, 1, "Super Slimey" },
-                    { new Guid("31111111-1111-1111-1111-111111111111"), "pray_for_paris_rx4tq8", "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698283/pray_for_paris_rx4tq8.jpg", new TimeSpan(0, 0, 36, 25, 0), new DateOnly(2020, 4, 17), 4, 1, "Pray For Paris" },
-                    { new Guid("41111111-1111-1111-1111-111111111111"), "call_me_if_you_get_lost_the_estate_sale_xiqapi", "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698281/call_me_if_you_get_lost_the_estate_sale_xiqapi.jpg", new TimeSpan(0, 1, 17, 0, 0), new DateOnly(2023, 3, 31), 6, 1, "CALL ME IF YOU GET LOST: The Estate Sale" },
-                    { new Guid("51111111-1111-1111-1111-111111111111"), "xtended_wemgwk", "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698284/xtended_wemgwk.jpg", new TimeSpan(0, 1, 1, 0, 0), new DateOnly(2022, 10, 31), 4, 1, "XTENDED" },
-                    { new Guid("61111111-1111-1111-1111-111111111111"), "broken_hearts_3_xm79ww", "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698280/broken_hearts_3_xm79ww.jpg", new TimeSpan(0, 0, 54, 32, 0), new DateOnly(2025, 9, 22), 6, 1, "ᐸ/3³" }
+                    { new Guid("11111111-1111-1111-1111-111111111111"), "a_great_chaos_deluxe_d2vxhf", "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698280/a_great_chaos_deluxe_d2vxhf.jpg", new TimeSpan(0, 0, 14, 33, 0), new DateOnly(2024, 7, 5), 1, "A Great Chaos (Deluxe)" },
+                    { new Guid("21111111-1111-1111-1111-111111111111"), "super_slimey_v5r2c1", "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698283/super_slimey_v5r2c1.jpg", new TimeSpan(0, 0, 20, 12, 0), new DateOnly(2017, 10, 20), 1, "Super Slimey" },
+                    { new Guid("31111111-1111-1111-1111-111111111111"), "pray_for_paris_rx4tq8", "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698283/pray_for_paris_rx4tq8.jpg", new TimeSpan(0, 0, 11, 17, 0), new DateOnly(2020, 4, 17), 1, "Pray For Paris" },
+                    { new Guid("41111111-1111-1111-1111-111111111111"), "call_me_if_you_get_lost_the_estate_sale_xiqapi", "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698281/call_me_if_you_get_lost_the_estate_sale_xiqapi.jpg", new TimeSpan(0, 0, 24, 14, 0), new DateOnly(2023, 3, 31), 1, "CALL ME IF YOU GET LOST: The Estate Sale" },
+                    { new Guid("51111111-1111-1111-1111-111111111111"), "xtended_wemgwk", "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698284/xtended_wemgwk.jpg", new TimeSpan(0, 0, 12, 12, 0), new DateOnly(2022, 10, 31), 1, "XTENDED" },
+                    { new Guid("61111111-1111-1111-1111-111111111111"), "broken_hearts_3_xm79ww", "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698280/broken_hearts_3_xm79ww.jpg", new TimeSpan(0, 0, 17, 12, 0), new DateOnly(2025, 9, 22), 1, "ᐸ/3³" }
                 });
 
             migrationBuilder.InsertData(
@@ -383,33 +381,44 @@ namespace StaskoFy.DataAccess.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "CloudinaryPublicId", "ConcurrencyStamp", "Email", "EmailConfirmed", "ImageURL", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { new Guid("01111111-1111-1111-1111-111111111111"), 0, "ken_carson_amg20i", "8810c0d7-e6f7-46d9-8975-0a16ddaf562d", "kenCarson@gmail.com", false, "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698506/ken_carson_amg20i.jpg", false, null, "kenCarson@gmail.com", "kenCarson", "AQAAAAIAAYagAAAAEEz8J1dE5GN3r7SuAxh7x4tIkR0/xvP458KYLfX6QWNPYWr5lLYrNkkLHcCYZ212TQ==", null, false, "01111111-1111-1111-1111-111111111111", false, "kenCarson" },
-                    { new Guid("02111111-1111-1111-1111-111111111111"), 0, "future_pbmahw", "579ce1c3-61fd-4f33-b21b-7ab561f0d3de", "future@gmail.com", false, "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698503/future_pbmahw.jpg", false, null, "future@gmail.com", "future", "AQAAAAIAAYagAAAAEMY2s64Xf4jsbwxDxXzHYgGP0rb7s1rBxs8diyArWeKr4Re7Kt42J5bXDYEH0wTQUw==", null, false, "02111111-1111-1111-1111-111111111111", false, "future" },
-                    { new Guid("03111111-1111-1111-1111-111111111111"), 0, "young_thug_wz2fln", "f028fc38-10c8-41f8-b6cc-fb8edfdbc8b0", "youngThug@gmail.com", false, "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698511/young_thug_wz2fln.jpg", false, null, "youngThug@gmail.com", "youngThug", "AQAAAAIAAYagAAAAECesPdorJvQRqgytdgxI3PZ7+CaGFMSxh79BNPO0x++5+s/S4iUcO5rtUa4tF2WQjg==", null, false, "03111111-1111-1111-1111-111111111111", false, "youngThug" },
-                    { new Guid("04111111-1111-1111-1111-111111111111"), 0, "westside_gunn_vm7xf2", "b67d4923-4a43-4366-b6b1-ef88c1133435", "westsideGunn@gmail.com", false, "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698510/westside_gunn_vm7xf2.jpg", false, null, "westsideGunn@gmail.com", "westsideGunn", "AQAAAAIAAYagAAAAEO0DEJ+/h5/ARDGxT87s9Eir8bAL0m4tlFT5xg/T9wavo0mnZx/CEhSRhm46Ht1R7g==", null, false, "04111111-1111-1111-1111-111111111111", false, "westsideGunn" },
-                    { new Guid("05111111-1111-1111-1111-111111111111"), 0, "tyler_the_creator_i9yhnu", "6ab54324-01d1-4fbb-9951-7c5abf19fbb6", "tylerTheCreator@gmail.com", false, "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698509/tyler_the_creator_i9yhnu.jpg", false, null, "tylerTheCreator@gmail.com", "tylerTheCreator", "AQAAAAIAAYagAAAAEPpDmbogUVX68wBHp5Rf2Ch8maR0NDBvVAZmQUz7ENqgs6faoMNWM+IhLnujTtnOcg==", null, false, "05111111-1111-1111-1111-111111111111", false, "tylerTheCreator" },
-                    { new Guid("06111111-1111-1111-1111-111111111111"), 0, "destroy_lonely_hmhymx", "50deead9-4cdc-42af-8dba-f53797fa1bf8", "destroyLonely@gmail.com", false, "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698502/destroy_lonely_hmhymx.jpg", false, null, "destroyLonely@gmail.com", "destroyLonely", "AQAAAAIAAYagAAAAEOcOFUx5SaRQoXk4rv3GEx4j3eu+qOobFB3kn9oxs7WuGpRQgYDba6Nxu6j/WSqIsQ==", null, false, "06111111-1111-1111-1111-111111111111", false, "destroyLonely" },
-                    { new Guid("07111111-1111-1111-1111-111111111111"), 0, "joey_bada_t4ig6u", "e754ddd9-b810-4d95-9ab6-8f01696183e8", "joeyBada$$@gmail.com", false, "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698505/joey_bada_t4ig6u.jpg", false, null, "joeyBada$$@gmail.com", "joeyBada$$", "AQAAAAIAAYagAAAAEKaulSzASB5PAIUCw3gomyCnbxsWyhfb+KhEOTdarsIY/INniMh9HjZA0qPboJyQdQ==", null, false, "07111111-1111-1111-1111-111111111111", false, "joeyBada$$" },
-                    { new Guid("08111111-1111-1111-1111-111111111111"), 0, "billie_essco_tqdmip", "3ca41f2a-7b40-4f21-81ef-8b43eb2e9ae4", "billiEssco@gmail.com", false, "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698501/billie_essco_tqdmip.jpg", false, null, "billiEssco@gmail.com", "billiEssco", "AQAAAAIAAYagAAAAEIRyuwM8ksbe2/EnpxspK5BqeppA+Wzo+6Uvzgj7+bsM4gCu7ZOt1TJ49gbAyahMWg==", null, false, "08111111-1111-1111-1111-111111111111", false, "billiEssco" },
-                    { new Guid("09111111-1111-1111-1111-111111111111"), 0, "lil_wayne_pqbiny", "36a1a42a-74bd-484e-b9fe-34fe13b168c9", "lilWayne@gmail.com", false, "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698506/lil_wayne_pqbiny.jpg", false, null, "lilWayne@gmail.com", "lilWayne", "AQAAAAIAAYagAAAAEPUy9gzGU1b9bvTddu4qgkQM9vHD+Szbk5qsjcxgMUO2vdWSBcpL8YnNc8bxiXMmrw==", null, false, "09111111-1111-1111-1111-111111111111", false, "lilWayne" },
-                    { new Guid("10111111-1111-1111-1111-111111111111"), 0, "homixide_gang_anf7iv", "08c38a6d-00a8-4d5e-a349-d6cfd4f5add5", "homixideGang@gmail.com", false, "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698504/homixide_gang_anf7iv.jpg", false, null, "homixideGang@gmail.com", "homixideGang", "AQAAAAIAAYagAAAAEFe2LYt8TxyJDRwgbhZ+a3nD4di6mKaxNIae4L95XCNENHLrwJXWkLn0Kaff+3AKjg==", null, false, "10111111-1111-1111-1111-111111111111", false, "homixideGang" },
-                    { new Guid("11111111-1111-1111-1111-111111111111"), 0, "stasko456_hblwlq", "adc4ef22-b2fd-4b6d-85ef-9e9265993a05", "stdimov2007@gmail.com", false, "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698508/stasko456_hblwlq.jpg", false, null, "stdimov2007@gmail.com", "stasko456", "AQAAAAIAAYagAAAAEEDFSdiFVGvdJSQ+KDVcmo5LYSJTyrr/p4D7cKdzmeAiIAIpDa5o9H9+VwUWAT8U4g==", null, false, "11111111-1111-1111-1111-111111111111", false, "stasko456" },
-                    { new Guid("12111111-1111-1111-1111-111111111111"), 0, "simon333_fafgdv", "bcfa0263-d3d8-4ce5-a494-bc3a1cf28699", "simon2403e8@gmail.com", false, "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698508/simon333_fafgdv.jpg", false, null, "simon2403e8@gmail.com", "simon333", "AQAAAAIAAYagAAAAEIk5lM/ZgRqLKPBMEAigzpRwY0a8P2sxMpDJa4SpB2NOA/guRIwPuybVKiJGG03EMQ==", null, false, "12111111-1111-1111-1111-111111111111", false, "simon333" },
-                    { new Guid("13111111-1111-1111-1111-111111111111"), 0, "n_peew07_yoj6ay", "746d6e3a-be96-4b69-becf-404331493eab", "nikolaPeew@gmail.com", false, "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698507/n_peew07_yoj6ay.jpg", false, null, "nikolaPeew@gmail.com", "n_peew07", "AQAAAAIAAYagAAAAEFcnPNH1LLpwr2YFm+lLRukICkpnA2N2lOdqiFuVgq4JQfvXblPpDiiF5eMO9UXJ9w==", null, false, "13111111-1111-1111-1111-111111111111", false, "n_peew07" },
-                    { new Guid("14111111-1111-1111-1111-111111111111"), 0, "gt_baby_gdk5le", "2a4b2370-d88e-4da3-9dec-6ca23b2fecdd", "gtonev@gmail.com", false, "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698503/gt_baby_gdk5le.jpg", false, null, "gtonev@gmail.com", "g_tonev", "AQAAAAIAAYagAAAAEBBWqvM6gZ2C8AJOCv94DsahX3eA1boiI/WNYf4Wl2Z39+dC0/UYKoVCy3isR0Zu7Q==", null, false, "14111111-1111-1111-1111-111111111111", false, "g_tonev" },
-                    { new Guid("15111111-1111-1111-1111-111111111111"), 0, "adasha_quhjni", "027d7b9c-842e-4a2e-b27d-42056827498c", "nikolaGragov@gmail.com", false, "https://res.cloudinary.com/stasko456cloud/image/upload/v1773127136/adasha_quhjni.png", false, null, "nikolaGragov@gmail.com", "niksy_g", "AQAAAAIAAYagAAAAEH40GACQlidUUJskVlUu6GKY4x7OwsLXeQr3t7j2872lkERkNttkpQ3sR4ExbWnkHg==", null, false, "15111111-1111-1111-1111-111111111111", false, "niksy_g" }
+                    { new Guid("01111111-1111-1111-1111-111111111111"), 0, "ken_carson_amg20i", "a79e521c-8361-4794-bb7a-7bd96fdcc73d", "kenCarson@gmail.com", false, "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698506/ken_carson_amg20i.jpg", false, null, "kenCarson@gmail.com", "kenCarson", "AQAAAAIAAYagAAAAEHT+4/T1FqkU/O6w7yDGAfdP+mkDTPy+z9sL1yvdSQktFyTVf3ICO5eke7nklXu9cg==", null, false, "01111111-1111-1111-1111-111111111111", false, "kenCarson" },
+                    { new Guid("02111111-1111-1111-1111-111111111111"), 0, "future_pbmahw", "d94384d3-6c2c-477a-95be-de29c2ad0a16", "future@gmail.com", false, "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698503/future_pbmahw.jpg", false, null, "future@gmail.com", "future", "AQAAAAIAAYagAAAAEJ71ubDtAfOUeOaz2w7siUqiI6cwXDTzYXdVWr7CkWHvWnzX47cTxeB3S665WIWGHg==", null, false, "02111111-1111-1111-1111-111111111111", false, "future" },
+                    { new Guid("03111111-1111-1111-1111-111111111111"), 0, "young_thug_wz2fln", "fcaa3bb3-d77d-42f9-ac11-1ce791832208", "youngThug@gmail.com", false, "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698511/young_thug_wz2fln.jpg", false, null, "youngThug@gmail.com", "youngThug", "AQAAAAIAAYagAAAAEBfIveGUMuPOrv7/+zw8o4VheO1CzXuVrDaCemHeTsN4ThZqkQuehwtmOL3EFJQzVg==", null, false, "03111111-1111-1111-1111-111111111111", false, "youngThug" },
+                    { new Guid("04111111-1111-1111-1111-111111111111"), 0, "westside_gunn_vm7xf2", "3a72670d-cbb6-4608-bb5a-8962bde8e9a3", "westsideGunn@gmail.com", false, "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698510/westside_gunn_vm7xf2.jpg", false, null, "westsideGunn@gmail.com", "westsideGunn", "AQAAAAIAAYagAAAAEOmyse4Bg50sdvyUZZKAsjnb6sgRxG43+P5q62OErNFsDzFka5yiVByAWucEAsIUcQ==", null, false, "04111111-1111-1111-1111-111111111111", false, "westsideGunn" },
+                    { new Guid("05111111-1111-1111-1111-111111111111"), 0, "tyler_the_creator_i9yhnu", "333705e2-5d47-40de-92b9-de56aa4a24de", "tylerTheCreator@gmail.com", false, "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698509/tyler_the_creator_i9yhnu.jpg", false, null, "tylerTheCreator@gmail.com", "tylerTheCreator", "AQAAAAIAAYagAAAAELpe9U+fxJRziv50d0CzCMbE++5F1q+3DsI8Au7fyt/XBve4yIcFqosMZHFz01kmlA==", null, false, "05111111-1111-1111-1111-111111111111", false, "tylerTheCreator" },
+                    { new Guid("06111111-1111-1111-1111-111111111111"), 0, "destroy_lonely_hmhymx", "6a15687b-64d7-47a5-af20-5885a5cdd588", "destroyLonely@gmail.com", false, "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698502/destroy_lonely_hmhymx.jpg", false, null, "destroyLonely@gmail.com", "destroyLonely", "AQAAAAIAAYagAAAAEFw2gI0H/ta6Db3F1ANn3CAqr877zMIleKgt1eEjB+RG+7ffIAasTld56/kPG6z/Uw==", null, false, "06111111-1111-1111-1111-111111111111", false, "destroyLonely" },
+                    { new Guid("07111111-1111-1111-1111-111111111111"), 0, "joey_bada_t4ig6u", "ffe11780-b5d5-404e-ad80-4d237f42860d", "joeyBada$$@gmail.com", false, "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698505/joey_bada_t4ig6u.jpg", false, null, "joeyBada$$@gmail.com", "joeyBada$$", "AQAAAAIAAYagAAAAEKLj7Kyj57jLrvFTOQysbg0dScz/gQ2zhX3rTZAqQspSIpdIzIEJubR1Bb49HibKOg==", null, false, "07111111-1111-1111-1111-111111111111", false, "joeyBada$$" },
+                    { new Guid("08111111-1111-1111-1111-111111111111"), 0, "billie_essco_tqdmip", "354e98e3-b1da-4302-b633-21f5d4dfa4ad", "billiEssco@gmail.com", false, "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698501/billie_essco_tqdmip.jpg", false, null, "billiEssco@gmail.com", "billiEssco", "AQAAAAIAAYagAAAAELAgxYNO9FUqG53mjKlyNtOE3jS7MeyGoUV0Bih6pzbBgwDSI5LZT103eJ7rY+NRzQ==", null, false, "08111111-1111-1111-1111-111111111111", false, "billiEssco" },
+                    { new Guid("09111111-1111-1111-1111-111111111111"), 0, "lil_wayne_pqbiny", "e35d6ee5-4f19-447d-a5c2-d080a4557e5e", "lilWayne@gmail.com", false, "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698506/lil_wayne_pqbiny.jpg", false, null, "lilWayne@gmail.com", "lilWayne", "AQAAAAIAAYagAAAAEJsj1zM1EjcZeFYV74fbFuEHLj68Y3L3fcqLG9/9bXsIbT/Uf18bFGK9deiaP+Af4A==", null, false, "09111111-1111-1111-1111-111111111111", false, "lilWayne" },
+                    { new Guid("10111111-1111-1111-1111-111111111111"), 0, "homixide_gang_anf7iv", "bf3a5c29-f060-460c-a337-913c0925c043", "homixideGang@gmail.com", false, "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698504/homixide_gang_anf7iv.jpg", false, null, "homixideGang@gmail.com", "homixideGang", "AQAAAAIAAYagAAAAEG/lfmkMs2Rfjt5FpNje+zgHQxnzHoN3ASk79kdRw2/gYBRSYbXsoKWptV4ZgNwjzQ==", null, false, "10111111-1111-1111-1111-111111111111", false, "homixideGang" },
+                    { new Guid("11111111-1111-1111-1111-111111111111"), 0, "stasko456_hblwlq", "aad3c603-54eb-4bab-95af-930f2f37b528", "stdimov2007@gmail.com", false, "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698508/stasko456_hblwlq.jpg", false, null, "stdimov2007@gmail.com", "stasko456", "AQAAAAIAAYagAAAAEPBPARZjRbk5Q4saCyF+7FLyQb76tX8OeTPzOjZ0ZRSamPsUUnM0wXiW6l//EbKBOA==", null, false, "11111111-1111-1111-1111-111111111111", false, "stasko456" },
+                    { new Guid("12111111-1111-1111-1111-111111111111"), 0, "simon333_fafgdv", "324c9834-5418-4e3b-9f04-dbb9463cfeca", "simon2403e8@gmail.com", false, "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698508/simon333_fafgdv.jpg", false, null, "simon2403e8@gmail.com", "simon333", "AQAAAAIAAYagAAAAEDD20RLSKz0QBIf6csDN9Fp7HjXKWrhSE1mXwhBvsjPaYcfgLfh0Et94EQYv4L/zFQ==", null, false, "12111111-1111-1111-1111-111111111111", false, "simon333" },
+                    { new Guid("13111111-1111-1111-1111-111111111111"), 0, "n_peew07_yoj6ay", "a277199b-5948-4ec2-be9e-8a2201c9e029", "nikolaPeew@gmail.com", false, "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698507/n_peew07_yoj6ay.jpg", false, null, "nikolaPeew@gmail.com", "n_peew07", "AQAAAAIAAYagAAAAEFu+MSwLhaAjRyfZhz3JO/qwa66Rovvm71cbGBtDjcGLK95KAfIORS9m2AmRnJ7aXA==", null, false, "13111111-1111-1111-1111-111111111111", false, "n_peew07" },
+                    { new Guid("14111111-1111-1111-1111-111111111111"), 0, "gt_baby_gdk5le", "a1559e2c-4183-4bb9-91f4-ff126fbcdf4d", "gtonev@gmail.com", false, "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698503/gt_baby_gdk5le.jpg", false, null, "gtonev@gmail.com", "g_tonev", "AQAAAAIAAYagAAAAEJfij9g1pS2jBijuGEKSolD2+xcpRIKHqDkUqjpxtqHLLA8doNvW8srgXBurma521A==", null, false, "14111111-1111-1111-1111-111111111111", false, "g_tonev" },
+                    { new Guid("15111111-1111-1111-1111-111111111111"), 0, "adasha_quhjni", "47e973c8-0564-4381-ba23-202c3ca2fa96", "nikolaGragov@gmail.com", false, "https://res.cloudinary.com/stasko456cloud/image/upload/v1773127136/adasha_quhjni.png", false, null, "nikolaGragov@gmail.com", "niksy_g", "AQAAAAIAAYagAAAAEIpMT+c1YoExrddh0sBPyEGWavA0o4eqnMZKAuxfCdNUBoBodqvYjwT72PlpDfV0vg==", null, false, "15111111-1111-1111-1111-111111111111", false, "niksy_g" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Genres",
-                columns: new[] { "Id", "Name" },
+                columns: new[] { "Id", "Name", "Status" },
                 values: new object[,]
                 {
-                    { new Guid("11111111-1111-1111-1111-111111111111"), "Hip-Hop" },
-                    { new Guid("21111111-1111-1111-1111-111111111111"), "Mumble Rap" },
-                    { new Guid("31111111-1111-1111-1111-111111111111"), "Trap" },
-                    { new Guid("41111111-1111-1111-1111-111111111111"), "Hypertrap" },
-                    { new Guid("51111111-1111-1111-1111-111111111111"), "Boom Bap" }
+                    { new Guid("10111111-1111-1111-1111-111111111111"), "Rock", 3 },
+                    { new Guid("11011111-1111-1111-1111-111111111111"), "Metal", 3 },
+                    { new Guid("11111111-1111-1111-1111-111111111111"), "Hip-Hop", 1 },
+                    { new Guid("12111111-1111-1111-1111-111111111111"), "Indie Pop", 3 },
+                    { new Guid("13111111-1111-1111-1111-111111111111"), "Country", 3 },
+                    { new Guid("14111111-1111-1111-1111-111111111111"), "Soul", 1 },
+                    { new Guid("15111111-1111-1111-1111-111111111111"), "Opera", 1 },
+                    { new Guid("16111111-1111-1111-1111-111111111111"), "Lo-fi", 1 },
+                    { new Guid("21111111-1111-1111-1111-111111111111"), "Mumble Rap", 1 },
+                    { new Guid("31111111-1111-1111-1111-111111111111"), "Trap", 1 },
+                    { new Guid("41111111-1111-1111-1111-111111111111"), "Hypertrap", 1 },
+                    { new Guid("51111111-1111-1111-1111-111111111111"), "Boom Bap", 1 },
+                    { new Guid("61111111-1111-1111-1111-111111111111"), "House", 1 },
+                    { new Guid("71111111-1111-1111-1111-111111111111"), "Jazz", 3 },
+                    { new Guid("81111111-1111-1111-1111-111111111111"), "Pop", 3 },
+                    { new Guid("91111111-1111-1111-1111-111111111111"), "Pop-Folk", 3 }
                 });
 
             migrationBuilder.InsertData(
@@ -431,12 +440,12 @@ namespace StaskoFy.DataAccess.Migrations
 
             migrationBuilder.InsertData(
                 table: "Playlists",
-                columns: new[] { "Id", "CloudinaryPublicId", "DateCreated", "ImageURL", "IsPublic", "Length", "SongCount", "Title", "UserId" },
+                columns: new[] { "Id", "CloudinaryPublicId", "DateCreated", "ImageURL", "IsPublic", "Length", "Title", "UserId" },
                 values: new object[,]
                 {
-                    { new Guid("11111111-1111-1111-1111-111111111111"), "hip-hop-trap-filmar_n5y3kx", new DateOnly(2024, 12, 4), "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698406/hip-hop-trap-filmar_n5y3kx.jpg", true, new TimeSpan(0, 0, 16, 59, 0), 6, "Hip-Hop & Trap Filmar", new Guid("01111111-1111-1111-1111-111111111111") },
-                    { new Guid("21111111-1111-1111-1111-111111111111"), "opium_filmar_ntgsib", new DateOnly(2024, 12, 10), "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698406/opium_filmar_ntgsib.jpg", true, new TimeSpan(0, 0, 19, 9, 0), 7, "00PIUM Filmar", new Guid("02111111-1111-1111-1111-111111111111") },
-                    { new Guid("31111111-1111-1111-1111-111111111111"), "mnooo_cherno_zrfd5j", new DateOnly(2022, 6, 27), "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698405/mnooo_cherno_zrfd5j.jpg", false, new TimeSpan(0, 0, 22, 29, 0), 8, "Mnooo Cherno", new Guid("03111111-1111-1111-1111-111111111111") }
+                    { new Guid("11111111-1111-1111-1111-111111111111"), "hip-hop-trap-filmar_n5y3kx", new DateOnly(2024, 12, 4), "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698406/hip-hop-trap-filmar_n5y3kx.jpg", true, new TimeSpan(0, 0, 16, 59, 0), "Hip-Hop & Trap Filmar", new Guid("01111111-1111-1111-1111-111111111111") },
+                    { new Guid("21111111-1111-1111-1111-111111111111"), "opium_filmar_ntgsib", new DateOnly(2024, 12, 10), "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698406/opium_filmar_ntgsib.jpg", true, new TimeSpan(0, 0, 19, 9, 0), "00PIUM Filmar", new Guid("02111111-1111-1111-1111-111111111111") },
+                    { new Guid("31111111-1111-1111-1111-111111111111"), "mnooo_cherno_zrfd5j", new DateOnly(2022, 6, 27), "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698405/mnooo_cherno_zrfd5j.jpg", false, new TimeSpan(0, 0, 22, 29, 0), "Mnooo Cherno", new Guid("03111111-1111-1111-1111-111111111111") }
                 });
 
             migrationBuilder.InsertData(
@@ -476,7 +485,13 @@ namespace StaskoFy.DataAccess.Migrations
                     { new Guid("30111111-1111-1111-1111-111111111111"), null, "", new Guid("41111111-1111-1111-1111-111111111111"), "/images/defaults/default-song-cover-art.png", new TimeSpan(0, 0, 1, 45, 0), 55883, new DateOnly(2025, 4, 11), 1, "Money Spread" },
                     { new Guid("31111111-1111-1111-1111-111111111111"), null, "", new Guid("41111111-1111-1111-1111-111111111111"), "/images/defaults/default-song-cover-art.png", new TimeSpan(0, 0, 2, 30, 0), 4444678, new DateOnly(2025, 4, 11), 1, "Trap Jump" },
                     { new Guid("32111111-1111-1111-1111-111111111111"), null, "", new Guid("41111111-1111-1111-1111-111111111111"), "/images/defaults/default-song-cover-art.png", new TimeSpan(0, 0, 3, 50, 0), 123876, new DateOnly(2025, 4, 11), 1, "Blakk Rokkstar" },
-                    { new Guid("33111111-1111-1111-1111-111111111111"), null, "", new Guid("41111111-1111-1111-1111-111111111111"), "/images/defaults/default-song-cover-art.png", new TimeSpan(0, 0, 3, 10, 0), 56834, new DateOnly(2025, 4, 11), 1, "LiveLeak" }
+                    { new Guid("33111111-1111-1111-1111-111111111111"), null, "", new Guid("41111111-1111-1111-1111-111111111111"), "/images/defaults/default-song-cover-art.png", new TimeSpan(0, 0, 3, 10, 0), 56834, new DateOnly(2025, 4, 11), 1, "LiveLeak" },
+                    { new Guid("34111111-1111-1111-1111-111111111111"), new Guid("61111111-1111-1111-1111-111111111111"), "broken_hearts_3_xm79ww", new Guid("11111111-1111-1111-1111-111111111111"), "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698280/broken_hearts_3_xm79ww.jpg", new TimeSpan(0, 0, 3, 0, 0), 478346, new DateOnly(2025, 9, 22), 1, "risk" },
+                    { new Guid("35111111-1111-1111-1111-111111111111"), new Guid("61111111-1111-1111-1111-111111111111"), "broken_hearts_3_xm79ww", new Guid("11111111-1111-1111-1111-111111111111"), "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698280/broken_hearts_3_xm79ww.jpg", new TimeSpan(0, 0, 2, 18, 0), 999, new DateOnly(2025, 9, 22), 1, "no presure" },
+                    { new Guid("36111111-1111-1111-1111-111111111111"), new Guid("61111111-1111-1111-1111-111111111111"), "broken_hearts_3_xm79ww", new Guid("11111111-1111-1111-1111-111111111111"), "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698280/broken_hearts_3_xm79ww.jpg", new TimeSpan(0, 0, 3, 21, 0), 346651, new DateOnly(2025, 9, 22), 1, "stfu" },
+                    { new Guid("37111111-1111-1111-1111-111111111111"), new Guid("61111111-1111-1111-1111-111111111111"), "broken_hearts_3_xm79ww", new Guid("11111111-1111-1111-1111-111111111111"), "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698280/broken_hearts_3_xm79ww.jpg", new TimeSpan(0, 0, 2, 17, 0), 54116, new DateOnly(2025, 9, 22), 1, "jumanji" },
+                    { new Guid("38111111-1111-1111-1111-111111111111"), new Guid("61111111-1111-1111-1111-111111111111"), "broken_hearts_3_xm79ww", new Guid("11111111-1111-1111-1111-111111111111"), "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698280/broken_hearts_3_xm79ww.jpg", new TimeSpan(0, 0, 2, 25, 0), 54116, new DateOnly(2025, 9, 22), 1, "not the mayor" },
+                    { new Guid("39111111-1111-1111-1111-111111111111"), new Guid("61111111-1111-1111-1111-111111111111"), "broken_hearts_3_xm79ww", new Guid("11111111-1111-1111-1111-111111111111"), "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698280/broken_hearts_3_xm79ww.jpg", new TimeSpan(0, 0, 3, 51, 0), 1222, new DateOnly(2025, 9, 22), 1, "soooo high" }
                 });
 
             migrationBuilder.InsertData(
@@ -489,7 +504,8 @@ namespace StaskoFy.DataAccess.Migrations
                     { new Guid("21111111-1111-1111-1111-111111111111"), new Guid("21111111-1111-1111-1111-111111111111") },
                     { new Guid("21111111-1111-1111-1111-111111111111"), new Guid("31111111-1111-1111-1111-111111111111") },
                     { new Guid("31111111-1111-1111-1111-111111111111"), new Guid("41111111-1111-1111-1111-111111111111") },
-                    { new Guid("41111111-1111-1111-1111-111111111111"), new Guid("51111111-1111-1111-1111-111111111111") }
+                    { new Guid("41111111-1111-1111-1111-111111111111"), new Guid("51111111-1111-1111-1111-111111111111") },
+                    { new Guid("61111111-1111-1111-1111-111111111111"), new Guid("61111111-1111-1111-1111-111111111111") }
                 });
 
             migrationBuilder.InsertData(
@@ -536,6 +552,12 @@ namespace StaskoFy.DataAccess.Migrations
                     { new Guid("61111111-1111-1111-1111-111111111111"), new Guid("22111111-1111-1111-1111-111111111111") },
                     { new Guid("61111111-1111-1111-1111-111111111111"), new Guid("23111111-1111-1111-1111-111111111111") },
                     { new Guid("61111111-1111-1111-1111-111111111111"), new Guid("25111111-1111-1111-1111-111111111111") },
+                    { new Guid("61111111-1111-1111-1111-111111111111"), new Guid("34111111-1111-1111-1111-111111111111") },
+                    { new Guid("61111111-1111-1111-1111-111111111111"), new Guid("35111111-1111-1111-1111-111111111111") },
+                    { new Guid("61111111-1111-1111-1111-111111111111"), new Guid("36111111-1111-1111-1111-111111111111") },
+                    { new Guid("61111111-1111-1111-1111-111111111111"), new Guid("37111111-1111-1111-1111-111111111111") },
+                    { new Guid("61111111-1111-1111-1111-111111111111"), new Guid("38111111-1111-1111-1111-111111111111") },
+                    { new Guid("61111111-1111-1111-1111-111111111111"), new Guid("39111111-1111-1111-1111-111111111111") },
                     { new Guid("71111111-1111-1111-1111-111111111111"), new Guid("13111111-1111-1111-1111-111111111111") },
                     { new Guid("81111111-1111-1111-1111-111111111111"), new Guid("13111111-1111-1111-1111-111111111111") },
                     { new Guid("91111111-1111-1111-1111-111111111111"), new Guid("16111111-1111-1111-1111-111111111111") },

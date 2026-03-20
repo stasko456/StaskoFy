@@ -47,7 +47,7 @@ namespace StaskoFy.Core.Service
                     Hours = p.Length.Hours,
                     Minutes = p.Length.Minutes,
                     Seconds = p.Length.Seconds,
-                    SongCount = p.SongCount,
+                    SongCount = p.PlaylistsSongs.Where(ps => ps.PlaylistId == p.Id).Count(),
                     DateCreated = p.DateCreated,
                     ImageURL = p.ImageURL,
                     IsPublic = p.IsPublic,
@@ -65,7 +65,7 @@ namespace StaskoFy.Core.Service
                 Hours = p.Length.Hours,
                 Minutes = p.Length.Minutes,
                 Seconds = p.Length.Seconds,
-                SongCount = p.SongCount,
+                SongCount = p.PlaylistsSongs.Where(ps => ps.PlaylistId == p.Id).Count(),
                 DateCreated = p.DateCreated,
                 ImageURL = p.ImageURL,
                 IsPublic = p.IsPublic,
@@ -84,7 +84,7 @@ namespace StaskoFy.Core.Service
                     Hours = p.Length.Hours,
                     Minutes = p.Length.Minutes,
                     Seconds = p.Length.Seconds,
-                    SongCount = p.SongCount,
+                    SongCount = p.PlaylistsSongs.Where(ps => ps.PlaylistId == p.Id).Count(),
                     DateCreated = p.DateCreated,
                     ImageURL = p.ImageURL,
                     Songs = p.PlaylistsSongs.Select(s => new SongPlaylistIndexViewModel
@@ -146,9 +146,6 @@ namespace StaskoFy.Core.Service
                 });
             }
 
-            // add songCount
-            playlist.SongCount = playlistSongs.Count();
-
             // add length
             TimeSpan playlistLength = TimeSpan.Zero;
             foreach (var song in playlistSongs)
@@ -205,7 +202,6 @@ namespace StaskoFy.Core.Service
                         Song = song,
                         DateAdded = DateOnly.FromDateTime(DateTime.Now)
                     });
-                    playlist.SongCount++;
                 }
 
                 // update playlist length
@@ -257,7 +253,6 @@ namespace StaskoFy.Core.Service
             };
 
             var playlist = await playlistRepo.GetByIdAsync(playlistId);
-            playlist.SongCount++;
 
             var song = await songRepo.GetByIdAsync(songId);
             playlist.Length = playlist.Length + song.Length;
@@ -276,7 +271,6 @@ namespace StaskoFy.Core.Service
             }
 
             var playlist = await playlistRepo.GetByIdAsync(playlistId);
-            playlist.SongCount--;
 
             var song = await songRepo.GetByIdAsync(songId);
             playlist.Length = playlist.Length - song.Length;

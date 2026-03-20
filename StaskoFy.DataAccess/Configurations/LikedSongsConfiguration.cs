@@ -13,7 +13,7 @@ namespace StaskoFy.DataAccess.Configurations
     {
         public void Configure(EntityTypeBuilder<LikedSongs> builder)
         {
-            // stasko456's Liked Songs:
+            // kenCarson's Liked Songs:
             builder.HasData(
                 new LikedSongs
                 {
@@ -51,7 +51,7 @@ namespace StaskoFy.DataAccess.Configurations
                     DateAdded = new DateOnly(2025, 1, 30)
                 },
 
-                //simon333's Liked Songs:
+                //future's Liked Songs:
                 new LikedSongs
                 {
                     Id = Guid.Parse("06111111-1111-1111-1111-111111111111"),
@@ -95,7 +95,7 @@ namespace StaskoFy.DataAccess.Configurations
                     DateAdded = new DateOnly(2024, 9, 16)
                 },
 
-                //n_peev07's Liked Songs:
+                //youngThug's Liked Songs:
                 new LikedSongs
                 {
                     Id = Guid.Parse("12111111-1111-1111-1111-111111111111"),

@@ -117,5 +117,18 @@ namespace StaskoFy.Controllers
             await genreService.RemoveGenreAsync(id);
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        [Authorize(Policy = "Admin")]
+        public async Task<IActionResult> AcceptGenreUpload(Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                return BadRequest();
+            }
+
+            await genreService.AcceptGenreUploadAsync(id);
+            return RedirectToAction("Index");
+        }
     }
 }

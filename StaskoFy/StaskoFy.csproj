@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\images\app-icons\**" />
+    <Content Remove="wwwroot\images\app-icons\**" />
+    <EmbeddedResource Remove="wwwroot\images\app-icons\**" />
+    <None Remove="wwwroot\images\app-icons\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AWSSDK.Core" Version="4.0.3.14" />
     <PackageReference Include="CloudinaryDotNet" Version="1.28.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
@@ -24,10 +31,6 @@
     <ProjectReference Include="..\StaskoFy.Core\StaskoFy.Core.csproj" />
     <ProjectReference Include="..\StaskoFy.Models\StaskoFy.Models.csproj" />
     <ProjectReference Include="..\StaskoFy.ViewModels\StaskoFy.ViewModels.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\images\app-icons\" />
   </ItemGroup>
 
 </Project>

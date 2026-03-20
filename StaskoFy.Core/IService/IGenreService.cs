@@ -22,5 +22,9 @@ namespace StaskoFy.Core.IService
         Task<int> GetTotalPagesAsync(int pageSize = 5);
 
         Task<IEnumerable<GenreIndexViewModel>> FilterGenresAsync(string name, int pageNumber = 1, int pageSize = 5);
+
+        Task<IEnumerable<GenreApprovalViewModel>> GetDeletedGenresAsync();
+
+        Task AcceptGenreUploadAsync(Guid id);
     }
 }

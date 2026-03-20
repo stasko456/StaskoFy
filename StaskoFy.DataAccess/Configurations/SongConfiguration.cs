@@ -29,7 +29,6 @@ namespace StaskoFy.DataAccess.Configurations
                 CloudinaryPublicId = "a_great_chaos_deluxe_d2vxhf",
                 Status = UploadStatus.Approved
             },
-            // https://res.cloudinary.com/stasko456cloud/image/upload/v1772698280/a_great_chaos_deluxe_d2vxhf.jpg
             new Song
             {
                 Id = Guid.Parse("02111111-1111-1111-1111-111111111111"),
@@ -456,6 +455,85 @@ namespace StaskoFy.DataAccess.Configurations
                 GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698284/xtended_wemgwk.jpg",
                 CloudinaryPublicId = "xtended_wemgwk",
+                Status = UploadStatus.Approved
+            },
+            // ᐸ/3³
+            new Song
+            {
+                Id = Guid.Parse("34111111-1111-1111-1111-111111111111"),
+                Title = "risk",
+                Length = new TimeSpan(0, 3, 0),
+                ReleaseDate = new DateOnly(2025, 9, 22),
+                AlbumId = Guid.Parse("61111111-1111-1111-1111-111111111111"),
+                Likes = 478346,
+                GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
+                ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698280/broken_hearts_3_xm79ww.jpg",
+                CloudinaryPublicId = "broken_hearts_3_xm79ww",
+                Status = UploadStatus.Approved
+            },
+            new Song
+            {
+                Id = Guid.Parse("35111111-1111-1111-1111-111111111111"),
+                Title = "no presure",
+                Length = new TimeSpan(0, 2, 18),
+                ReleaseDate = new DateOnly(2025, 9, 22),
+                AlbumId = Guid.Parse("61111111-1111-1111-1111-111111111111"),
+                Likes = 999,
+                GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
+                ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698280/broken_hearts_3_xm79ww.jpg",
+                CloudinaryPublicId = "broken_hearts_3_xm79ww",
+                Status = UploadStatus.Approved
+            },
+            new Song
+            {
+                Id = Guid.Parse("36111111-1111-1111-1111-111111111111"),
+                Title = "stfu",
+                Length = new TimeSpan(0, 3, 21),
+                ReleaseDate = new DateOnly(2025, 9, 22),
+                AlbumId = Guid.Parse("61111111-1111-1111-1111-111111111111"),
+                Likes = 346651,
+                GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
+                ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698280/broken_hearts_3_xm79ww.jpg",
+                CloudinaryPublicId = "broken_hearts_3_xm79ww",
+                Status = UploadStatus.Approved
+            },
+            new Song
+            {
+                Id = Guid.Parse("37111111-1111-1111-1111-111111111111"),
+                Title = "jumanji",
+                Length = new TimeSpan(0, 2, 17),
+                ReleaseDate = new DateOnly(2025, 9, 22),
+                AlbumId = Guid.Parse("61111111-1111-1111-1111-111111111111"),
+                Likes = 54116,
+                GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
+                ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698280/broken_hearts_3_xm79ww.jpg",
+                CloudinaryPublicId = "broken_hearts_3_xm79ww",
+                Status = UploadStatus.Approved
+            },
+            new Song
+            {
+                Id = Guid.Parse("38111111-1111-1111-1111-111111111111"),
+                Title = "not the mayor",
+                Length = new TimeSpan(0, 2, 25),
+                ReleaseDate = new DateOnly(2025, 9, 22),
+                AlbumId = Guid.Parse("61111111-1111-1111-1111-111111111111"),
+                Likes = 54116,
+                GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
+                ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698280/broken_hearts_3_xm79ww.jpg",
+                CloudinaryPublicId = "broken_hearts_3_xm79ww",
+                Status = UploadStatus.Approved
+            },
+            new Song
+            {
+                Id = Guid.Parse("39111111-1111-1111-1111-111111111111"),
+                Title = "soooo high",
+                Length = new TimeSpan(0, 3, 51),
+                ReleaseDate = new DateOnly(2025, 9, 22),
+                AlbumId = Guid.Parse("61111111-1111-1111-1111-111111111111"),
+                Likes = 1222,
+                GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
+                ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698280/broken_hearts_3_xm79ww.jpg",
+                CloudinaryPublicId = "broken_hearts_3_xm79ww",
                 Status = UploadStatus.Approved
             });
         }

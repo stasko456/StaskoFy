@@ -51,7 +51,7 @@ namespace StaskoFy.Core.Service
                     Minutes = a.Length.Minutes,
                     Seconds = a.Length.Seconds,
                     ReleaseDate = a.ReleaseDate,
-                    SongsCount = a.SongsCount,
+                    SongsCount = a.Songs.Count,
                     ImageURL = a.ImageURL,
                     Status = a.Status,
                     Artists = a.ArtistsAlbums.Select(x => x.Artist.User.UserName).ToList(),
@@ -70,7 +70,7 @@ namespace StaskoFy.Core.Service
                     Minutes = album.Length.Minutes,
                     Seconds = album.Length.Seconds,
                     ReleaseDate = album.ReleaseDate,
-                    SongsCount = album.SongsCount,
+                    SongsCount = album.Songs.Count,
                     ImageURL = album.ImageURL,
                     Artists = album.ArtistsAlbums.Select(x => x.Artist.User.UserName).ToList(),
                 })
@@ -89,7 +89,7 @@ namespace StaskoFy.Core.Service
                     Minutes = a.Length.Minutes,
                     Seconds = a.Length.Seconds,
                     ReleaseDate = a.ReleaseDate,
-                    SongsCount = a.SongsCount,
+                    SongsCount = a.Songs.Count,
                     ImageURL = a.ImageURL,
                     Artists = a.ArtistsAlbums.Select(x => x.Artist.User.UserName).ToList(),
                 }).FirstOrDefaultAsync();
@@ -108,7 +108,7 @@ namespace StaskoFy.Core.Service
                     Minutes = a.Length.Minutes,
                     Seconds = a.Length.Seconds,
                     ReleaseDate = a.ReleaseDate,
-                    SongsCount = a.SongsCount,
+                    SongsCount = a.Songs.Count,
                     ImageURL = a.ImageURL,
                     Artists = a.ArtistsAlbums.Select(x => x.Artist.User.UserName).ToList(),
                     Songs = a.Songs.Select(s => new SongAlbumIndexViewModel
@@ -206,9 +206,6 @@ namespace StaskoFy.Core.Service
                 }
             }
 
-            // update album SongCount
-            album.SongsCount = albumSongs.Count();
-
             // update album Length
             TimeSpan albumLength = TimeSpan.Zero;
             foreach (var song in albumSongs)
@@ -249,8 +246,6 @@ namespace StaskoFy.Core.Service
                 // add new songs to the album
                 albumSongs.ForEach(s => album.Songs.Add(s));
 
-                // increase songsCount
-                album.SongsCount = album.SongsCount + albumSongs.Count;
 
                 // increase length of album
                 TimeSpan albumLength = TimeSpan.Zero;
@@ -403,7 +398,7 @@ namespace StaskoFy.Core.Service
                     Minutes = album.Length.Minutes,
                     Seconds = album.Length.Seconds,
                     ReleaseDate = album.ReleaseDate,
-                    SongsCount = album.SongsCount,
+                    SongsCount = album.Songs.Count,
                     ImageURL = album.ImageURL,
                     Artists = album.ArtistsAlbums.Select(x => x.Artist.User.UserName).ToList()
                 }).Skip((pageNumber - 1) * pageSize)
@@ -432,7 +427,7 @@ namespace StaskoFy.Core.Service
                     Minutes = album.Length.Minutes,
                     Seconds = album.Length.Seconds,
                     ReleaseDate = album.ReleaseDate,
-                    SongsCount = album.SongsCount,
+                    SongsCount = album.Songs.Count,
                     ImageURL = album.ImageURL,
                     Artists = album.ArtistsAlbums.Select(x => x.Artist.User.UserName).ToList()
                 }).ToListAsync();
@@ -449,7 +444,6 @@ namespace StaskoFy.Core.Service
                 throw new KeyNotFoundException($"Song with ID {songId} is not found!");
             }
 
-            song.Album.SongsCount--;
             song.AlbumId = null;
             song.ImageURL = "/images/defaults/default-song-cover-art.png";
             song.CloudinaryPublicId = "";
@@ -488,7 +482,6 @@ namespace StaskoFy.Core.Service
             song.CloudinaryPublicId = album.CloudinaryPublicId;
 
             // update album stats
-            album.SongsCount++;
             album.Length += song.Length;
 
             await songRepo.UpdateAsync(song);

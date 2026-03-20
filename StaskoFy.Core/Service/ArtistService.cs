@@ -110,7 +110,7 @@ namespace StaskoFy.Core.Service
                         Minutes = x.Album.Length.Minutes,
                         Seconds = x.Album.Length.Seconds,
                         ReleaseDate = x.Album.ReleaseDate,
-                        SongsCount = x.Album.SongsCount,
+                        SongsCount = x.Album.Songs.Count,
                         ImageURL = x.Album.ImageURL,
                         Artists = x.Album.ArtistsAlbums.Select(x => x.Artist.User.UserName).ToList(),
                     }).ToList(),
@@ -122,7 +122,7 @@ namespace StaskoFy.Core.Service
                         Hours = pl.Length.Hours,
                         Minutes = pl.Length.Minutes,
                         Seconds = pl.Length.Seconds,
-                        SongCount = pl.SongCount,
+                        SongCount = pl.PlaylistsSongs.Where(ps => ps.PlaylistId == pl.Id).Count(),
                         DateCreated = pl.DateCreated,
                         ImageURL = pl.ImageURL,
                         IsPublic = pl.IsPublic

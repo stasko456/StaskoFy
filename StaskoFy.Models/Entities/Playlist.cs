@@ -20,9 +20,6 @@ namespace StaskoFy.Models.Entities
         // non required because I am summing the lenghts of the playlist's songs
         public TimeSpan Length { get; set; }
 
-        // non required because I am summing the songCOunt of the playlist's songs
-        public int SongCount { get; set; }
-
         // cannot be null
         public DateOnly DateCreated { get; set; }
 

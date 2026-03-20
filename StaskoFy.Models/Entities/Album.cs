@@ -24,9 +24,6 @@ namespace StaskoFy.Models.Entities
         // cannot be null
         public DateOnly ReleaseDate { get; set; }
 
-        // non required because I am calculating the count of the osngs in the album
-        public int SongsCount { get; set; }
-
         [Required]
         [MaxLength(2048)]
         public string ImageURL { get; set; } = null!;

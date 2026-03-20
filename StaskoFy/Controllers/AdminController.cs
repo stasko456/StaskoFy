@@ -9,11 +9,15 @@ namespace StaskoFy.Controllers
     {
         private readonly ISongService songService;
         private readonly IAlbumService albumService;
+        private readonly IGenreService genreService;
 
-        public AdminController(ISongService _songService, IAlbumService _albumService)
+        public AdminController(ISongService _songService,
+                               IAlbumService _albumService,
+                               IGenreService _genreService)
         {
             this.songService = _songService;
             this.albumService = _albumService;
+            this.genreService = _genreService;
         }
 
         [Authorize(Policy = "Admin")]
@@ -42,6 +46,20 @@ namespace StaskoFy.Controllers
             }
 
             return View(albums);
+        }
+
+        [Authorize(Policy = "Admin")]
+        [HttpGet]
+        public async Task<IActionResult> ManageGenresStatus()
+        {
+            var genres = await genreService.GetDeletedGenresAsync();
+
+            if (!genres.Any())
+            {
+                ViewData["NoResult"] = "No genres waiting for acception.";
+            }
+
+            return View(genres);
         }
     }
 }
