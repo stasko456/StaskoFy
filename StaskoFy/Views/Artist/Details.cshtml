@@ -14,31 +14,30 @@
              height="150"
              style="object-fit:cover;" />
 
-        <h1 class="display-4 fw-bold">
+        <h1 class="display-4 fw-bold text-warning">
             @Model.Username
         </h1>
     </div>
 
+    <hr />
+
     <!-- ===================== SINGLES ===================== -->
-    <div class="text-light">
+    <div class="text-light text-center">
         <h2 class="fw-bold mb-4">
-            <span class="text-warning">Singles and features</span>
+            @Model.Username's <span class="text-warning">Singles </span>and <span class="text-warning">Features</span>
         </h2>
     </div>
 
-    <hr />
-
-    @if (!Model.Singles.Any())
+        @if (!Model.Singles.Any())
     {
         <div class="alert alert-light border rounded-4 text-center fw-semibold shadow-sm fs-5 mb-5">
-            <i class="bi bi-search me-2 text-muted"></i>
             @ViewData["NoSingles"]
         </div>
     }
     else
     {
         <div class="container my-5">
-            <div class="row g-4 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6 mx-auto"
+            <div class="row g-4 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6 mx-auto justify-content-center"
                  style="max-width: 1200px;">
 
                 @foreach (var song in Model.Singles)
@@ -130,25 +129,24 @@
 
     <hr />
     <!-- ===================== ALBUMS ===================== -->
-    <div class="text-light">
+    <div class="text-light text-center">
         <h2 class="fw-bold mb-4">
-            <span class="text-warning">Albums</span>
+            @Model.Username's <span class="text-warning">Albums</span>
         </h2>
     </div>
 
     @if (!Model.Albums.Any())
     {
         <div class="alert alert-light border rounded-4 text-center fw-semibold shadow-sm fs-5 mb-5">
-            <i class="bi bi-search me-2 text-muted"></i>
             @ViewData["NoAlbums"]
         </div>
     }
     else
     {
-        <div class="row g-4 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
+        <div class="row g-4 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 justify-content-center">
             @foreach (var album in Model.Albums)
             {
-                <div class="col">
+                <div class="col" id="album-@album.Id">
                     <div class="card h-100 shadow-sm">
                         <div class="card-img-top overflow-hidden" style="aspect-ratio: 1 / 1;">
                             <a asp-controller="Album" asp-action="Details" asp-route-id="@album.Id">
@@ -173,8 +171,12 @@
                             @if (User.IsInRole("Admin"))
                             {
                                 <form asp-controller="Album" asp-action="Delete" method="post" asp-route-id="@album.Id">
-                                    <button class="btn btn-outline-danger btn-sm w-100 py-1" style="border-radius: 6px;">
-                                        Delete
+                                    <input type="hidden" name="returnUrl" value="@Context.Request.Path@Context.Request.QueryString#album-@album.Id" />
+                                    <button class="btn btn-outline-danger btn-sm w-100 py-1" style="border-radius: 6px;"
+                                            onclick="return confirm('Are you sure you want to delete this song?');">
+                                        <svg viewBox="0 0 448 512" width="15" height="15" class="me-2">
+                                            <path fill="currentColor" d="M136.7 5.9L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-8.7-26.1C306.9-7.2 294.7-16 280.9-16L167.1-16c-13.8 0-26 8.8-30.4 21.9zM416 144L32 144 53.1 467.1C54.7 492.4 75.7 512 101 512L347 512c25.3 0 46.3-19.6 47.9-44.9L416 144z" />
+                                        </svg>Delete
                                     </button>
                                 </form>
                             }
@@ -187,22 +189,21 @@
 
     <hr />
     <!-- ===================== PLAYLISTS ===================== -->
-    <div class="text-light">
+    <div class="text-light text-center">
         <h2 class="fw-bold mb-4">
-            <span class="text-warning">Playlists</span>
+            @Model.Username's <span class="text-warning">Playlists</span>
         </h2>
     </div>
 
     @if (!Model.Playlists.Any())
     {
         <div class="alert alert-light border rounded-4 text-center fw-semibold shadow-sm fs-5 mb-5">
-            <i class="bi bi-search me-2 text-muted"></i>
             @ViewData["NoPlaylists"]
         </div>
     }
     else
     {
-        <div class="row g-4 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
+        <div class="row g-4 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 justify-content-center">
             @foreach (var playlist in Model.Playlists)
             {
                 <div class="col">
@@ -218,7 +219,6 @@
                             <p class="card-text mb-1"><svg viewBox="0 0 640 640" width="30" height="30" class="me-2"><path fill="rgb(255, 255, 255)" d="M528 320C528 434.9 434.9 528 320 528C205.1 528 112 434.9 112 320C112 205.1 205.1 112 320 112C434.9 112 528 205.1 528 320zM64 320C64 461.4 178.6 576 320 576C461.4 576 576 461.4 576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320zM296 184L296 320C296 328 300 335.5 306.7 340L402.7 404C413.7 411.4 428.6 408.4 436 397.3C443.4 386.2 440.4 371.4 429.3 364L344 307.2L344 184C344 170.7 333.3 160 320 160C306.7 160 296 170.7 296 184z" /></svg><strong>Length:</strong> @playlist.Hours:@playlist.Minutes.ToString("D2"):@playlist.Seconds.ToString("D2")</p>
                             <p class="card-text mb-1"><svg viewBox="0 0 640 640" width="30" height="30" class="me-2"><path fill="rgb(255, 255, 255)" d="M216 64C229.3 64 240 74.7 240 88L240 128L400 128L400 88C400 74.7 410.7 64 424 64C437.3 64 448 74.7 448 88L448 128L480 128C515.3 128 544 156.7 544 192L544 480C544 515.3 515.3 544 480 544L160 544C124.7 544 96 515.3 96 480L96 192C96 156.7 124.7 128 160 128L192 128L192 88C192 74.7 202.7 64 216 64zM216 176L160 176C151.2 176 144 183.2 144 192L144 240L496 240L496 192C496 183.2 488.8 176 480 176L216 176zM144 288L144 480C144 488.8 151.2 496 160 496L480 496C488.8 496 496 488.8 496 480L496 288L144 288z" /></svg><strong>Date Created:</strong> @playlist.DateCreated.ToString("dd MMM yyyy")</p>
                             <p class="card-text mb-1"><svg viewBox="0 0 640 640" width="30" height="30" class="me-2"><path fill="rgb(255, 255, 255)" d="M532 71C539.6 77.1 544 86.3 544 96L544 400C544 444.2 501 480 448 480C395 480 352 444.2 352 400C352 355.8 395 320 448 320C459.2 320 470 321.6 480 324.6L480 207.9L256 257.7L256 464C256 508.2 213 544 160 544C107 544 64 508.2 64 464C64 419.8 107 384 160 384C171.2 384 182 385.6 192 388.6L192 160C192 145 202.4 132 217.1 128.8L505.1 64.8C514.6 62.7 524.5 65 532.1 71.1z" /></svg><strong>Songs Count:</strong> @playlist.SongCount</p>
-                            <p class="card-text mb-1"><svg viewBox="0 0 640 640" width="30" height="30" class="me-2"><path fill="rgb(255, 255, 255)" d="M320 576C178.6 576 64 461.4 64 320C64 178.6 178.6 64 320 64C461.4 64 576 178.6 576 320C576 461.4 461.4 576 320 576zM320 112C205.1 112 112 205.1 112 320C112 434.9 205.1 528 320 528C434.9 528 528 434.9 528 320C528 205.1 434.9 112 320 112zM390.7 233.9C398.5 223.2 413.5 220.8 424.2 228.6C434.9 236.4 437.3 251.4 429.5 262.1L307.4 430.1C303.3 435.8 296.9 439.4 289.9 439.9C282.9 440.4 276 437.9 271.1 433L215.2 377.1C205.8 367.7 205.8 352.5 215.2 343.2C224.6 333.9 239.8 333.8 249.1 343.2L285.1 379.2L390.7 234z" /></svg><strong>Is Public:</strong> @playlist.IsPublic</p>
                         </div>
                     </div>
                 </div>

@@ -9,7 +9,7 @@
     <div class="container py-5">
         <div class="text-center text-light">
             <h1 class="display-4 fw-bold mb-3">
-                My <span class="text-warning"> Music Projects</span>
+                Your <span class="text-warning"> Music Projects</span>
             </h1>
             <p class="text-muted">Explore your projects and make new ones</p>
         </div>
@@ -30,9 +30,9 @@
 </div>
 
     <hr />
-    <div class="text-light">
+    <div class="text-light text-center">
         <h4 class="display-4 fw-bold mb-3">
-            My <span class="text-warning">Singles</span>
+            Your <span class="text-warning">Singles</span>
         </h4>
     </div>
 
@@ -46,7 +46,7 @@
     else
     {
         <div class="container my-5">
-            <div class="row g-4 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6 mx-auto"
+            <div class="row g-4 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6 mx-auto justify-content-center"
                  style="max-width: 1200px;">
 
                 @foreach (var song in Model.Singles)
@@ -150,9 +150,9 @@
     }
 
     <hr />
-    <div class="text-light">
+    <div class="text-light text-center">
         <h4 class="display-4 fw-bold mb-3">
-            My <span class="text-warning">Albums</span>
+            Your <span class="text-warning">Albums</span>
         </h4>
     </div>
 
@@ -165,7 +165,7 @@
     }
     else
     {
-        <div class="row g-4 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
+        <div class="row g-4 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 justify-content-center">
             @foreach (var album in Model.Albums)
             {
                 <div class="col" id="album-@album.Id">

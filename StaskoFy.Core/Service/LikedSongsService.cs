@@ -1,7 +1,9 @@
 ﻿using DocumentFormat.OpenXml.Office2010.Excel;
+using DocumentFormat.OpenXml.Office2016.Excel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Microsoft.Extensions.DependencyInjection;
 using StaskoFy.Core.IService;
 using StaskoFy.DataAccess.Repository;
 using StaskoFy.Models.Entities;
@@ -29,38 +31,41 @@ namespace StaskoFy.Core.Service
             this.songRepo = _songRepo;
         }
 
-        public async Task<LikedSongsPageViewModel?> GetLikedSongsFromCurrentLoggedUserAsync(Guid userId)
+        public async Task<int> GetTotalPagesAsync(Guid userId, int pageSize = 5)
         {
-            var likedSongs = await likedSongsRepo.GetAllAttached()
-            .Where(x => x.UserId == userId && x.Song.Status == UploadStatus.Approved)
-            .Include(x => x.Song)
-                .ThenInclude(s => s.Album)
-            .Include(x => x.Song)
-                .ThenInclude(s => s.ArtistsSongs)
-                    .ThenInclude(a => a.Artist)
-                        .ThenInclude(ar => ar.User)
-            .ToListAsync();
+            var totalLikedSongs = await likedSongsRepo
+                .GetAllAttached()
+                .Where(ls => ls.Song.Status == UploadStatus.Approved && ls.UserId == userId)
+                .CountAsync();
 
-            var totalLength = TimeSpan.FromTicks(
-                likedSongs.Sum(x => x.Song.Length.Ticks));
+            return (int)Math.Ceiling(totalLikedSongs / (double)pageSize);
+        }
 
-            return new LikedSongsPageViewModel
+        public async Task<IEnumerable<LikedSongsIndexViewModel>> GetLikedSongsFromCurrentLoggedUserAsync(Guid userId, string name, int pageNumber = 1, int pageSize = 5)
+        {
+            var query = likedSongsRepo.GetAllAttached()
+                .Where(ls => ls.UserId == userId && ls.Song.Status == UploadStatus.Approved);
+
+            if (!string.IsNullOrEmpty(name))
             {
-                SongsCount = likedSongs.Count,
-                Length = totalLength,
-                LikedSongs = likedSongs.Select(x => new LikedSongsIndexViewModel
+                query = query.Where(s => EF.Functions.Like(s.Song.Title, $"%{name}%"));
+            }
+
+            return await query
+                .Select(ls => new LikedSongsIndexViewModel
                 {
-                    Id = x.Id,
-                    SongId = x.SongId,
-                    Title = x.Song.Title,
-                    AlbumTitle = x.Song.Album == null ? "Single" : x.Song.Album.Title,
-                    Minutes = x.Song.Length.Minutes,
-                    Seconds = x.Song.Length.Seconds,
-                    ImageUrl = x.Song.ImageURL,
-                    DateAdded = x.DateAdded,
-                    Artists = x.Song.ArtistsSongs.Select(a => a.Artist.User.UserName).ToList()
-                }).ToList()
-            };
+                    Id = ls.Id,
+                    SongId = ls.SongId,
+                    Title = ls.Song.Title,
+                    AlbumTitle = ls.Song.Album == null ? "Single" : ls.Song.Album.Title,
+                    Minutes = ls.Song.Length.Minutes,
+                    Seconds = ls.Song.Length.Seconds,
+                    ImageUrl = ls.Song.ImageURL,
+                    DateAdded = ls.DateAdded,
+                    Artists = ls.Song.ArtistsSongs.Select(a => a.Artist.User.UserName).ToList()
+                }).Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
         }
 
         public async Task<LikedSongsIndexViewModel?> GetLikedSongByIdAsync(Guid id)
@@ -140,6 +145,22 @@ namespace StaskoFy.Core.Service
             return likedSongsRepo.GetAllAttached()
                 .Where(ls => ls.UserId == userId)
                 .CountAsync();
+        }
+
+        public async Task<TimeSpan> GetLengthOfLikedSongsByCurrentLoggedUserAsync(Guid userId)
+        {
+            var songs = likedSongsRepo.GetAllAttached()
+            .Include(ls => ls.Song)
+            .Where(ls => ls.UserId == userId);
+
+            var totalDuration = new TimeSpan(0,0,0);
+
+            foreach (var song in songs)
+            {
+                totalDuration = totalDuration + song.Song.Length;
+            }
+
+            return totalDuration;
         }
     }
 }

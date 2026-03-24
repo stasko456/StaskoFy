@@ -1,16 +1,19 @@
 ﻿using StaskoFy.ViewModels.LikedSongs;
-using StaskoFy.ViewModels.Playlist;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StaskoFy.ViewModels.Library
+namespace StaskoFy.ViewModels.Pagination
 {
-    public class LibraryViewModel
+    public class LikedSongsPaginationViewModel
     {
-        public List<PlaylistIndexViewModel> Playlists { get; set; } = new();
+        public List<LikedSongsIndexViewModel> LikedSongs { get; set; } = new();
+
+        public int CurrentPage { get; set; }
+
+        public int TotalPages { get; set; }
 
         public int LikedSongsCount { get; set; }
 

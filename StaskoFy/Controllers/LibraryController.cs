@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Routing;
 using StaskoFy.Core.IService;
 using StaskoFy.Models.Entities;
 using StaskoFy.ViewModels.Album;
@@ -36,12 +37,16 @@ namespace StaskoFy.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             var playlists = await playlistService.GetPlaylistsFromCurrentLoggedUserAsync(Guid.Parse(userId));
-            var likedSongs = await likedSongsService.GetLikedSongsFromCurrentLoggedUserAsync(Guid.Parse(userId));
+            int likedSongsCount = await likedSongsService.GetTotalLikedSongsByCurrentLoggedUserAsync(Guid.Parse(userId));
+            TimeSpan likedSongsLength = await likedSongsService.GetLengthOfLikedSongsByCurrentLoggedUserAsync(Guid.Parse(userId));
 
             var viewModel = new LibraryViewModel
             {
-                Playlists = new List<PlaylistIndexViewModel>(playlists),
-                LikedSongs = likedSongs
+                Playlists = playlists.ToList(),
+                LikedSongsCount = likedSongsCount,
+                LikedSongsHours = likedSongsLength.Hours,
+                LikedSongsMinutes = likedSongsLength.Minutes,
+                LikedSongsSeconds = likedSongsLength.Seconds,
             };
 
             return View(viewModel);

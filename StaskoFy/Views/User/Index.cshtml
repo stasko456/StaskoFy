@@ -10,7 +10,7 @@
     </h1>
     @if (User.IsInRole("Admin"))
     {
-        <p class="text-muted">Browse all songs on the platform and <span class="text-danger">remove</span> any that <span class="text-danger">violate the rules</span>.</p>
+        <p class="text-muted">Browse all users on the platform and <span class="text-danger">remove</span> any that <span class="text-danger">violate the rules</span>.</p>
     }
     else
     {
@@ -37,7 +37,7 @@
 </div>
 
 <div class="container py-5">
-    <div class="row g-4">
+    <div class="row g-4 justify-content-center">
         @if (Model.Users.Any())
         {
             @foreach (var user in Model.Users)
@@ -45,25 +45,27 @@
                 <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                     <div class="card border-0 shadow-sm h-100 text-center artist-card">
 
-                        <img src="@(string.IsNullOrEmpty(user.ProfilePicture)
-                                    ? "/images/default-artist.png"
-                                    : user.ProfilePicture)"
-                             class="card-img-top rounded-circle mx-auto mt-4"
-                             alt="@user.Username"
-                             style="width:150px; height:150px; object-fit:cover;">
+                        <a asp-controller="User" asp-action="Details2" asp-route-id="@user.Id">
+                            <img src="@(string.IsNullOrEmpty(user.ProfilePicture)
+                                                                     ? "/images/default-artist.png"
+                                                                     : user.ProfilePicture)"
+                                 class="card-img-top rounded-circle mx-auto mt-4"
+                                 alt="@user.Username"
+                                 style="width:150px; height:150px; object-fit:cover;">
+                        </a>
 
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title mt-3 fw-bold">
                                 @user.Username
                             </h5>
 
-                            <div class="mt-auto">
+                            @* <div class="mt-auto">
                                 <a asp-controller="User" asp-action="Details2" asp-route-id="@user.Id" class="btn btn-warning btn-sm px-4">
                                     <svg viewBox="0 0 640 640" width="30" height="30" class="me-2">
                                         <path fill="rgb(0, 0, 0)" d="M320 576C461.4 576 576 461.4 576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320C64 461.4 178.6 576 320 576zM288 224C288 206.3 302.3 192 320 192C337.7 192 352 206.3 352 224C352 241.7 337.7 256 320 256C302.3 256 288 241.7 288 224zM280 288L328 288C341.3 288 352 298.7 352 312L352 400L360 400C373.3 400 384 410.7 384 424C384 437.3 373.3 448 360 448L280 448C266.7 448 256 437.3 256 424C256 410.7 266.7 400 280 400L304 400L304 336L280 336C266.7 336 256 325.3 256 312C256 298.7 266.7 288 280 288z" />
                                     </svg>View Profile
                                 </a>
-                            </div>
+                            </div> *@
                         </div>
 
                     </div>

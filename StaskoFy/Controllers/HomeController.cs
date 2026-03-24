@@ -33,6 +33,8 @@ namespace StaskoFy.Controllers
 
         public async Task<IActionResult> Index()
         {
+            ViewData["ShoeSearch"] = true;
+
             if (User.IsInRole("Admin"))
             {
                 int totalSongs = await songService.GetTotalSongsCountAsync();

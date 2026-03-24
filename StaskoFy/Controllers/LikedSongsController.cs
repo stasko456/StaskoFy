@@ -5,6 +5,7 @@ using StaskoFy.Core.IService;
 using StaskoFy.Models.Entities;
 using StaskoFy.ViewModels.Album;
 using StaskoFy.ViewModels.LikedSongs;
+using StaskoFy.ViewModels.Pagination;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -21,13 +22,28 @@ namespace StaskoFy.Controllers
 
         [HttpGet]
         [Authorize(Policy = "ArtistOrUser")]
-        public async Task<IActionResult> LikedSongsIndexForCurrentLoggedUser()
+        public async Task<IActionResult> LikedSongsIndexForCurrentLoggedUser(string name, int pageNumber = 1)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var currentUserLikedSongs = await likedSongsService.GetLikedSongsFromCurrentLoggedUserAsync(Guid.Parse(userId));
+            int pageSize = 5;
+            var currentUserLikedSongs = await likedSongsService.GetLikedSongsFromCurrentLoggedUserAsync(Guid.Parse(userId), name, pageNumber, pageSize);
+            int totalPages = await likedSongsService.GetTotalPagesAsync(Guid.Parse(userId), pageSize);
+            int likedSongsCount = await likedSongsService.GetTotalLikedSongsByCurrentLoggedUserAsync(Guid.Parse(userId));
+            TimeSpan likedSongsLength = await likedSongsService.GetLengthOfLikedSongsByCurrentLoggedUserAsync(Guid.Parse(userId));
 
-            return View(currentUserLikedSongs);
+            var viewModel = new LikedSongsPaginationViewModel
+            {
+                LikedSongs = currentUserLikedSongs.ToList(),
+                TotalPages = totalPages,
+                CurrentPage = pageNumber,
+                LikedSongsCount = likedSongsCount,
+                LikedSongsHours = likedSongsLength.Hours,
+                LikedSongsMinutes = likedSongsLength.Minutes,
+                LikedSongsSeconds = likedSongsLength.Seconds,
+            };
+
+            return View(viewModel);
         }
 
         [HttpPost]

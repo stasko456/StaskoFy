@@ -24,10 +24,10 @@ namespace StaskoFy.Controllers
 
         [Authorize(Policy = "Admin")]
         [HttpGet]
-        public async Task<IActionResult> ManageSongsStatus(string title, int pageNumber = 1)
+        public async Task<IActionResult> ManageSongsStatus(string name, int pageNumber = 1)
         {
             int pageSize = 5;
-            var songs = await songService.FilterSongsWithPendingStatusAsync(title, pageNumber, pageSize);
+            var songs = await songService.FilterSongsWithPendingStatusAsync(name, pageNumber, pageSize);
             int totalPendingSongs = await songService.GetTotalPendingPagesAsync(pageSize);
 
             var viewModel = new PendingSongsViewModel
@@ -47,10 +47,10 @@ namespace StaskoFy.Controllers
 
         [Authorize(Policy = "Admin")]
         [HttpGet]
-        public async Task<IActionResult> ManageAlbumsStatus(string title, int pageNumber = 1)
+        public async Task<IActionResult> ManageAlbumsStatus(string name, int pageNumber = 1)
         {
             int pageSize = 5;
-            var albums = await albumService.FilterAlbumsWithPendingStatusAsync(title, pageNumber, pageSize);
+            var albums = await albumService.FilterAlbumsWithPendingStatusAsync(name, pageNumber, pageSize);
             int totalPendingSongs = await songService.GetTotalPendingPagesAsync(pageSize);
 
             var viewModel = new PendingAlbumsViewModel

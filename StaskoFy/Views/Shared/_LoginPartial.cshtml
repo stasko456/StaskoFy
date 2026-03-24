@@ -8,6 +8,7 @@
     var pfp = currentLoggedUser?.ImageURL.ToString();
 }
 
+<div class="navbar-collapse collapse justify-content-end">
 <ul class="navbar-nav">
     @if (signInManager.IsSignedIn(User))
     {
@@ -35,3 +36,4 @@
         </li>
     }
 </ul>
+</div>
