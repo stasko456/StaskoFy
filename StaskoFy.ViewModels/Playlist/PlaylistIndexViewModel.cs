@@ -23,5 +23,7 @@ namespace StaskoFy.ViewModels.Playlist
         public string ImageURL { get; set; } = null!;
 
         public bool IsPublic { get; set; }
+
+        public Guid UserId { get; set; }
     }
 }

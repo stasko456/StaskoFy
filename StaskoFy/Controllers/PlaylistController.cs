@@ -8,6 +8,8 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Threading.Tasks;
 using System.Web.Razor.Generator;
+using StaskoFy.ViewModels.Pagination;
+using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace StaskoFy.Controllers
 {
@@ -121,21 +123,34 @@ namespace StaskoFy.Controllers
 
         [HttpGet]
         [Authorize(Policy = "ArtistOrUser")]
-        public async Task<IActionResult> Details(Guid id)
+        public async Task<IActionResult> Details(Guid id, string name, int pageNumber = 1)
         {
             if (id == Guid.Empty)
             {
                 return BadRequest();
             }
 
-            var playlist = await playlistService.GetPlaylistByIdWithSongsAsync(id);
+            // var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            if (playlist == null)
+            int pageSize = 5;
+            var playlistSongs = await playlistService.GetPlaylistSongsByIdAsync(id, name, pageNumber, pageSize);
+            var playlistInfo = await playlistService.GetPlaylistByIdAsync(id);
+            int totalPlaylistSongsPages = await playlistService.GetTotalPlaylistSongsPagesAsync(id, pageSize);
+
+            var viewModel = new PlaylistSongsPaginationViewModel
             {
-                return NotFound();
+                PlaylistInfo = playlistInfo,
+                Songs = playlistSongs.ToList(),
+                TotalPages = totalPlaylistSongsPages,
+                CurrentPage = pageNumber,
+            };
+
+            if (!playlistSongs.Any())
+            {
+                ViewData["NoPlaylistSongs"] = " ";
             }
 
-            return View(playlist);
+            return View(viewModel);
         }
 
         [HttpPost]

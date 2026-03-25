@@ -1,5 +1,6 @@
 ﻿using StaskoFy.ViewModels.Album;
 using StaskoFy.ViewModels.Playlist;
+using StaskoFy.ViewModels.Song;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,9 @@ namespace StaskoFy.Core.IService
 
         Task<PlaylistIndexViewModel?> GetPlaylistByIdAsync(Guid id);
 
-        Task<PlaylistSongsIndexViewModel?> GetPlaylistByIdWithSongsAsync(Guid id);
+        Task<int> GetTotalPlaylistSongsPagesAsync(Guid id, int pageSize = 5);
+
+        Task<IEnumerable<SongPlaylistIndexViewModel>> GetPlaylistSongsByIdAsync(Guid id, string name, int pageNumber = 1, int pageSize = 5);
 
         Task AddPlaylistAsync(PlaylistCreateViewModel model, Guid userId);
 

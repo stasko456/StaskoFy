@@ -51,6 +51,7 @@ namespace StaskoFy.Core.Service
                     DateCreated = p.DateCreated,
                     ImageURL = p.ImageURL,
                     IsPublic = p.IsPublic,
+                    UserId = p.UserId
                 }).ToListAsync();
         }
 
@@ -69,36 +70,44 @@ namespace StaskoFy.Core.Service
                 DateCreated = p.DateCreated,
                 ImageURL = p.ImageURL,
                 IsPublic = p.IsPublic,
+                UserId = p.UserId
             }).FirstOrDefaultAsync();
         }
 
-        public async Task<PlaylistSongsIndexViewModel?> GetPlaylistByIdWithSongsAsync(Guid id)
+        public async Task<int> GetTotalPlaylistSongsPagesAsync(Guid id, int pageSize = 5)
         {
-            return await playlistRepo.GetAllAttached()
-                .Where(p => p.Id == id)
-                .Select(p => new PlaylistSongsIndexViewModel
+            var totalPlaylistSongs = await playlistSongRepo
+                    .GetAllAttached()
+                    .Where(ps => ps.PlaylistId == id)
+                    .CountAsync();
+
+            return (int)Math.Ceiling(totalPlaylistSongs / (double)pageSize);
+        }
+
+        public async Task<IEnumerable<SongPlaylistIndexViewModel>> GetPlaylistSongsByIdAsync(Guid id, string name, int pageNumber = 1, int pageSize = 5)
+        {
+            var query = playlistSongRepo.GetAllAttached()
+                .Where(ps => ps.PlaylistId == id);
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                query = query.Where(ps => EF.Functions.Like(ps.Song.Title, $"%{name}%"));
+            }
+
+            return await query
+                .Select(ps => new SongPlaylistIndexViewModel
                 {
-                    Id = p.Id,
-                    UserId = p.UserId,
-                    Title = p.Title,
-                    Hours = p.Length.Hours,
-                    Minutes = p.Length.Minutes,
-                    Seconds = p.Length.Seconds,
-                    SongCount = p.PlaylistsSongs.Where(ps => ps.PlaylistId == p.Id).Count(),
-                    DateCreated = p.DateCreated,
-                    ImageURL = p.ImageURL,
-                    Songs = p.PlaylistsSongs.Select(s => new SongPlaylistIndexViewModel
-                    {
-                        Id = s.SongId,
-                        Title = s.Song.Title,
-                        AlbumTitle = s.Song.Album == null ? "Single" : s.Song.Album.Title,
-                        Minutes = s.Song.Length.Minutes,
-                        Seconds = s.Song.Length.Seconds,
-                        ImageUrl = s.Song.ImageURL,
-                        DateAdded = s.DateAdded,
-                        Artists = s.Song.ArtistsSongs.Select(a => a.Artist.User.UserName).ToList(),
-                    }).ToList(),
-                }).FirstOrDefaultAsync();
+                    Id = ps.SongId,
+                    Title = ps.Song.Title,
+                    AlbumTitle = ps.Song.Album == null ? "Single" : ps.Song.Album.Title,
+                    Minutes = ps.Song.Length.Minutes,
+                    Seconds = ps.Song.Length.Seconds,
+                    ImageUrl = ps.Song.ImageURL,
+                    DateAdded = ps.DateAdded,
+                    Artists = ps.Song.ArtistsSongs.Select(a => a.Artist.User.UserName).ToList(),
+                }).Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
         }
 
         public async Task AddPlaylistAsync(PlaylistCreateViewModel model, Guid userId)
