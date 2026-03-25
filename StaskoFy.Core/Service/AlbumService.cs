@@ -96,21 +96,16 @@ namespace StaskoFy.Core.Service
                 .ToListAsync();
         }
 
-        public async Task<AlbumIndexViewModel?> GetAlbumByIdAsync(Guid id)
+        public async Task<AlbumEditViewModel?> GetAlbumByIdAsync(Guid id)
         {
             return await albumRepo.GetAllAttached()
                 .Where(a => a.Id == id)
-                .Select(a => new AlbumIndexViewModel
+                .Select(a => new AlbumEditViewModel
                 {
                     Id = id,
                     Title = a.Title,
-                    Hours = a.Length.Hours,
-                    Minutes = a.Length.Minutes,
-                    Seconds = a.Length.Seconds,
                     ReleaseDate = a.ReleaseDate,
-                    SongsCount = a.Songs.Count,
-                    ImageURL = a.ImageURL,
-                    Artists = a.ArtistsAlbums.Select(x => x.Artist.User.UserName).ToList(),
+                    SelectedArtistIds = a.ArtistsAlbums.Select(sa => sa.ArtistId).ToList()
                 }).FirstOrDefaultAsync();
         }
 
@@ -242,8 +237,10 @@ namespace StaskoFy.Core.Service
             var mainArtist = await artistRepo.GetAllAttached().
                 FirstOrDefaultAsync(x => x.UserId == userId);
 
+            var selectedArtistsIds = model.SelectedArtistIds ?? new List<Guid>();
+
             var featuredArtists = await artistRepo.GetAllAttached()
-                .Where(x => model.SelectedArtistIds.Contains(x.Id))
+                .Where(x => selectedArtistsIds.Contains(x.Id))
                 .ToListAsync();
 
             var albumSongs = await songRepo.GetAllAttached()
@@ -264,7 +261,6 @@ namespace StaskoFy.Core.Service
             {
                 // add new songs to the album
                 albumSongs.ForEach(s => album.Songs.Add(s));
-
 
                 // increase length of album
                 TimeSpan albumLength = TimeSpan.Zero;
@@ -318,22 +314,19 @@ namespace StaskoFy.Core.Service
             // make status of album pending
             album.Status = UploadStatus.Pending;
 
+            // remove ArtistAlbums for this album from the DB 
+            album.ArtistsAlbums.Clear();
+
+            // add main artist to the album
+            album.ArtistsAlbums.Add(new ArtistAlbum
+            {
+                ArtistId = mainArtist.Id,
+                AlbumId = album.Id,
+            });
+
             // add featured artists to the album if any are selected
             if (featuredArtists.Count > 0)
-            {
-                // remove ArtistAlbums for this album from the DB 
-                var artistsAlbum = await artistAlbumRepo.GetAllAttached()
-                    .Where(x => x.AlbumId == album.Id)
-                    .ToListAsync();
-                await artistAlbumRepo.RemoveRangeAsync(artistsAlbum);
-
-                // add main artist to the album
-                album.ArtistsAlbums.Add(new ArtistAlbum
-                {
-                    ArtistId = mainArtist.Id,
-                    AlbumId = album.Id,
-                });
-
+            { 
                 // add featured artists to the album
                 foreach (var artist in featuredArtists)
                 {

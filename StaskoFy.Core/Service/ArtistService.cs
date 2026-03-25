@@ -75,15 +75,14 @@ namespace StaskoFy.Core.Service
             await artistRepo.RemoveAsync(artist);
         }
 
-        public async Task<IEnumerable<ArtistIndexViewModel>> PopulateArtistSelectListAsync(Guid userId)
+        public async Task<IEnumerable<ArtistSelectViewModel>> PopulateArtistSelectListAsync(Guid userId)
         {
             return await artistRepo.GetAllAttached()
                 .Where(a => a.UserId != userId)
-                .Select(x => new ArtistIndexViewModel
+                .Select(x => new ArtistSelectViewModel
                 {
                     Id = x.Id,
                     Username = x.User.UserName,
-                    ProfilePicture = x.User.ImageURL
                 }).ToListAsync();
         }
 

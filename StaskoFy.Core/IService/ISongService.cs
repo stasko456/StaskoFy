@@ -17,7 +17,7 @@ namespace StaskoFy.Core.IService
 
         Task<SongDetailsViewModel?> GetSongDetailsByIdAsync(Guid id, Guid userId);
 
-        Task<SongViewModel?> GetSongByIdAsync(Guid id); 
+        Task<SongEditViewModel?> GetSongByIdAsync(Guid id); 
 
         Task AddSongAsync(SongCreateViewModel model, Guid userId);
 

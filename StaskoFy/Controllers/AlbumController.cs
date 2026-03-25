@@ -96,26 +96,20 @@ namespace StaskoFy.Controllers
                 return BadRequest();
             }
 
-            var album = await albumService.GetAlbumByIdAsync(id);
+            var viewModel = await albumService.GetAlbumByIdAsync(id);
 
-            if (album == null)
+            if (viewModel == null)
             {
                 return NotFound();
             }
 
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var artists = await artistService.PopulateArtistSelectListAsync(Guid.Parse(userId));
+            var allArtists = await artistService.PopulateArtistSelectListAsync(Guid.Parse(userId));
+            ViewBag.AllArtists = allArtists;
+            
             var songs = await songService.SelectSinglesByCurrentLoggedArtistAsync(Guid.Parse(userId));
-
-            var viewModel = new AlbumEditViewModel
-            {
-                Id = album.Id,
-                Title = album.Title,
-                ReleaseDate = album.ReleaseDate,
-                Artists = new MultiSelectList(artists, "Id", "Username"),
-                Songs = new MultiSelectList(songs, "Id", "Title"),
-            };
+            viewModel.Songs = new MultiSelectList(songs, "Id", "Title");
 
             return View(viewModel);
         }
@@ -129,7 +123,7 @@ namespace StaskoFy.Controllers
             if (!ModelState.IsValid)
             {
                 var artists = await artistService.PopulateArtistSelectListAsync(Guid.Parse(userId));
-                viewModel.Artists = new MultiSelectList(artists, "Id", "Username");
+                viewModel.Artists = new MultiSelectList(artists, "Id", "Username", viewModel.SelectedArtistIds.AsEnumerable());
                 
                 var songs = await songService.SelectSinglesByCurrentLoggedArtistAsync(Guid.Parse(userId));
                 viewModel.Songs = new MultiSelectList(songs, "Id", "Title");

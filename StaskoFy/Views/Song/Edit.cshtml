@@ -56,26 +56,31 @@
                                     </div>
 
                                     <!-- Featured Artists -->
-                                    <div class="mb-4">
-                                        <label class="form-label fw-semibold">Featured Artists</label>
-                                        <select asp-for="SelectedArtistIds"
-                                                asp-items="Model.Artists"
-                                                multiple
-                                                class="form-select"
-                                                size="6"
-                                                data-choices
-                                                data-remove-item-button="true"
-                                                data-search-enabled="true"
-                                                data-placeholder-value="Select artists"
-                                                data-no-results-text="No artists found"
-                                                data-item-select-text="Click to select"
-                                                data-should-sort="false">
-                                        </select>
-                                    </div>
+                                    <label class="form-label fw-semibold">Featured Artists</label>
+                                    <select asp-for="SelectedArtistIds" 
+                                            multiple
+                                            class="form-select"
+                                            data-choices
+                                            data-remove-item-button="true"
+                                            data-search-enabled="true"
+                                            data-placeholder-value="Select artists"
+                                            data-no-results-text="No artists found"
+                                            data-item-select-text="Click to select"
+                                            data-should-sort="false"
+                                            data-val="false">
+                                        @foreach (var artist in ViewBag.AllArtists)
+                                        {
+                                            bool isSelected = Model.SelectedArtistIds.Contains(artist.Id);
+
+                                            <option value="@artist.Id" selected="@(isSelected ? "selected" : null)">
+                                                @artist.Username
+                                            </option>
+                                        }
+                                    </select>
 
                                     <!-- Art Cover -->
                                     <div class="mb-3">
-                                        <label asp-for="ImageFile.FileName" class="form-label fw-semibold">Art Cover</label>
+                                        <label asp-for="ImageFile" class="form-label fw-semibold">Art Cover</label>
                                         <input type="file" asp-for="ImageFile" class="form-control" />
                                     </div>
 

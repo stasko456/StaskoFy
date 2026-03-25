@@ -24,10 +24,10 @@ namespace StaskoFy.ViewModels.Album
 
         public IFormFile? ImageFile { get; set; }
 
-        public List<Guid> SelectedArtistIds { get; set; } = new();
+        public List<Guid>? SelectedArtistIds { get; set; } = new();
         public Microsoft.AspNetCore.Mvc.Rendering.MultiSelectList? Artists { get; set; }
 
-        public List<Guid> SelectedSongIds { get; set; } = new();
+        public List<Guid>? SelectedSongIds { get; set; } = new();
         public Microsoft.AspNetCore.Mvc.Rendering.MultiSelectList? Songs { get; set; }
     }
 }

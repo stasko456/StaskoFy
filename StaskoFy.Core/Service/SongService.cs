@@ -6,6 +6,7 @@ using StaskoFy.Core.IService;
 using StaskoFy.DataAccess.Repository;
 using StaskoFy.Models.Entities;
 using StaskoFy.Models.Enums;
+using StaskoFy.ViewModels.Artist;
 using StaskoFy.ViewModels.LikedSongs;
 using StaskoFy.ViewModels.Playlist;
 using StaskoFy.ViewModels.Song;
@@ -110,22 +111,19 @@ namespace StaskoFy.Core.Service
                 }).FirstOrDefaultAsync();
         }
 
-        public async Task<SongViewModel?> GetSongByIdAsync(Guid id)
+        public async Task<SongEditViewModel?> GetSongByIdAsync(Guid id)
         {
             return await songRepo.GetAllAttached()
                 .Where(s => s.Id == id)
-                .Select(s => new SongViewModel
+                .Select(s => new SongEditViewModel
                 {
                     Id = s.Id,
                     Title = s.Title,
                     Minutes = s.Length.Minutes,
                     Seconds = s.Length.Seconds,
-                    AlbumId = s.AlbumId,
                     GenreId = s.GenreId,
                     ReleaseDate = s.ReleaseDate,
-                    ImageURL = s.ImageURL,
-                    Likes = s.Likes,
-                    Artists = s.ArtistsSongs.Select(a => a.Artist.User.UserName).ToList(),
+                    SelectedArtistIds = s.ArtistsSongs.Select(sa => sa.ArtistId).ToList()
                 })
                 .FirstOrDefaultAsync();
         }
@@ -196,11 +194,14 @@ namespace StaskoFy.Core.Service
             var mainArtist = await artistRepo.GetAllAttached()
                 .FirstOrDefaultAsync(x => x.UserId == userId);
 
+            var selectedIds = model.SelectedArtistIds ?? new List<Guid>();
+
             var featuredArtists = await artistRepo.GetAllAttached()
-                .Where(x => model.SelectedArtistIds.Contains(x.Id))
+                .Where(x => selectedIds.Contains(x.Id))
                 .ToListAsync();
 
             var song = await songRepo.GetAllAttached()
+                .Include(s => s.ArtistsSongs)
                 .FirstOrDefaultAsync(x => x.Id == model.Id);
 
             if (song == null)
@@ -232,10 +233,7 @@ namespace StaskoFy.Core.Service
             song.Status = UploadStatus.Pending;
 
             // remove ArtistSong for this song from the DB 
-            var artistsSong = await artistSongRepo.GetAllAttached()
-                .Where(x => x.SongId == song.Id)
-                .ToListAsync();
-            await artistSongRepo.RemoveRangeAsync(artistsSong);
+            song.ArtistsSongs.Clear();
 
             // add main artist to the song
             song.ArtistsSongs.Add(new ArtistSong
@@ -256,36 +254,6 @@ namespace StaskoFy.Core.Service
                     });
                 }
             }
-
-            // add featured artists to the song if any are selected
-            //if (featuredArtists.Count == 0)
-            //{
-            //    // add main artist to the song
-            //    song.ArtistsSongs.Add(new ArtistSong
-            //    {
-            //        ArtistId = mainArtist.Id,
-            //        SongId = song.Id,
-            //    });
-            //}
-            //else
-            //{
-            //    // add main artist to the song
-            //    song.ArtistsSongs.Add(new ArtistSong
-            //    {
-            //        ArtistId = mainArtist.Id,
-            //        SongId = song.Id,
-            //    });
-
-            //    // add featured artists to the song
-            //    foreach (var artist in featuredArtists)
-            //    {
-            //        song.ArtistsSongs.Add(new ArtistSong
-            //        {
-            //            ArtistId = artist.Id,
-            //            SongId = song.Id,
-            //        });
-            //    }
-            //}
 
             // update entity
             await songRepo.UpdateAsync(song);

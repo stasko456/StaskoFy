@@ -17,7 +17,7 @@ namespace StaskoFy.Core.IService
 
         Task<IEnumerable<AlbumIndexViewModel>> GetSpecificArtistAlbumsAsync(Guid userId);
 
-        Task<AlbumIndexViewModel?> GetAlbumByIdAsync(Guid id);
+        Task<AlbumEditViewModel?> GetAlbumByIdAsync(Guid id);
 
         Task<AlbumSongsIndexViewModel?> GetAlbumByIdWithSongsAsync(Guid id);
 

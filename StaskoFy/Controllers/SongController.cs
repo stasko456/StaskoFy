@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using DocumentFormat.OpenXml.Spreadsheet;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using StaskoFy.Core.IService;
@@ -109,30 +110,20 @@ namespace StaskoFy.Controllers
                 return BadRequest();
             }
 
+            var viewModel = await songService.GetSongByIdAsync(id);
+
+            if (viewModel == null)
+            {
+                return NotFound();
+            } 
+
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var allArtists = await artistService.PopulateArtistSelectListAsync(Guid.Parse(userId));
+            ViewBag.AllArtists = allArtists;
 
             var genres = await genreService.GetGenresAsync();
             ViewBag.Genres = new SelectList(genres, "Id", "Name");
-
-            var artists = await artistService.PopulateArtistSelectListAsync(Guid.Parse(userId));
-
-            var song = await songService.GetSongByIdAsync(id);
-
-            if (song == null)
-            {
-                return NotFound();
-            }
-
-            var viewModel = new SongEditViewModel
-            {
-                Id = song.Id,
-                Title = song.Title,
-                Minutes = song.Minutes,
-                Seconds = song.Seconds,
-                ReleaseDate = song.ReleaseDate,
-                GenreId = song.GenreId,
-                Artists = new MultiSelectList(artists, "Id", "Username", song.Artists)
-            };
 
             return View(viewModel);
         }
@@ -149,7 +140,7 @@ namespace StaskoFy.Controllers
                 ViewBag.Genres = new SelectList(genres, "Id", "Name");
 
                 var artists = await artistService.PopulateArtistSelectListAsync(Guid.Parse(userId));
-                viewModel.Artists = new MultiSelectList(artists, "Id", "Username", viewModel.Artists);
+                viewModel.Artists = new MultiSelectList(artists, "Id", "Username", viewModel.SelectedArtistIds.AsEnumerable());
 
                 return View(viewModel);
             }
@@ -165,13 +156,6 @@ namespace StaskoFy.Controllers
             if (id == Guid.Empty)
             {
                 return BadRequest();
-            }
-
-            var song = await songService.GetSongByIdAsync(id);
-
-            if (song == null)
-            {
-                return NotFound();
             }
 
             await songService.RemoveSongAsync(id);

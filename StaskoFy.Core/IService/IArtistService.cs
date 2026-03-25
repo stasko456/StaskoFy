@@ -18,7 +18,7 @@ namespace StaskoFy.Core.IService
 
         Task RemoveArtistAsync(Guid id);
 
-        Task<IEnumerable<ArtistIndexViewModel>> PopulateArtistSelectListAsync(Guid userId);
+        Task<IEnumerable<ArtistSelectViewModel>> PopulateArtistSelectListAsync(Guid userId);
 
         Task<ArtistIndexWithProjects?> GetArtistByIdWithProjectsAsync(Guid userId);
     }
