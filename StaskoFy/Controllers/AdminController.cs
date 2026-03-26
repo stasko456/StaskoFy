@@ -10,14 +10,17 @@ namespace StaskoFy.Controllers
         private readonly ISongService songService;
         private readonly IAlbumService albumService;
         private readonly IGenreService genreService;
+        private readonly IArtistService artistService;
 
         public AdminController(ISongService _songService,
                                IAlbumService _albumService,
-                               IGenreService _genreService)
+                               IGenreService _genreService,
+                               IArtistService _artistService)
         {
             this.songService = _songService;
             this.albumService = _albumService;
             this.genreService = _genreService;
+            this.artistService = _artistService;
         }
 
         [Authorize(Policy = "Admin")]
@@ -84,6 +87,29 @@ namespace StaskoFy.Controllers
             if (!genres.Any())
             {
                 ViewData["NoResult"] = "No genres waiting for acception.";
+            }
+
+            return View(viewModel);
+        }
+
+        [Authorize(Policy = "Admin")]
+        [HttpGet]
+        public async Task<IActionResult> ManageArtistsStatus(string name, int pageNumber = 1)
+        {
+            int pageSize = 5;
+            var artists = await artistService.FilterArtistsWithPendingStatusAsync(name, pageNumber, pageSize);
+            int totalPendingArtists = await artistService.GetTotalPendingPagesAsync(pageSize);
+
+            var viewModel = new PendingArtistsViewModel
+            {
+                Artists = artists.ToList(),
+                TotalPages = totalPendingArtists,
+                CurrentPage = pageNumber
+            };
+
+            if (!artists.Any())
+            {
+                ViewData["NoResult"] = "No artists waiting for acception.";
             }
 
             return View(viewModel);

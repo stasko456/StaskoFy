@@ -1,17 +1,19 @@
 ﻿using StaskoFy.Models.Enums;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace StaskoFy.ViewModels.Artist
 {
-    public class ArtistCreateViewModel
+    public class ArtistApprovalViewModel
     {
-        [Required]
-        public Guid UserId { get; set; }
+        public Guid Id { get; set; }
+
+        public string Username { get; set; } = null!;
+
+        public string ProfilePicture { get; set; } = null!;
 
         public UploadStatus IsAccepted { get; set; }
     }

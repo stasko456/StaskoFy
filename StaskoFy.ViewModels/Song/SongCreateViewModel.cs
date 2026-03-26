@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace StaskoFy.ViewModels.Song
@@ -29,6 +30,7 @@ namespace StaskoFy.ViewModels.Song
 
         public IFormFile? ImageFile { get; set; }
 
+        [ValidateNever]
         public List<Guid> SelectedArtistIds { get; set; } = new();
         public Microsoft.AspNetCore.Mvc.Rendering.MultiSelectList? Artists { get; set; }
     }

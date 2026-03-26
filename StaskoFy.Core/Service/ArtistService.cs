@@ -1,4 +1,5 @@
 ﻿using DocumentFormat.OpenXml.Bibliography;
+using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.Json;
 using StaskoFy.Core.IService;
@@ -148,6 +149,38 @@ namespace StaskoFy.Core.Service
             }
 
             return artistWithProjects;
+        }
+
+        public async Task<int> GetTotalPendingPagesAsync(int pageSize = 5)
+        {
+            var totalPendingArtists = await artistRepo
+                .GetAllAttached()
+                .Where(s => s.IsAccepted != UploadStatus.Approved)
+            .CountAsync();
+
+            return (int)Math.Ceiling(totalPendingArtists/ (double)pageSize);
+        }
+
+        public async Task<IEnumerable<ArtistApprovalViewModel>> FilterArtistsWithPendingStatusAsync(string name, int pageNumber = 1, int pageSize = 5)
+        {
+            var query = artistRepo.GetAllAttached()
+                .Where(a => a.IsAccepted != UploadStatus.Approved);
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                query = query.Where(a => EF.Functions.Like(a.User.UserName, $"%{name}%"));
+            }
+
+            return await query
+                .Select(a => new ArtistApprovalViewModel
+                {
+                    Id = a.Id,
+                    Username = a.User.UserName,
+                    ProfilePicture = a.User.ImageURL,
+                    IsAccepted = a.IsAccepted,
+                }).Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
         }
     }
 }

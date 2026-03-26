@@ -21,5 +21,9 @@ namespace StaskoFy.Core.IService
         Task<IEnumerable<ArtistSelectViewModel>> PopulateArtistSelectListAsync(Guid userId);
 
         Task<ArtistIndexWithProjects?> GetArtistByIdWithProjectsAsync(Guid userId);
+
+        Task<int> GetTotalPendingPagesAsync(int pageSize = 5);
+
+        Task<IEnumerable<ArtistApprovalViewModel>> FilterArtistsWithPendingStatusAsync(string name, int pageNumber = 1, int pageSize = 5);
     }
 }

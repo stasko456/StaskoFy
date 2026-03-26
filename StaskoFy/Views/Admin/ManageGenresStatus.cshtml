@@ -14,13 +14,12 @@
                     <div class="mb-5 text-center text-lg-start">
 
                         <h2 class="fw-bold mb-2">
-                            Pending or Deleted Genre Approvals
+                            Deleted Genre Approvals
                         </h2>
 
                         <p class="text-muted fs-5">
                             Review submitted genres and
-                            <span class="text-success fw-semibold">accept</span> or
-                            <span class="text-danger fw-semibold">reject</span> them.
+                            <span class="text-success fw-semibold">restore</span> them.
                         </p>
 
                     </div>
@@ -28,7 +27,7 @@
                     <hr class="mb-5" />
 
                     <div class="px-3 px-md-4">
-                        <div class="table-responsive border-0">
+                        <div class="table-responsive border-0 fs-5">
                             <table class="table align-middle mb-0 table-hover w-100">
                                 <thead class="bg-light text-secondary">
                                     <tr class="small text-uppercase">
@@ -56,14 +55,14 @@
                                                 <td class="ps-3 text-muted fw-semibold">@index</td>
                                                 <td class="text-muted">@genre.Name</td>
                                                 <td>
-                                                    <span class="badge bg-secondary bg-opacity-75 rounded-pill px-3">@genre.Status.ToString()</span>
+                                                    <span class="badge bg-danger text-white bg-opacity-75 rounded-pill px-3">@genre.Status.ToString()</span>
                                                 </td>
                                                 <td class="text-end pe-3">
                                                     <div class="d-flex gap-2 justify-content-end">
                                                         <form method="post" asp-controller="Genre" asp-action="AcceptGenreUpload" asp-route-id="@genre.Id">
                                                             <button type="submit" class="btn btn-outline-success btn-md fw-bold d-inline-flex align-items-center">
                                                                 <svg viewBox="0 0 640 640" width="30" height="30" class="me-2"><path fill="currentColor" d="M320 576C178.6 576 64 461.4 64 320C64 178.6 178.6 64 320 64C461.4 64 576 178.6 576 320C576 461.4 461.4 576 320 576zM320 112C205.1 112 112 205.1 112 320C112 434.9 205.1 528 320 528C434.9 528 528 434.9 528 320C528 205.1 434.9 112 320 112zM390.7 233.9C398.5 223.2 413.5 220.8 424.2 228.6C434.9 236.4 437.3 251.4 429.5 262.1L307.4 430.1C303.3 435.8 296.9 439.4 289.9 439.9C282.9 440.4 276 437.9 271.1 433L215.2 377.1C205.8 367.7 205.8 352.5 215.2 343.2C224.6 333.9 239.8 333.8 249.1 343.2L285.1 379.2L390.7 234z" /></svg>
-                                                                Accept
+                                                                Restore
                                                             </button>
                                                         </form>
                                                     </div>

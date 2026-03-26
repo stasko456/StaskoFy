@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using StaskoFy.Core.IService;
 using StaskoFy.Core.Service;
 using StaskoFy.Models.Entities;
+using StaskoFy.Models.Enums;
 using StaskoFy.ViewModels.Artist;
 using StaskoFy.ViewModels.Pagination;
 using StaskoFy.ViewModels.User;
@@ -95,6 +96,7 @@ namespace StaskoFy.Controllers
                 var artist = new ArtistCreateViewModel
                 {
                     UserId = user.Id,
+                    IsAccepted = UploadStatus.Pending,
                 };
 
                 await artistService.AddArtistAsync(artist);
@@ -149,7 +151,6 @@ namespace StaskoFy.Controllers
 
         [HttpGet]
         [Authorize(Policy = "ArtistOrAdminOrUser")]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Details()
         {
             var user = await userManager.GetUserAsync(User);
@@ -164,7 +165,7 @@ namespace StaskoFy.Controllers
         }
 
         [HttpGet]
-        [Authorize(Policy = "ArtistOrAdminOrUser")]
+        [Authorize(Policy = "ArtistOrUser")]
         public async Task<IActionResult> Manage()
         {
             var user = await userManager.GetUserAsync(User);

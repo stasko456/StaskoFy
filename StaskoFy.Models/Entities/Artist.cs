@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StaskoFy.Models.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -20,5 +21,7 @@ namespace StaskoFy.Models.Entities
         public ICollection<ArtistSong> ArtistsSongs { get; set; } = new List<ArtistSong>();
 
         public ICollection<ArtistAlbum> ArtistsAlbums { get; set; } = new List<ArtistAlbum>();
+
+        public UploadStatus IsAccepted { get; set; }
     }
 }
