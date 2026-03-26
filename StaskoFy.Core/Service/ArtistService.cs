@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DocumentFormat.OpenXml.Bibliography;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.Json;
 using StaskoFy.Core.IService;
 using StaskoFy.DataAccess.Repository;
@@ -14,6 +15,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Artist = StaskoFy.Models.Entities.Artist;
 
 namespace StaskoFy.Core.Service
 {
@@ -48,7 +50,7 @@ namespace StaskoFy.Core.Service
 
         public async Task<ArtistIndexViewModel?> GetArtistByIdAsync(Guid id)
         {
-            return await artistRepo.GetAllAttached()
+            var artist = await artistRepo.GetAllAttached()
                 .Where(a => a.Id == id)
                 .Select(a => new ArtistIndexViewModel
                 {
@@ -56,6 +58,13 @@ namespace StaskoFy.Core.Service
                     Username = a.User.UserName,
                     ProfilePicture = a.User.ImageURL
                 }).FirstOrDefaultAsync();
+
+            if (artist is null)
+            {
+                throw new NullReferenceException("Unable to find this artist!");
+            }
+
+            return artist;
         }
 
         public async Task AddArtistAsync(ArtistCreateViewModel model)
@@ -71,6 +80,11 @@ namespace StaskoFy.Core.Service
         public async Task RemoveArtistAsync(Guid id)
         {
             var artist = await artistRepo.GetByIdAsync(id);
+
+            if (artist is null)
+            {
+                throw new NullReferenceException("Unable to find this artist!");
+            }
 
             await artistRepo.RemoveAsync(artist);
         }
@@ -88,7 +102,7 @@ namespace StaskoFy.Core.Service
 
         public async Task<ArtistIndexWithProjects?> GetArtistByIdWithProjectsAsync(Guid userId)
         {
-            return await artistRepo.GetAllAttached()
+            var artistWithProjects = await artistRepo.GetAllAttached()
                 .Where(x => x.UserId == userId)
                 .Select(a => new ArtistIndexWithProjects
                 {
@@ -127,6 +141,13 @@ namespace StaskoFy.Core.Service
                         IsPublic = pl.IsPublic
                     }).ToList(),
                 }).FirstOrDefaultAsync();
+
+            if (artistWithProjects is null)
+            {
+                throw new NullReferenceException("Unable to find this artist!");
+            }
+
+            return artistWithProjects;
         }
     }
 }

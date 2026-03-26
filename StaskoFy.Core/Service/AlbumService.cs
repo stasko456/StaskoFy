@@ -98,7 +98,7 @@ namespace StaskoFy.Core.Service
 
         public async Task<AlbumEditViewModel?> GetAlbumByIdAsync(Guid id)
         {
-            return await albumRepo.GetAllAttached()
+            var album = await albumRepo.GetAllAttached()
                 .Where(a => a.Id == id)
                 .Select(a => new AlbumEditViewModel
                 {
@@ -107,11 +107,18 @@ namespace StaskoFy.Core.Service
                     ReleaseDate = a.ReleaseDate,
                     SelectedArtistIds = a.ArtistsAlbums.Select(sa => sa.ArtistId).ToList()
                 }).FirstOrDefaultAsync();
+
+            if (album is null)
+            {
+                throw new NullReferenceException("Unable to find this album!");
+            }
+
+            return album;
         }
 
         public async Task<AlbumSongsIndexViewModel?> GetAlbumByIdWithSongsAsync(Guid id)
         {
-            return await albumRepo.GetAllAttached()
+            var album = await albumRepo.GetAllAttached()
                 .Where(a => a.Id == id)
                 .Select(a => new AlbumSongsIndexViewModel
                 {
@@ -135,6 +142,13 @@ namespace StaskoFy.Core.Service
                         Artists = s.ArtistsSongs.Select(x => x.Artist.User.UserName).ToList()
                     }).ToList(),
                 }).FirstOrDefaultAsync();
+
+            if (album is null)
+            {
+                throw new NullReferenceException("Unable to find this album!");
+            }
+
+            return album;
         }
 
         public async Task AddAlbumAsync(AlbumCreateViewModel model, Guid userId)
@@ -252,9 +266,9 @@ namespace StaskoFy.Core.Service
             .Include(a => a.ArtistsAlbums)
             .FirstOrDefaultAsync(a => a.Id == model.Id);
 
-            if (album == null)
+            if (album is null)
             {
-                throw new KeyNotFoundException($"Album with ID {model.Id} is not found!");
+                throw new NullReferenceException("Unable to find this album!");
             }
 
             if (albumSongs.Count > 0)
@@ -348,9 +362,9 @@ namespace StaskoFy.Core.Service
                 .Include(a => a.Songs)
                 .FirstOrDefaultAsync(a => a.Id == id);
 
-            if (album == null)
+            if (album is null)
             {
-                throw new KeyNotFoundException($"Album with ID {id} is not found!");
+                throw new NullReferenceException("Unable to find this album!");
             }
 
             // album soft delete
@@ -451,9 +465,9 @@ namespace StaskoFy.Core.Service
                 .Include(s => s.Album)
                 .FirstOrDefaultAsync(s => s.Id == songId);
 
-            if (song == null)
+            if (song is null)
             {
-                throw new KeyNotFoundException($"Song with ID {songId} is not found!");
+                throw new NullReferenceException("Unable to find this song!");
             }
 
             song.AlbumId = null;
@@ -468,18 +482,18 @@ namespace StaskoFy.Core.Service
         {
             var song = await songRepo.GetByIdAsync(songId);
 
-            if (song == null)
+            if (song is null)
             {
-                throw new KeyNotFoundException($"Song with ID {songId} is not found!");
+                throw new NullReferenceException("Unable to find this song!");
             }
 
             var album = await albumRepo.GetAllAttached()
             .Include(a => a.Songs)
             .FirstOrDefaultAsync(a => a.Id == albumId);
 
-            if (album == null)
+            if (album is null)
             {
-                throw new KeyNotFoundException($"Album with ID {albumId} is not found!");
+                throw new NullReferenceException("Unable to find this album!");
             }
 
             // delete song from cloudinary for the single if one exists in the cloud
@@ -506,9 +520,9 @@ namespace StaskoFy.Core.Service
                 .Include(a => a.Songs)
                 .FirstOrDefaultAsync(a => a.Id == id);
 
-            if (album == null)
+            if (album is null)
             {
-                throw new KeyNotFoundException($"Album with ID {id} is not found!");
+                throw new NullReferenceException("Unable to find this album!");
             }
 
             album.Status = UploadStatus.Approved;
@@ -530,9 +544,9 @@ namespace StaskoFy.Core.Service
                 .Include(a => a.Songs)
                 .FirstOrDefaultAsync(a => a.Id == id);
 
-            if (album == null)
+            if (album is null)
             {
-                throw new KeyNotFoundException($"Album with ID {id} is not found!");
+                throw new NullReferenceException("Unable to find this album!");
             }
 
             if (album.Songs.Count > 0)

@@ -41,22 +41,29 @@ namespace StaskoFy.Core.Service
                 }).ToListAsync();
         }
 
-        public async Task<GenreIndexViewModel?> GetGenreByIdAsync(Guid id)
+        public async Task<GenreEditViewModel?> GetGenreByIdAsync(Guid id)
         {
-            return await genreRepo.GetAllAttached()
+            var genre = await genreRepo.GetAllAttached()
                 .Where(g => g.Id == id)
-                .Select(g => new GenreIndexViewModel
+                .Select(g => new GenreEditViewModel
                 {
                     Id = g.Id,
                     Name = g.Name,
                 }).FirstOrDefaultAsync();
+
+            if (genre is null)
+            {
+                throw new NullReferenceException("Unable to find this genre!");
+            }
+
+            return genre;
         }
 
-        public async Task AddGenreAsync(GenreCreateViewModel model)
+        public async Task AddGenreAsync(GenreCreateViewModel viewModel)
         {
             var genre = new Genre
             {
-                Name = model.Name,
+                Name = viewModel.Name,
                 Status = UploadStatus.Approved
             };
 
@@ -67,9 +74,9 @@ namespace StaskoFy.Core.Service
         {
             var genre = await genreRepo.GetByIdAsync(model.Id);
 
-            if (genre == null)
+            if (genre is null)
             {
-                throw new KeyNotFoundException($"Genre with ID {model.Id} is not found!");
+                throw new NullReferenceException("Unable to find this genre!");
             }
 
             genre.Name = model.Name;
@@ -84,9 +91,9 @@ namespace StaskoFy.Core.Service
                     .ThenInclude(a => a.Album)
                 .FirstOrDefaultAsync(g => g.Id == id);
             
-            if (genre == null)
+            if (genre is null)
             {
-                throw new KeyNotFoundException($"Genre with ID {id} is not found!");
+                throw new NullReferenceException("Unable to find this genre!");
             }
 
             genre.Status = UploadStatus.Deleted;
@@ -103,9 +110,6 @@ namespace StaskoFy.Core.Service
                     song.Album.Length = song.Album.Length - song.Length;
                     song.AlbumId = null;
                 }
-
-                song.ImageURL = "/images/defaults/default-song-cover-art.png";
-                song.CloudinaryPublicId = "";
             }
 
             await genreRepo.UpdateAsync(genre);
@@ -118,6 +122,15 @@ namespace StaskoFy.Core.Service
                 .CountAsync();
 
             return (int)Math.Ceiling(totalGenres / (double)pageSize);
+        }
+
+        public async Task<int> GetTotalPendingPagesAsync(int pageSize = 5)
+        {
+            int totalPendingGenres = await genreRepo.GetAllAttached()
+                .Where(g => g.Status == UploadStatus.Deleted)
+                .CountAsync();
+
+            return (int)Math.Ceiling(totalPendingGenres / (double)pageSize);
         }
 
         public async Task<IEnumerable<GenreIndexViewModel>> FilterGenresAsync(string name, int pageNumber = 1, int pageSize = 5)
@@ -168,12 +181,12 @@ namespace StaskoFy.Core.Service
                     .ThenInclude(a => a.Album)
                 .FirstOrDefaultAsync(g => g.Id == id);
 
-            if (genre == null)
+            if (genre is null)
             {
-                throw new KeyNotFoundException($"Genre with ID {id} is not found!");
+                throw new NullReferenceException("Unable to find this genre!");
             }
 
-            genre.Status = UploadStatus.Deleted;
+            genre.Status = UploadStatus.Approved;
 
             foreach (var song in genre.Songs)
             {

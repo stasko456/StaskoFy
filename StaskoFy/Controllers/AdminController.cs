@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using StaskoFy.Core.IService;
-using System.Threading.Tasks;
 using StaskoFy.ViewModels.Pagination;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
 namespace StaskoFy.Controllers
 {
@@ -74,7 +72,7 @@ namespace StaskoFy.Controllers
         {
             int pageSize = 5;
             var genres = await genreService.FilterDeletedGenresAsync(name, pageNumber, pageSize);
-            int totalPages = await genreService.GetTotalPagesAsync(pageSize);
+            int totalPages = await genreService.GetTotalPendingPagesAsync(pageSize);
 
             var viewModel = new DeletedGenresPaginationViewModel
             {

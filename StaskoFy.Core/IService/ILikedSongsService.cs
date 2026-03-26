@@ -14,8 +14,6 @@ namespace StaskoFy.Core.IService
 
         Task<IEnumerable<LikedSongsIndexViewModel>> GetLikedSongsFromCurrentLoggedUserAsync(Guid userId, string name, int pageNumber = 1, int pageSize = 5);
 
-        Task<LikedSongsIndexViewModel?> GetLikedSongByIdAsync(Guid id);
-
         Task<LikedSongs?> GetLikedSongByUserAndSongAsync(Guid userId, Guid songId);
 
         Task AddLikedSongAsync(LikedSongsCreateViewModel model, Guid userId);

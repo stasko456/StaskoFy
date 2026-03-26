@@ -1,4 +1,5 @@
-﻿using DocumentFormat.OpenXml.Office2010.Excel;
+﻿using CloudinaryDotNet.Actions;
+using DocumentFormat.OpenXml.Office2010.Excel;
 using DocumentFormat.OpenXml.Office2019.Drawing.Model3D;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.Internal;
@@ -57,7 +58,7 @@ namespace StaskoFy.Core.Service
 
         public async Task<PlaylistIndexViewModel?> GetPlaylistByIdAsync(Guid id)
         {
-            return await playlistRepo.GetAllAttached()
+            var playlist = await playlistRepo.GetAllAttached()
             .Where(p => p.Id == id)
             .Select(p => new PlaylistIndexViewModel
             {
@@ -72,6 +73,13 @@ namespace StaskoFy.Core.Service
                 IsPublic = p.IsPublic,
                 UserId = p.UserId
             }).FirstOrDefaultAsync();
+
+            if (playlist is null)
+            {
+                throw new NullReferenceException("Unable to find this playlist!");
+            }
+
+            return playlist;
         }
 
         public async Task<int> GetTotalPlaylistSongsPagesAsync(Guid id, int pageSize = 5)
@@ -178,9 +186,9 @@ namespace StaskoFy.Core.Service
 
             var playlist = await playlistRepo.GetByIdAsync(model.Id);
 
-            if (playlist == null)
+            if (playlist is null)
             {
-                throw new KeyNotFoundException($"Playlist with ID {model.Id} is not found!");
+                throw new NullReferenceException("Unable to find this playlist!");
             }
 
             if (model.ImageFile != null && model.ImageFile.Length > 0)
@@ -230,9 +238,9 @@ namespace StaskoFy.Core.Service
         {
             var playlist = await playlistRepo.GetByIdAsync(id);
 
-            if (playlist == null)
+            if (playlist is null)
             {
-                throw new KeyNotFoundException($"Playlist with ID {id} is not found!");
+                throw new NullReferenceException("Unable to find this playlist!");
             }
 
             if (!string.IsNullOrEmpty(playlist.ImageURL) && !string.IsNullOrEmpty(playlist.CloudinaryPublicId))
@@ -249,7 +257,7 @@ namespace StaskoFy.Core.Service
             var playlistSongExists = await playlistSongRepo.GetAllAttached()
                 .FirstOrDefaultAsync(x => x.PlaylistId == playlistId && x.SongId == songId);
 
-            if (playlistSongExists != null)
+            if (playlistSongExists is not null)
             {
                 return;
             }
@@ -264,6 +272,12 @@ namespace StaskoFy.Core.Service
             var playlist = await playlistRepo.GetByIdAsync(playlistId);
 
             var song = await songRepo.GetByIdAsync(songId);
+
+            if (song is null)
+            {
+                throw new NullReferenceException("Unable to find this song!");
+            }
+
             playlist.Length = playlist.Length + song.Length;
 
             await playlistSongRepo.AddAsync(playlistSong);
@@ -274,7 +288,7 @@ namespace StaskoFy.Core.Service
             var playlistSong = await playlistSongRepo.GetAllAttached()
                 .FirstOrDefaultAsync(p => p.PlaylistId == playlistId && p.SongId == songId);
 
-            if (playlistSong == null)
+            if (playlistSong is null)
             {
                 return;
             }

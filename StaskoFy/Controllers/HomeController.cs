@@ -1,5 +1,4 @@
 using System.Diagnostics;
-using System.Runtime.InteropServices.Marshalling;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -105,21 +104,21 @@ namespace StaskoFy.Controllers
 
         [Authorize(Policy = "Admin")]
         [HttpGet]
-        public async Task<IActionResult> AdminIndex()
+        public IActionResult AdminIndex()
         {
             return View();
         }
 
         [Authorize(Policy = "Artist")]
         [HttpGet]
-        public async Task<IActionResult> ArtistIndex()
+        public IActionResult ArtistIndex()
         {
             return View();
         }
 
         [Authorize(Policy = "User")]
         [HttpGet]
-        public async Task<IActionResult> UserIndex()
+        public IActionResult UserIndex()
         {
             return View();
         }

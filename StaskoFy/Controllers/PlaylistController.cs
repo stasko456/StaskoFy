@@ -1,15 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StaskoFy.Core.IService;
-using StaskoFy.Models.Entities;
 using StaskoFy.ViewModels.Playlist;
-using System.Runtime.InteropServices;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Threading.Tasks;
-using System.Web.Razor.Generator;
 using StaskoFy.ViewModels.Pagination;
-using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace StaskoFy.Controllers
 {
@@ -17,12 +12,15 @@ namespace StaskoFy.Controllers
     {
         private readonly IPlaylistService playlistService;
         private readonly ISongService songService;
+        private readonly ILogger<PlaylistController> logger;
 
         public PlaylistController(IPlaylistService _playlistService,
-                                  ISongService _songService)
+                                  ISongService _songService,
+                                  ILogger<PlaylistController> _logger)
         {
             this.playlistService = _playlistService;
             this.songService = _songService;
+            this.logger = _logger;
         }
 
         [HttpGet]
@@ -40,6 +38,7 @@ namespace StaskoFy.Controllers
 
         [HttpPost]
         [Authorize(Policy = "ArtistOrUser")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(PlaylistCreateViewModel viewModel)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -65,29 +64,30 @@ namespace StaskoFy.Controllers
                 return BadRequest();
             }
 
-            var playlist = await playlistService.GetPlaylistByIdAsync(id);
-
-            if (playlist == null)
+            try
             {
-                return NotFound();
+                var playlist = await playlistService.GetPlaylistByIdAsync(id);
+                var songs = await songService.SelectSongsAsync();
+                var viewModel = new PlaylistEditViewModel
+                {
+                    Id = id,
+                    Title = playlist.Title,
+                    DateCreated = playlist.DateCreated,
+                    Songs = new MultiSelectList(songs, "Id", "Title"),
+                    IsPublic = playlist.IsPublic,
+                };
+                return View(viewModel);
             }
-
-            var songs = await songService.SelectSongsAsync();
-
-            var viewModel = new PlaylistEditViewModel
+            catch (NullReferenceException ex)
             {
-                Id = id,
-                Title = playlist.Title,
-                DateCreated = playlist.DateCreated, 
-                IsPublic = playlist.IsPublic,
-                Songs = new MultiSelectList(songs, "Id", "Title")
-            };
-
-            return View(viewModel);
+                logger.LogError($"{ex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 404 });
+            }
         }
 
         [HttpPost]
         [Authorize(Policy = "ArtistOrUser")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(PlaylistEditViewModel viewModel)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -105,6 +105,7 @@ namespace StaskoFy.Controllers
 
         [HttpPost]
         [Authorize(Policy = "ArtistOrUser")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(Guid id, string? returnUrl)
         {
             if (id == Guid.Empty)
@@ -112,13 +113,20 @@ namespace StaskoFy.Controllers
                 return BadRequest();
             }
 
-            await playlistService.RemovePlaylistAsync(id);
-
-            if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+            try
             {
-                return Redirect(returnUrl);
+                await playlistService.RemovePlaylistAsync(id);
+                if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                {
+                    return Redirect(returnUrl);
+                }
+                return RedirectToAction("MyLibraryIndex", "Library");
             }
-            return RedirectToAction("MyLibraryIndex", "Library");
+            catch (NullReferenceException ex)
+            {
+                logger.LogError($"{ex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 404 });
+            }
         }
 
         [HttpGet]
@@ -130,31 +138,38 @@ namespace StaskoFy.Controllers
                 return BadRequest();
             }
 
-            // var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            int pageSize = 5;
-            var playlistSongs = await playlistService.GetPlaylistSongsByIdAsync(id, name, pageNumber, pageSize);
-            var playlistInfo = await playlistService.GetPlaylistByIdAsync(id);
-            int totalPlaylistSongsPages = await playlistService.GetTotalPlaylistSongsPagesAsync(id, pageSize);
-
-            var viewModel = new PlaylistSongsPaginationViewModel
+            try
             {
-                PlaylistInfo = playlistInfo,
-                Songs = playlistSongs.ToList(),
-                TotalPages = totalPlaylistSongsPages,
-                CurrentPage = pageNumber,
-            };
+                int pageSize = 5;
+                var playlistInfo = await playlistService.GetPlaylistByIdAsync(id);
+                var playlistSongs = await playlistService.GetPlaylistSongsByIdAsync(id, name, pageNumber, pageSize);
+                int totalPlaylistSongsPages = await playlistService.GetTotalPlaylistSongsPagesAsync(id, pageSize);
 
-            if (!playlistSongs.Any())
-            {
-                ViewData["NoPlaylistSongs"] = " ";
+                var viewModel = new PlaylistSongsPaginationViewModel
+                {
+                    PlaylistInfo = playlistInfo,
+                    Songs = playlistSongs.ToList(),
+                    TotalPages = totalPlaylistSongsPages,
+                    CurrentPage = pageNumber,
+                };
+
+                if (!playlistSongs.Any())
+                {
+                    ViewData["NoPlaylistSongs"] = " ";
+                }
+
+                return View(viewModel);
             }
-
-            return View(viewModel);
+            catch (NullReferenceException ex)
+            {
+                logger.LogError($"{ex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 404 });
+            }
         }
 
         [HttpPost]
         [Authorize(Policy = "ArtistOrUser")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddSongToPlaylist(Guid playlistId, Guid songId, string? returnURL)
         {
             if (songId == Guid.Empty || playlistId == Guid.Empty)
@@ -162,17 +177,25 @@ namespace StaskoFy.Controllers
                 return BadRequest();
             }
 
-            await playlistService.AddSongToPlaylistAsync(playlistId, songId);
-
-            if (!string.IsNullOrEmpty(returnURL) && Url.IsLocalUrl(returnURL))
+            try
             {
-                return Redirect(returnURL);
+                await playlistService.AddSongToPlaylistAsync(playlistId, songId);
+                if (!string.IsNullOrEmpty(returnURL) && Url.IsLocalUrl(returnURL))
+                {
+                    return Redirect(returnURL);
+                }
+                return RedirectToAction("MyLibraryIndex", "Library");
             }
-            return RedirectToAction("MyLibraryIndex", "Library");
+            catch (NullReferenceException ex)
+            {
+                logger.LogError($"{ex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 404 });
+            }
         }
 
         [HttpPost]
         [Authorize(Policy = "ArtistOrUser")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> RemoveSongFromPlaylist(Guid playlistId, Guid songId)
         {
             if (songId == Guid.Empty || playlistId == Guid.Empty)

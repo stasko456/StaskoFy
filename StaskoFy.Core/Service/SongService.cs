@@ -1,4 +1,4 @@
-﻿    using DocumentFormat.OpenXml.Drawing.Charts;
+﻿using DocumentFormat.OpenXml.Drawing.Charts;
 using DocumentFormat.OpenXml.Spreadsheet;
 using Microsoft.AspNetCore.Mvc.Formatters.Internal;
 using Microsoft.EntityFrameworkCore;
@@ -89,7 +89,7 @@ namespace StaskoFy.Core.Service
 
         public async Task<SongDetailsViewModel?> GetSongDetailsByIdAsync(Guid id, Guid userId)
         {
-            return await songRepo.GetAllAttached()
+            var song = await songRepo.GetAllAttached()
                 .Where(s => s.Id == id)
                 .Select(s => new SongDetailsViewModel
                 {
@@ -109,11 +109,18 @@ namespace StaskoFy.Core.Service
                         Title = p.Title
                     }).ToList()
                 }).FirstOrDefaultAsync();
+
+            if (song is null)
+            {
+                throw new NullReferenceException("Unable to find this song!");
+            }
+
+            return song;
         }
 
         public async Task<SongEditViewModel?> GetSongByIdAsync(Guid id)
         {
-            return await songRepo.GetAllAttached()
+            var song = await songRepo.GetAllAttached()
                 .Where(s => s.Id == id)
                 .Select(s => new SongEditViewModel
                 {
@@ -126,6 +133,13 @@ namespace StaskoFy.Core.Service
                     SelectedArtistIds = s.ArtistsSongs.Select(sa => sa.ArtistId).ToList()
                 })
                 .FirstOrDefaultAsync();
+
+            if (song is null)
+            {
+                throw new NullReferenceException("Unable to find this song!");
+            }
+
+            return song;
         }
 
         public async Task AddSongAsync(SongCreateViewModel model, Guid userId)
@@ -204,9 +218,9 @@ namespace StaskoFy.Core.Service
                 .Include(s => s.ArtistsSongs)
                 .FirstOrDefaultAsync(x => x.Id == model.Id);
 
-            if (song == null)
+            if (song is null)
             {
-                throw new KeyNotFoundException($"Song with ID {model.Id} is not found!");
+                throw new NullReferenceException("Unable to find this song!");
             }
 
             // if song is part of album do not remove the image
@@ -268,9 +282,9 @@ namespace StaskoFy.Core.Service
             .Include(x => x.LikedSongs)
             .FirstOrDefaultAsync(x => x.Id == id);
 
-            if (song == null)
+            if (song is null)
             {
-                throw new KeyNotFoundException($"Song with ID {id} is not found!");
+                throw new NullReferenceException("Unable to find this song!");
             }
 
             // if song is part of album do not remove the image
@@ -410,9 +424,9 @@ namespace StaskoFy.Core.Service
         {
             var song = await songRepo.GetByIdAsync(id);
 
-            if (song == null)
+            if (song is null)
             {
-                throw new KeyNotFoundException($"Song with ID {id} is not found!");
+                throw new NullReferenceException("Unable to find this song!");
             }
 
             song.Status = UploadStatus.Approved;
@@ -424,9 +438,9 @@ namespace StaskoFy.Core.Service
         {
             var song = await songRepo.GetByIdAsync(id);
 
-            if (song == null)
+            if (song is null)
             {
-                throw new KeyNotFoundException($"Song with ID {id} is not found!");
+                throw new NullReferenceException("Unable to find this song!");
             }
 
             song.Status = UploadStatus.Rejected;

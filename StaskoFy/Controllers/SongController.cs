@@ -1,11 +1,8 @@
-﻿using DocumentFormat.OpenXml.Spreadsheet;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using StaskoFy.Core.IService;
-using StaskoFy.Models.Entities;
 using StaskoFy.ViewModels.Pagination;
-using StaskoFy.ViewModels.Playlist;
 using StaskoFy.ViewModels.Song;
 using System.Security.Claims;
 
@@ -19,13 +16,15 @@ namespace StaskoFy.Controllers
         private readonly IImageService imageService;
         private readonly IPlaylistService playlistService;
         private readonly IAlbumService albumService;
+        private readonly ILogger<SongController> logger;
 
         public SongController(ISongService _songService,
                               IGenreService _genreService,
                               IArtistService _artistService,
                               IImageService _imageService,
                               IPlaylistService _playlistService,
-                              IAlbumService _albumService)
+                              IAlbumService _albumService,
+                              ILogger<SongController> _logger)
         {
             this.songService = _songService;
             this.genreService = _genreService;
@@ -33,6 +32,7 @@ namespace StaskoFy.Controllers
             this.imageService = _imageService;
             this.playlistService = _playlistService;
             this.albumService = _albumService;
+            this.logger = _logger;
         }
 
         [HttpGet]
@@ -82,6 +82,7 @@ namespace StaskoFy.Controllers
 
         [HttpPost]
         [Authorize(Policy = "Artist")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(SongCreateViewModel viewModel)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -110,26 +111,30 @@ namespace StaskoFy.Controllers
                 return BadRequest();
             }
 
-            var viewModel = await songService.GetSongByIdAsync(id);
-
-            if (viewModel == null)
+            try
             {
-                return NotFound();
-            } 
+                var viewModel = await songService.GetSongByIdAsync(id);
 
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var allArtists = await artistService.PopulateArtistSelectListAsync(Guid.Parse(userId));
-            ViewBag.AllArtists = allArtists;
+                var allArtists = await artistService.PopulateArtistSelectListAsync(Guid.Parse(userId));
+                ViewBag.AllArtists = allArtists;
 
-            var genres = await genreService.GetGenresAsync();
-            ViewBag.Genres = new SelectList(genres, "Id", "Name");
+                var genres = await genreService.GetGenresAsync();
+                ViewBag.Genres = new SelectList(genres, "Id", "Name");
 
-            return View(viewModel);
+                return View(viewModel);
+            }
+            catch (NullReferenceException ex)
+            {
+                logger.LogError($"{ex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 404 });
+            }
         }
 
         [HttpPost]
         [Authorize(Policy = "Artist")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(SongEditViewModel viewModel)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -151,6 +156,7 @@ namespace StaskoFy.Controllers
 
         [HttpPost]
         [Authorize(Policy = "ArtistOrAdmin")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(Guid id)
         {
             if (id == Guid.Empty)
@@ -158,12 +164,20 @@ namespace StaskoFy.Controllers
                 return BadRequest();
             }
 
-            await songService.RemoveSongAsync(id);
-            return RedirectToAction("MyProjectsForCurrentLoggedArtistIndex", "Library");
+            try
+            {
+                await songService.RemoveSongAsync(id);
+                return RedirectToAction("MyProjectsForCurrentLoggedArtistIndex", "Library");
+            }
+            catch (NullReferenceException ex)
+            {
+                logger.LogError($"{ex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 404 });
+            }
         }
 
         [HttpGet]
-        [Authorize(Policy = "ArtistOrAdmin")]
+        [Authorize(Policy = "ArtistOrAdminOrUser")]
         public async Task<IActionResult> Details(Guid id)
         {
             if (id == Guid.Empty)
@@ -171,20 +185,22 @@ namespace StaskoFy.Controllers
                 return BadRequest();
             }
 
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            var song = await songService.GetSongDetailsByIdAsync(id, Guid.Parse(userId));
-
-            if (song == null)
+            try
             {
-                return NotFound();
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var song = await songService.GetSongDetailsByIdAsync(id, Guid.Parse(userId));
+                return View(song);
             }
-
-            return View(song);
+            catch (NullReferenceException ex)
+            {
+                logger.LogError($"{ex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 404 });
+            }
         }
 
         [HttpPost]
         [Authorize(Policy = "Artist")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> MakeSongSingle(Guid songId, Guid albumId)
         {
             if (songId == Guid.Empty)
@@ -192,13 +208,21 @@ namespace StaskoFy.Controllers
                 return BadRequest();
             }
 
-            await albumService.RemoveSongFromAlbumAsync(songId, albumId);
-
-            return RedirectToAction("Details", "Album", new { id = albumId });
+            try
+            {
+                await albumService.RemoveSongFromAlbumAsync(songId, albumId);
+                return RedirectToAction("Details", "Album", new { id = albumId });
+            }
+            catch (NullReferenceException ex)
+            {
+                logger.LogError($"{ex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 404 });
+            }
         }
 
         [HttpPost]
         [Authorize(Policy = "Artist")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddSongToAlbum(Guid songId, Guid albumId, string? returnUrl)
         {
             if (songId == Guid.Empty)
@@ -206,17 +230,25 @@ namespace StaskoFy.Controllers
                 return BadRequest();
             }
 
-            await albumService.AddSongToAlbumAsync(songId, albumId);
-
-            if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+            try
             {
-                return Redirect(returnUrl);
+                await albumService.AddSongToAlbumAsync(songId, albumId);
+                if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                {
+                    return Redirect(returnUrl);
+                }
+                return RedirectToAction("Details", "Album", new { id = albumId });
             }
-            return RedirectToAction("Details", "Album", new { id = albumId });
+            catch (NullReferenceException ex)
+            {
+                logger.LogError($"{ex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 404 });
+            }
         }
 
         [HttpPost]
         [Authorize(Policy = "Admin")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> AcceptSongUpload(Guid id)
         {
             if (id == Guid.Empty)
@@ -224,13 +256,21 @@ namespace StaskoFy.Controllers
                 return BadRequest();
             }
 
-            await songService.AcceptSongUploadAsync(id);
-
-            return RedirectToAction("ManageSongsStatus", "Admin");
+            try
+            {
+                await songService.AcceptSongUploadAsync(id);
+                return RedirectToAction("ManageSongsStatus", "Admin");
+            }
+            catch (NullReferenceException ex)
+            {
+                logger.LogError($"{ex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 404 });
+            }
         }
 
         [HttpPost]
         [Authorize(Policy = "Admin")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> RejectSongUpload(Guid id)
         {
             if (id == Guid.Empty)
@@ -238,9 +278,16 @@ namespace StaskoFy.Controllers
                 return BadRequest();
             }
 
-            await songService.RejectSongUploadAsync(id);
-
-            return RedirectToAction("ManageSongsStatus", "Admin");
+            try
+            {
+                await songService.RejectSongUploadAsync(id);
+                return RedirectToAction("ManageSongsStatus", "Admin");
+            }
+            catch (NullReferenceException ex)
+            {
+                logger.LogError($"{ex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 404 });
+            }
         }
 
     }

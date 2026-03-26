@@ -1,17 +1,13 @@
-﻿using CloudinaryDotNet.Core;
-using DocumentFormat.OpenXml.Bibliography;
-using DocumentFormat.OpenXml.Office2010.Drawing;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using StaskoFy.Core.IService;
+using StaskoFy.Core.Service;
 using StaskoFy.Models.Entities;
 using StaskoFy.ViewModels.Artist;
 using StaskoFy.ViewModels.Pagination;
 using StaskoFy.ViewModels.User;
-using System.Runtime.CompilerServices;
-using System.Runtime.Versioning;
 using System.Security.Claims;
 
 namespace StaskoFy.Controllers
@@ -25,6 +21,7 @@ namespace StaskoFy.Controllers
         private readonly IImageService imageService;
         private readonly IUserService userService;
         private readonly IPlaylistService playlistService;
+        private readonly ILogger<UserController> logger;
 
         public UserController(UserManager<User> _userManager,
                               SignInManager<User> _signInManager,
@@ -32,7 +29,8 @@ namespace StaskoFy.Controllers
                               IArtistService _artistService,
                               IImageService _imageService,
                               IUserService _userService,
-                              IPlaylistService _playlistService)
+                              IPlaylistService _playlistService,
+                              ILogger<UserController> _logger)
         {
             this.userManager = _userManager;
             this.signInManager = _signInManager;
@@ -41,6 +39,7 @@ namespace StaskoFy.Controllers
             this.imageService = _imageService;
             this.userService = _userService;
             this.playlistService = _playlistService;
+            this.logger = _logger; 
         }
 
         [HttpGet]
@@ -57,6 +56,7 @@ namespace StaskoFy.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel viewModel)
         {
             List<string> roles = new List<string>() { "Artist", "User" };
@@ -115,6 +115,7 @@ namespace StaskoFy.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel viewModel)
         {
             if (!ModelState.IsValid)
@@ -139,6 +140,7 @@ namespace StaskoFy.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
@@ -147,6 +149,7 @@ namespace StaskoFy.Controllers
 
         [HttpGet]
         [Authorize(Policy = "ArtistOrAdminOrUser")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Details()
         {
             var user = await userManager.GetUserAsync(User);
@@ -177,6 +180,7 @@ namespace StaskoFy.Controllers
 
         [HttpPost]
         [Authorize(Policy = "ArtistOrAdminOrUser")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Manage(EditProfileViewModel viewModel)
         {
             var user = await userManager.GetUserAsync(User);
@@ -234,20 +238,25 @@ namespace StaskoFy.Controllers
                 return BadRequest();
             }
 
-            bool isArtist = await userService.IsUserArtistAsync(id);
-            if (isArtist == true)
+            try
             {
-                return RedirectToAction("Details", "Artist", new { artistUserId = id});
+                bool isArtist = await userService.IsUserArtistAsync(id);
+                if (isArtist == true)
+                {
+                    return RedirectToAction("Details", "Artist", new { artistUserId = id });
+                }
+                var user = await userService.GetUserWithPlaylistsByIdAsync(id);
+                if (!user.Playlists.Any())
+                {
+                    ViewData["NoPlaylists"] = "This user has not uploaded public playlists!";
+                }
+                return View(user);
             }
-
-            var user = await userService.GetUserWithPlaylistsByIdAsync(id);
-
-            if (!user.Playlists.Any())
+            catch (NullReferenceException ex)
             {
-                ViewData["NoPlaylists"] = "This user has not uploaded public playlists!";
+                logger.LogError($"{ex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 404 });
             }
-
-            return View(user);
         }
     }
 }

@@ -9,10 +9,13 @@ namespace StaskoFy.Controllers
     public class GenreController : Controller
     {
         private readonly IGenreService genreService;
+        private readonly ILogger<GenreController> logger;
 
-        public GenreController(IGenreService _genreService)
+        public GenreController(IGenreService _genreService,
+                              ILogger<GenreController> _logger)
         {
             this.genreService = _genreService;
+            this.logger = _logger;
         }
 
         [HttpGet]
@@ -47,6 +50,7 @@ namespace StaskoFy.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Create(GenreCreateViewModel viewModel)
         {
@@ -68,23 +72,20 @@ namespace StaskoFy.Controllers
                 return BadRequest();
             }
 
-            var genre = await genreService.GetGenreByIdAsync(id);
-
-            if (genre == null)
+            try
             {
-                return NotFound();
+                var genre = await genreService.GetGenreByIdAsync(id);
+                return View(genre);
             }
-
-            var viewModel = new GenreEditViewModel
+            catch (NullReferenceException ex)
             {
-                Id = genre.Id,
-                Name = genre.Name,
-            };
-
-            return View(viewModel);
+                logger.LogError($"{ex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 404 });
+            }
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Edit(GenreEditViewModel viewModel)
         {
@@ -99,6 +100,7 @@ namespace StaskoFy.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Delete(Guid id)
         {
@@ -107,18 +109,20 @@ namespace StaskoFy.Controllers
                 return BadRequest();
             }
 
-            var genre = await genreService.GetGenreByIdAsync(id);
-
-            if (genre == null)
+            try
             {
-                return NotFound();
+                await genreService.RemoveGenreAsync(id);
+                return RedirectToAction("Index");
             }
-
-            await genreService.RemoveGenreAsync(id);
-            return RedirectToAction("Index");
+            catch (NullReferenceException ex)
+            {
+                logger.LogError($"{ex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 404 });
+            }
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [Authorize(Policy = "Admin")]
         public async Task<IActionResult> AcceptGenreUpload(Guid id)
         {
@@ -127,8 +131,16 @@ namespace StaskoFy.Controllers
                 return BadRequest();
             }
 
-            await genreService.AcceptGenreUploadAsync(id);
-            return RedirectToAction("Index");
+            try
+            {
+                await genreService.AcceptGenreUploadAsync(id);
+                return RedirectToAction("ManageGenresStatus", "Admin");
+            }
+            catch (NullReferenceException ex)
+            {
+                logger.LogError($"{ex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 404 });
+            }
         }
     }
 }

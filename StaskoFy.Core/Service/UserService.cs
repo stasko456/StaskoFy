@@ -58,7 +58,7 @@ namespace StaskoFy.Core.Service
 
         public async Task<UserWithPlaylistsViewModel?> GetUserWithPlaylistsByIdAsync(Guid id)
         {
-            return await userManager.Users
+            var user = await userManager.Users
                 .Where(u => u.Id == id)
                 .Select(u => new UserWithPlaylistsViewModel
                 {
@@ -78,6 +78,13 @@ namespace StaskoFy.Core.Service
                         IsPublic = p.IsPublic,
                     }).ToList()
                 }).FirstOrDefaultAsync();
+
+            if (user is null)
+            {
+                throw new NullReferenceException("Unable to find this user!");
+            }
+
+            return user;
         }
 
         public async Task<bool> IsUserArtistAsync(Guid userId)

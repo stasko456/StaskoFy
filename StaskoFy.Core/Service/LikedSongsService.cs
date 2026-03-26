@@ -68,24 +68,6 @@ namespace StaskoFy.Core.Service
                 .ToListAsync();
         }
 
-        public async Task<LikedSongsIndexViewModel?> GetLikedSongByIdAsync(Guid id)
-        {
-            return await likedSongsRepo.GetAllAttached()
-                .Where(ls => ls.Id == id)
-                .Select(ls => new LikedSongsIndexViewModel
-                {
-                    Id = id,
-                    SongId = ls.SongId,
-                    Title = ls.Song.Title,
-                    AlbumTitle = ls.Song.Album == null ? "Single" : ls.Song.Album.Title,
-                    Minutes = ls.Song.Length.Minutes,
-                    Seconds = ls.Song.Length.Seconds,
-                    ImageUrl = ls.Song.ImageURL,
-                    DateAdded = ls.DateAdded,
-                    Artists = ls.Song.ArtistsSongs.Select(x => x.Artist.User.UserName).ToList(),
-                }).FirstOrDefaultAsync();
-        }
-
         public async Task<LikedSongs?> GetLikedSongByUserAndSongAsync(Guid userId, Guid songId)
         {
             return await likedSongsRepo.GetAllAttached()
@@ -97,9 +79,9 @@ namespace StaskoFy.Core.Service
             var isLiked = await GetLikedSongByUserAndSongAsync(userId, model.SongId);
 
             var song = await songRepo.GetByIdAsync(model.SongId);
-            if (song == null)
+            if (song is null)
             {
-                throw new KeyNotFoundException($"Song with ID {model.SongId} is not found!");
+                throw new NullReferenceException("Unable to find this song!");
             }
 
             var likedSong = new LikedSongs
@@ -119,16 +101,16 @@ namespace StaskoFy.Core.Service
         {
             var likedSong = await this.GetLikedSongByUserAndSongAsync(userId, songId);
 
-            if (likedSong == null)
+            if (likedSong is null)
             {
-                throw new KeyNotFoundException($"Song with ID {songId} is not found!");
+                throw new NullReferenceException("Unable to find this liked song!");
             }
 
             var song = await songRepo.GetByIdAsync(songId);
 
-            if (song == null)
+            if (song is null)
             {
-                return;
+                throw new NullReferenceException("Unable to find this song!");
             }
 
             if (song.Likes > 0)

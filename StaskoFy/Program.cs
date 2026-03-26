@@ -34,24 +34,22 @@ namespace StaskoFy
             builder.Services.AddAuthorization(options =>
             {
                 options.AddPolicy("Admin", policy =>
-                    policy.RequireRole("Admin"));
+                    policy.RequireRole("Admin")); // used
 
                 options.AddPolicy("Artist", policy =>
-                    policy.RequireRole("Artist"));
+                    policy.RequireRole("Artist")); // used
 
                 options.AddPolicy("User", policy =>
-                    policy.RequireRole("User"));
+                    policy.RequireRole("User")); // used
                  
-                //---------------------//
-
                 options.AddPolicy("ArtistOrUser", policy =>
-                    policy.RequireRole("Artist", "User"));
+                    policy.RequireRole("Artist", "User")); // used
 
                 options.AddPolicy("ArtistOrAdmin", policy =>
-                    policy.RequireRole("Admin", "Artist"));
+                    policy.RequireRole("Admin", "Artist")); // used
 
                 options.AddPolicy("ArtistOrAdminOrUser", policy =>
-                    policy.RequireRole("Artist", "Admin", "User"));
+                    policy.RequireRole("Artist", "Admin", "User")); // used
             });
 
 
@@ -75,10 +73,6 @@ namespace StaskoFy
             builder.Services.AddScoped<IPlaylistService, PlaylistService>();
             builder.Services.AddScoped<IImageService, ImageService>();
             builder.Services.AddScoped<IUserService, UserService>();
-
-            // Users:
-            // stasko456; Stasko1234*; stdimov2007@gmail.com User
-            // Ken Karson; kencarson@gmail.com; KenCarson1234* Artist
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();

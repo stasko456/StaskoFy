@@ -1,23 +1,24 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using DocumentFormat.OpenXml.Office2010.Excel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using StaskoFy.Core.IService;
-using StaskoFy.Models.Entities;
-using StaskoFy.ViewModels.Album;
+using StaskoFy.Core.Service;
 using StaskoFy.ViewModels.LikedSongs;
 using StaskoFy.ViewModels.Pagination;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace StaskoFy.Controllers
 {
     public class LikedSongsController : Controller
     {
         private readonly ILikedSongsService likedSongsService;
+        private readonly ILogger<LikedSongsController> logger;
 
-        public LikedSongsController(ILikedSongsService _likedSongsService)
+        public LikedSongsController(ILikedSongsService _likedSongsService
+                                    ,ILogger<LikedSongsController> _logger)
         {
             this.likedSongsService = _likedSongsService;
+            this.logger = _logger;
         }
 
         [HttpGet]
@@ -48,6 +49,7 @@ namespace StaskoFy.Controllers
 
         [HttpPost]
         [Authorize(Policy = "ArtistOrUser")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddLikedSong(Guid songId, string? returnURL)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -57,23 +59,40 @@ namespace StaskoFy.Controllers
                 SongId = songId,
             };
 
-            await likedSongsService.AddLikedSongAsync(viewModel, Guid.Parse(userId));
-
-            if (!string.IsNullOrEmpty(returnURL) && Url.IsLocalUrl(returnURL))
+            try
             {
-                return Redirect(returnURL);
+                await likedSongsService.AddLikedSongAsync(viewModel, Guid.Parse(userId));
+
+                if (!string.IsNullOrEmpty(returnURL) && Url.IsLocalUrl(returnURL))
+                {
+                    return Redirect(returnURL);
+                }
+                return RedirectToAction("SongsIndexForAllUsers", "Song");
             }
-            return RedirectToAction("SongsIndexForAllUsers", "Song");
+            catch (NullReferenceException ex)
+            {
+                logger.LogError($"{ex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 404 });
+            }
         }
 
         [HttpPost]
         [Authorize(Policy = "ArtistOrUser")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> RemoveLikedSong(Guid songId)
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            try
+            {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            await likedSongsService.RemoveLikedSongAsync(Guid.Parse(userId), songId);
-            return RedirectToAction("LikedSongsIndexForCurrentLoggedUser");
+                await likedSongsService.RemoveLikedSongAsync(Guid.Parse(userId), songId);
+                return RedirectToAction("LikedSongsIndexForCurrentLoggedUser");
+            }
+            catch (NullReferenceException ex)
+            {
+                logger.LogError($"{ex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 404 });
+            }
         }
     }
 }

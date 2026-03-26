@@ -1,12 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Routing;
 using StaskoFy.Core.IService;
-using StaskoFy.Models.Entities;
 using StaskoFy.ViewModels.Album;
 using StaskoFy.ViewModels.Library;
-using StaskoFy.ViewModels.LikedSongs;
-using StaskoFy.ViewModels.Playlist;
 using StaskoFy.ViewModels.Song;
 using System.Security.Claims;
 namespace StaskoFy.Controllers
