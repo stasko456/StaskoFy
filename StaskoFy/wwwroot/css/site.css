@@ -39,7 +39,6 @@ body {
     color: white !important;
 }
 
-/* Ensure the submenu parent is the anchor*/ 
 .dropdown-submenu {
     position: relative;
 }
@@ -61,12 +60,12 @@ body {
     }
 
     .dropdown-submenu > .dropdown-toggle {
-        column-gap: 10px; /* Adds a clean gap if you don't use justify-content-between */
+        column-gap: 10px;
     }
 
     .dropdown-submenu > .dropdown-toggle::after {
         display: inline-block;
-        vertical-align: middle; /* Standard fix */
+        vertical-align: middle;
         margin-top: 0;
         content: "";
         border-top: 0.3em solid transparent;
@@ -77,4 +76,118 @@ body {
 
 .card {
     overflow: visible !important;
+}
+
+/*artist details*/
+/* --- 1. Nav Pills (Unified) --- */
+.nav-pills .nav-link {
+    color: #ffc107;
+    font-weight: bold;
+    border: 1px solid #ffc107;
+    margin: 0 5px;
+    padding: 10px 30px;
+    border-radius: 8px;
+    background-color: transparent;
+    transition: all 0.2s ease-in-out;
+}
+
+    .nav-pills .nav-link.active {
+        background-color: #ffc107 !important;
+        color: #000 !important;
+        border-color: #ffc107;
+    }
+
+    .nav-pills .nav-link:hover:not(.active) {
+        background-color: rgba(255, 193, 7, 0.1);
+        color: #ffc107;
+    }
+
+/* --- 2. css styles --- */
+/* --- 1. Consolidated Card Hover Effects --- */
+/* Groups all card types: Songs, Albums, Playlists, and User/Artist cards */
+/* --- 1. Consolidated Card Hover Effects --- */
+.project-card,
+.artist-hover-card,
+.playlist-hover-card,
+.song-card-container,
+.artist-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+    border-radius: 12px;
+    position: relative;
+    z-index: 1;
+    border: none !important;
+}
+
+    .project-card:hover,
+    .artist-hover-card:hover,
+    .playlist-hover-card:hover,
+    .song-card-container:hover,
+    .artist-card:hover,
+    .project-card:has(.show),
+    .song-card-container:has(.show) {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2) !important;
+    }
+
+    .project-card:has(.show),
+    .song-card-container:has(.show) {
+        z-index: 1050;
+    }
+
+/* --- 2. Buttons & Filtration --- */
+/* --- 2. Buttons & Filtration --- */
+.btn {
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+/* Base style for Filter labels, Search, Manage, and Large Action buttons */
+.btn-check + .btn-outline-warning,
+.btn-search,
+.btn-outline-warning {
+    color: #ffc107;
+    border: 2px solid #ffc107 !important;
+    background-color: transparent;
+    font-weight: bold;
+    border-radius: 8px;
+}
+
+    /* Hover State: Solid Fill for all themed buttons */
+    .btn-check + .btn-outline-warning:hover,
+    .btn-search:hover,
+    .btn-outline-warning:hover {
+        background-color: #ffc107 !important; /* Solid Fill #ffc107 */
+        color: #000 !important; /* Black text for contrast */
+        border-color: #ffc107;
+    }
+
+    /* Active/Checked state (Radio buttons and Click effect) */
+    .btn-check:checked + .btn-outline-warning,
+    .btn-search:active,
+    .btn-outline-warning:active {
+        background-color: #ffc107 !important;
+        color: #000 !important;
+        transform: scale(0.98); /* Slight press effect */
+    }
+
+/* --- 3. Warning-Themed Pagination --- */
+.pagination .page-link {
+    color: #ffc107;
+    background-color: transparent;
+    border-color: #dee2e6;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: #000;
+}
+
+.pagination .page-link:hover {
+    background-color: #e5ac00;
+    border-color: #e5ac00;
+    color: #000;
+}
+
+.specific_heading {
+    color: #ffc107
 }

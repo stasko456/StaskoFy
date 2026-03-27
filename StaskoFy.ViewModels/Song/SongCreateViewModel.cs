@@ -31,7 +31,7 @@ namespace StaskoFy.ViewModels.Song
         public IFormFile? ImageFile { get; set; }
 
         [ValidateNever]
-        public List<Guid> SelectedArtistIds { get; set; } = new();
+        public List<Guid>? SelectedArtistIds { get; set; } = new();
         public Microsoft.AspNetCore.Mvc.Rendering.MultiSelectList? Artists { get; set; }
     }
 }

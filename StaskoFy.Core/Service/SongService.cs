@@ -144,7 +144,7 @@ namespace StaskoFy.Core.Service
 
         public async Task AddSongAsync(SongCreateViewModel model, Guid userId)
         {
-            var mainArtist = await artistRepo.GetAllAttached().
+             var mainArtist = await artistRepo.GetAllAttached().
                 FirstOrDefaultAsync(x => x.UserId == userId);
 
             var featuredArtists = await artistRepo.GetAllAttached().

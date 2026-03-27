@@ -1,8 +1,13 @@
 ﻿@model SongsPaginationViewModel
 
+<style>
+    /* 1. Card Hover & Dropdown Fix */
+    
+</style>
+
 <div class="text-center mb-5">
     <h1 class="display-4 fw-bold">
-        Discover <span class="text-warning">Songs</span>
+        Discover <span class="specific_heading">Songs</span>
     </h1>
     @if (User.IsInRole("Admin"))
     {
@@ -23,9 +28,9 @@
                        placeholder="Search songs..."
                        name="searchItem"
                        value="@Context.Request.Query["searchItem"]" />
-                <button type="submit" class="btn btn-warning btn-lg fw-semibold d-inline-flex align-items-center">
-                    <svg viewBox="0 0 640 640" width="30" height="30" class="me-2">
-                        <path fill="rgb(255, 255, 255)" d="M480 272C480 317.9 465.1 360.3 440 394.7L566.6 521.4C579.1 533.9 579.1 554.2 566.6 566.7C554.1 579.2 533.8 579.2 521.3 566.7L394.7 440C360.3 465.1 317.9 480 272 480C157.1 480 64 386.9 64 272C64 157.1 157.1 64 272 64C386.9 64 480 157.1 480 272zM272 416C351.5 416 416 351.5 416 272C416 192.5 351.5 128 272 128C192.5 128 128 192.5 128 272C128 351.5 192.5 416 272 416z" />
+                <button type="submit" class="btn btn-search btn-lg d-inline-flex align-items-center px-4">
+                    <svg viewBox="0 0 640 640" width="25" height="25" class="me-2">
+                        <path fill="currentColor" d="M480 272C480 317.9 465.1 360.3 440 394.7L566.6 521.4C579.1 533.9 579.1 554.2 566.6 566.7C554.1 579.2 533.8 579.2 521.3 566.7L394.7 440C360.3 465.1 317.9 480 272 480C157.1 480 64 386.9 64 272C64 157.1 157.1 64 272 64C386.9 64 480 157.1 480 272zM272 416C351.5 416 416 351.5 416 272C416 192.5 351.5 128 272 128C192.5 128 128 192.5 128 272C128 351.5 192.5 416 272 416z" />
                     </svg>
                     Search
                 </button>
@@ -34,25 +39,25 @@
             <div class="d-flex align-items-center justify-content-center gap-4">
                 <div>
                     <input type="radio" class="btn-check" id="filter-title" autocomplete="off" name="filters" value="Title"
-                           @(Context.Request.Query["filters"] == "Title" ? "checked" : "") />
+                    @(Context.Request.Query["filters"] == "Title" ? "checked" : "") />
                     <label class="btn btn-outline-warning fw-bold px-4" for="filter-title">By Title</label>
                 </div>
 
                 <div>
                     <input type="radio" class="btn-check" id="filter-album" autocomplete="off" name="filters" value="Album"
-                           @(Context.Request.Query["filters"] == "Album" ? "checked" : "") />
+                    @(Context.Request.Query["filters"] == "Album" ? "checked" : "") />
                     <label class="btn btn-outline-warning fw-bold px-4" for="filter-album">By Album</label>
                 </div>
 
                 <div>
                     <input type="radio" class="btn-check" id="filter-genre" autocomplete="off" name="filters" value="Genre"
-                           @(Context.Request.Query["filters"] == "Genre" ? "checked" : "") />
+                    @(Context.Request.Query["filters"] == "Genre" ? "checked" : "") />
                     <label class="btn btn-outline-warning fw-bold px-4" for="filter-genre">By Genre</label>
                 </div>
 
                 <div>
                     <input type="radio" class="btn-check" id="filter-artist" autocomplete="off" name="filters" value="Artist"
-                           @(Context.Request.Query["filters"] == "Artist" ? "checked" : "") />
+                    @(Context.Request.Query["filters"] == "Artist" ? "checked" : "") />
                     <label class="btn btn-outline-warning fw-bold px-4" for="filter-artist">By Artist</label>
                 </div>
             </div>
@@ -76,7 +81,7 @@ else
             @foreach (var song in Model.Songs)
             {
                 <div class="col" id="song-@song.Id">
-                    <div class="card h-100 shadow-sm border-0 overflow-hidden" style="transition: transform 0.2s; border-radius: 12px;">
+                    <div class="card h-100 shadow-sm border-0 overflow-hidden song-card-container" style="border-radius: 12px;">
 
                         <div style="position: relative; width: 100%; padding-bottom: 100%; background-color: #f8f9fa; border-radius: 12px 12px 0 0; overflow: hidden;">
                             <a asp-controller="Song" asp-action="Details" asp-route-id="@song.Id">
@@ -96,7 +101,7 @@ else
                                 {
                                     <form asp-controller="Song" asp-action="Delete" method="post" asp-route-id="@song.Id">
                                         <button class="btn btn-outline-danger btn-sm w-100 py-1" style="border-radius: 6px;"
-                                        onclick="return confirm('Are you sure you want to delete this song?');">
+                                                onclick="return confirm('Are you sure you want to delete this song?');">
                                             <svg viewBox="0 0 448 512" width="15" height="15" class="me-2">
                                                 <path fill="currentColor" d="M136.7 5.9L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-8.7-26.1C306.9-7.2 294.7-16 280.9-16L167.1-16c-13.8 0-26 8.8-30.4 21.9zM416 144L32 144 53.1 467.1C54.7 492.4 75.7 512 101 512L347 512c25.3 0 46.3-19.6 47.9-44.9L416 144z" />
                                             </svg>Delete
@@ -149,7 +154,7 @@ else
 
                                             <li>
                                                 <form method="post" asp-controller="LikedSongs" asp-action="AddLikedSong" asp-route-songId="@song.Id">
-                                                    <input type="hidden" name="returnUrl" value="@Context.Request.Path@Context.Request.QueryString#song-@song.Id" />                                                    
+                                                    <input type="hidden" name="returnUrl" value="@Context.Request.Path@Context.Request.QueryString#song-@song.Id" />
                                                     <button type="submit" class="dropdown-item">Add to Liked Songs</button>
                                                 </form>
                                             </li>
@@ -205,7 +210,6 @@ else
                 </li>
             }
 
-            <!-- Next Page Link -->
             @if (Model.CurrentPage < Model.TotalPages)
             {
                 <li class="page-item">

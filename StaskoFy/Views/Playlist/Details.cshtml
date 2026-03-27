@@ -56,7 +56,7 @@
                                     <th>Length</th>
                                     <th>Artists</th>
                                     <th>Date Added</th>
-                                    @if (User.IsInRole("Artist") && Model.PlaylistInfo.UserId == currentUserId)
+                                    @if (!User.IsInRole("Admin") && Model.PlaylistInfo.UserId == currentUserId)
                                     {
                                         <th>Actions</th>
                                     }
@@ -115,7 +115,7 @@
                                             @song.DateAdded.ToString("dd MMM yyyy")
                                         </td>
 
-                                        @if (User.IsInRole("Artist") && Model.PlaylistInfo.UserId == currentUserId)
+                                        @if (!User.IsInRole("Admin") && Model.PlaylistInfo.UserId == currentUserId)
                                         {
                                             <td>
                                                 <form method="post" asp-controller="Playlist" asp-action="RemoveSongFromPlaylist" asp-route-songId="@song.Id" asp-route-playlistId="@Model.PlaylistInfo.Id">

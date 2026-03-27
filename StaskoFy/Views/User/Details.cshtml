@@ -4,30 +4,40 @@
     ViewData["Title"] = "My Profile";
 }
 
+<style>
+    /* Specific class for the User Profile Card to avoid conflicts */
+    .user-profile-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+        border-radius: 1.5rem; /* Matches p-4 and rounded styles */
+    }
+
+        .user-profile-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important; /* Enhanced shadow for the larger card */
+        }
+</style>
+
 <div class="container mt-5">
     <div class="row justify-content-center">
 
         <div class="col-lg-8 col-xl-7">
 
-            <div class="card shadow-lg border-0 p-4">
+            <div class="card user-profile-card shadow-lg border-0 p-4">
 
                 <div class="card-body text-center">
 
-                    <!-- Profile Picture -->
                     <img src="@Model.ProfilePicture"
                          class="rounded-circle mb-4"
                          width="200"
                          height="200"
                          style="object-fit:cover;">
 
-                    <!-- Username -->
                     <h2 class="fw-bold mb-2">@Model.Username</h2>
 
                     <p class="text-muted mb-4 fs-5">
                         Member of the platform
                     </p>
 
-                    <!-- Buttons -->
                     <div class="d-flex justify-content-center gap-3">
                         <a asp-controller="User" asp-action="Manage" class="btn btn-lg btn-warning">
                             Edit Profile

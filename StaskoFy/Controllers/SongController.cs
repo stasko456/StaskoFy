@@ -97,7 +97,6 @@ namespace StaskoFy.Controllers
 
                 return View(viewModel);
             }
-
             await songService.AddSongAsync(viewModel, Guid.Parse(userId));
             return RedirectToAction("MyProjectsForCurrentLoggedArtistIndex", "Library");
         }

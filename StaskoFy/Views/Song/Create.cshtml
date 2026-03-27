@@ -44,7 +44,7 @@
                                 <div class="w-100">
                                     <div class="mb-4">
                                         <label class="form-label fw-semibold">Featured Artists</label>
-                                        <select asp-for="SelectedArtistIds"
+                                        <select asp-for="@Model.SelectedArtistIds"
                                                 asp-items="Model.Artists"
                                                 multiple
                                                 class="form-select"
@@ -55,7 +55,8 @@
                                                 data-placeholder-value="Select artists"
                                                 data-no-results-text="No artists found"
                                                 data-item-select-text="Click to select"
-                                                data-should-sort="false">
+                                                data-should-sort="false"
+                                                data-val="false">
                                         </select>
                                     </div>
 

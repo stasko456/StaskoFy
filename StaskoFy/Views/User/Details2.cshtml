@@ -1,8 +1,20 @@
 ﻿@model UserWithPlaylistsViewModel
 
+<style>
+    /* Specific class for the hover effect */
+    .playlist-hover-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+        border: none !important; /* Matches your previous clean borderless style */
+    }
+
+        .playlist-hover-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2) !important;
+        }
+</style>
+
 <div class="container mt-4">
 
-    <!-- User Header -->
     <div class="text-center text-light mb-5">
         <img src="@Model.ProfilePicture"
              class="rounded-circle shadow mb-3"
@@ -19,7 +31,7 @@
 
     <div class="text-light text-center">
         <h2 class="fw-bold mb-4">
-            <span class="text-warning">Playlists</span>
+            @Model.Username's <span class="text-warning">Playlists</span>
         </h2>
     </div>
 
@@ -36,7 +48,7 @@
             @foreach (var playlist in Model.Playlists)
             {
                 <div class="col">
-                    <div class="card h-100 shadow-sm">
+                    <div class="card playlist-hover-card h-100 shadow-sm">
                         <a asp-controller="Playlist" asp-action="Details" asp-route-id="@playlist.Id">
                             <img src="@playlist.ImageURL"
                                  alt="@playlist.Title"

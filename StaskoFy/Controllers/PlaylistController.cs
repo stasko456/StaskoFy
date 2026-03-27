@@ -106,7 +106,7 @@ namespace StaskoFy.Controllers
         [HttpPost]
         [Authorize(Policy = "ArtistOrUser")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(Guid id, string? returnUrl)
+        public async Task<IActionResult> Delete(Guid id)
         {
             if (id == Guid.Empty)
             {
@@ -116,10 +116,6 @@ namespace StaskoFy.Controllers
             try
             {
                 await playlistService.RemovePlaylistAsync(id);
-                if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
-                {
-                    return Redirect(returnUrl);
-                }
                 return RedirectToAction("MyLibraryIndex", "Library");
             }
             catch (NullReferenceException ex)
