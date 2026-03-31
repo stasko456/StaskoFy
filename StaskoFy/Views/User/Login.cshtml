@@ -3,33 +3,35 @@
 <div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-12 col-md-6 col-lg-5">
-            <div class="card shadow-lg border-0 rounded-4">
+            <div class="card shadow-lg border-0 rounded-4 login-register-card">
                 <div class="card-body p-5">
-                    <h2 class="text-center mb-4 fw-bold display-5">
-                        <i class="bi bi-box-arrow-in-right me-2"></i><span class="text-warning">Login</span>
+                    <h2 class="text-center  fw-bold display-5">
+                        <svg viewBox="0 0 640 640" width="50" height="50" class="">
+                            <path fill="currentColor" d="M352 96l64 0c17.7 0 32 14.3 32 32l0 256c0 17.7-14.3 32-32 32l-64 0c-17.7 0-32 14.3-32 32s14.3 32 32 32l64 0c53 0 96-43 96-96l0-256c0-53-43-96-96-96l-64 0c-17.7 0-32 14.3-32 32s14.3 32 32 32zm-9.4 182.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L242.7 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l210.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128z" />
+                        </svg><span class="specific_heading">Login</span>
                     </h2>
+                    <p class="text-center">Log in here using your username and password</p>
                     <form id="account" method="post" asp-action="Login">
-                        <hr class="mb-3" />
-                        <!-- Validation summary -->
                         <div asp-validation-summary="ModelOnly" class="text-danger mb-4"></div>
 
-                        <!-- Username -->
                         <div class="mb-3">
                             <label asp-for="Username" class="form-label fw-semibold fs-5">Username</label>
                             <input asp-for="Username" class="form-control form-control-lg" autocomplete="username" aria-required="true" placeholder="Enter username" />
                             <span asp-validation-for="Username" class="text-danger small"></span>
                         </div>
 
-                        <!-- Password -->
                         <div class="mb-3">
                             <label asp-for="Password" class="form-label fw-semibold fs-5">Password</label>
                             <input asp-for="Password" type="password" class="form-control form-control-lg" autocomplete="current-password" aria-required="true" placeholder="Enter password" />
                             <span asp-validation-for="Password" class="text-danger small"></span>
                         </div>
 
-                        <!-- Submit Button -->
-                        <div class="text-center mt-3">
-                            <button id="login-submit" type="submit" class="btn btn-warning btn-lg w-100 rounded-pill shadow fs-5">
+                        <hr class="mb-3 mt-4" />
+
+                        <p class="text-center">Don't have an account yet? <a asp-action="Register" class="text-warning text-decoration-none fw-bold">Sign Up now</a></p>
+
+                        <div class="text-center mt-4">
+                            <button id="login-submit" type="submit" class="btn btn-outline-warning btn-lg w-100 rounded-4 shadow fs-5">
                                 Log In
                             </button>
                         </div>

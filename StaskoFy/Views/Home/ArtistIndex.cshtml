@@ -15,10 +15,10 @@
         <div class="row justify-content-center text-center mb-3">
 
             <div class="col-md-4 mb-3">
-                <div class="card shadow-sm">
+                <div class="card shadow-sm artist-manage-card">
                     <div class="card-body dashboard-card">
-                        <h5 class="card-title">Your uploaded songs</h5>
-                        <p class="card-text fw-bold">@Model.TotalSongsByArtist</p>
+                        <h5 class="card-title fw-bold">Your uploaded songs</h5>
+                        <p class="card-text fw-semibold">@Model.TotalSongsByArtist</p>
                         <a asp-controller="Library" asp-action="MyProjectsForCurrentLoggedArtistIndex"
                            class="btn btn-outline-warning btn-md">Manage</a>
                     </div>
@@ -26,10 +26,10 @@
             </div>
 
             <div class="col-md-4 mb-3">
-                <div class="card shadow-sm">
+                <div class="card shadow-sm artist-manage-card">
                     <div class="card-body dashboard-card">
-                        <h5 class="card-title">Your uploaded albums</h5>
-                        <p class="card-text fw-bold">@Model.TotalAlbumsByArtist</p>
+                        <h5 class="card-title fw-bold">Your uploaded albums</h5>
+                        <p class="card-text fw-semibold">@Model.TotalAlbumsByArtist</p>
                         <a asp-controller="Library" asp-action="MyProjectsForCurrentLoggedArtistIndex"
                            class="btn btn-outline-warning btn-md">Manage</a>
                     </div>
@@ -41,19 +41,19 @@
         <div class="row justify-content-center text-center mb-3">
 
             <div class="col-md-4 mb-3">
-                <div class="card shadow-sm">
+                <div class="card shadow-sm artist-manage-card">
                     <div class="card-body dashboard-card">
-                        <h5 class="card-title">Your pending songs</h5>
-                        <p class="card-text fw-bold">@Model.TotalPendingSongsByArtist</p>
+                        <h5 class="card-title fw-bold">Your pending songs</h5>
+                        <p class="card-text fw-semibold">@Model.TotalPendingSongsByArtist</p>
                     </div>
                 </div>
             </div>
 
             <div class="col-md-4 mb-3">
-                <div class="card shadow-sm">
+                <div class="card shadow-sm artist-manage-card">
                     <div class="card-body dashboard-card">
-                        <h5 class="card-title">Your pending albums</h5>
-                        <p class="card-text fw-bold">@Model.TotalPendingAlbumsByArtist</p>
+                        <h5 class="card-title fw-bold">Your pending albums</h5>
+                        <p class="card-text fw-semibold">@Model.TotalPendingAlbumsByArtist</p>
                     </div>
                 </div>
             </div>
@@ -63,20 +63,20 @@
         <div class="row justify-content-center text-center mb-3">
 
             <div class="col-md-4 mb-3">
-                <div class="card shadow-sm">
+                <div class="card shadow-sm artist-manage-card">
                     <div class="card-body dashboard-card">
-                        <h5 class="card-title">Likes</h5>
-                        <p class="card-text fw-bold">@Model.TotalLikesOfSongsByArtist</p>
+                        <h5 class="card-title fw-bold">Likes</h5>
+                        <p class="card-text fw-semibold">@Model.TotalLikesOfSongsByArtist</p>
                     </div>
                 </div>
             </div>
 
             <div class="col-md-4 mb-3">
-                <div class="card shadow-sm">
+                <div class="card shadow-sm artist-manage-card">
                     <div class="card-body dashboard-card">
-                        <h5 class="card-title">Most liked song</h5>
-                        <p class="card-text fw-bold">@Model.MostLikedSongTitleByArtist</p>
-                        <p class="card-text fw-bold">@Model.MostLikedSongCountByArtist likes</p>
+                        <h5 class="card-title fw-bold">Most liked song</h5>
+                        <p class="card-text fw-semibold">@Model.MostLikedSongTitleByArtist</p>
+                        <p class="card-text fw-semibold">@Model.MostLikedSongCountByArtist likes</p>
                     </div>
                 </div>
             </div>

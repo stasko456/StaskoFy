@@ -64,7 +64,7 @@ else
         @foreach (var album in Model.Albums)
         {
             <div class="col">
-                <div class="card h-100 shadow-sm song-card-container">
+                <div class="card h-100 shadow-sm song-card-container rounded-3">
                     <div class="card-img-top overflow-hidden" style="aspect-ratio: 1 / 1;">
                         <a asp-action="Details" asp-route-id="@album.Id">
                             <img src="@album.ImageURL"

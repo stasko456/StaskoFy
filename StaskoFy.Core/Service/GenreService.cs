@@ -195,5 +195,11 @@ namespace StaskoFy.Core.Service
 
             await genreRepo.UpdateAsync(genre);
         }
+
+        public Task<int> GetGenresCountAsync()
+        {
+            return genreRepo.GetAllAttached()
+                .CountAsync();
+        }
     }
 }

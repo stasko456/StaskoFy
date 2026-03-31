@@ -17,13 +17,12 @@ namespace StaskoFy.ViewModels.Album
 
         public IFormFile? ImageFile { get; set; }
 
+        [MaxLength(4, ErrorMessage = "Cannot add more than 4 features to an album.")]
         public List<Guid>? SelectedArtistIds { get; set; } = new();
         public Microsoft.AspNetCore.Mvc.Rendering.MultiSelectList? Artists { get; set; }
 
         [Required(ErrorMessage = "Please select at least one song.")]
-        [MinLength(1, ErrorMessage = "Please select at least one song.")]
-        [MaxLength(4, ErrorMessage = "Cannot add more than 4 features to an album.")]
-        public List<Guid>? SelectedSongIds { get; set; }
+        public List<Guid> SelectedSongIds { get; set; } = new List<Guid>();
         public Microsoft.AspNetCore.Mvc.Rendering.MultiSelectList? Songs { get; set; }
     }
 }

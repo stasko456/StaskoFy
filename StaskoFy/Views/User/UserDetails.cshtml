@@ -1,18 +1,5 @@
 ﻿@model UserWithPlaylistsViewModel
 
-<style>
-    /* Specific class for the hover effect */
-    .playlist-hover-card {
-        transition: transform 0.3s ease, box-shadow 0.3s ease !important;
-        border: none !important; /* Matches your previous clean borderless style */
-    }
-
-        .playlist-hover-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2) !important;
-        }
-</style>
-
 <div class="container mt-4">
 
     <div class="text-center text-light mb-5">
@@ -22,16 +9,14 @@
              height="150"
              style="object-fit:cover;" />
 
-        <h1 class="display-4 fw-bold text-warning">
+        <h1 class="display-4 fw-bold specific_heading">
             @Model.Username
         </h1>
     </div>
 
-    <hr />
-
     <div class="text-light text-center">
         <h2 class="fw-bold mb-4">
-            @Model.Username's <span class="text-warning">Playlists</span>
+            Public <span class="specific_heading">Playlists</span>
         </h2>
     </div>
 

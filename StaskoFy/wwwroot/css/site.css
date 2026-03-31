@@ -1,5 +1,8 @@
+/* --- 1. Global & Base Styles --- */
 html {
-  font-size: 14px;
+    position: relative;
+    min-height: 100%;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
@@ -10,107 +13,137 @@ html {
     }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
 body {
-  margin-bottom: 60px;
-}
-
-.choices__item {
-    background-color: #0d6efd;
+    margin-bottom: 60px;
+    background-color: #121212;
     color: white;
-    border-radius: 0.375rem;
-    padding: 0.25rem 0.5rem;
 }
 
-.choices__item--selectable {
-    background-color: #0d6efd !important;
-    color: white !important;
-}
-
-.choices__button {
-    color: white !important;
-}
-
-.dropdown-submenu {
-    position: relative;
-}
-
-    .dropdown-submenu > .dropdown-menu {
-        top: 0;
-        left: 100% !important;
-        margin-top: -6px;
-        margin-left: 0px;
-        display: none;
-        background-color: #2b2b2b;
-        border: 1px solid #444;
-        min-width: 160px;
-        z-index: 9999 !important;
-    }
-
-    .dropdown-submenu:hover > .dropdown-menu {
-        display: block !important;
-    }
-
-    .dropdown-submenu > .dropdown-toggle {
-        column-gap: 10px;
-    }
-
-    .dropdown-submenu > .dropdown-toggle::after {
-        display: inline-block;
-        vertical-align: middle;
-        margin-top: 0;
-        content: "";
-        border-top: 0.3em solid transparent;
-        border-bottom: 0.3em solid transparent;
-        border-left: 0.3em solid #fff;
-        border-right: 0;
-    }
-
-.card {
-    overflow: visible !important;
-}
-
-/*artist details*/
-/* --- 1. Nav Pills (Unified) --- */
-.nav-pills .nav-link {
-    color: #ffc107;
-    font-weight: bold;
-    border: 1px solid #ffc107;
-    margin: 0 5px;
-    padding: 10px 30px;
+/* --- 2. Form Inputs (High-Contrast White Style) --- */
+.form-control {
+    background-color: #ffffff !important;
+    border: 2px solid #ffc107 !important;
+    color: #000000 !important;
     border-radius: 8px;
+    padding: 12px 15px;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 0 6px rgba(255, 193, 7, 0.3) !important;
+}
+
+    .form-control::placeholder {
+        color: #000000 !important;
+        opacity: 0.6;
+    }
+
+    .form-control:hover {
+        background-color: #f8f9fa !important;
+        transform: translateY(-4px);
+        box-shadow: 0 4px 12px rgba(255, 193, 7, 0.4) !important;
+    }
+
+    .form-control:focus {
+        background-color: #ffffff !important;
+        border-color: #ffc107 !important;
+        color: #000000 !important;
+        transform: translateY(-4px);
+        box-shadow: 0 6px 18px rgba(255, 193, 7, 0.6) !important;
+        outline: none;
+    }
+
+/* --- 3. Buttons & Focus States --- */
+.btn-outline-warning, .btn-search, #registerSubmit {
+    color: #ffc107 !important;
+    border: 2px solid #ffc107 !important;
     background-color: transparent;
-    transition: all 0.2s ease-in-out;
+    border-radius: 8px;
+}
+
+    .btn-check:checked + .btn-outline-warning,
+    .btn-outline-warning:hover,
+    .btn-search:hover,
+    #registerSubmit:hover {
+        background-color: #ffc107 !important;
+        color: #000 !important;
+        border-color: #ffc107 !important;
+        box-shadow: 0 5px 15px rgba(255, 193, 7, 0.3);
+    }
+
+    .btn-outline-warning:focus, #registerSubmit:focus {
+        box-shadow: 0 0 0 0.1rem #121212, 0 0 0 0.25rem rgba(255, 193, 7, 0.5) !important;
+        border-color: #ffc107 !important;
+    }
+
+/* --- 4. Navigation --- */
+.nav-item .nav-link {
+    position: relative;
+    padding: 10px 15px !important;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    border-bottom: 3px solid transparent;
+}
+
+    .nav-item .nav-link:hover {
+        color: #ffc107 !important;
+        background-color: rgba(255, 193, 7, 0.1);
+        border-bottom: 3px solid #ffc107;
+        transform: translateY(-2px);
+    }
+
+    .nav-item .nav-link.active {
+        color: #ffc107 !important;
+        border-bottom: 3px solid #ffc107;
+    }
+
+/* --- 5. Nav Pills Fix --- */
+.nav-pills .nav-link {
+    color: #ffc107 !important;
+    border: 2px solid #ffc107;
+    margin: 0 5px;
+    background-color: transparent;
+    border-radius: 8px;
 }
 
     .nav-pills .nav-link.active {
         background-color: #ffc107 !important;
-        color: #000 !important;
-        border-color: #ffc107;
+        color: #000000 !important;
+        border-bottom: 2px solid #ffc107;
     }
 
-    .nav-pills .nav-link:hover:not(.active) {
-        background-color: rgba(255, 193, 7, 0.1);
-        color: #ffc107;
+/* --- 6. Admin & Sub-Menus --- */
+.nav-item.dropdown .dropdown-menu {
+    background-color: #1a1a1a !important;
+    border: 1px solid #444 !important;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    padding: 10px 0;
+}
+
+.nav-item.dropdown .dropdown-item {
+    color: white !important;
+    padding: 10px 20px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+}
+
+    .nav-item.dropdown .dropdown-item:hover {
+        background-color: rgba(255, 193, 7, 0.1) !important;
+        color: #ffc107 !important;
+        border-left: 3px solid #ffc107;
+        padding-left: 25px;
     }
 
-/* --- 2. css styles --- */
-/* --- 1. Consolidated Card Hover Effects --- */
-/* Groups all card types: Songs, Albums, Playlists, and User/Artist cards */
-/* --- 1. Consolidated Card Hover Effects --- */
-.project-card,
-.artist-hover-card,
-.playlist-hover-card,
-.song-card-container,
-.artist-card {
+/* --- 7. Cards --- */
+.card {
+    overflow: visible !important;
+}
+
+.project-card, .artist-hover-card, .playlist-hover-card,
+.song-card-container, .artist-card, .login-register-card,
+.admin-manage-card, .artist-manage-card, .user-manage-card,
+.user-profile-card, .user-edit-profile-card, .card-create,
+.card-edit, .card-index, .card-song-details, .card-album-details,
+.song-create-edit-card, .album-create-edit-card {
     transition: transform 0.3s ease, box-shadow 0.3s ease !important;
     border-radius: 12px;
     position: relative;
@@ -118,76 +151,111 @@ body {
     border: none !important;
 }
 
-    .project-card:hover,
-    .artist-hover-card:hover,
-    .playlist-hover-card:hover,
-    .song-card-container:hover,
-    .artist-card:hover,
-    .project-card:has(.show),
-    .song-card-container:has(.show) {
+    .project-card:hover, .artist-hover-card:hover, .playlist-hover-card:hover,
+    .song-card-container:hover, .artist-card:hover, .login-register-card:hover,
+    .admin-manage-card:hover, .artist-manage-card:hover, .user-manage-card:hover,
+    .user-profile-card:hover, .user-edit-profile-card:hover,
+    .card-create:hover, .card-edit:hover, .card-index:hover, .card-song-details:hover,
+    .card-album-details:hover, .song-create-edit-card:hover, .album-create-edit-card:hover {
         transform: translateY(-10px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2) !important;
-    }
-
-    .project-card:has(.show),
-    .song-card-container:has(.show) {
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6) !important;
         z-index: 1050;
     }
 
-/* --- 2. Buttons & Filtration --- */
-/* --- 2. Buttons & Filtration --- */
+/* --- 8. Global Button Logic --- */
 .btn {
-    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
-}
-
-/* Base style for Filter labels, Search, Manage, and Large Action buttons */
-.btn-check + .btn-outline-warning,
-.btn-search,
-.btn-outline-warning {
-    color: #ffc107;
-    border: 2px solid #ffc107 !important;
-    background-color: transparent;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
     font-weight: bold;
-    border-radius: 8px;
 }
 
-    /* Hover State: Solid Fill for all themed buttons */
-    .btn-check + .btn-outline-warning:hover,
-    .btn-search:hover,
-    .btn-outline-warning:hover {
-        background-color: #ffc107 !important; /* Solid Fill #ffc107 */
-        color: #000 !important; /* Black text for contrast */
-        border-color: #ffc107;
+    .btn:hover {
+        transform: translateY(-5px);
     }
 
-    /* Active/Checked state (Radio buttons and Click effect) */
-    .btn-check:checked + .btn-outline-warning,
-    .btn-search:active,
-    .btn-outline-warning:active {
-        background-color: #ffc107 !important;
-        color: #000 !important;
-        transform: scale(0.98); /* Slight press effect */
-    }
-
-/* --- 3. Warning-Themed Pagination --- */
+/* --- 9. Pagination --- */
 .pagination .page-link {
     color: #ffc107;
     background-color: transparent;
-    border-color: #dee2e6;
+    border: 2px solid #ffc107;
+    margin: 0 3px;
+    border-radius: 8px;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .pagination .page-item.active .page-link {
-    background-color: #ffc107;
-    border-color: #ffc107;
-    color: #000;
+    background-color: #ffc107 !important;
+    color: #000 !important;
+    box-shadow: 0 0 15px rgba(255, 193, 7, 0.4);
 }
 
-.pagination .page-link:hover {
-    background-color: #e5ac00;
-    border-color: #e5ac00;
-    color: #000;
-}
-
+/* --- 10. Helpers --- */
 .specific_heading {
-    color: #ffc107
+    color: #ffc107;
+}
+
+/* --- 11. Form Select (Dropdown Menus) --- */
+.form-select {
+    background-color: #ffffff !important;
+    border: 2px solid #ffc107 !important;
+    color: #000000 !important;
+    border-radius: 8px;
+    padding: 12px 15px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 0 6px rgba(255, 193, 7, 0.3) !important;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+}
+
+    .form-select:hover, .form-select:focus {
+        background-color: #f8f9fa !important;
+        transform: translateY(-4px);
+        box-shadow: 0 6px 18px rgba(255, 193, 7, 0.6) !important;
+        outline: none;
+    }
+
+/* --- 12. Choices.js Multi-Select (No Hover Transition) --- */
+.choices__inner {
+    background-color: #ffffff !important;
+    border: 2px solid #ffc107 !important;
+    border-radius: 8px !important;
+    color: #000000 !important;
+    padding: 8px 12px !important;
+    min-height: 50px;
+    /* Transition only for the glow effect */
+    transition: box-shadow 0.3s ease !important;
+    box-shadow: 0 0 6px rgba(255, 193, 7, 0.3) !important;
+}
+
+.choices:hover .choices__inner,
+.choices.is-focused .choices__inner {
+    /* Transform removed - no lift effect */
+    box-shadow: 0 6px 18px rgba(255, 193, 7, 0.6) !important;
+    background-color: #f8f9fa !important;
+}
+
+.choices__list--multiple .choices__item {
+    background-color: #ffc107 !important;
+    border: 1px solid #ffc107 !important;
+    color: #000000 !important;
+    border-radius: 6px !important;
+    font-weight: bold;
+}
+
+.choices__list--dropdown {
+    background-color: #ffffff !important;
+    border: 2px solid #ffc107 !important;
+    border-radius: 8px !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5) !important;
+}
+
+    .choices__list--dropdown .choices__item--selectable.is-highlighted {
+        background-color: #ffc107 !important;
+        color: #000000 !important;
+    }
+
+/* --- 13. Fieldset & Sectioning --- */
+fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
 }

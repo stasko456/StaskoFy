@@ -25,12 +25,14 @@ namespace StaskoFy.Controllers
             int pageSize = 5;
             var genres = await genreService.FilterGenresAsync(name, pageNumber, pageSize);
             int totalPages = await genreService.GetTotalPagesAsync(pageSize);
+            int genresCount = await genreService.GetGenresCountAsync();
 
             var viewModel = new GenresPaginationViewModel
             {
                 Genres = genres.ToList(),
                 TotalPages = totalPages,
-                CurrentPage = pageNumber
+                CurrentPage = pageNumber,
+                GenresCount = genresCount
             };
 
             if (!genres.Any())

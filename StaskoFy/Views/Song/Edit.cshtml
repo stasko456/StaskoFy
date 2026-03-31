@@ -3,25 +3,25 @@
 <div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-12 col-xl-10">
-            <div class="card shadow-lg border-0 rounded-4">
+            <div class="card shadow-lg border-0 rounded-4 song-create-edit-card">
                 <div class="card-body p-4 p-md-5">
                     <h2 class="text-center mb-3 fw-bold">
-                        <i class="bi bi-music-note-beamed"></i> Edit <span class="text-warning">Song</span>
+                        <svg viewBox="0 0 640 640" height="50" width="50">
+                            <path fill="rgb(255, 255, 255)" d="M468 7c7.6 6.1 12 15.3 12 25l0 304c0 44.2-43 80-96 80s-96-35.8-96-80 43-80 96-80c11.2 0 22 1.6 32 4.6l0-116.7-224 49.8 0 206.3c0 44.2-43 80-96 80s-96-35.8-96-80 43-80 96-80c11.2 0 22 1.6 32 4.6L128 96c0-15 10.4-28 25.1-31.2l288-64c9.5-2.1 19.4 .2 27 6.3z" />
+                        </svg>Edit <span class="text-warning">Song</span>
                     </h2>
                     <form method="post" asp-action="Edit" enctype="multipart/form-data">
                         <input type="hidden" asp-for="Id" />
                         <div class="row g-4 align-items-stretch">
-                            <!-- LEFT COLUMN -->
-                            <div class="col-12 col-lg-6 d-flex">
+
+                            <fieldset class="col-12 col-lg-6 d-flex">
                                 <div class="w-100">
-                                    <!-- Title -->
                                     <div class="mb-3">
                                         <label asp-for="Title" class="form-label fw-semibold">Title</label>
                                         <input asp-for="Title" class="form-control" placeholder="Song Title" />
                                         <span asp-validation-for="Title" class="text-danger small"></span>
                                     </div>
 
-                                    <!-- Duration -->
                                     <div class="mb-3">
                                         <label class="form-label fw-semibold">Duration (Minutes / Seconds)</label>
                                         <div class="d-flex gap-2">
@@ -34,19 +34,23 @@
                                         </div>
                                     </div>
 
-                                    <!-- Release Date -->
                                     <div class="mb-3">
                                         <label asp-for="ReleaseDate" class="form-label fw-semibold">Release Date</label>
                                         <input type="date" asp-for="ReleaseDate" class="form-control" />
                                         <span asp-validation-for="ReleaseDate" class="text-danger small"></span>
                                     </div>
-                                </div>
-                            </div>
 
-                            <!-- RIGHT COLUMN -->
-                            <div class="col-12 col-lg-6 d-flex">
+                                    <div class="mt-5 d-flex justify-content-center gap-3">
+                                        <button type="submit" class="btn btn-warning btn-lg rounded-4 px-5 shadow fw-semibold">
+                                            Edit Song
+                                        </button>
+                                        <a asp-controller="Library" asp-action="MyProjectsForCurrentLoggedArtistIndex" class="btn btn-outline-warning btn-lg">Back</a>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="col-12 col-lg-6 d-flex">
                                 <div class="w-100">
-                                    <!-- Genre -->
                                     <div class="mb-3">
                                         <label asp-for="GenreId" class="form-label fw-semibold">Genre</label>
                                         <select asp-for="GenreId" asp-items="ViewBag.Genres" class="form-select">
@@ -55,47 +59,38 @@
                                         <span asp-validation-for="GenreId" class="text-danger small"></span>
                                     </div>
 
-                                    <!-- Featured Artists -->
-                                    <label class="form-label fw-semibold">Featured Artists</label>
-                                    <select asp-for="SelectedArtistIds" 
-                                            multiple
-                                            class="form-select"
-                                            data-choices
-                                            data-remove-item-button="true"
-                                            data-search-enabled="true"
-                                            data-placeholder-value="Select artists"
-                                            data-no-results-text="No artists found"
-                                            data-item-select-text="Click to select"
-                                            data-should-sort="false"
-                                            data-val="false">
-                                        @foreach (var artist in ViewBag.AllArtists)
-                                        {
-                                            bool isSelected = Model.SelectedArtistIds.Contains(artist.Id);
+                                    <div class="mb-3">
+                                        <label class="form-label fw-semibold">Featured Artists</label>
+                                        <select asp-for="SelectedArtistIds"
+                                                multiple
+                                                class="form-select"
+                                                data-choices
+                                                data-remove-item-button="true"
+                                                data-search-enabled="true"
+                                                data-placeholder-value="Select artists"
+                                                data-no-results-text="No artists found"
+                                                data-item-select-text="Click to select"
+                                                data-should-sort="false"
+                                                data-val="false">
+                                            @foreach (var artist in ViewBag.AllArtists)
+                                            {
+                                                bool isSelected = Model.SelectedArtistIds.Contains(artist.Id);
 
-                                            <option value="@artist.Id" selected="@(isSelected ? "selected" : null)">
-                                                @artist.Username
-                                            </option>
-                                        }
-                                    </select>
+                                                <option value="@artist.Id" selected="@(isSelected ? "selected" : null)">
+                                                    @artist.Username
+                                                </option>
+                                            }
+                                        </select>
+                                    </div>
 
-                                    <!-- Art Cover -->
                                     <div class="mb-3">
                                         <label asp-for="ImageFile" class="form-label fw-semibold">Art Cover</label>
                                         <input type="file" asp-for="ImageFile" class="form-control" />
                                     </div>
-
                                 </div>
-                            </div>
+                            </fieldset>
 
                         </div>
-
-                        <!-- Submit Button -->
-                        <div class="text-center mt-4">
-                            <button type="submit" class="btn btn-warning btn-lg rounded-pill px-5 shadow fw-semibold">
-                                Edit Song
-                            </button>
-                        </div>
-
                     </form>
                 </div>
             </div>

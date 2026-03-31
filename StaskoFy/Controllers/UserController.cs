@@ -232,7 +232,7 @@ namespace StaskoFy.Controllers
 
         [HttpGet]
         [Authorize(Policy = "ArtistOrAdminOrUser")]
-        public async Task<IActionResult> Details2(Guid id)
+        public async Task<IActionResult> UserDetails(Guid id)
         {
             if (id == Guid.Empty)
             {
@@ -244,7 +244,7 @@ namespace StaskoFy.Controllers
                 bool isArtist = await userService.IsUserArtistAsync(id);
                 if (isArtist == true)
                 {
-                    return RedirectToAction("Details", "Artist", new { artistUserId = id });
+                    return RedirectToAction("ArtistDetails", "Artist", new { artistUserId = id });
                 }
                 var user = await userService.GetUserWithPlaylistsByIdAsync(id);
                 if (!user.Playlists.Any())

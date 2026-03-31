@@ -15,5 +15,7 @@ namespace StaskoFy.ViewModels.Pagination
         public int CurrentPage { get; set; }
 
         public int TotalPages { get; set; }
+
+        public int GenresCount { get; set; }
     }
 }

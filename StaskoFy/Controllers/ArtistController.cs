@@ -18,7 +18,7 @@ namespace StaskoFy.Controllers
 
         [HttpGet]
         [Authorize(Policy = "ArtistOrAdminOrUser")]
-        public async Task<IActionResult> Details(Guid artistUserId)
+        public async Task<IActionResult> ArtistDetails(Guid artistUserId)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
