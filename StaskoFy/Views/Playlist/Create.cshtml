@@ -2,70 +2,53 @@
 
 <div class="container py-5">
     <div class="row justify-content-center">
-        <div class="col-12 col-xl-10">
-            <div class="card shadow-lg border-0 rounded-4">
-                <div class="card-body p-4 p-md-5">
-                    <h2 class="text-center mb-3 fw-bold">
-                        <i class="bi bi-music-note-list"></i> Create <span class="text-success">Playlist</span>
+        <div class="col-12 col-md-8 col-lg-6">
+            <div class="card shadow-lg border-0 rounded-4 playlist-create-edit-card">
+                <div class="card-body p-4">
+                    <h2 class="text-center mb-4 fw-bold">
+                        <svg viewBox="0 0 640 640" height="40" width="40" class="me-2">
+                            <path fill="rgb(255, 255, 255)" d="M468 7c7.6 6.1 12 15.3 12 25l0 304c0 44.2-43 80-96 80s-96-35.8-96-80 43-80 96-80c11.2 0 22 1.6 32 4.6l0-116.7-224 49.8 0 206.3c0 44.2-43 80-96 80s-96-35.8-96-80 43-80 96-80c11.2 0 22 1.6 32 4.6L128 96c0-15 10.4-28 25.1-31.2l288-64c9.5-2.1 19.4 .2 27 6.3z" />
+                        </svg>Create <span class="text-success">Playlist</span>
                     </h2>
 
                     <form method="post" asp-action="Create" enctype="multipart/form-data">
-                        <div class="row g-4 align-items-stretch">
-                            <!-- LEFT COLUMN -->
-                            <div class="col-12 col-lg-6 d-flex">
-                                <div class="w-100">
-                                    <!-- Title -->
-                                    <div class="mb-3">
-                                        <label asp-for="Title" class="form-label fw-semibold">Playlist Title</label>
-                                        <input asp-for="Title" class="form-control" placeholder="Enter playlist title" aria-required="true" />
-                                        <span asp-validation-for="Title" class="text-danger small"></span>
-                                    </div>
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <label asp-for="Title" class="form-label fw-semibold">Playlist Title</label>
+                                    <input asp-for="Title" class="form-control" placeholder="Enter playlist title" />
+                                    <span asp-validation-for="Title" class="text-danger small"></span>
+                                </div>
 
-                                    <!-- Image URL -->
-                                    <div class="mb-3">
-                                        <label asp-for="ImageFile" class="form-label fw-semibold">Art Cover</label>
-                                        <input type="file" asp-for="ImageFile" class="form-control" />
+                                <div class="mb-3">
+                                    <label asp-for="ImageFile" class="form-label fw-semibold">Art Cover</label>
+                                    <input type="file" asp-for="ImageFile" class="form-control" />
+                                    <span asp-validation-for="ImageFile" class="text-danger small"></span>
+                                </div>
+
+                                <div class="p-3 rounded-4 border border-secondary border-opacity-25 bg-dark bg-opacity-10 mb-3">
+                                    <div class="form-check form-switch d-flex align-items-center justify-content-between p-0 m-0">
+                                        <div>
+                                            <label asp-for="IsPublic" class="form-check-label fw-bold d-block mb-0">Public Playlist</label>
+                                            <small class="text-secondary">Anyone can find and listen to this</small>
+                                        </div>
+                                        <input asp-for="IsPublic" class="form-check-input ms-0" type="checkbox" role="switch" style="width: 2.5em; height: 1.25em;">
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- RIGHT COLUMN -->
-                            <div class="col-12 col-lg-6 d-flex">
-                                <div class="w-100">
-                                    <!-- Selected Songs -->
-                                    <div class="mb-3">
-                                        <label class="form-label fw-semibold">Songs</label>
-                                        <select asp-for="SelectedSongIds"
-                                                asp-items="Model.Songs"
-                                                multiple
-                                                class="form-select"
-                                                size="6"
-                                                data-choices
-                                                data-remove-item-button="true"
-                                                data-search-enabled="true"
-                                                data-placeholder-value="Select songs"
-                                                data-no-results-text="No songs found"
-                                                data-item-select-text="Click to select"
-                                                data-should-sort="false">
-                                        </select>
-                                        <span asp-validation-for="SelectedSongIds" class="text-danger"></span>
-                                    </div>
-
-                                    <!-- IsPublic Checkbox -->
-                                    <div class="form-check form-switch">
-                                        <input asp-for="IsPublic" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                                        <label asp-for="IsPublic" class="form-check-label" for="flexSwitchCheckDefault">Public</label>
-                                    </div>
+                            <div class="col-12 mt-4">
+                                <div class="d-flex flex-column flex-md-row justify-content-between gap-3 pt-2 border-top-0">
+                                    <button type="submit" class="btn btn-success btn-lg rounded-4 px-5 shadow fw-semibold">
+                                        Create Playlist
+                                    </button>
+                                    <a asp-controller="Library" asp-action="MyLibraryIndex"
+                                       class="btn btn-outline-warning btn-lg rounded-4 px-4">
+                                        Back to Library
+                                    </a>
                                 </div>
                             </div>
-
                         </div>
-
-                        <!-- Submit Button -->
-                        <div class="text-center mt-4">
-                            <button type="submit" class="btn btn-success btn-lg rounded-pill px-5 shadow fw-semibold">Create Playlist</button>
-                        </div>
-
                     </form>
                 </div>
             </div>

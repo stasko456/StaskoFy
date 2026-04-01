@@ -28,13 +28,14 @@
                             else if (User.IsInRole("Artist") || User.IsInRole("User"))
                             {
                                 <div class="dropup mt-auto">
-                                    <button class="btn btn-secondary btn-lg w-100 py-1 dropdown-toggle"
+                                    <button class="btn btn-sm w-100 d-flex align-items-center justify-content-center py-2 fs-5"
                                             type="button"
                                             data-bs-toggle="dropdown"
-                                            aria-expanded="false">
-                                        <svg viewBox="0 0 640 640" width="30" height="30" class="me-2">
-                                            <path fill="rgb(255, 255, 255)" d="M96 320C96 289.1 121.1 264 152 264C182.9 264 208 289.1 208 320C208 350.9 182.9 376 152 376C121.1 376 96 350.9 96 320zM264 320C264 289.1 289.1 264 320 264C350.9 264 376 289.1 376 320C376 350.9 350.9 376 320 376C289.1 376 264 350.9 264 320zM488 264C518.9 264 544 289.1 544 320C544 350.9 518.9 376 488 376C457.1 376 432 350.9 432 320C432 289.1 457.1 264 488 264z" />
-                                        </svg>More options
+                                            aria-expanded="false"
+                                            style="background-color: rgba(255,255,255,0.05); color: #adb5bd; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; font-weight: 600;">
+                                        <svg viewBox="0 0 128 512" width="22" height="22" class="me-2">
+                                            <path fill="currentColor" d="M64 352c-35.3 0-64 28.7-64 64s28.7 64 64 64 64-28.7 64-64-28.7-64-64-352zm0-160c-35.3 0-64 28.7-64 64s28.7 64 64 64 64-28.7 64-64-28.7-64-64-160zm0-160C28.7 32 0 60.7 0 96s28.7 64 64 64 64-28.7 64-64-28.7-64-64-64z" />
+                                        </svg>Options
                                     </button>
 
                                     <ul class="dropdown-menu dropdown-menu-dark shadow">

@@ -31,7 +31,7 @@ namespace StaskoFy.Controllers
 
             var viewModel = new PlaylistCreateViewModel
             {
-                Songs = new MultiSelectList(songs, "Id", "Title")
+                //Songs = new MultiSelectList(songs, "Id", "Title")
             };
             return View(viewModel);
         }
@@ -47,7 +47,7 @@ namespace StaskoFy.Controllers
 
             if (!ModelState.IsValid)
             {
-                viewModel.Songs = new MultiSelectList(songs, "Id", "Title");
+                //viewModel.Songs = new MultiSelectList(songs, "Id", "Title");
                 return View(viewModel);
             }
 
@@ -72,8 +72,7 @@ namespace StaskoFy.Controllers
                 {
                     Id = id,
                     Title = playlist.Title,
-                    DateCreated = playlist.DateCreated,
-                    Songs = new MultiSelectList(songs, "Id", "Title"),
+                    //Songs = new MultiSelectList(songs, "Id", "Title"),
                     IsPublic = playlist.IsPublic,
                 };
                 return View(viewModel);

@@ -16,13 +16,7 @@ namespace StaskoFy.ViewModels.Playlist
         [StringLength(100, MinimumLength = 1, ErrorMessage = "Title must be between 1 and 100 characters.")]
         public string Title { get; set; } = null!;
 
-        [Required]
-        public DateOnly DateCreated { get; set; }
-
         public IFormFile? ImageFile { get; set; }
-
-        public List<Guid>? SelectedSongIds { get; set; } = new();
-        public Microsoft.AspNetCore.Mvc.Rendering.MultiSelectList? Songs { get; set; }
 
         public bool IsPublic { get; set; }
     }

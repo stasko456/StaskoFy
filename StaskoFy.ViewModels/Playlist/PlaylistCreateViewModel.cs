@@ -17,10 +17,5 @@ namespace StaskoFy.ViewModels.Playlist
         public IFormFile? ImageFile { get; set; }
 
         public bool IsPublic { get; set; }
-
-        [Required(ErrorMessage = "Please select at least one song.")]
-        [MinLength(1, ErrorMessage = "Please select at least one song.")]
-        public List<Guid>? SelectedSongIds { get; set; }
-        public Microsoft.AspNetCore.Mvc.Rendering.MultiSelectList? Songs { get; set; }
     }
 }
