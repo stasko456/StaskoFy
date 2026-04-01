@@ -43,3 +43,44 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+
+function confirmDelete(event, formId) {
+    event.preventDefault();
+
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: "btn btn-success px-4 mx-2",
+            cancelButton: "btn btn-outline-secondary px-4",
+            popup: "border-1 border-secondary shadow-lg"
+        },
+        buttonsStyling: false
+    });
+
+    swalWithBootstrapButtons.fire({
+        title: "<span style='color: #fff;'>Are you sure?</span>",
+        icon: "warning",
+        iconColor: "#ffc107",
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel!",
+        reverseButtons: true,
+        background: "#1a1a1a",
+        color: "#ffffff",
+        backdrop: `rgba(0,0,0,0.8)`
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // 2. IMPORTANT: Actually submit the form now
+            document.getElementById(formId).submit();
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            swalWithBootstrapButtons.fire({
+                title: "Cancelled",
+                icon: "error",
+                background: "#1a1a1a",
+                color: "#ffffff",
+                showConfirmButton: false,
+                timer: 1500
+            });
+        }
+    });
+}

@@ -146,7 +146,7 @@ namespace StaskoFy.Controllers
         [HttpPost]
         [Authorize(Policy = "ArtistOrAdmin")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(Guid id)
+        public async Task<IActionResult> Delete(Guid id, string sourceController, string sourceAction)
         {
             if (id == Guid.Empty)
             {
@@ -156,7 +156,7 @@ namespace StaskoFy.Controllers
             try
             {
                 await albumService.RemoveAlbumAsync(id);
-                return RedirectToAction("MyProjectsForCurrentLoggedArtistIndex", "Library");
+                return RedirectToAction(sourceAction, sourceController);
             }
             catch (NullReferenceException ex)
             {

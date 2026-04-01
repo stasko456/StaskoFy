@@ -110,7 +110,14 @@ namespace StaskoFy.Core.Service
                     Id = a.Id,
                     Username = a.User.UserName,
                     ProfilePicture = a.User.ImageURL,
-                    Singles = a.ArtistsSongs.Where(x => x.Song.AlbumId == null && x.Song.Status == UploadStatus.Approved).Select(x => new SongIndexViewModel
+                    Singles = a.ArtistsSongs
+                    .Where(x => x.Song.Status == UploadStatus.Approved &&
+                    (
+                        x.Song.AlbumId == null
+                        ||
+                        !x.Song.Album.ArtistsAlbums.Any(aa => aa.Artist.UserId == userId)
+                    ))
+                    .Select(x => new SongIndexViewModel
                     {
                         Id = x.Song.Id,
                         Title = x.Song.Title,
