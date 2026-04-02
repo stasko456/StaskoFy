@@ -303,24 +303,11 @@ namespace StaskoFy.Core.Service
             }
 
             // remove from playlists
-            if (song.PlaylistSongs.Any())
-            {
-                foreach (var playlistSong in song.PlaylistSongs)
-                {
-                    var playlist = playlistSong.Playlist;
-
-                    playlist.Length = playlist.Length - song.Length;
-                }
-
-                await playlistSongRepo.RemoveRangeAsync(song.PlaylistSongs);
-            }
+            song.PlaylistSongs.Clear();
 
             // remove from liked songs
-            if (song.LikedSongs.Any())
-            {
-                await likedSongsRepo.RemoveRangeAsync(song.LikedSongs);
-                song.Likes = 0;
-            }
+            song.LikedSongs.Clear();
+            song.Likes = 0;
 
             // soft delete
             song.Status = UploadStatus.Deleted;

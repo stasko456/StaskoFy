@@ -31,7 +31,6 @@ namespace StaskoFy.Controllers
 
             var viewModel = new PlaylistCreateViewModel
             {
-                //Songs = new MultiSelectList(songs, "Id", "Title")
             };
             return View(viewModel);
         }
@@ -47,7 +46,6 @@ namespace StaskoFy.Controllers
 
             if (!ModelState.IsValid)
             {
-                //viewModel.Songs = new MultiSelectList(songs, "Id", "Title");
                 return View(viewModel);
             }
 
@@ -72,7 +70,6 @@ namespace StaskoFy.Controllers
                 {
                     Id = id,
                     Title = playlist.Title,
-                    //Songs = new MultiSelectList(songs, "Id", "Title"),
                     IsPublic = playlist.IsPublic,
                 };
                 return View(viewModel);
@@ -105,7 +102,7 @@ namespace StaskoFy.Controllers
         [HttpPost]
         [Authorize(Policy = "ArtistOrUser")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(Guid id)
+        public async Task<IActionResult> Delete(Guid id, string sourceController, string sourceAction)
         {
             if (id == Guid.Empty)
             {
@@ -115,7 +112,7 @@ namespace StaskoFy.Controllers
             try
             {
                 await playlistService.RemovePlaylistAsync(id);
-                return RedirectToAction("MyLibraryIndex", "Library");
+                return RedirectToAction(sourceAction, sourceController);
             }
             catch (NullReferenceException ex)
             {

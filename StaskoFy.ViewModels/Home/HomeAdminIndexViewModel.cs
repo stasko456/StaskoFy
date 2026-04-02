@@ -12,8 +12,12 @@ namespace StaskoFy.ViewModels.Home
 
         public int TotalAlbums { get; set; }
 
+        public int TotalGenres { get; set; }
+
         public int TotalPendingSongs { get; set; }
 
         public int TotalPendingAlbums { get; set; }
+
+        public int TotalDeletedGenres { get; set; }
     }
 }

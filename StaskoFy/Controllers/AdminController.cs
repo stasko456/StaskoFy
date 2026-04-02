@@ -75,7 +75,7 @@ namespace StaskoFy.Controllers
         {
             int pageSize = 5;
             var genres = await genreService.FilterDeletedGenresAsync(name, pageNumber, pageSize);
-            int totalPages = await genreService.GetTotalPendingPagesAsync(pageSize);
+            int totalPages = await genreService.GetTotalDeletedPagesAsync(pageSize);
 
             var viewModel = new DeletedGenresPaginationViewModel
             {

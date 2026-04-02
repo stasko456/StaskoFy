@@ -384,6 +384,9 @@ namespace StaskoFy.Core.Service
                 {
                     song.ImageURL = "/images/defaults/default-song-cover-art.png";
                     song.CloudinaryPublicId = "";
+                    song.LikedSongs.Clear();
+                    song.PlaylistSongs.Clear();
+                    song.Likes = 0;
                     // album's songs soft delete
                     song.Status = UploadStatus.Deleted;
                 }

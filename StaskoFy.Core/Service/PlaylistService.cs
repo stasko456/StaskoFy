@@ -120,10 +120,6 @@ namespace StaskoFy.Core.Service
 
         public async Task AddPlaylistAsync(PlaylistCreateViewModel model, Guid userId)
         {
-            //var playlistSongs = await songRepo.GetAllAttached()
-            //    .Where(x => model.SelectedSongIds.Contains(x.Id))
-            //    .ToListAsync();
-
             string imageURL = "";
             string publicId = "";
 
@@ -152,35 +148,12 @@ namespace StaskoFy.Core.Service
             playlist.ImageURL = imageURL;
             playlist.CloudinaryPublicId = publicId;
 
-            // add songs to playlist
-            //foreach (var song in playlistSongs)
-            //{
-            //    playlist.PlaylistsSongs.Add(new PlaylistSong
-            //    {
-            //        Playlist = playlist,
-            //        Song = song,
-            //        DateAdded = DateOnly.FromDateTime(DateTime.Now)
-            //    });
-            //}
-
-            // add length
-            //TimeSpan playlistLength = TimeSpan.Zero;
-            //foreach (var song in playlistSongs)
-            //{
-            //    playlistLength += song.Length;
-            //}
-            //playlist.Length = playlistLength;
-
             // add playlist to DB
             await playlistRepo.AddAsync(playlist);
         }
 
         public async Task UpdatePlaylistAsync(PlaylistEditViewModel model, Guid userId)
         {
-            //var playlistSongs = await songRepo.GetAllAttached()
-            //    .Where(x => model.SelectedSongIds.Contains(x.Id))
-            //    .ToListAsync();
-
             string imageURL = "";
             string publicId = "";
 
@@ -205,29 +178,6 @@ namespace StaskoFy.Core.Service
             playlist.Title = model.Title;
             playlist.IsPublic = model.IsPublic;
             playlist.UserId = userId;
-
-            //add songs to the playlist if any are selected
-            //if (playlistSongs.Count > 0)
-            //{
-            //    // add new songs to playlist
-            //    foreach (var song in playlistSongs)
-            //    {
-            //        playlist.PlaylistsSongs.Add(new PlaylistSong
-            //        {
-            //            Playlist = playlist,
-            //            Song = song,
-            //            DateAdded = DateOnly.FromDateTime(DateTime.Now)
-            //        });
-            //    }
-
-            //    // update playlist length
-            //    TimeSpan playlistLength = TimeSpan.Zero;
-            //    foreach (var song in playlistSongs)
-            //    {
-            //        playlistLength += song.Length;
-            //    }
-            //    playlist.Length = playlist.Length + playlistLength;
-            //}
 
             // update entity
             await playlistRepo.UpdateAsync(playlist);

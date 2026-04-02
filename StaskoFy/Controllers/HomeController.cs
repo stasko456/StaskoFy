@@ -3,6 +3,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StaskoFy.Core.IService;
+using StaskoFy.Core.Service;
 using StaskoFy.Models;
 using StaskoFy.ViewModels.Home;
 using StaskoFy.ViewModels.LikedSongs;
@@ -16,18 +17,21 @@ namespace StaskoFy.Controllers
         private readonly IAlbumService albumService;
         private readonly IPlaylistService playlistService;
         private readonly ILikedSongsService likedSongsService;
+        private readonly IGenreService genreService;
 
         public HomeController(ILogger<HomeController> logger,
                               ISongService _songService,
                               IAlbumService _albumService,
                               IPlaylistService _playlistService,
-                              ILikedSongsService _likedSongsService)
+                              ILikedSongsService _likedSongsService,
+                              IGenreService _genreService)
         {
             _logger = logger;
             this.songService = _songService;
             this.albumService = _albumService;
             this.playlistService = _playlistService;
             this.likedSongsService = _likedSongsService;
+            this.genreService = _genreService;
         }
 
         public async Task<IActionResult> Index()
@@ -40,13 +44,17 @@ namespace StaskoFy.Controllers
                 int totalPendingSongs = await songService.GetTotalPendingSongsCountAsync();
                 int totalAlbums = await albumService.GetTotalAlbumsCountAsync();
                 int totalPendingAlbums = await albumService.GetTotalPendingAlbumsCountAsync();
+                int totalGenres = await genreService.GetGenresCountAsync();
+                int totalDeletedGenres = await genreService.GetDeletedGenresCountAsync();
 
                 var viewModel = new HomeAdminIndexViewModel
                 {
                     TotalSongs = totalSongs,
                     TotalPendingSongs = totalPendingSongs,
                     TotalAlbums = totalAlbums,
-                    TotalPendingAlbums = totalPendingAlbums
+                    TotalPendingAlbums = totalPendingAlbums,
+                    TotalGenres = totalGenres,
+                    TotalDeletedGenres = totalDeletedGenres,
                 };
 
                 return View("AdminIndex", viewModel);

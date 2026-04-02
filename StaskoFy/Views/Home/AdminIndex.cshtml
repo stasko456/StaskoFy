@@ -2,49 +2,98 @@
 
 <div class="container py-5">
     <div class="text-center text-light">
-        <h1 class="display-4 fw-bold mb-3">
-            Welcome to <span class="specific_heading">StaskoFy</span>
-        </h1>
+        <div class="mb-5">
+            <h1 class="display-4 fw-bold mb-3">
+                Welcome to <span class="specific_heading">StaskoFy</span>
+            </h1>
+            <p class="lead text-secondary mb-1">
+                Platform Administration
+            </p>
+            <p class="lead text-secondary mb-1">
+                Review pending songs and albums, manage system-wide genres, and monitor the overall growth of the music library
+            </p>
+        </div>
 
-        <p class="lead text-secondary mb-1">
-            Platform Administration
-        </p>
-        <p class="lead text-secondary mb-4">
-            Review uploaded content and manage songs and albums across the platform.
-        </p>
-        <div class="row text-center mb-5">
-            <div class="col-md-3 mb-3">
+        <div class="row text-center mb-5 g-4">
+            <div class="col-md-4">
                 <div class="card shadow-sm admin-manage-card">
                     <div class="card-body">
                         <h5 class="card-title fw-bold">Browse Songs</h5>
-                        <p class="card-text fw-semibold">@Model.TotalSongs</p>
+                        <p class="card-text fw-semibold">
+                            <svg viewBox="0 0 640 640" height="24" width="24" class="me-2" style="color: #ffc107;">
+                                <path fill="currentColor" d="M532 71C539.6 77.1 544 86.3 544 96L544 400C544 444.2 501 480 448 480C395 480 352 444.2 352 400C352 355.8 395 320 448 320C459.2 320 470 321.6 480 324.6L480 207.9L256 257.7L256 464C256 508.2 213 544 160 544C107 544 64 508.2 64 464C64 419.8 107 384 160 384C171.2 384 182 385.6 192 388.6L192 160C192 145 202.4 132 217.1 128.8L505.1 64.8C514.6 62.7 524.5 65 532.1 71.1z" />
+                            </svg>@Model.TotalSongs
+                        </p>
                         <a asp-controller="Song" asp-action="SongsIndexForAllUsers" class="btn btn-outline-warning btn-md">Manage</a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 mb-3">
+
+            <div class="col-md-4">
                 <div class="card shadow-sm admin-manage-card">
                     <div class="card-body">
                         <h5 class="card-title fw-bold">Browse Albums</h5>
-                        <p class="card-text fw-semibold">@Model.TotalAlbums</p>
+                        <p class="card-text fw-semibold">
+                            <svg viewBox="0 0 640 640" height="24" width="24" class="me-2" style="color: #ffc107;">
+                                <path fill="currentColor" d="M532 71C539.6 77.1 544 86.3 544 96L544 400C544 444.2 501 480 448 480C395 480 352 444.2 352 400C352 355.8 395 320 448 320C459.2 320 470 321.6 480 324.6L480 207.9L256 257.7L256 464C256 508.2 213 544 160 544C107 544 64 508.2 64 464C64 419.8 107 384 160 384C171.2 384 182 385.6 192 388.6L192 160C192 145 202.4 132 217.1 128.8L505.1 64.8C514.6 62.7 524.5 65 532.1 71.1z" />
+                            </svg>@Model.TotalAlbums
+                        </p>
                         <a asp-controller="Album" asp-action="AlbumsIndexForAllUsers" class="btn btn-outline-warning btn-md">Manage</a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 mb-3">
+
+            <div class="col-md-4">
                 <div class="card shadow-sm admin-manage-card">
                     <div class="card-body">
-                        <h5 class="card-title fw-bold">Pending Songs</h5>
-                        <p class="card-text fw-semibold">@Model.TotalPendingSongs</p>
+                        <h5 class="card-title fw-bold">Manage Genres</h5>
+                        <p class="card-text fw-semibold">
+                            <svg viewBox="0 0 640 640" height="24" width="24" class="me-2" style="color: #ffc107;">
+                                <path fill="currentColor" d="M0 64C0 46.3 14.3 32 32 32l448 0c17.7 0 32 14.3 32 32l0 32c0 17.7-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96L0 64zM32 176l448 0 0 240c0 35.3-28.7 64-64 64L96 480c-35.3 0-64-28.7-64-64l0-240zm152 64c-13.3 0-24 10.7-24 24s10.7 24 24 24l144 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-144 0z" />
+                            </svg>@Model.TotalGenres
+                        </p>
+                        <a asp-controller="Genre" asp-action="Index" class="btn btn-outline-warning btn-md">Manage</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card shadow-sm admin-manage-card">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Manage Deleted Genres</h5>
+                        <p class="card-text fw-semibold">
+                            <svg viewBox="0 0 640 640" height="24" width="24" class="me-2" style="color: red;">
+                                <path fill="currentColor" d="M0 64C0 46.3 14.3 32 32 32l448 0c17.7 0 32 14.3 32 32l0 32c0 17.7-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96L0 64zM32 176l448 0 0 240c0 35.3-28.7 64-64 64L96 480c-35.3 0-64-28.7-64-64l0-240zm152 64c-13.3 0-24 10.7-24 24s10.7 24 24 24l144 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-144 0z" />
+                            </svg>@Model.TotalDeletedGenres
+                        </p>
+                        <a asp-controller="Admin" asp-action="ManageGenresStatus" class="btn btn-outline-danger custom-manage-button btn-md">Review</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card shadow-sm admin-manage-card">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Manage Pending Songs</h5>
+                        <p class="card-text fw-semibold">
+                            <svg viewBox="0 0 640 640" height="24" width="24" class="me-2" style="color: red;">
+                                <path fill="currentColor" d="M532 71C539.6 77.1 544 86.3 544 96L544 400C544 444.2 501 480 448 480C395 480 352 444.2 352 400C352 355.8 395 320 448 320C459.2 320 470 321.6 480 324.6L480 207.9L256 257.7L256 464C256 508.2 213 544 160 544C107 544 64 508.2 64 464C64 419.8 107 384 160 384C171.2 384 182 385.6 192 388.6L192 160C192 145 202.4 132 217.1 128.8L505.1 64.8C514.6 62.7 524.5 65 532.1 71.1z" />
+                            </svg>@Model.TotalPendingSongs
+                        </p>
                         <a asp-controller="Admin" asp-action="ManageSongsStatus" class="btn btn-outline-danger custom-manage-button btn-md">Review</a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 mb-3">
+
+            <div class="col-md-4">
                 <div class="card shadow-sm admin-manage-card">
                     <div class="card-body">
-                        <h5 class="card-title fw-bold">Pending Albums</h5>
-                        <p class="card-text fw-semibold">@Model.TotalPendingAlbums</p>
+                        <h5 class="card-title fw-bold">Manage Pending Albums</h5>
+                        <p class="card-text fw-semibold">
+                            <svg viewBox="0 0 640 640" height="24" width="24" class="me-2" style="color: red;">
+                                <path fill="currentColor" d="M532 71C539.6 77.1 544 86.3 544 96L544 400C544 444.2 501 480 448 480C395 480 352 444.2 352 400C352 355.8 395 320 448 320C459.2 320 470 321.6 480 324.6L480 207.9L256 257.7L256 464C256 508.2 213 544 160 544C107 544 64 508.2 64 464C64 419.8 107 384 160 384C171.2 384 182 385.6 192 388.6L192 160C192 145 202.4 132 217.1 128.8L505.1 64.8C514.6 62.7 524.5 65 532.1 71.1z" />
+                            </svg>@Model.TotalPendingAlbums
+                        </p>
                         <a asp-controller="Admin" asp-action="ManageAlbumsStatus" class="btn btn-outline-danger custom-manage-button btn-md">Review</a>
                     </div>
                 </div>

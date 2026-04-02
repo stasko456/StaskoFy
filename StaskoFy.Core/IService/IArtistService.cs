@@ -1,4 +1,5 @@
-﻿using StaskoFy.ViewModels.Artist;
+﻿using DocumentFormat.OpenXml.Bibliography;
+using StaskoFy.ViewModels.Artist;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,5 +26,11 @@ namespace StaskoFy.Core.IService
         Task<int> GetTotalPendingPagesAsync(int pageSize = 5);
 
         Task<IEnumerable<ArtistApprovalViewModel>> FilterArtistsWithPendingStatusAsync(string name, int pageNumber = 1, int pageSize = 5);
+
+        Task<ArtistCheckViewModel?> FindArtistByUserIdAsync(Guid userId);
+
+        Task AcceptArtistAsync(Guid id);
+
+        Task RejectArtistAsync(Guid id);
     }
 }

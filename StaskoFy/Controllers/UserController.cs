@@ -129,11 +129,34 @@ namespace StaskoFy.Controllers
 
             if (user != null)
             {
-                var result = await signInManager.PasswordSignInAsync(user, viewModel.Password, false, false);
+                bool isArtist = await userService.IsUserArtistAsync(user.Id);
 
-                if (result.Succeeded)
+                if (isArtist == true)
                 {
-                    return RedirectToAction("Index", "Home");
+                    var artist = await artistService.FindArtistByUserIdAsync(user.Id);
+
+                    if (artist.IsAccepted == UploadStatus.Approved)
+                    {
+                        var result = await signInManager.PasswordSignInAsync(user, viewModel.Password, false, false);
+
+                        if (result.Succeeded)
+                        {
+                            return RedirectToAction("Index", "Home");
+                        }
+                    }
+                    else
+                    {
+                        return RedirectToAction("ArtistNotAcceptedPage", "Artist");
+                    }
+                }
+                else
+                {
+                    var result = await signInManager.PasswordSignInAsync(user, viewModel.Password, false, false);
+
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
             }
 

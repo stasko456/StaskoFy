@@ -124,7 +124,7 @@ namespace StaskoFy.Core.Service
             return (int)Math.Ceiling(totalGenres / (double)pageSize);
         }
 
-        public async Task<int> GetTotalPendingPagesAsync(int pageSize = 5)
+        public async Task<int> GetTotalDeletedPagesAsync(int pageSize = 5)
         {
             int totalPendingGenres = await genreRepo.GetAllAttached()
                 .Where(g => g.Status == UploadStatus.Deleted)
@@ -199,6 +199,13 @@ namespace StaskoFy.Core.Service
         public Task<int> GetGenresCountAsync()
         {
             return genreRepo.GetAllAttached()
+                .CountAsync();
+        }
+
+        public Task<int> GetDeletedGenresCountAsync()
+        {
+            return genreRepo.GetAllAttached()
+                .Where(g => g.Status == UploadStatus.Deleted)
                 .CountAsync();
         }
     }

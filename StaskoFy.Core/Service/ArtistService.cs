@@ -189,5 +189,44 @@ namespace StaskoFy.Core.Service
                 .Take(pageSize)
                 .ToListAsync();
         }
+
+        public async Task<ArtistCheckViewModel?> FindArtistByUserIdAsync(Guid userId)
+        {
+            return await artistRepo.GetAllAttached()
+                .Where(a => a.UserId == userId)
+                .Select(a => new ArtistCheckViewModel
+                {
+                    Id = a.Id,
+                    IsAccepted = a.IsAccepted
+                }).FirstOrDefaultAsync();
+        }
+
+        public async Task AcceptArtistAsync(Guid id)
+        {
+            var artist = await artistRepo.GetByIdAsync(id);
+
+            if (artist is null)
+            {
+                throw new NullReferenceException("Unable to find this artist!");
+            }
+
+            artist.IsAccepted = UploadStatus.Approved;
+
+            await artistRepo.UpdateAsync(artist);
+        }
+
+        public async Task RejectArtistAsync(Guid id)
+        {
+            var artist = await artistRepo.GetByIdAsync(id);
+
+            if (artist is null)
+            {
+                throw new NullReferenceException("Unable to find this artist!");
+            }
+
+            artist.IsAccepted = UploadStatus.Rejected;
+
+            await artistRepo.UpdateAsync(artist);
+        }
     }
 }

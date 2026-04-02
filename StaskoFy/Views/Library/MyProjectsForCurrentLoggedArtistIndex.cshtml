@@ -139,8 +139,13 @@
                                                         </li>
 
                                                         <li>
-                                                            <form asp-controller="Song" asp-action="Delete" method="post" asp-route-id="@song.Id" id="deleteForm-@song.Id">
-                                                                <button type="submit" class="dropdown-item d-flex align-items-center py-2 text-danger" onclick="return confirm('Are you sure you want to delete this song?');">
+                                                            <form id="delete-form-@song.Id" asp-controller="Song" asp-action="Delete" method="post" asp-route-id="@song.Id" id="deleteForm-@song.Id">
+                                                                <input type="hidden" name="sourceController" value="@ViewContext.RouteData.Values["controller"]" />
+                                                                <input type="hidden" name="sourceAction" value="@ViewContext.RouteData.Values["action"]" />
+                                                                <button 
+                                                                    type="button" 
+                                                                    class="dropdown-item d-flex align-items-center py-2 text-danger"
+                                                                    onclick="confirmDelete(event, 'delete-form-@song.Id')">
                                                                     <svg viewBox="0 0 448 512" width="16" height="16" class="me-2">
                                                                         <path fill="red" d="M136.7 5.9L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-8.7-26.1C306.9-7.2 294.7-16 280.9-16L167.1-16c-13.8 0-26 8.8-30.4 21.9zM416 144L32 144 53.1 467.1C54.7 492.4 75.7 512 101 512L347 512c25.3 0 46.3-19.6 47.9-44.9L416 144z" />
                                                                     </svg>
@@ -251,8 +256,12 @@
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <form asp-controller="Album" asp-action="Delete" method="post" asp-route-id="@album.Id">
-                                                        <button class="dropdown-item d-flex align-items-center py-2 text-danger" onclick="return confirm('Are you sure you want to delete this album?');">
+                                                    <form id="delete-form-@album.Id" asp-controller="Album" asp-action="Delete" method="post" asp-route-id="@album.Id">
+                                                        <input type="hidden" name="sourceController" value="@ViewContext.RouteData.Values["controller"]" />
+                                                        <input type="hidden" name="sourceAction" value="@ViewContext.RouteData.Values["action"]" />
+                                                        <button type="button"
+                                                                class="dropdown-item d-flex align-items-center py-2 text-danger"
+                                                                onclick="confirmDelete(event, 'delete-form-@album.Id')">
                                                             <svg viewBox="0 0 448 512" width="16" height="16" class="me-2">
                                                                 <path fill="red" d="M136.7 5.9L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-8.7-26.1C306.9-7.2 294.7-16 280.9-16L167.1-16c-13.8 0-26 8.8-30.4 21.9zM416 144L32 144 53.1 467.1C54.7 492.4 75.7 512 101 512L347 512c25.3 0 46.3-19.6 47.9-44.9L416 144z" />
                                                             </svg>
