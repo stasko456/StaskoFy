@@ -154,34 +154,30 @@
     </div>
 
     <footer class="border-top footer text-muted position-fixed">
-        <div class="container d-flex flex-column justify-content-center align-items-center">
-            <div>
+        <div class="container d-flex flex-row justify-content-center align-items-center">
+            <audio id="myAudio" src="~/Ken Carson - Green Room (Official Audio).mp3"></audio>
+            <div class="justify-content-start">
                 <h3 class="specific_heading fw-bold mt-2">Song's title</h3>
             </div>
             <div>
-                <button class="btn">
-                    <svg viewBox="0 0 640 640" height="50" width="50" style="background-color:transparent">
+                <button class="btn" id="btn-previous">
+                    <svg viewBox="0 0 640 640" height="30" width="30" style="background-color:transparent">
                         <path fill="#ffc107" d="M236.3 107.1C247.9 96 265 92.9 279.7 99.2C294.4 105.5 304 120 304 136L304 272.3L476.3 107.2C487.9 96 505 92.9 519.7 99.2C534.4 105.5 544 120 544 136L544 504C544 520 534.4 534.5 519.7 540.8C505 547.1 487.9 544 476.3 532.9L304 367.7L304 504C304 520 294.4 534.5 279.7 540.8C265 547.1 247.9 544 236.3 532.9L44.3 348.9C36.5 341.3 32 330.9 32 320C32 309.1 36.5 298.7 44.3 291.1L236.3 107.1z" />
                     </svg>
                 </button>
-                <button class="btn">
-                    <svg viewBox="0 0 640 640" height="50" width="50" style="background-color:transparent">
+                <button class="btn" id="btn-play-pause">
+                    <svg viewBox="0 0 640 640" height="30" width="30" style="background-color:transparent">
                         <path fill="#ffc107" d="M64 320C64 178.6 178.6 64 320 64C461.4 64 576 178.6 576 320C576 461.4 461.4 576 320 576C178.6 576 64 461.4 64 320zM252.3 211.1C244.7 215.3 240 223.4 240 232L240 408C240 416.7 244.7 424.7 252.3 428.9C259.9 433.1 269.1 433 276.6 428.4L420.6 340.4C427.7 336 432.1 328.3 432.1 319.9C432.1 311.5 427.7 303.8 420.6 299.4L276.6 211.4C269.2 206.9 259.9 206.7 252.3 210.9z" />
                     </svg>
                 </button>
-                <button class="btn">
-                    <svg viewBox="0 0 640 640" height="50" width="50" style="background-color:transparent">
+                <button class="btn" id="btn-next">
+                    <svg viewBox="0 0 640 640" height="30" width="30" style="background-color:transparent">
                         <path fill="#ffc107" d="M403.7 107.1C392.1 96 375 92.9 360.3 99.2C345.6 105.5 336 120 336 136L336 272.3L163.7 107.2C152.1 96 135 92.9 120.3 99.2C105.6 105.5 96 120 96 136L96 504C96 520 105.6 534.5 120.3 540.8C135 547.1 152.1 544 163.7 532.9L336 367.7L336 504C336 520 345.6 534.5 360.3 540.8C375 547.1 392.1 544 403.7 532.9L595.7 348.9C603.6 341.4 608 330.9 608 320C608 309.1 603.5 298.7 595.7 291.1L403.7 107.1z" />
                     </svg>
                 </button>
             </div>
-            <div>
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="40"
-                         aria-valuemin="0" aria-valuemax="100" style="width:40%">
-                        40% Complete (success)
-                    </div>
-                </div>
+            <div style="width: 80%; margin: 0 auto;">
+                <input class="form-range" type="range" id="durationSlider" min="0" value="0">
             </div>
             @* &copy; 2026 - StaskoFy - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a> *@
         </div>
