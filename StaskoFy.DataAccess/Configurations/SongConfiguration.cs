@@ -27,7 +27,9 @@ namespace StaskoFy.DataAccess.Configurations
                 GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698280/a_great_chaos_deluxe_d2vxhf.jpg",
                 CloudinaryPublicId = "a_great_chaos_deluxe_d2vxhf",
-                Status = UploadStatus.Approved
+                Status = UploadStatus.Approved,
+                AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203109/Ken_Carson_-_Green_Room_Official_Audio_cksiai.mp3",
+                CloudinaryAudioPublicId = "Ken_Carson_-_Green_Room_Official_Audio_cksiai"
             },
             new Song
             {
@@ -40,7 +42,9 @@ namespace StaskoFy.DataAccess.Configurations
                 GenreId = Guid.Parse("41111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698280/a_great_chaos_deluxe_d2vxhf.jpg",
                 CloudinaryPublicId = "a_great_chaos_deluxe_d2vxhf",
-                Status = UploadStatus.Approved
+                Status = UploadStatus.Approved,
+                AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203106/Ken_Carson_-_Lose_It_Official_Audio_l2wjgb.mp3",
+                CloudinaryAudioPublicId = "Ken_Carson_-_Lose_It_Official_Audio_l2wjgb"
             },
 
             new Song
@@ -54,7 +58,9 @@ namespace StaskoFy.DataAccess.Configurations
                 GenreId = Guid.Parse("41111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698280/a_great_chaos_deluxe_d2vxhf.jpg",
                 CloudinaryPublicId = "a_great_chaos_deluxe_d2vxhf",
-                Status = UploadStatus.Approved
+                Status = UploadStatus.Approved,
+                AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203108/Ken_Carson_-_Me_N_My_Kup_Official_Audio_hfuxfy.mp3",
+                CloudinaryAudioPublicId = "Ken_Carson_-_Me_N_My_Kup_Official_Audio_hfuxfy"
             },
             new Song
             {
@@ -67,7 +73,9 @@ namespace StaskoFy.DataAccess.Configurations
                 GenreId = Guid.Parse("31111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698280/a_great_chaos_deluxe_d2vxhf.jpg",
                 CloudinaryPublicId = "a_great_chaos_deluxe_d2vxhf",
-                Status = UploadStatus.Approved
+                Status = UploadStatus.Approved,
+                AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203108/Ken_Carson_Destroy_Lonely_-_Paranoid_Official_Audio_axsypt.mp3",
+                CloudinaryAudioPublicId = "Ken_Carson_Destroy_Lonely_-_Paranoid_Official_Audio_axsypt"
             },
             new Song
             {
@@ -80,7 +88,9 @@ namespace StaskoFy.DataAccess.Configurations
                 GenreId = Guid.Parse("31111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698280/a_great_chaos_deluxe_d2vxhf.jpg",
                 CloudinaryPublicId = "a_great_chaos_deluxe_d2vxhf",
-                Status = UploadStatus.Approved
+                Status = UploadStatus.Approved,
+                AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203108/Ken_Carson_-_ss_Official_Audio_v0ttsl.mp3",
+                CloudinaryAudioPublicId = "Ken_Carson_-_ss_Official_Audio_v0ttsl"
             },
 
             // Super Slimey
@@ -95,7 +105,9 @@ namespace StaskoFy.DataAccess.Configurations
                 GenreId = Guid.Parse("21111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698283/super_slimey_v5r2c1.jpg",
                 CloudinaryPublicId = "super_slimey_v5r2c1",
-                Status = UploadStatus.Approved
+                Status = UploadStatus.Approved,
+                AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203094/Future_Young_Thug_-_No_Cap_Official_Audio_vguatf.mp3",
+                CloudinaryAudioPublicId = "Future_Young_Thug_-_No_Cap_Official_Audio_vguatf"
             },
             new Song
             {
@@ -108,7 +120,9 @@ namespace StaskoFy.DataAccess.Configurations
                 GenreId = Guid.Parse("21111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698283/super_slimey_v5r2c1.jpg",
                 CloudinaryPublicId = "super_slimey_v5r2c1",
-                Status = UploadStatus.Approved
+                Status = UploadStatus.Approved,
+                AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203100/Future_Young_Thug_-_All_Da_Smoke_Official_Audio_qxk6gu.mp3",
+                CloudinaryAudioPublicId = "Future_Young_Thug_-_All_Da_Smoke_Official_Audio_qxk6gu"
             },
             new Song
             {
@@ -121,7 +135,9 @@ namespace StaskoFy.DataAccess.Configurations
                 GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698283/super_slimey_v5r2c1.jpg",
                 CloudinaryPublicId = "super_slimey_v5r2c1",
-                Status = UploadStatus.Approved
+                Status = UploadStatus.Approved,
+                AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203090/Future_Young_Thug_-_200_Official_Audio_olbfa7.mp3",
+                CloudinaryAudioPublicId = "Future_Young_Thug_-_200_Official_Audio_olbfa7"
             },
             new Song
             {
@@ -134,7 +150,9 @@ namespace StaskoFy.DataAccess.Configurations
                 GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698283/super_slimey_v5r2c1.jpg",
                 CloudinaryPublicId = "super_slimey_v5r2c1",
-                Status = UploadStatus.Approved
+                Status = UploadStatus.Approved,
+                AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203126/Young_Thug_-_Cruise_Ship_Official_Audio_vbju6d.mp3",
+                CloudinaryAudioPublicId = "Young_Thug_-_Cruise_Ship_Official_Audio_vbju6d"
             },
             new Song
             {
@@ -147,7 +165,9 @@ namespace StaskoFy.DataAccess.Configurations
                 GenreId = Guid.Parse("21111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698283/super_slimey_v5r2c1.jpg",
                 CloudinaryPublicId = "super_slimey_v5r2c1",
-                Status = UploadStatus.Approved
+                Status = UploadStatus.Approved,
+                AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203090/Future_-_Feed_Me_Dope_Official_Audio_ewzphn.mp3",
+                CloudinaryAudioPublicId = "Future_-_Feed_Me_Dope_Official_Audio_ewzphn"
             },
             new Song
             {
@@ -160,7 +180,9 @@ namespace StaskoFy.DataAccess.Configurations
                 GenreId = Guid.Parse("21111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698283/super_slimey_v5r2c1.jpg",
                 CloudinaryPublicId = "super_slimey_v5r2c1",
-                Status = UploadStatus.Approved
+                Status = UploadStatus.Approved,
+                AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203129/Young_Thug_-_Killed_Before_Official_Audio_zjwb5d.mp3",
+                CloudinaryAudioPublicId = "Young_Thug_-_Killed_Before_Official_Audio_zjwb5d"
             },
 
             // Pray For Paris
@@ -175,7 +197,9 @@ namespace StaskoFy.DataAccess.Configurations
                 GenreId = Guid.Parse("51111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698283/pray_for_paris_rx4tq8.jpg",
                 CloudinaryPublicId = "pray_for_paris_rx4tq8",
-                Status = UploadStatus.Approved
+                Status = UploadStatus.Approved,
+                AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203123/Westside_Gunn_-_No_Vacancy_Audio_bq6czj.mp3",
+                CloudinaryAudioPublicId = "Westside_Gunn_-_No_Vacancy_Audio_bq6czj"
             },
             new Song
             {
@@ -188,7 +212,9 @@ namespace StaskoFy.DataAccess.Configurations
                 GenreId = Guid.Parse("51111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698283/pray_for_paris_rx4tq8.jpg",
                 CloudinaryPublicId = "pray_for_paris_rx4tq8",
-                Status = UploadStatus.Approved
+                Status = UploadStatus.Approved,
+                AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203089/327_feat._Tyler_The_Creator_Billie_Essco_r4lgdt.mp3",
+                CloudinaryAudioPublicId = "327_feat._Tyler_The_Creator_Billie_Essco_r4lgdt"
             },
             new Song
             {
@@ -201,7 +227,9 @@ namespace StaskoFy.DataAccess.Configurations
                 GenreId = Guid.Parse("51111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698283/pray_for_paris_rx4tq8.jpg",
                 CloudinaryPublicId = "pray_for_paris_rx4tq8",
-                Status = UploadStatus.Approved
+                Status = UploadStatus.Approved,
+                AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203089/Euro_Step_rdmpx9.mp3",
+                CloudinaryAudioPublicId = "Euro_Step_rdmpx9"
             },
             new Song
             {
@@ -214,7 +242,9 @@ namespace StaskoFy.DataAccess.Configurations
                 GenreId = Guid.Parse("51111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698283/pray_for_paris_rx4tq8.jpg",
                 CloudinaryPublicId = "pray_for_paris_rx4tq8",
-                Status = UploadStatus.Approved
+                Status = UploadStatus.Approved,
+                AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203135/Versace_hesjgp.mp3",
+                CloudinaryAudioPublicId = "Versace_hesjgp"
             },
 
             // CALL ME IF YOU GET LOST: THE ESTATE SALE
@@ -229,7 +259,9 @@ namespace StaskoFy.DataAccess.Configurations
                 GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698281/call_me_if_you_get_lost_the_estate_sale_xiqapi.jpg",
                 CloudinaryPublicId = "call_me_if_you_get_lost_the_estate_sale_xiqapi",
-                Status = UploadStatus.Approved
+                Status = UploadStatus.Approved,
+                AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203100/HOT_WIND_BLOWS_Audio_yldqrr.mp3",
+                CloudinaryAudioPublicId = "HOT_WIND_BLOWS_Audio_yldqrr"
             },
             new Song
             {
@@ -242,7 +274,9 @@ namespace StaskoFy.DataAccess.Configurations
                 GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698281/call_me_if_you_get_lost_the_estate_sale_xiqapi.jpg",
                 CloudinaryPublicId = "call_me_if_you_get_lost_the_estate_sale_xiqapi",
-                Status = UploadStatus.Approved
+                Status = UploadStatus.Approved,
+                AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203130/WILSHIRE_Audio_z3sjfq.mp3",
+                CloudinaryAudioPublicId = "WILSHIRE_Audio_z3sjfq"
             },
             new Song
             {
@@ -255,7 +289,9 @@ namespace StaskoFy.DataAccess.Configurations
                 GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698281/call_me_if_you_get_lost_the_estate_sale_xiqapi.jpg",
                 CloudinaryPublicId = "call_me_if_you_get_lost_the_estate_sale_xiqapi",
-                Status = UploadStatus.Approved
+                Status = UploadStatus.Approved,
+                AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203119/SAFARI_Audio_ezvcpf.mp3",
+                CloudinaryAudioPublicId = "SAFARI_Audio_ezvcpf"
             },
             new Song
             {
@@ -268,7 +304,9 @@ namespace StaskoFy.DataAccess.Configurations
                 GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698281/call_me_if_you_get_lost_the_estate_sale_xiqapi.jpg",
                 CloudinaryPublicId = "call_me_if_you_get_lost_the_estate_sale_xiqapi",
-                Status = UploadStatus.Approved
+                Status = UploadStatus.Approved,
+                AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203127/WHAT_A_DAY_lxaxt0.mp3",
+                CloudinaryAudioPublicId = "WHAT_A_DAY_lxaxt0"
             },
             new Song
             {
@@ -281,7 +319,9 @@ namespace StaskoFy.DataAccess.Configurations
                 GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698281/call_me_if_you_get_lost_the_estate_sale_xiqapi.jpg",
                 CloudinaryPublicId = "call_me_if_you_get_lost_the_estate_sale_xiqapi",
-                Status = UploadStatus.Approved
+                Status = UploadStatus.Approved,
+                AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203123/Tyler_The_Creator_-_DOGTOOTH_zrwqrg.mp3",
+                CloudinaryAudioPublicId = "Tyler_The_Creator_-_DOGTOOTH_zrwqrg"
             },
             new Song
             {
@@ -294,7 +334,9 @@ namespace StaskoFy.DataAccess.Configurations
                 GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698281/call_me_if_you_get_lost_the_estate_sale_xiqapi.jpg",
                 CloudinaryPublicId = "call_me_if_you_get_lost_the_estate_sale_xiqapi",
-                Status = UploadStatus.Approved
+                Status = UploadStatus.Approved,
+                AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203101/HEAVEN_TO_ME_vfsw3y.mp3",
+                CloudinaryAudioPublicId = "HEAVEN_TO_ME_vfsw3y"
             },
 
             // NULL AlbumId songs
@@ -309,7 +351,9 @@ namespace StaskoFy.DataAccess.Configurations
                 GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698280/bane_v4s8f8.jpg",
                 CloudinaryPublicId = "bane_v4s8f8",
-                Status = UploadStatus.Approved
+                Status = UploadStatus.Approved,
+                AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203086/Bane_loijws.mp3",
+                CloudinaryAudioPublicId = "Bane_loijws"
             },
             new Song
             {
@@ -322,7 +366,9 @@ namespace StaskoFy.DataAccess.Configurations
                 GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698281/if_looks_could_kill_qesda4.jpg",
                 CloudinaryPublicId = "if_looks_could_kill_qesda4",
-                Status = UploadStatus.Approved
+                Status = UploadStatus.Approved,
+                AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203117/Destroy_Lonely_-_if_looks_could_kill_Official_Audio_rpq9dr.mp3",
+                CloudinaryAudioPublicId = "Destroy_Lonely_-_if_looks_could_kill_Official_Audio_rpq9dr"
             },
             new Song
             {
@@ -335,7 +381,9 @@ namespace StaskoFy.DataAccess.Configurations
                 GenreId = Guid.Parse("31111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698282/kat_food_z2ime5.jpg",
                 CloudinaryPublicId = "kat_food_z2ime5",
-                Status = UploadStatus.Approved
+                Status = UploadStatus.Approved,
+                AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203114/Lil_Wayne_-_Kat_Food_Visualizer_wkbtoy.mp3",
+                CloudinaryAudioPublicId = "Lil_Wayne_-_Kat_Food_Visualizer_wkbtoy"
             },
 
             new Song
@@ -349,7 +397,9 @@ namespace StaskoFy.DataAccess.Configurations
                 GenreId = Guid.Parse("41111111-1111-1111-1111-111111111111"),
                 ImageURL = "/images/defaults/default-song-cover-art.png",
                 CloudinaryPublicId = "",
-                Status = UploadStatus.Approved
+                Status = UploadStatus.Approved,
+                AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203109/Ken_Carson_-_Lord_Of_Chaos_Official_Music_Video_xzpba7.mp3",
+                CloudinaryAudioPublicId = "Ken_Carson_-_Lord_Of_Chaos_Official_Music_Video_xzpba7"
             },
             new Song
             {
@@ -362,7 +412,9 @@ namespace StaskoFy.DataAccess.Configurations
                 GenreId = Guid.Parse("41111111-1111-1111-1111-111111111111"),
                 ImageURL = "/images/defaults/default-song-cover-art.png",
                 CloudinaryPublicId = "",
-                Status = UploadStatus.Approved
+                Status = UploadStatus.Approved,
+                AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203113/Money_Spread_p2e3go.mp3",
+                CloudinaryAudioPublicId = "Money_Spread_p2e3go"
             },
             new Song
             {
@@ -375,7 +427,9 @@ namespace StaskoFy.DataAccess.Configurations
                 GenreId = Guid.Parse("41111111-1111-1111-1111-111111111111"),
                 ImageURL = "/images/defaults/default-song-cover-art.png",
                 CloudinaryPublicId = "",
-                Status = UploadStatus.Approved
+                Status = UploadStatus.Approved,
+                AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203119/Trap_Jump_eb9qg6.mp3",
+                CloudinaryAudioPublicId = "Trap_Jump_eb9qg6"
             },
             new Song
             {
@@ -388,7 +442,9 @@ namespace StaskoFy.DataAccess.Configurations
                 GenreId = Guid.Parse("41111111-1111-1111-1111-111111111111"),
                 ImageURL = "/images/defaults/default-song-cover-art.png",
                 CloudinaryPublicId = "",
-                Status = UploadStatus.Approved
+                Status = UploadStatus.Approved,
+                AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203090/Blakk_Rokkstar_orlufo.mp3",
+                CloudinaryAudioPublicId = "Blakk_Rokkstar_orlufo"
             },
             new Song
             {
@@ -401,7 +457,9 @@ namespace StaskoFy.DataAccess.Configurations
                 GenreId = Guid.Parse("41111111-1111-1111-1111-111111111111"),
                 ImageURL = "/images/defaults/default-song-cover-art.png",
                 CloudinaryPublicId = "",
-                Status = UploadStatus.Approved
+                Status = UploadStatus.Approved,
+                AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203114/LiveLeak_hkoc3w.mp3",
+                CloudinaryAudioPublicId = "LiveLeak_hkoc3w"
             },
             // XTENDED
             new Song
@@ -415,7 +473,9 @@ namespace StaskoFy.DataAccess.Configurations
                 GenreId = Guid.Parse("31111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698284/xtended_wemgwk.jpg",
                 CloudinaryPublicId = "xtended_wemgwk",
-                Status = UploadStatus.Approved
+                Status = UploadStatus.Approved,
+                AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203114/MDMA_rsk7co.mp3",
+                CloudinaryAudioPublicId = "MDMA_rsk7co"
             },
             new Song
             {
@@ -429,7 +489,9 @@ namespace StaskoFy.DataAccess.Configurations
                 GenreId = Guid.Parse("41111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698284/xtended_wemgwk.jpg",
                 CloudinaryPublicId = "xtended_wemgwk",
-                Status = UploadStatus.Approved
+                Status = UploadStatus.Approved,
+                AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203103/Ken_Carson_-_Freestyle_2_Official_Music_Video_toao3c.mp3",
+                CloudinaryAudioPublicId = "Ken_Carson_-_Freestyle_2_Official_Music_Video_toao3c"
             },
             new Song
             {
@@ -442,7 +504,9 @@ namespace StaskoFy.DataAccess.Configurations
                 GenreId = Guid.Parse("41111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698284/xtended_wemgwk.jpg",
                 CloudinaryPublicId = "xtended_wemgwk",
-                Status = UploadStatus.Approved
+                Status = UploadStatus.Approved,
+                AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203087/Delinquent_jhnsw8.mp3",
+                CloudinaryAudioPublicId = "Delinquent_jhnsw8"
             },
             new Song
             {
@@ -455,7 +519,9 @@ namespace StaskoFy.DataAccess.Configurations
                 GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698284/xtended_wemgwk.jpg",
                 CloudinaryPublicId = "xtended_wemgwk",
-                Status = UploadStatus.Approved
+                Status = UploadStatus.Approved,
+                AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203102/Ken_Carson_-_Fashion_Habits_Official_Audio_j3mix5.mp3",
+                CloudinaryAudioPublicId = "Ken_Carson_-_Fashion_Habits_Official_Audio_j3mix5"
             },
             // ᐸ/3³
             new Song
@@ -469,7 +535,9 @@ namespace StaskoFy.DataAccess.Configurations
                 GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698280/broken_hearts_3_xm79ww.jpg",
                 CloudinaryPublicId = "broken_hearts_3_xm79ww",
-                Status = UploadStatus.Approved
+                Status = UploadStatus.Approved,
+                AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203115/risk_E55GLKSVm-Q_njm5fa.mp3",
+                CloudinaryAudioPublicId = "risk_E55GLKSVm-Q_njm5fa"
             },
             new Song
             {
@@ -482,7 +550,9 @@ namespace StaskoFy.DataAccess.Configurations
                 GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698280/broken_hearts_3_xm79ww.jpg",
                 CloudinaryPublicId = "broken_hearts_3_xm79ww",
-                Status = UploadStatus.Approved
+                Status = UploadStatus.Approved,
+                AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203086/Destroy_Lonely_-_no_pressure_Official_Audio_pwekj4.mp3",
+                CloudinaryAudioPublicId = "Destroy_Lonely_-_no_pressure_Official_Audio_pwekj4"
             },
             new Song
             {
@@ -495,7 +565,9 @@ namespace StaskoFy.DataAccess.Configurations
                 GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698280/broken_hearts_3_xm79ww.jpg",
                 CloudinaryPublicId = "broken_hearts_3_xm79ww",
-                Status = UploadStatus.Approved
+                Status = UploadStatus.Approved,
+                AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203118/stfu_vpl0rx.mp3",
+                CloudinaryAudioPublicId = "stfu_vpl0rx"
             },
             new Song
             {
@@ -508,7 +580,9 @@ namespace StaskoFy.DataAccess.Configurations
                 GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698280/broken_hearts_3_xm79ww.jpg",
                 CloudinaryPublicId = "broken_hearts_3_xm79ww",
-                Status = UploadStatus.Approved
+                Status = UploadStatus.Approved,
+                AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203098/jumanji_hdjlcv.mp3",
+                CloudinaryAudioPublicId = "jumanji_hdjlcv"
             },
             new Song
             {
@@ -521,7 +595,9 @@ namespace StaskoFy.DataAccess.Configurations
                 GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698280/broken_hearts_3_xm79ww.jpg",
                 CloudinaryPublicId = "broken_hearts_3_xm79ww",
-                Status = UploadStatus.Approved
+                Status = UploadStatus.Approved,
+                AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203114/not_the_mayor_cqoh9p.mp3",
+                CloudinaryAudioPublicId = "not_the_mayor_cqoh9p"
             },
             new Song
             {
@@ -534,7 +610,9 @@ namespace StaskoFy.DataAccess.Configurations
                 GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                 ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698280/broken_hearts_3_xm79ww.jpg",
                 CloudinaryPublicId = "broken_hearts_3_xm79ww",
-                Status = UploadStatus.Approved
+                Status = UploadStatus.Approved,
+                AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203119/soooo_high_ysd69j.mp3",
+                CloudinaryAudioPublicId = "soooo_high_ysd69j"
             });
         }
     }

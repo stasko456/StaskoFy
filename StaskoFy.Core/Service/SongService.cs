@@ -479,5 +479,20 @@ namespace StaskoFy.Core.Service
                     MostLikedSongCount = s.Likes
                 }).FirstOrDefaultAsync();
         }
+
+        public async Task<SongDetailsForMusicPlayer?> GetSongDetailsForMusicPlayerAsync(Guid id)
+        {
+            return await songRepo.GetAllAttached()
+                .Where(s => s.Id == id)
+                .Select(s => new SongDetailsForMusicPlayer
+                {
+                    Id = s.Id,
+                    Title = s.Title,
+                    ImageURL = s.ImageURL,
+                    Duration = s.Length,
+                    Artists = s.ArtistsSongs.Select(a => a.Artist.User.UserName).ToList(),
+                    AudioURL = s.AudioURL,
+                }).FirstOrDefaultAsync();
+        }
     }
 }

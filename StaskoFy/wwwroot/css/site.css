@@ -29,46 +29,69 @@ body {
     margin-bottom: 180px;
 }
 
+/* Color Variable for easy changes */
+:root {
+    --spotify-gold: #ffc107;
+}
+
+/* Ensure the footer spans the full width and sits at the bottom */
 .footer {
-    position: absolute;
-    bottom: 0;
     width: 100%;
-    /* Set a fixed height here so the body margin matches */
-    height: 200px;
-    background-color: #111; /* Match your dark theme */
-    z-index: 1030; /* Ensure it stays above other elements if needed */
+    height: 150px; /* Reduced from 180px to a standard player height */
+    bottom: 0 !important;
+    left: 0;
+    background-color: #000 !important;
+    padding: 0 !important;
+    border-top: 1px solid #282828 !important;
+    z-index: 1000;
+    display: flex; /* Added to help vertical centering */
+    align-items: center;
 }
 
-/* --- 2. Form Inputs (High-Contrast White Style) --- */
-.form-control {
-    background-color: #ffffff !important;
-    border: 2px solid #ffc107 !important;
-    color: #000000 !important;
-    border-radius: 8px;
-    padding: 12px 15px;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 0 6px rgba(255, 193, 7, 0.3) !important;
+.music-player {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%; /* Now takes full footer height for perfect Y-centering */
+    padding: 0 20px;
 }
 
-    .form-control::placeholder {
-        color: #000000 !important;
-        opacity: 0.6;
-    }
+/* 1. Left Section: Song Info */
+.song-info {
+    flex: 1; /* Bootstrap-style: take equal space */
+    display: flex;
+    align-items: center;
+    min-width: 0; /* Important for text-truncation */
+}
 
-    .form-control:hover {
-        background-color: #f8f9fa !important;
-        transform: translateY(-4px);
-        box-shadow: 0 4px 12px rgba(255, 193, 7, 0.4) !important;
-    }
+/* 2. Center Section: Player Controls */
+.player-controls {
+    flex: 2; /* Gives the middle section more priority/width */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 
-    .form-control:focus {
-        background-color: #ffffff !important;
-        border-color: #ffc107 !important;
-        color: #000000 !important;
-        transform: translateY(-4px);
-        box-shadow: 0 6px 18px rgba(255, 193, 7, 0.6) !important;
-        outline: none;
-    }
+/* 3. Right Section: Volume */
+.volume-controls {
+    flex: 1; /* Matches the left side for perfect symmetry */
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Slider Styling */
+#progress-bar, #volume-bar {
+    cursor: pointer;
+    accent-color: #ffc107; /* Modern way to set slider color to gold */
+}
+
+#volume-bar {
+    width: 100px;
+}
 
 /* --- 3. Buttons & Focus States --- */
 .btn-outline-warning, .btn-search, #registerSubmit {

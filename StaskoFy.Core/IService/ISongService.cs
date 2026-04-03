@@ -52,5 +52,7 @@ namespace StaskoFy.Core.IService
         Task<int> GetTotalSongsLikesByCurrentLoggedArtistAsync(Guid userId);
 
         Task<MostLikedSongViewModel?> GetMostLikedSongAsync(Guid userId);
+
+        Task<SongDetailsForMusicPlayer?> GetSongDetailsForMusicPlayerAsync(Guid id);
     }
 }

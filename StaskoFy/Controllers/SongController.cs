@@ -289,5 +289,22 @@ namespace StaskoFy.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("Songs/GetSong")]
+        public async Task<JsonResult> GetSong(Guid id)
+        {
+            var song = await songService.GetSongDetailsForMusicPlayerAsync(id);
+
+            return Json(new
+            {
+                id = song.Id,
+                title = song.Title,
+                artCover = song.ImageURL,
+                duration = song.Duration,
+                artists = song.Artists.ToArray(),
+                audioUrl = song.AudioURL
+            });
+        }
+
     }
 }

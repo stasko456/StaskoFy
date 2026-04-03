@@ -43,6 +43,14 @@ namespace StaskoFy.Models.Entities
         [MaxLength(255)]
         public string CloudinaryPublicId { get; set; } = null!;
 
+        [Required]
+        [MaxLength(2048)]
+        public string AudioURL { get; set; } = null!;
+
+        [Required]
+        [MaxLength(255)]
+        public string CloudinaryAudioPublicId { get; set; } = null!;
+
         public UploadStatus Status { get; set; }
 
         public ICollection<ArtistSong> ArtistsSongs { get; set; } = new List<ArtistSong>();
