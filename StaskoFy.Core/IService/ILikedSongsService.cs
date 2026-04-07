@@ -1,5 +1,6 @@
 ﻿using StaskoFy.Models.Entities;
 using StaskoFy.ViewModels.LikedSongs;
+using StaskoFy.ViewModels.Song;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,5 +24,7 @@ namespace StaskoFy.Core.IService
         Task<int> GetTotalLikedSongsByCurrentLoggedUserAsync(Guid userId);
 
         Task<TimeSpan> GetLengthOfLikedSongsByCurrentLoggedUserAsync(Guid userId);
+
+        Task<IEnumerable<SongDetailsForMusicPlayer>> GetLikedSongsByIdForMusicPlayerAsync(Guid userId);
     }
 }

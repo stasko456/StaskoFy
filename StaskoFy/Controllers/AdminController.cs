@@ -40,7 +40,7 @@ namespace StaskoFy.Controllers
 
             if (!songs.Any())
             {
-                ViewData["NoResult"] = "No songs waiting for acception."; 
+                ViewData["NoResult"] = "No songs found matching your search."; 
             }
 
             return View(viewModel);
@@ -63,7 +63,7 @@ namespace StaskoFy.Controllers
 
             if (!albums.Any())
             {
-                ViewData["NoResult"] = "No albums waiting for acception.";
+                ViewData["NoResult"] = "No albums found matching your search.";
             }
 
             return View(viewModel);
@@ -86,7 +86,7 @@ namespace StaskoFy.Controllers
 
             if (!genres.Any())
             {
-                ViewData["NoResult"] = "No genres waiting for acception.";
+                ViewData["NoResult"] = "No genres found matching your search.";
             }
 
             return View(viewModel);
@@ -109,7 +109,7 @@ namespace StaskoFy.Controllers
 
             if (!artists.Any())
             {
-                ViewData["NoResult"] = "No artists waiting for acception.";
+                ViewData["NoResult"] = "No artists found matching your search.";
             }
 
             return View(viewModel);

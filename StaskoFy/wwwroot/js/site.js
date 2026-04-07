@@ -1,5 +1,4 @@
 ﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
 
 document.addEventListener('DOMContentLoaded', function () {
     // 1. Tell jQuery Validator NOT to ignore the hidden select element
@@ -23,6 +22,32 @@ document.addEventListener('DOMContentLoaded', function () {
             $(this).valid();
         });
     });
+});
+
+// 1. Create a function that initializes Choices.js
+function initializeMusicSelects() {
+    // Target your select elements (make sure they have this class or 'js-choice')
+    const elements = document.querySelectorAll('.js-choice');
+
+    elements.forEach(el => {
+        // Check if it's already initialized to avoid "doubling" the dropdown
+        if (!el.parentElement.classList.contains('choices')) {
+            new Choices(el, {
+                removeItemButton: true,
+                allowHTML: true,
+                placeholder: true,
+                placeholderValue: 'Select options...'
+            });
+        }
+    });
+}
+
+// 2. Run it when the page first loads
+document.addEventListener('DOMContentLoaded', initializeMusicSelects);
+
+// 3. THE MAGIC PART: Run it every time HTMX swaps content
+document.body.addEventListener('htmx:afterOnLoad', function (evt) {
+    initializeMusicSelects();
 });
 
 function confirmDelete(event, formId) {
@@ -64,122 +89,218 @@ function confirmDelete(event, formId) {
     });
 }
 
+const PLAY_ICON = '<svg viewBox="0 0 640 640" height="40" width="40" style="background-color:transparent"><path fill="#ffc107" d="M64 320C64 178.6 178.6 64 320 64C461.4 64 576 178.6 576 320C576 461.4 461.4 576 320 576C178.6 576 64 461.4 64 320zM252.3 211.1C244.7 215.3 240 223.4 240 232L240 408C240 416.7 244.7 424.7 252.3 428.9C259.9 433.1 269.1 433 276.6 428.4L420.6 340.4C427.7 336 432.1 328.3 432.1 319.9C432.1 311.5 427.7 303.8 420.6 299.4L276.6 211.4C269.2 206.9 259.9 206.7 252.3 210.9z" /></svg>';
+const PAUSE_ICON = '<svg viewBox="0 0 448 512" height="40" width="40" style="background-color:transparent"><path fill="#ffc107" d="M48 64C21.5 64 0 85.5 0 112L0 400c0 26.5 21.5 48 48 48l64 0c26.5 0 48-21.5 48-48l0-288c0-26.5-21.5-48-48-48L48 64zm192 0c-26.5 0-48 21.5-48 48l0 288c0 26.5 21.5 48 48 48l64 0c26.5 0 48-21.5 48-48l0-288c0-26.5-21.5-48-48-48l-64 0z"/></svg>';
 
-// Music Player functionality
-// 1. Element Selectors
+// --- 1. State & Selectors ---
+let songQueue = [];
+let currentQueueIndex = -1;
+
 const audio = document.getElementById("myAudio");
 const playPauseButton = document.getElementById("btn-play-pause");
 const progressBar = document.getElementById("progress-bar");
 const audioBar = document.getElementById("volume-bar");
 const currentTimeLabel = document.querySelectorAll('.time')[0];
 const durationLabel = document.querySelectorAll('.time')[1];
+const btnPrevious = document.getElementById('btn-previous');
+const btnNext = document.getElementById('btn-next');
 
-// 2. State Management
-let currentPlayingId = null;
+// --- 2. The "Brain": playFromQueue ---
+function playFromQueue(index) {
+    // Boundary check
+    if (index < 0 || index >= songQueue.length) return;
 
-// 3. Icon Constants (Matching your gold theme)
-const PLAY_ICON = '<svg viewBox="0 0 640 640" height="40" width="40" style="background-color:transparent"><path fill="#ffc107" d="M64 320C64 178.6 178.6 64 320 64C461.4 64 576 178.6 576 320C576 461.4 461.4 576 320 576C178.6 576 64 461.4 64 320zM252.3 211.1C244.7 215.3 240 223.4 240 232L240 408C240 416.7 244.7 424.7 252.3 428.9C259.9 433.1 269.1 433 276.6 428.4L420.6 340.4C427.7 336 432.1 328.3 432.1 319.9C432.1 311.5 427.7 303.8 420.6 299.4L276.6 211.4C269.2 206.9 259.9 206.7 252.3 210.9z" /></svg>';
-const PAUSE_ICON = '<svg viewBox="0 0 448 512" height="40" width="40" style="background-color:transparent"><path fill="#ffc107" d="M48 64C21.5 64 0 85.5 0 112L0 400c0 26.5 21.5 48 48 48l64 0c26.5 0 48-21.5 48-48l0-288c0-26.5-21.5-48-48-48L48 64zm192 0c-26.5 0-48 21.5-48 48l0 288c0 26.5 21.5 48 48 48l64 0c26.5 0 48-21.5 48-48l0-288c0-26.5-21.5-48-48-48l-64 0z"/></svg>';
+    currentQueueIndex = index;
+    const data = songQueue[index];
 
-// --- CORE LOGIC ---
+    document.querySelector('.song-title').innerText = data.title;
+    document.querySelector('.artists-names').innerText = Array.isArray(data.artists) ? data.artists.join(', ') : data.artists;
 
-// 4. Global Play/Pause Synchronization
-// This ensures that whether you click the footer, the card, or the spacebar, 
-// ALL relevant icons on the page update at once.
+    const albumImg = document.querySelector('.song-art');
+    if (albumImg) albumImg.src = data.artCover;
+
+    durationLabel.innerText = data.duration;
+
+    audio.src = data.audioUrl;
+    audio.load();
+    audio.play().catch(e => console.warn("Playback blocked:", e));
+
+    if (currentQueueIndex >= songQueue.length - 2) {
+        fetchMoreSongsForQueue();
+    }
+}
+
+// --- 3. Interaction: loadSong ---
+// Call this when someone clicks a song card
+function loadSong(songId) {
+    fetch(`/Song/GetSongForQueue?id=${songId}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data) {
+                songQueue.push(data);
+                playFromQueue(songQueue.length - 1);
+            }
+        })
+        .catch(error => console.error('Error loading song:', error));
+}
+
+// --- 4. Automation: fetchMoreSongsForQueue ---
+function fetchMoreSongsForQueue() {
+    const offset = songQueue.length;
+    fetch(`/Song/GetSongsForQueue?offset=${offset}&count=10`)
+        .then(res => res.json())
+        .then(newSongs => {
+            if (newSongs && newSongs.length > 0) {
+
+                songQueue = [...songQueue, ...newSongs];
+
+                if (currentQueueIndex === -1) {
+                    playFromQueue(0);
+                }
+            }
+        });
+}
+
+// --- 5. Event Listeners ---
+
+// Auto-play next song when one ends
+audio.addEventListener('ended', () => {
+    playFromQueue(currentQueueIndex + 1);
+});
+
+// Sync Play/Pause Icons (Reuse your existing constants)
 audio.addEventListener('play', () => {
     playPauseButton.innerHTML = PAUSE_ICON;
-    if (currentPlayingId) {
-        const cardBtn = document.querySelector(`[data-song-id="${currentPlayingId}"]`);
-        if (cardBtn) cardBtn.innerHTML = PAUSE_ICON;
-    }
 });
 
 audio.addEventListener('pause', () => {
     playPauseButton.innerHTML = PLAY_ICON;
-    if (currentPlayingId) {
-        const cardBtn = document.querySelector(`[data-song-id="${currentPlayingId}"]`);
-        if (cardBtn) cardBtn.innerHTML = PLAY_ICON;
-    }
 });
 
-// 5. Main Footer Button Click
 playPauseButton.addEventListener("click", () => {
     if (audio.src) {
         audio.paused ? audio.play() : audio.pause();
     }
 });
 
-// 6. Load Song Function
-function loadSong(songId) {
-    // If clicking the song that's already playing, just toggle it
-    if (currentPlayingId === songId) {
-        audio.paused ? audio.play() : audio.pause();
-        return;
-    }
+// Play next and play prevoius song
+btnNext.addEventListener("click", () => {
+    playFromQueue(currentQueueIndex + 1);
+})
 
-    // Reset icons of all other cards to 'Play' before switching
-    document.querySelectorAll('.play-btn-custom').forEach(btn => {
-        btn.innerHTML = PLAY_ICON;
-    });
+btnPrevious.addEventListener("click", () => {
+    playFromQueue(currentQueueIndex - 1);
+})
 
-    fetch(`/Songs/GetSong?id=${songId}`)
-        .then(response => {
-            if (!response.ok) throw new Error("Song not found");
-            return response.json();
-        })
-        .then(data => {
-            if (data) {
-                // Update tracker
-                currentPlayingId = songId;
-
-                // Update Footer UI (Metadata)
-                document.querySelector('.song-title').innerText = data.title;
-                const artistList = (data.artists && Array.isArray(data.artists))
-                    ? data.artists.map(a => a.name).join(', ')
-                    : "Unknown Artist";
-                document.querySelector('.artist-name').innerText = artistList;
-
-                const albumImg = document.querySelector('.song-art');
-                if (albumImg) albumImg.src = data.artCover;
-
-                // Reset Progress Bar and Labels
-                progressBar.value = 0;
-                currentTimeLabel.innerText = "0:00";
-                durationLabel.innerText = data.duration;
-
-                // Set Audio Source and Play
-                audio.src = data.audioUrl;
-                audio.load();
-                audio.play().catch(e => console.error("Playback blocked:", e));
-            }
-        })
-        .catch(error => console.error('Error loading song:', error));
-}
-
-// --- CONTROLS & BARS ---
-
-// 7. Progress Bar: Updates as song plays
+// Progress Bar & Volume (Your existing logic is perfect)
 audio.addEventListener('timeupdate', () => {
     if (audio.duration && !isNaN(audio.duration)) {
         const progress = (audio.currentTime / audio.duration) * 100;
         progressBar.value = progress;
-
-        // Update current time label
         let mins = Math.floor(audio.currentTime / 60);
         let secs = Math.floor(audio.currentTime % 60);
         currentTimeLabel.innerText = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
     }
 });
 
-// 8. Progress Bar: Seek logic (user drags slider)
 progressBar.addEventListener("input", (e) => {
     if (audio.duration) {
-        const time = (e.target.value / 100) * audio.duration;
-        audio.currentTime = time;
+        audio.currentTime = (e.target.value / 100) * audio.duration;
     }
 });
 
-// 9. Volume Control
 audioBar.addEventListener("input", (e) => {
     audio.volume = e.target.value / 100;
+});
+
+// --- 6. Fetch Songs From Playlist ---
+function loadSongsFromPlaylistToQueue(playlistId) {
+    fetch(`/Playlist/GetPlaylistSongsForQueue?id=${playlistId}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data && data.length > 0) {
+                songQueue = data;
+                currentQueueIndex = 0;
+                playFromQueue(0);
+            }
+        })
+}
+
+// --- 7. Fetch Songs From Album ---
+function loadSongsFromAlbumToQueue(albumId) {
+    fetch(`/Album/GetAlbumSongsForQueue?id=${albumId}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data && data.length > 0) {
+                songQueue = data;
+                currentQueueIndex = 0;
+                playFromQueue(0);
+            }
+        })
+}
+
+// --- 8. Fetch Songs From Liked Songs ---
+function loadSongsFromLikedSongsToQueue(albumId) {
+    fetch(`/LikedSongs/GetLikedSongsForQueue`)
+        .then(response => response.json())
+        .then(data => {
+            if (data && data.length > 0) {
+                songQueue = data;
+                currentQueueIndex = 0;
+                playFromQueue(0);
+            }
+        })
+}
+
+// --- 9. Startup ---
+function checkAndInitialize() {
+    const forbiddenPaths = [
+        '/User/Login', '/User/Register', '/Genre/Create', '/Genre/Edit',
+        '/Song/Create', '/Song/Edit', '/Album/Create', '/Album/Edit',
+        '/Playlist/Create', '/Playlist/Edit', '/Genre', '/Admin/ManageSongsStatus',
+        '/Admin/ManageAlbumsStatus', '/Admin/ManageGenresStatus', '/Admin/ManageArtistsStatus'
+    ];
+
+    const currentPath = window.location.pathname;
+    const isForbidden = forbiddenPaths.some(path => currentPath === path || currentPath.startsWith(path + '/'));
+
+    if (!isForbidden) {
+        if (songQueue.length === 0 && currentQueueIndex === -1) {
+            fetchMoreSongsForQueue();
+            playFromQueue(0);
+        }
+        else if (currentQueueIndex !== -1 && audio.paused) {
+            playFromQueue(currentQueueIndex);
+        }
+    } else {
+        if (!audio.paused) {
+            audio.pause();
+            console.log("Entering forbidden page: Music paused.");
+        }
+    }
+}
+
+checkAndInitialize();
+
+// General Fixing of broken stuff from using the HTMX library
+// --- 1. HTMX Configuration ---
+if (typeof htmx !== 'undefined') {
+    htmx.config.historyEnabled = true;
+    htmx.config.historyCacheSize = 0; // Forces a fresh AJAX fetch on 'Back'
+    htmx.config.refreshOnHistoryMiss = false;
+}
+
+// --- 2. Navigation & Scroll Management ---
+document.body.addEventListener('htmx:afterOnLoad', function (evt) {
+    var navLinks = document.querySelectorAll('.nav-link');
+    var currentPath = window.location.pathname;
+    navLinks.forEach(function (link) {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === currentPath) link.classList.add('active');
+    });
+
+    var mainContent = document.getElementById('main-content');
+    if (mainContent) {
+        mainContent.scrollTop = 0;
+    }
 });

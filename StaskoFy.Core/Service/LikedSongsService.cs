@@ -1,4 +1,5 @@
-﻿using DocumentFormat.OpenXml.Office2010.Excel;
+﻿using DocumentFormat.OpenXml.Drawing;
+using DocumentFormat.OpenXml.Office2010.Excel;
 using DocumentFormat.OpenXml.Office2016.Excel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ using StaskoFy.DataAccess.Repository;
 using StaskoFy.Models.Entities;
 using StaskoFy.Models.Enums;
 using StaskoFy.ViewModels.LikedSongs;
+using StaskoFy.ViewModels.Song;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -143,6 +145,21 @@ namespace StaskoFy.Core.Service
             }
 
             return totalDuration;
+        }
+
+        public async Task<IEnumerable<SongDetailsForMusicPlayer>> GetLikedSongsByIdForMusicPlayerAsync(Guid userId)
+        {
+            return await likedSongsRepo.GetAllAttached()
+                .Where(s => s.Song.Status == UploadStatus.Approved && s.UserId == userId)
+                .Select(s => new SongDetailsForMusicPlayer
+                {
+                    Id = s.Song.Id,
+                    Title = s.Song.Title,
+                    ImageURL = s.Song.ImageURL,
+                    Duration = s.Song.Length,
+                    Artists = s.Song.ArtistsSongs.Select(a => a.Artist.User.UserName).ToList(),
+                    AudioURL = s.Song.AudioURL,
+                }).ToListAsync();
         }
     }
 }

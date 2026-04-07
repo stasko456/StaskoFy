@@ -1,9 +1,5 @@
 ﻿@model UsersPaginationViewModel
 
-@{
-    ViewData["Title"] = "Users";
-}
-
 <div class="text-center mb-5">
     <h1 class="display-4 fw-bold">
         Discover <span class="specific_heading">Users</span>
@@ -62,10 +58,13 @@
         }
         else
         {
-            <div class="col-12 text-center">
-                <p class="text-muted fs-5">
-                    @ViewData["NoResult"]
-                </p>
+            <div class="text-center py-5">
+                <h4 class="text-white fw-light">@ViewData["NoResult"]</h4>
+                <p class="text-secondary">Try searching for a different user.</p>
+
+                <div class="mt-4">
+                    <a href="@Url.Action("Index", "User")" class="btn btn-outline-warning px-4 me-2">Clear Search</a>
+                </div>
             </div>
         }
     </div>

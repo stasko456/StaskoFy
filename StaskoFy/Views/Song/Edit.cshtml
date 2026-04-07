@@ -55,7 +55,7 @@
                                     <label class="form-label fw-semibold">Featured Artists</label>
                                     <select asp-for="SelectedArtistIds"
                                             multiple
-                                            class="form-select"
+                                            class="form-select js-choice"
                                             data-choices
                                             data-remove-item-button="true"
                                             data-search-enabled="true"
@@ -71,8 +71,13 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label asp-for="ImageFile" class="form-label fw-semibold">Art Cover</label>
+                                    <label asp-for="ImageFile" class="form-label fw-semibold">Chnage the Art Cover</label>
                                     <input type="file" asp-for="ImageFile" class="form-control" />
+                                </div>
+
+                                <div class="mb-3">
+                                    <label asp-for="AudioFile" class="form-label fw-semibold">Chnage the Audio File</label>
+                                    <input type="file" asp-for="AudioFile" class="form-control" />
                                 </div>
                             </div>
 

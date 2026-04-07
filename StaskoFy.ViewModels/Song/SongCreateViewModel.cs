@@ -30,6 +30,9 @@ namespace StaskoFy.ViewModels.Song
 
         public IFormFile? ImageFile { get; set; }
 
+        [Required(ErrorMessage = "Audio File is required!")]
+        public IFormFile AudioFile { get; set; } = null!;
+
         [ValidateNever]
         public List<Guid>? SelectedArtistIds { get; set; } = new();
         public Microsoft.AspNetCore.Mvc.Rendering.MultiSelectList? Artists { get; set; }

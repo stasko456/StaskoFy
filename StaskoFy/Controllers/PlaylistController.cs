@@ -29,9 +29,7 @@ namespace StaskoFy.Controllers
         {
             var songs = await songService.SelectSongsAsync();
 
-            var viewModel = new PlaylistCreateViewModel
-            {
-            };
+            var viewModel = new PlaylistCreateViewModel{};
             return View(viewModel);
         }
 
@@ -147,7 +145,7 @@ namespace StaskoFy.Controllers
 
                 if (!playlistSongs.Any())
                 {
-                    ViewData["NoPlaylistSongs"] = " ";
+                    ViewData["NoPlaylistSongs"] = "No song found matching your search.";
                 }
 
                 return View(viewModel);
@@ -197,6 +195,30 @@ namespace StaskoFy.Controllers
 
             await playlistService.RemoveSongFromPlaylistAsync(playlistId, songId);
             return RedirectToAction("Details", new { id = playlistId });
+        }
+
+        [HttpGet]
+        [Route("Playlist/GetPlaylistSongsForQueue")]
+        public async Task<IActionResult> GetPlaylistSongsForQueue([FromQuery] Guid id)
+        {
+            var songs = await playlistService.GetSongsFromPlaylistByIdForMusicPlayerAsync(id);
+
+            if (songs == null || !songs.Any())
+            {
+                return NoContent();
+            }
+
+            var result = songs.Select(s => new
+            {
+                id = s.Id,
+                title = s.Title,
+                artCover = s.ImageURL,
+                duration = $"{s.Duration.Minutes + ":" + s.Duration.Seconds}",
+                artists = s.Artists.ToArray(),
+                audioUrl = s.AudioURL
+            });
+
+            return Json(result);
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Text;
+using System.Text.Json.Serialization.Metadata;
 using System.Threading.Tasks;
 
 namespace StaskoFy.Core.IService
@@ -54,5 +55,7 @@ namespace StaskoFy.Core.IService
         Task<MostLikedSongViewModel?> GetMostLikedSongAsync(Guid userId);
 
         Task<SongDetailsForMusicPlayer?> GetSongDetailsForMusicPlayerAsync(Guid id);
+
+        Task<IEnumerable<SongDetailsForMusicPlayer>> GetListOfSongDetailsForMusicPlayerForQueueAsync(int offset = 0, int count = 10);
     }
 }

@@ -37,7 +37,7 @@
                                     <label class="form-label fw-semibold">Featured Artists</label>
                                     <select asp-for="SelectedArtistIds"
                                             multiple
-                                            class="form-select"
+                                            class="form-select js-choice"
                                             data-choices
                                             data-remove-item-button="true"
                                             data-search-enabled="true"
@@ -61,7 +61,7 @@
                                     <select asp-for="SelectedSongIds"
                                             asp-items="Model.Songs"
                                             multiple
-                                            class="form-select"
+                                            class="form-select js-choice"
                                             data-choices
                                             data-remove-item-button="true"
                                             data-search-enabled="true"

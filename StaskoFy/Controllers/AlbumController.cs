@@ -229,5 +229,29 @@ namespace StaskoFy.Controllers
                 return RedirectToAction("Error", "Home", new { code = 404 });
             }
         }
+
+        [HttpGet]
+        [Route("Album/GetAlbumSongsForQueue")]
+        public async Task<IActionResult> GetAlbumSongsForQueue(Guid id)
+        {
+            var songs = await albumService.GetSongsFromAlbumByIdForMusicPlayerAsync(id);
+
+            if (songs == null || !songs.Any())
+            {
+                return NoContent();
+            }
+
+            var result = songs.Select(s => new
+            {
+                id = s.Id,
+                title = s.Title,
+                artCover = s.ImageURL,
+                duration = $"{s.Duration.Minutes + ":" + s.Duration.Seconds}",
+                artists = s.Artists.ToArray(),
+                audioUrl = s.AudioURL
+            });
+
+            return Json(result);
+        }
     }
 }

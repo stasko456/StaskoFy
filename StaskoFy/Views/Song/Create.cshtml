@@ -48,7 +48,7 @@
                                     <select asp-for="@Model.SelectedArtistIds"
                                             asp-items="Model.Artists"
                                             multiple
-                                            class="form-select"
+                                            class="form-select js-choice"
                                             data-choices
                                             data-remove-item-button="true"
                                             data-search-enabled="true"
@@ -60,6 +60,12 @@
                                     <label asp-for="ImageFile" class="form-label fw-semibold">Art Cover</label>
                                     <input type="file" asp-for="ImageFile" class="form-control" />
                                     <span asp-validation-for="ImageFile" class="text-danger small"></span>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label asp-for="AudioFile" class="form-label fw-semibold">Audio File</label>
+                                    <input type="file" asp-for="AudioFile" class="form-control" />
+                                    <span asp-validation-for="AudioFile" class="text-danger small"></span>
                                 </div>
                             </div>
 
@@ -83,5 +89,7 @@
 </div>
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

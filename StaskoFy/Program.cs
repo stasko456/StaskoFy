@@ -1,4 +1,4 @@
-using CloudinaryDotNet;
+    using CloudinaryDotNet;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using StaskoFy.Core.IService;
@@ -71,7 +71,7 @@ namespace StaskoFy
             builder.Services.AddScoped<IAlbumService, AlbumService>();
             builder.Services.AddScoped<ILikedSongsService, LikedSongsService>();
             builder.Services.AddScoped<IPlaylistService, PlaylistService>();
-            builder.Services.AddScoped<IImageService, ImageService>();
+            builder.Services.AddScoped<IUploadService, UploadService>();
             builder.Services.AddScoped<IUserService, UserService>();
 
             // Add services to the container.
@@ -102,6 +102,7 @@ namespace StaskoFy
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.MapControllers();
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");

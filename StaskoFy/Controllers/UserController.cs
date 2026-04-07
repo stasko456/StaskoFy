@@ -19,7 +19,7 @@ namespace StaskoFy.Controllers
         private readonly SignInManager<User> signInManager;
         private readonly RoleManager<IdentityRole<Guid>> roleManager;
         private readonly IArtistService artistService;
-        private readonly IImageService imageService;
+        private readonly IUploadService imageService;
         private readonly IUserService userService;
         private readonly IPlaylistService playlistService;
         private readonly ILogger<UserController> logger;
@@ -28,7 +28,7 @@ namespace StaskoFy.Controllers
                               SignInManager<User> _signInManager,
                               RoleManager<IdentityRole<Guid>> _roleManager,
                               IArtistService _artistService,
-                              IImageService _imageService,
+                              IUploadService _imageService,
                               IUserService _userService,
                               IPlaylistService _playlistService,
                               ILogger<UserController> _logger)
@@ -102,6 +102,11 @@ namespace StaskoFy.Controllers
                 await artistService.AddArtistAsync(artist);
             }
 
+            if (Request.Headers.ContainsKey("HX-Request"))
+            {
+                Response.Headers.Add("HX-Redirect", Url.Action("Login", "User"));
+                return Ok();
+            }
             return RedirectToAction("Login", "User");
         }
 
@@ -141,6 +146,11 @@ namespace StaskoFy.Controllers
 
                         if (result.Succeeded)
                         {
+                            if (Request.Headers.ContainsKey("HX-Request"))
+                            {
+                                Response.Headers.Add("HX-Redirect", Url.Action("Index", "Home"));
+                                return Ok();
+                            }
                             return RedirectToAction("Index", "Home");
                         }
                     }
@@ -155,6 +165,11 @@ namespace StaskoFy.Controllers
 
                     if (result.Succeeded)
                     {
+                        if (Request.Headers.ContainsKey("HX-Request"))
+                        {
+                            Response.Headers.Add("HX-Redirect", Url.Action("Index", "Home"));
+                            return Ok();
+                        }
                         return RedirectToAction("Index", "Home");
                     }
                 }

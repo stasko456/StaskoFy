@@ -32,5 +32,7 @@ namespace StaskoFy.Core.IService
         Task<IEnumerable<PlaylistSelectViewModel>> SelectPlaylistsFromCurrentLoggedUserAsync(Guid userId);
 
         Task<int> GetTotalPlaylistsCountByCurrentLoggedUserAsync(Guid userId);
+
+        Task<IEnumerable<SongDetailsForMusicPlayer>> GetSongsFromPlaylistByIdForMusicPlayerAsync(Guid playlistId);
     }
 }

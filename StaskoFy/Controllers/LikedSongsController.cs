@@ -44,6 +44,11 @@ namespace StaskoFy.Controllers
                 LikedSongsSeconds = likedSongsLength.Seconds,
             };
 
+            if (!currentUserLikedSongs.Any())
+            {
+                ViewData["NoResult"] = "No songs found matching your search.";
+            }
+
             return View(viewModel);
         }
 
@@ -93,6 +98,32 @@ namespace StaskoFy.Controllers
                 logger.LogError($"{ex.Message}");
                 return RedirectToAction("Error", "Home", new { code = 404 });
             }
+        }
+
+        [HttpGet]
+        [Route("LikedSongs/GetLikedSongsForQueue")]
+        public async Task<IActionResult> GetLikedSongsForQueue()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var songs = await likedSongsService.GetLikedSongsByIdForMusicPlayerAsync(Guid.Parse(userId));
+
+            if (songs == null || !songs.Any())
+            {
+                return NoContent();
+            }
+
+            var result = songs.Select(s => new
+            {
+                id = s.Id,
+                title = s.Title,
+                artCover = s.ImageURL,
+                duration = $"{s.Duration.Minutes + ":" + s.Duration.Seconds}",
+                artists = s.Artists.ToArray(),
+                audioUrl = s.AudioURL
+            });
+
+            return Json(result);
         }
     }
 }

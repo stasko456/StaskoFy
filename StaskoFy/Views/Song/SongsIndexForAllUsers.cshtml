@@ -62,9 +62,13 @@
 
 @if (!Model.Songs.Any())
 {
-    <div class="alert alert-danger rounded-4 text-center fw-semibold shadow-sm fs-3">
-        <i class="bi bi-search me-2"></i>
-        @ViewData["NoResult"]
+    <div class="text-center py-5">
+        <h4 class="text-white fw-light">@ViewData["NoResult"]</h4>
+        <p class="text-secondary">Try searching for a different track.</p>
+
+        <div class="mt-4">
+            <a href="@Url.Action("SongsIndexForAllUsers", "Song")" class="btn btn-outline-warning px-4 me-2">Clear Search</a>
+        </div>
     </div>
 }
 else
@@ -110,7 +114,7 @@ else
                             <div class="mt-auto">
                                 @if (User.IsInRole("Admin"))
                                 {
-                                    <form id="delete-form-@song.Id" asp-controller="Song" asp-action="Delete" method="post" asp-route-id="@song.Id">
+                                    <form id="delete-form-@song.Id" asp-controller="Song" asp-action="Delete" method="post" asp-route-id="@song.Id" hx-boost="false">
                                         <input type="hidden" name="sourceController" value="@ViewContext.RouteData.Values["controller"]" />
                                         <input type="hidden" name="sourceAction" value="@ViewContext.RouteData.Values["action"]" />
                                         <button type="button"

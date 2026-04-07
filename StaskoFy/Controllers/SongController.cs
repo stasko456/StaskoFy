@@ -1,10 +1,14 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using DocumentFormat.OpenXml.Bibliography;
+using DocumentFormat.OpenXml.Office2010.Excel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using StaskoFy.Core.IService;
+using StaskoFy.Models.Entities;
 using StaskoFy.ViewModels.Pagination;
 using StaskoFy.ViewModels.Song;
 using System.Security.Claims;
+using System.Text.Json.Nodes;
 
 namespace StaskoFy.Controllers
 {
@@ -13,7 +17,7 @@ namespace StaskoFy.Controllers
         private readonly ISongService songService;
         private readonly IGenreService genreService;
         private readonly IArtistService artistService;
-        private readonly IImageService imageService;
+        private readonly IUploadService imageService;
         private readonly IPlaylistService playlistService;
         private readonly IAlbumService albumService;
         private readonly ILogger<SongController> logger;
@@ -21,7 +25,7 @@ namespace StaskoFy.Controllers
         public SongController(ISongService _songService,
                               IGenreService _genreService,
                               IArtistService _artistService,
-                              IImageService _imageService,
+                              IUploadService _imageService,
                               IPlaylistService _playlistService,
                               IAlbumService _albumService,
                               ILogger<SongController> _logger)
@@ -94,6 +98,8 @@ namespace StaskoFy.Controllers
 
                 var artists = await artistService.PopulateArtistSelectListAsync(Guid.Parse(userId));
                 viewModel.Artists = new MultiSelectList(artists, "Id", "Username");
+
+                Response.StatusCode = 422;
 
                 return View(viewModel);
             }
@@ -290,8 +296,8 @@ namespace StaskoFy.Controllers
         }
 
         [HttpGet]
-        [Route("Songs/GetSong")]
-        public async Task<JsonResult> GetSong(Guid id)
+        [Route("Song/GetSongForQueue")]
+        public async Task<JsonResult> GetSongForQueue(Guid id)
         {
             var song = await songService.GetSongDetailsForMusicPlayerAsync(id);
 
@@ -300,11 +306,34 @@ namespace StaskoFy.Controllers
                 id = song.Id,
                 title = song.Title,
                 artCover = song.ImageURL,
-                duration = song.Duration,
+                duration = $"{song.Duration.Minutes}:{song.Duration.Seconds:D2}",
                 artists = song.Artists.ToArray(),
                 audioUrl = song.AudioURL
             });
         }
 
+        [HttpGet]
+        [Route("Song/GetSongsForQueue")]
+        public async Task<IActionResult> GetSongsForQueue(int offset = 0, int count = 10)
+        {
+            var songs = await songService.GetListOfSongDetailsForMusicPlayerForQueueAsync(offset, count);
+
+            if (songs == null || !songs.Any())
+            {
+                return NoContent();
+            }
+
+            var result = songs.Select(s => new
+            {
+                id = s.Id,
+                title = s.Title,
+                artCover = s.ImageURL,
+                duration = $"{s.Duration.Minutes + ":" + s.Duration.Seconds}",
+                artists = s.Artists.ToArray(),
+                audioUrl = s.AudioURL
+            });
+
+            return Json(result);
+        }
     }
 }

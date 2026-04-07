@@ -24,12 +24,12 @@ namespace StaskoFy.Core.Service
         private readonly IRepository<Playlist> playlistRepo;
         private readonly IRepository<Song> songRepo;
         private readonly IRepository<PlaylistSong> playlistSongRepo;
-        private readonly IImageService imageService;
+        private readonly IUploadService imageService;
 
         public PlaylistService(IRepository<Playlist> _playlistRepo,
                                IRepository<Song> _songRepo,
                                IRepository<PlaylistSong> _playlistSongRepo,
-                               IImageService _imageService)
+                               IUploadService _imageService)
         {
             this.playlistRepo = _playlistRepo;
             this.songRepo = _songRepo;
@@ -266,6 +266,21 @@ namespace StaskoFy.Core.Service
             return playlistRepo.GetAllAttached()
                 .Where(p => p.UserId == userId)
                 .CountAsync();
+        }
+
+        public async Task<IEnumerable<SongDetailsForMusicPlayer>> GetSongsFromPlaylistByIdForMusicPlayerAsync(Guid playlistId)
+        {
+            return await playlistSongRepo.GetAllAttached()
+                .Where(playlist => playlist.PlaylistId == playlistId)
+                .Select(s => new SongDetailsForMusicPlayer
+                {
+                    Id = s.Id,
+                    Title = s.Song.Title,
+                    ImageURL = s.Song.ImageURL,
+                    Duration = s.Song.Length,
+                    Artists = s.Song.ArtistsSongs.Select(a => a.Artist.User.UserName).ToList(),
+                    AudioURL = s.Song.AudioURL
+                }).ToListAsync();
         }
     }
 }

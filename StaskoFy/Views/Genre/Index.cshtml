@@ -1,9 +1,5 @@
 ﻿@model GenresPaginationViewModel
 
-@section _SearchBarPartial {
-    <partial name="_SearchBarPartial" />
-}
-
 <div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-12 col-xxl-10">
@@ -11,19 +7,38 @@
             <div class="card shadow-lg border-0 rounded-4 card-index">
                 <div class="card-body p-5">
 
-                    <div class="d-flex align-items-center w-100">
+                    <div class="d-flex justify-content-between align-items-center w-100 py-4 px-3">
 
-                        <div class="text-center flex-shrink-0 mb-0 px-4">
-                            <h1 class="fw-bold display-5 mb-0">
-                                    <svg viewBox="0 0 640 640" height="50" width="50" class="me-1">
-                                        <path fill="rgb(255, 255, 255)" d="M0 64C0 46.3 14.3 32 32 32l448 0c17.7 0 32 14.3 32 32l0 32c0 17.7-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96L0 64zM32 176l448 0 0 240c0 35.3-28.7 64-64 64L96 480c-35.3 0-64-28.7-64-64l0-240zm152 64c-13.3 0-24 10.7-24 24s10.7 24 24 24l144 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-144 0z" />
-                                    </svg>
+                        <div class="text-start">
+                            <h1 class="fw-bold display-5 mb-0 d-flex align-items-center">
+                                <svg viewBox="0 0 640 640" height="50" width="50" class="me-3">
+                                    <path fill="white" d="M0 64C0 46.3 14.3 32 32 32l448 0c17.7 0 32 14.3 32 32l0 32c0 17.7-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96L0 64zM32 176l448 0 0 240c0 35.3-28.7 64-64 64L96 480c-35.3 0-64-28.7-64-64l0-240zm152 64c-13.3 0-24 10.7-24 24s10.7 24 24 24l144 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-144 0z" />
+                                </svg>
                                 <span class="specific_heading">Genres</span>
                             </h1>
-                            <p class="text-muted fs-5 mb-0 fw-semibold">
+                            <p class="text-muted fs-5 mb-0 fw-semibold mt-1">
                                 @Model.GenresCount Genres Available
                             </p>
                         </div>
+
+                        <div id="search-bar-target" class="compact-search-group" style="max-width: 350px; width: 100%;">
+                            <form  method="get" class="mb-0" asp-controller="Genre" asp-action="Index">
+                                <div class="d-flex gap-2">
+                                    <input class="form-control custom-search-input"
+                                           type="search"
+                                           placeholder="Search..."
+                                           name="name"
+                                           value="@Context.Request.Query["name"]" />
+                                    <button type="submit" class="btn btn-search custom-search-btn shadow-sm">
+                                        <svg viewBox="0 0 640 640" style="width:16px; height:16px; margin-right: 5px;">
+                                            <path fill="currentColor" d="M480 272C480 317.9 465.1 360.3 440 394.7L566.6 521.4C579.1 533.9 579.1 554.2 566.6 566.7C554.1 579.2 533.8 579.2 521.3 566.7L394.7 440C360.3 465.1 317.9 480 272 480C157.1 480 64 386.9 64 272C64 157.1 157.1 64 272 64C386.9 64 480 157.1 480 272zM272 416C351.5 416 416 351.5 416 272C416 192.5 351.5 128 272 128C192.5 128 128 192.5 128 272C128 351.5 192.5 416 272 416z" />
+                                        </svg>
+                                        Search
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
                     </div>
 
                     <hr class="mb-5" />
@@ -46,8 +61,15 @@
                                 @if (!Model.Genres.Any())
                                 {
                                     <tr>
-                                        <td colspan="3" class="text-center">
-                                            @ViewData["NoResult"]
+                                        <td colspan="7" class="text-center">
+                                            <div class="text-center py-5">
+                                                <h4 class="text-white fw-light">@ViewData["NoResult"]</h4>
+                                                <p class="text-secondary">Try searching for a different genre.</p>
+
+                                                <div class="mt-4">
+                                                    <a href="@Url.Action("Index", "Genre")" class="btn btn-outline-warning px-4 me-2">Clear Search</a>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                 }
@@ -75,10 +97,9 @@
                                                         Edit
                                                     </a>
 
-                                                    <form asp-action="Delete" method="post" asp-route-id="@genre.Id">
-                                                        <input type="hidden" name="returnUrl" value="@Context.Request.Path@Context.Request.QueryString#album-@genre.Id" />
+                                                    <form id="delete-form-@genre.Id" asp-action="Delete" method="post" asp-route-id="@genre.Id">
                                                         <button class="btn btn-outline-danger btn-md"
-                                                        onclick="return confirm('Are you sure you want to delete this genre?');">
+                                                            onclick="confirmDelete(event, 'delete-form-@genre.Id')">
                                                             <svg viewBox="0 0 448 512" width="20" height="20" class="me-2">
                                                                 <path fill="currentColor" d="M136.7 5.9L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-8.7-26.1C306.9-7.2 294.7-16 280.9-16L167.1-16c-13.8 0-26 8.8-30.4 21.9zM416 144L32 144 53.1 467.1C54.7 492.4 75.7 512 101 512L347 512c25.3 0 46.3-19.6 47.9-44.9L416 144z" />
                                                             </svg>

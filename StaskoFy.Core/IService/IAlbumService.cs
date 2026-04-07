@@ -48,5 +48,7 @@ namespace StaskoFy.Core.IService
         Task<int> GetTotalAlbumsCountByCurrentLoggedArtistAsync(Guid userId);
 
         Task<int> GetTotalPendingAlbumsCountByCurrentLoggedArtistAsync(Guid userIds);
+
+        Task<IEnumerable<SongDetailsForMusicPlayer>> GetSongsFromAlbumByIdForMusicPlayerAsync(Guid albumId);
     }
 }

@@ -24,13 +24,13 @@ namespace StaskoFy.Core.Service
         private readonly IRepository<Artist> artistRepo;
         private readonly IRepository<ArtistAlbum> artistAlbumRepo;
         private readonly IRepository<Song> songRepo;
-        private readonly IImageService imageService;
+        private readonly IUploadService imageService;
 
         public AlbumService(IRepository<Album> _albumRepo,
                             IRepository<Artist> _artistRepo,
                             IRepository<ArtistAlbum> _artistAlbumRepo,
                             IRepository<Song> _songRepo,
-                            IImageService _imageService)
+                            IUploadService _imageService)
         {
             this.albumRepo = _albumRepo;
             this.artistRepo = _artistRepo;
@@ -589,6 +589,21 @@ namespace StaskoFy.Core.Service
             return await albumRepo.GetAllAttached()
                 .Where(s => s.ArtistsAlbums.Any(a => a.Artist.UserId == userId) && s.Status != UploadStatus.Approved)
                 .CountAsync();
+        }
+
+        public async Task<IEnumerable<SongDetailsForMusicPlayer>> GetSongsFromAlbumByIdForMusicPlayerAsync(Guid albumId)
+        {
+            return await songRepo.GetAllAttached()
+                .Where(album => album.AlbumId == albumId)
+                .Select(s => new SongDetailsForMusicPlayer
+                {
+                    Id = s.Id,
+                    Title = s.Title,
+                    ImageURL = s.ImageURL,
+                    Duration = s.Length,
+                    Artists = s.ArtistsSongs.Select(a => a.Artist.User.UserName).ToList(),
+                    AudioURL = s.AudioURL
+                }).ToListAsync();
         }
     }
 }

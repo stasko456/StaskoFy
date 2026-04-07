@@ -1,5 +1,6 @@
 ﻿using DocumentFormat.OpenXml.Drawing.Charts;
 using DocumentFormat.OpenXml.Spreadsheet;
+using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.AspNetCore.Mvc.Formatters.Internal;
 using Microsoft.EntityFrameworkCore;
 using StaskoFy.Core.IService;
@@ -25,7 +26,7 @@ namespace StaskoFy.Core.Service
         private readonly IRepository<Song> songRepo;
         private readonly IRepository<ArtistSong> artistSongRepo;
         private readonly IRepository<Artist> artistRepo;
-        private readonly IImageService imageService;
+        private readonly IUploadService uploadService;
         private readonly IRepository<PlaylistSong> playlistSongRepo;
         private readonly IRepository<LikedSongs> likedSongsRepo;
         private readonly IRepository<Playlist> playlistRepo;
@@ -33,7 +34,7 @@ namespace StaskoFy.Core.Service
         public SongService(IRepository<Song> _songRepo,
                            IRepository<ArtistSong> _artistSongRepo,
                            IRepository<Artist> _artistRepo,
-                           IImageService _imageService,
+                           IUploadService _uploadService,
                            IRepository<PlaylistSong> _playlistSongRepo,
                            IRepository<LikedSongs> _likedSongsRepo,
                            IRepository<Playlist> _playlistRepo)
@@ -41,7 +42,7 @@ namespace StaskoFy.Core.Service
             this.songRepo = _songRepo;
             this.artistSongRepo = _artistSongRepo;
             this.artistRepo = _artistRepo;
-            this.imageService = _imageService;
+            this.uploadService = _uploadService;
             this.playlistSongRepo = _playlistSongRepo;
             this.likedSongsRepo = _likedSongsRepo;
             this.playlistRepo = _playlistRepo;
@@ -157,7 +158,7 @@ namespace StaskoFy.Core.Service
             if (model.ImageFile != null && model.ImageFile.Length > 0)
             {
                 // Artist uploaded a cover → use Cloudinary
-                var uploadResult = await imageService.UploadImageAsync(model.ImageFile, model.ImageFile.FileName, "art-covers");
+                var uploadResult = await uploadService.UploadImageAsync(model.ImageFile, model.ImageFile.FileName, "art-covers");
                 imageURL = uploadResult.Url;
                 publicId = uploadResult.PublicId;
             }
@@ -168,6 +169,9 @@ namespace StaskoFy.Core.Service
                 publicId = ""; // No publicId because we didn’t upload
             }
 
+            // upload auido file to Cloudinary
+            var uploadAudio = await uploadService.UploadAudioFileAsync(model.AudioFile, model.AudioFile.FileName, "audio-files");
+
             var song = new Song
             {
                 Title = model.Title,
@@ -176,6 +180,8 @@ namespace StaskoFy.Core.Service
                 GenreId = model.GenreId,
                 ImageURL = imageURL,
                 CloudinaryPublicId = publicId,
+                AudioURL = uploadAudio.Url,
+                CloudinaryAudioPublicId = uploadAudio.PublicId,
                 Status = UploadStatus.Pending,
                 ArtistsSongs = new List<ArtistSong>()
             };
@@ -229,13 +235,23 @@ namespace StaskoFy.Core.Service
                 // delete image from Cloudinary
                 if (!string.IsNullOrEmpty(song.CloudinaryPublicId))
                 {
-                    await imageService.DestroyImageAsync(song.CloudinaryPublicId);
+                    await uploadService.DestroyImageAsync(song.CloudinaryPublicId);
                 }
 
                 // Artist uploaded a cover → use Cloudinary
-                var uploadResult = await imageService.UploadImageAsync(model.ImageFile, model.ImageFile.FileName, "art-covers");
+                var uploadResult = await uploadService.UploadImageAsync(model.ImageFile, model.ImageFile.FileName, "art-covers");
                 song.ImageURL = uploadResult.Url;
                 song.CloudinaryPublicId = uploadResult.PublicId;
+            }
+
+            if (model.AudioFile != null && model.AudioFile.Length > 0)
+            {
+                await uploadService.DestroyAudioFileAsync(song.CloudinaryAudioPublicId);
+
+                var uploadAudio = await uploadService.UploadAudioFileAsync(model.AudioFile, model.AudioFile.FileName, "audio-files");
+
+                song.AudioURL = uploadAudio.Url;
+                song.CloudinaryAudioPublicId = uploadAudio.PublicId;
             }
 
             song.Title = model.Title;
@@ -291,7 +307,7 @@ namespace StaskoFy.Core.Service
             if (!string.IsNullOrEmpty(song.ImageURL) && !string.IsNullOrEmpty(song.CloudinaryPublicId) && song.AlbumId == null)
             {
                 // delete image from Cloudinary
-                await imageService.DestroyImageAsync(song.CloudinaryPublicId);
+                await uploadService.DestroyImageAsync(song.CloudinaryPublicId);
                 song.ImageURL = "/images/defaults/default-song-cover-art.png";
                 song.CloudinaryPublicId = "";
             }
@@ -308,6 +324,11 @@ namespace StaskoFy.Core.Service
             // remove from liked songs
             song.LikedSongs.Clear();
             song.Likes = 0;
+
+            // remove audio file from Cloudinary
+            await uploadService.DestroyAudioFileAsync(song.CloudinaryAudioPublicId);
+            song.AudioURL = "";
+            song.CloudinaryAudioPublicId = "";
 
             // soft delete
             song.Status = UploadStatus.Deleted;
@@ -493,6 +514,23 @@ namespace StaskoFy.Core.Service
                     Artists = s.ArtistsSongs.Select(a => a.Artist.User.UserName).ToList(),
                     AudioURL = s.AudioURL,
                 }).FirstOrDefaultAsync();
+        }
+
+        public async Task<IEnumerable<SongDetailsForMusicPlayer>> GetListOfSongDetailsForMusicPlayerForQueueAsync(int offset = 0, int count = 10)
+        {
+            return await songRepo.GetAllAttached()
+                .Where(s => s.Status == UploadStatus.Approved)
+                .Select(s => new SongDetailsForMusicPlayer
+                {
+                    Id = s.Id,
+                    Title = s.Title,
+                    ImageURL = s.ImageURL,
+                    Duration = s.Length,
+                    Artists = s.ArtistsSongs.Select(a => a.Artist.User.UserName).ToList(),
+                    AudioURL = s.AudioURL,
+                }).Skip(offset)
+                .Take(count)
+                .ToListAsync();
         }
     }
 }

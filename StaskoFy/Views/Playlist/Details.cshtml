@@ -4,10 +4,6 @@
     var currentUserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
 }
 
-@section _SearchBarPartial {
-    <partial name="_SearchBarPartial" />
-}
-
 <div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-12 col-xl-10">
@@ -17,26 +13,60 @@
 
                     <div class="d-flex flex-column flex-lg-row align-items-center align-items-lg-start gap-4 mb-5">
 
-                        <img src="@Model.PlaylistInfo.ImageURL"
-                             alt="@Model.PlaylistInfo.Title"
-                             class="rounded-4 shadow flex-shrink-0"
-                             style="width:300px; height:300px; object-fit:cover;">
+                        <div class="d-flex flex-column gap-4">
+                            <div class="details-card-container position-relative">
+                                <img src="@Model.PlaylistInfo.ImageURL"
+                                     alt="@Model.PlaylistInfo.Title"
+                                     class="rounded-4 shadow flex-shrink-0 song-image"
+                                     style="width:300px; height:300px; object-fit:cover;">
 
-                        <div class="flex-grow-1 d-flex flex-column justify-content-center align-items-center text-center" style="min-height:300px;">
+                                <button class="btn play-btn-overlay"
+                                        type="button"
+                                        data-song-id="@Model.PlaylistInfo.Id"
+                                        onclick="loadSongsFromPlaylistToQueue('@Model.PlaylistInfo.Id')">
+                                    <svg viewBox="0 0 640 640" height="70" width="70" style="background-color:transparent">
+                                        <path fill="#ffc107" d="M64 320C64 178.6 178.6 64 320 64C461.4 64 576 178.6 576 320C576 461.4 461.4 576 320 576C178.6 576 64 461.4 64 320zM252.3 211.1C244.7 215.3 240 223.4 240 232L240 408C240 416.7 244.7 424.7 252.3 428.9C259.9 433.1 269.1 433 276.6 428.4L420.6 340.4C427.7 336 432.1 328.3 432.1 319.9C432.1 311.5 427.7 303.8 420.6 299.4L276.6 211.4C269.2 206.9 259.9 206.7 252.3 210.9z" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
 
-                            <h2 class="fw-bold">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" height="50" width="50"><!--!Font Awesome Free v7.2.0 by @@fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path fill="rgb(255, 255, 255)" d="M0 256a256 256 0 1 1 512 0 256 256 0 1 1 -512 0zm256 32a32 32 0 1 1 0-64 32 32 0 1 1 0 64zm-96-32a96 96 0 1 0 192 0 96 96 0 1 0 -192 0zm-56-16c0-32.4 16.3-66.6 42.8-93.2S207.6 104 240 104c13.3 0 24-10.7 24-24s-10.7-24-24-24c-47.9 0-93.7 23.5-127.1 56.9S56 192.1 56 240c0 13.3 10.7 24 24 24s24-10.7 24-24z" /></svg><span class="specific_heading">@Model.PlaylistInfo.Title</span>
+                        <div class="flex-grow-1 d-flex flex-column justify-content-center align-items-center text-center w-100" style="min-height:300px;">
+
+                            <h2 class="fw-bold d-flex align-items-center justify-content-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" height="40" width="40">
+                                    <path fill="white" d="M0 256a256 256 0 1 1 512 0 256 256 0 1 1 -512 0zm256 32a32 32 0 1 1 0-64 32 32 0 1 1 0 64zm-96-32a96 96 0 1 0 192 0 96 96 0 1 0 -192 0zm-56-16c0-32.4 16.3-66.6 42.8-93.2S207.6 104 240 104c13.3 0 24-10.7 24-24s-10.7-24-24-24c-47.9 0-93.7 23.5-127.1 56.9S56 192.1 56 240c0 13.3 10.7 24 24 24s24-10.7 24-24z" />
+                                </svg>
+                                <span class="specific_heading">@Model.PlaylistInfo.Title</span>
                             </h2>
 
-                            <p class="text-muted fw-bold fs-6 mb-2">
+                            <p class="text-muted fw-bold fs-6 mb-3">
                                 @Model.PlaylistInfo.SongCount songs •
                                 @Model.PlaylistInfo.Hours.ToString("D2"):@Model.PlaylistInfo.Minutes.ToString("D2"):@Model.PlaylistInfo.Seconds.ToString("D2") •
                                 @Model.PlaylistInfo.DateCreated.ToString("dd MMM yyyy")
                             </p>
 
-                        </div>
+                            <div id="search-bar-container" class="compact-search-group w-100 mt-5" style="max-width: 350px;">
+                                <form method="get" class="mb-0" asp-controller="Playlist" asp-action="Details">
+                                    <div class="d-flex gap-2">
+                                        <input class="form-control custom-search-input"
+                                               type="search"
+                                               placeholder="Search..."
+                                               name="name"
+                                               value="@Context.Request.Query["name"]" />
 
+                                        <button type="submit" class="btn btn-search custom-search-btn shadow-sm">
+                                            <svg viewBox="0 0 640 640" style="width:16px; height:16px; margin-right: 5px;">
+                                                <path fill="currentColor" d="M480 272C480 317.9 465.1 360.3 440 394.7L566.6 521.4C579.1 533.9 579.1 554.2 566.6 566.7C554.1 579.2 533.8 579.2 521.3 566.7L394.7 440C360.3 465.1 317.9 480 272 480C157.1 480 64 386.9 64 272C64 157.1 157.1 64 272 64C386.9 64 480 157.1 480 272zM272 416C351.5 416 416 351.5 416 272C416 192.5 351.5 128 272 128C192.5 128 128 192.5 128 272C128 351.5 192.5 416 272 416z" />
+                                            </svg>
+                                            Search
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
+
                     <hr class="mb-4" />
 
                     <div class="table-responsive">
@@ -62,63 +92,81 @@
                                     int index = 1;
                                 }
 
-                                @foreach (var song in Model.Songs)
+                                @if (!Model.Songs.Any())
                                 {
-                                    <tr class="border-top">
+                                    <tr>
+                                        <td colspan="7" class="text-center">
+                                            <div class="text-center py-5">
+                                                <h4 class="text-white fw-light">@ViewData["NoPlaylistSongs"]</h4>
+                                                <p class="text-secondary">Try searching for a different track.</p>
 
-                                        <td class="ps-3 text-muted fw-semibold">
-                                            @index
-                                        </td>
-
-                                        <td class="fw-semibold text-dark">
-                                            <div class="d-flex align-items-center gap-3">
-                                                <img src="@song.ImageUrl"
-                                                     alt="@song.Title"
-                                                     width="50"
-                                                     height="50"
-                                                     class="rounded shadow-sm" />
-
-                                                <span>@song.Title</span>
+                                                <div class="mt-4">
+                                                    <a href="@Url.Action("Details", "Playlist")" class="btn btn-outline-warning px-4 me-2">Clear Search</a>
+                                                </div>
                                             </div>
                                         </td>
-
-                                        <td class="text-muted">
-                                            @song.AlbumTitle
-                                        </td>
-
-                                        <td class="text-muted">
-                                            @song.Minutes.ToString("D2"):@song.Seconds.ToString("D2")
-                                        </td>
-
-                                        <td>
-                                            @foreach (var artist in song.Artists)
-                                            {
-                                                <span class="badge" style="background-color: rgba(255, 193, 7, 0.15); color: #ffc107; border: 1px solid rgba(255, 193, 7, 0.3);">
-                                                    @artist
-                                                </span>
-                                            }
-                                        </td>
-
-                                        <td class="text-muted">
-                                            @song.DateAdded.ToString("dd MMM yyyy")
-                                        </td>
-
-                                        @if (!User.IsInRole("Admin") && Model.PlaylistInfo.UserId == currentUserId)
-                                        {
-                                            <td>
-                                                <form method="post" asp-controller="Playlist" asp-action="RemoveSongFromPlaylist" asp-route-songId="@song.Id" asp-route-playlistId="@Model.PlaylistInfo.Id">
-                                                    <button class="btn btn-outline-danger btn-md d-inline-flex align-items-center">
-                                                        <svg viewBox="0 0 640 640" width="25" height="25" class="me-2">
-                                                            <path fill="currentColor" d="M320 576C461.4 576 576 461.4 576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320C64 461.4 178.6 576 320 576zM232 296L408 296C421.3 296 432 306.7 432 320C432 333.3 421.3 344 408 344L232 344C218.7 344 208 333.3 208 320C208 306.7 218.7 296 232 296z" />
-                                                        </svg>
-                                                        Remove
-                                                    </button>
-                                                </form>
-                                            </td>
-                                        }
                                     </tr>
+                                }
+                                else
+                                {
+                                    @foreach (var song in Model.Songs)
+                                    {
+                                        <tr class="border-top">
 
-                                    index++;
+                                            <td class="ps-3 text-muted fw-semibold">
+                                                @index
+                                            </td>
+
+                                            <td class="fw-semibold text-dark">
+                                                <div class="d-flex align-items-center gap-3">
+                                                    <img src="@song.ImageUrl"
+                                                         alt="@song.Title"
+                                                         width="50"
+                                                         height="50"
+                                                         class="rounded shadow-sm" />
+
+                                                    <span>@song.Title</span>
+                                                </div>
+                                            </td>
+
+                                            <td class="text-muted">
+                                                @song.AlbumTitle
+                                            </td>
+
+                                            <td class="text-muted">
+                                                @song.Minutes.ToString("D2"):@song.Seconds.ToString("D2")
+                                            </td>
+
+                                            <td>
+                                                @foreach (var artist in song.Artists)
+                                                {
+                                                    <span class="badge" style="background-color: rgba(255, 193, 7, 0.15); color: #ffc107; border: 1px solid rgba(255, 193, 7, 0.3);">
+                                                        @artist
+                                                    </span>
+                                                }
+                                            </td>
+
+                                            <td class="text-muted">
+                                                @song.DateAdded.ToString("dd MMM yyyy")
+                                            </td>
+
+                                            @if (!User.IsInRole("Admin") && Model.PlaylistInfo.UserId == currentUserId)
+                                            {
+                                                <td>
+                                                    <form method="post" asp-controller="Playlist" asp-action="RemoveSongFromPlaylist" asp-route-songId="@song.Id" asp-route-playlistId="@Model.PlaylistInfo.Id">
+                                                        <button class="btn btn-outline-danger btn-md d-inline-flex align-items-center">
+                                                            <svg viewBox="0 0 640 640" width="25" height="25" class="me-2">
+                                                                <path fill="currentColor" d="M320 576C461.4 576 576 461.4 576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320C64 461.4 178.6 576 320 576zM232 296L408 296C421.3 296 432 306.7 432 320C432 333.3 421.3 344 408 344L232 344C218.7 344 208 333.3 208 320C208 306.7 218.7 296 232 296z" />
+                                                            </svg>
+                                                            Remove
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                            }
+                                        </tr>
+
+                                        index++;
+                                    }
                                 }
 
                             </tbody>
