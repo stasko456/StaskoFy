@@ -215,7 +215,7 @@ namespace StaskoFy.Controllers
 
             try
             {
-                await albumService.RemoveSongFromAlbumAsync(songId, albumId);
+                await albumService.RemoveSongFromAlbumAsync(songId);
                 return RedirectToAction("Details", "Album", new { id = albumId });
             }
             catch (NullReferenceException ex)

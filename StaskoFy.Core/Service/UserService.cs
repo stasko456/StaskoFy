@@ -65,17 +65,14 @@ namespace StaskoFy.Core.Service
                     Id = id,
                     Username = u.UserName,
                     ProfilePicture = u.ImageURL,
-                    Playlists = u.Playlists.Select(p => new PlaylistIndexViewModel
+                    Playlists = u.Playlists
+                    .Where(p => p.IsPublic == true)
+                    .Select(p => new PlaylistIndexViewModel
                     {
                         Id = p.Id,
                         Title = p.Title,
-                        Hours = p.Length.Hours,
-                        Minutes = p.Length.Minutes,
-                        Seconds = p.Length.Seconds,
-                        SongCount = p.PlaylistsSongs.Where(ps => ps.PlaylistId == p.Id).Count(),
                         DateCreated = p.DateCreated,
                         ImageURL = p.ImageURL,
-                        IsPublic = p.IsPublic,
                     }).ToList()
                 }).FirstOrDefaultAsync();
 

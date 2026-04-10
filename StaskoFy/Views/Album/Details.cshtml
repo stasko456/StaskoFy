@@ -7,7 +7,16 @@
 <div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-12 col-xl-10">
-                    
+                   
+            <div class="mb-3">
+                <a asp-controller="Album" asp-action="AlbumsIndexForAllUsers" class="specific_heading fs-5 text-decoration-none fw-bold d-inline-flex align-items-center">
+                    <svg viewBox="0 0 320 512" width="16" height="16" fill="currentColor" class="me-2">
+                        <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z" />
+                    </svg>
+                    Back
+                </a>
+            </div>
+
             <div class="card shadow-lg border-0 rounded-4 card-album-details">
                 <div class="card-body p-4 p-md-5">
 
@@ -90,7 +99,14 @@
 
                                         <td class="fw-semibold text-dark">
                                             
-                                            @song.Title
+                                            <button class="btn p-0 play-btn-custom me-2"
+                                                    type="button"
+                                                    data-song-id="@song.Id"
+                                                    onclick="loadSong('@song.Id')">
+                                                <svg viewBox="0 0 640 640" height="40" width="40" style="background-color:transparent">
+                                                    <path fill="#ffc107" d="M64 320C64 178.6 178.6 64 320 64C461.4 64 576 178.6 576 320C576 461.4 461.4 576 320 576C178.6 576 64 461.4 64 320zM252.3 211.1C244.7 215.3 240 223.4 240 232L240 408C240 416.7 244.7 424.7 252.3 428.9C259.9 433.1 269.1 433 276.6 428.4L420.6 340.4C427.7 336 432.1 328.3 432.1 319.9C432.1 311.5 427.7 303.8 420.6 299.4L276.6 211.4C269.2 206.9 259.9 206.7 252.3 210.9z" />
+                                                </svg>
+                                            </button>@song.Title
                                         </td>
 
                                         <td class="text-muted">
@@ -123,8 +139,10 @@
                                                         Edit
                                                     </a>
 
-                                                    <form asp-controller="Song" asp-action="Delete" method="post" asp-route-id="@song.Id">
-                                                        <button class="btn btn-outline-danger btn-md d-inline-flex align-items-center" onclick="return confirm('Are you sure you want to delete this song?');">
+                                                    <form id="delete-form-@song.Id" asp-controller="Song" asp-action="Delete" method="post" asp-route-id="@song.Id">
+                                                        <button type="button"
+                                                                class="btn btn-outline-danger btn-md d-inline-flex align-items-center" 
+                                                                onclick="confirmDelete(event, 'delete-form-@song.Id')">
                                                             <svg viewBox="0 0 640 640" width="25" height="25" class="me-2">
                                                                 <path fill="currentColor" d="M232.7 69.9L224 96L128 96C110.3 96 96 110.3 96 128C96 145.7 110.3 160 128 160L512 160C529.7 160 544 145.7 544 128C544 110.3 529.7 96 512 96L416 96L407.3 69.9C402.9 56.8 390.7 48 376.9 48L263.1 48C249.3 48 237.1 56.8 232.7 69.9zM512 208L128 208L149.1 531.1C150.7 556.4 171.7 576 197 576L443 576C468.3 576 489.3 556.4 490.9 531.1L512 208z" />
                                                             </svg>

@@ -33,7 +33,7 @@ namespace StaskoFy.Core.IService
 
         Task<IEnumerable<AlbumIndexViewModel>> FilterAlbumsForCurrentLoggedArtistAsync(Guid userId, string searchItem, List<string> filters);
 
-        Task RemoveSongFromAlbumAsync(Guid songId, Guid albumId);
+        Task RemoveSongFromAlbumAsync(Guid songId);
 
         Task AddSongToAlbumAsync(Guid songId, Guid albumId);
 

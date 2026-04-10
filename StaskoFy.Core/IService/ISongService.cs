@@ -32,8 +32,6 @@ namespace StaskoFy.Core.IService
 
         Task<IEnumerable<SongIndexViewModel>> FilterSongsForCurrentLoggedArtistAsync(Guid userId, string searchItem, List<string> filters);
 
-        Task<IEnumerable<SongSelectViewModel>> SelectSongsAsync();
-
         Task<IEnumerable<SongSelectViewModel>> SelectSinglesByCurrentLoggedArtistAsync(Guid userId);
 
         Task<IEnumerable<SongIndexViewModel>> GetSinglesForCurrentLoggedArtistAsync(Guid userId);

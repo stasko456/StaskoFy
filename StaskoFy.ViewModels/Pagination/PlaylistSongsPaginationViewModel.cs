@@ -14,6 +14,10 @@ namespace StaskoFy.ViewModels.Pagination
 
         public List<SongPlaylistIndexViewModel> Songs { get; set; } = new();
 
+        public TimeSpan PlaylistLength { get; set; }
+
+        public int SongsCount { get; set; }
+
         public int CurrentPage { get; set; }
 
         public int TotalPages { get; set; }

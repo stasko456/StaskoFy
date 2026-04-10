@@ -658,3 +658,34 @@ fieldset {
 .play-btn-overlay:hover {
     transform: translate(-50%, -50%) scale(1.1);
 }
+
+/* --- Song Row Hover Effects --- */
+
+/* 1. Hide the play button initially and prepare the animation */
+.play-overlay-btn {
+    opacity: 0;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    /* Optional: starts slightly smaller for a "pop" effect */
+    transform: translate(-50%, -50%) scale(0.8) !important;
+    z-index: 2;
+}
+
+/* 2. Prepare the image to smoothly transition darker */
+.song-image {
+    transition: filter 0.2s ease;
+}
+
+/* 3. When the ROW is hovered (or just the container), trigger the effects */
+/* Note: If you want it to trigger when hovering anywhere on the table row (<tr>), 
+   add the class "song-row" to your <tr> and change the hover selector to: tr.song-row:hover */
+.hover-play-container:hover .play-overlay-btn,
+tr:hover .play-overlay-btn {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1) !important;
+}
+
+/* Darken the image so the gold play button is easily visible */
+.hover-play-container:hover .song-image,
+tr:hover .song-image {
+    filter: brightness(0.4);
+}

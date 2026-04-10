@@ -24,19 +24,19 @@ namespace StaskoFy.Core.Service
         private readonly IRepository<Artist> artistRepo;
         private readonly IRepository<ArtistAlbum> artistAlbumRepo;
         private readonly IRepository<Song> songRepo;
-        private readonly IUploadService imageService;
+        private readonly IUploadService uploadService;
 
         public AlbumService(IRepository<Album> _albumRepo,
                             IRepository<Artist> _artistRepo,
                             IRepository<ArtistAlbum> _artistAlbumRepo,
                             IRepository<Song> _songRepo,
-                            IUploadService _imageService)
+                            IUploadService _uploadService)
         {
             this.albumRepo = _albumRepo;
             this.artistRepo = _artistRepo;
             this.artistAlbumRepo = _artistAlbumRepo;
             this.songRepo = _songRepo;
-            this.imageService = _imageService;
+            this.uploadService = _uploadService;
         }
 
         public async Task<int> GetTotalPendingPagesAsync(int pageSize = 4)
@@ -170,7 +170,7 @@ namespace StaskoFy.Core.Service
             if (model.ImageFile != null && model.ImageFile.Length > 0)
             {
                 // Artist uploaded a cover → use Cloudinary
-                var uploadResult = await imageService.UploadImageAsync(model.ImageFile, model.ImageFile.FileName, "art-covers");
+                var uploadResult = await uploadService.UploadImageAsync(model.ImageFile, model.ImageFile.FileName, "art-covers");
                 imageURL = uploadResult.Url;
                 publicId = uploadResult.PublicId;
             }
@@ -222,6 +222,7 @@ namespace StaskoFy.Core.Service
                     song.ImageURL = "/images/defaults/default-song-cover-art.png";
                     song.CloudinaryPublicId = "";
                     album.Songs.Add(song);
+                    song.Status = UploadStatus.Pending;
                 }
             }
             else
@@ -290,11 +291,11 @@ namespace StaskoFy.Core.Service
                 if (!string.IsNullOrEmpty(album.CloudinaryPublicId))
                 {
                     // delete image from Cloudinary
-                    await imageService.DestroyImageAsync(album.CloudinaryPublicId);
+                    await uploadService.DestroyImageAsync(album.CloudinaryPublicId);
                 }
 
                 // Artist uploaded a cover → use Cloudinary
-                var uploadResult = await imageService.UploadImageAsync(model.ImageFile, model.ImageFile.FileName, "art-covers");
+                var uploadResult = await uploadService.UploadImageAsync(model.ImageFile, model.ImageFile.FileName, "art-covers");
                 album.ImageURL = uploadResult.Url;
                 album.CloudinaryPublicId = uploadResult.PublicId;
 
@@ -303,6 +304,7 @@ namespace StaskoFy.Core.Service
                 {
                     song.ImageURL = album.ImageURL;
                     song.CloudinaryPublicId = album.CloudinaryPublicId;
+                    song.Status = UploadStatus.Pending;
                 }
             }
             else if (album.ImageURL == "/images/defaults/default-album-cover-art.png")
@@ -311,6 +313,7 @@ namespace StaskoFy.Core.Service
                 {
                     song.ImageURL = "/images/defaults/default-song-cover-art.png";
                     song.CloudinaryPublicId = "";
+                    song.Status = UploadStatus.Pending;
                 }
             }
             else
@@ -319,6 +322,7 @@ namespace StaskoFy.Core.Service
                 {
                     song.ImageURL = album.ImageURL;
                     song.CloudinaryPublicId = album.CloudinaryPublicId;
+                    song.Status = UploadStatus.Pending;
                 }
             }
 
@@ -367,17 +371,14 @@ namespace StaskoFy.Core.Service
                 throw new NullReferenceException("Unable to find this album!");
             }
 
-            // album soft delete
-            album.Status = UploadStatus.Deleted;
+            //if (!string.IsNullOrEmpty(album.CloudinaryPublicId))
+            //{
+            //    // delete image from Cloudinary
+            //    await uploadService.DestroyImageAsync(album.CloudinaryPublicId);
+            //    album.ImageURL = "/images/defaults/default-album-cover-art.png";
+            //    album.CloudinaryPublicId = "";
+            //}
 
-            // destroy image from cloudinary
-            await imageService.DestroyImageAsync(album.CloudinaryPublicId);
-
-            // change image of album to default
-            album.ImageURL = "/images/defaults/default-album-cover-art.png";
-            album.CloudinaryPublicId = "";
-
-            // chnage images of songs to default
             if (album.Songs.Count > 0)
             {
                 foreach (var song in album.Songs)
@@ -387,10 +388,11 @@ namespace StaskoFy.Core.Service
                     song.LikedSongs.Clear();
                     song.PlaylistSongs.Clear();
                     song.Likes = 0;
-                    // album's songs soft delete
                     song.Status = UploadStatus.Deleted;
                 }
             }
+
+            album.Status = UploadStatus.Deleted;
 
             await albumRepo.UpdateAsync(album);
         }
@@ -462,7 +464,7 @@ namespace StaskoFy.Core.Service
                 }).ToListAsync();
         }
 
-        public async Task RemoveSongFromAlbumAsync(Guid songId, Guid albumId)
+        public async Task RemoveSongFromAlbumAsync(Guid songId)
         {
             var song = await songRepo.GetAllAttached()
                 .Include(s => s.Album)
@@ -473,10 +475,10 @@ namespace StaskoFy.Core.Service
                 throw new NullReferenceException("Unable to find this song!");
             }
 
-            song.AlbumId = null;
             song.ImageURL = "/images/defaults/default-song-cover-art.png";
             song.CloudinaryPublicId = "";
             song.Album.Length = song.Album.Length - song.Length;
+            song.AlbumId = null;
 
             await songRepo.UpdateAsync(song);
         }
@@ -500,9 +502,9 @@ namespace StaskoFy.Core.Service
             }
 
             // delete song from cloudinary for the single if one exists in the cloud
-            if (!string.IsNullOrEmpty(song.CloudinaryPublicId) && !string.IsNullOrEmpty(song.ImageURL))
+            if (!string.IsNullOrEmpty(song.CloudinaryPublicId))
             {
-                await imageService.DestroyImageAsync(song.CloudinaryPublicId);
+                await uploadService.DestroyImageAsync(song.CloudinaryPublicId);
             }
 
             // update song
@@ -511,7 +513,7 @@ namespace StaskoFy.Core.Service
             song.CloudinaryPublicId = album.CloudinaryPublicId;
 
             // update album stats
-            album.Length += song.Length;
+            album.Length = album.Length + song.Length;
 
             await songRepo.UpdateAsync(song);
             await albumRepo.UpdateAsync(album);
@@ -552,10 +554,24 @@ namespace StaskoFy.Core.Service
                 throw new NullReferenceException("Unable to find this album!");
             }
 
+            //if (!string.IsNullOrEmpty(album.CloudinaryPublicId))
+            //{
+            //    // delete image from Cloudinary
+            //    await uploadService.DestroyImageAsync(album.CloudinaryPublicId);
+            //    album.ImageURL = "/images/defaults/default-album-cover-art.png";
+            //    album.CloudinaryPublicId = "";
+            //}
+
+
             if (album.Songs.Count > 0)
             {
                 foreach (var song in album.Songs)
                 {
+                    song.ImageURL = "/images/defaults/default-song-cover-art.png";
+                    song.CloudinaryPublicId = "";
+                    song.LikedSongs.Clear();
+                    song.PlaylistSongs.Clear();
+                    song.Likes = 0;
                     song.Status = UploadStatus.Rejected;
                 }
             }
@@ -594,7 +610,7 @@ namespace StaskoFy.Core.Service
         public async Task<IEnumerable<SongDetailsForMusicPlayer>> GetSongsFromAlbumByIdForMusicPlayerAsync(Guid albumId)
         {
             return await songRepo.GetAllAttached()
-                .Where(album => album.AlbumId == albumId)
+                .Where(album => album.AlbumId == albumId && album.Status == UploadStatus.Approved)
                 .Select(s => new SongDetailsForMusicPlayer
                 {
                     Id = s.Id,

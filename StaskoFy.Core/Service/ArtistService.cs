@@ -140,10 +140,6 @@ namespace StaskoFy.Core.Service
                     {
                         Id = pl.Id,
                         Title = pl.Title,
-                        Hours = pl.Length.Hours,
-                        Minutes = pl.Length.Minutes,
-                        Seconds = pl.Length.Seconds,
-                        SongCount = pl.PlaylistsSongs.Where(ps => ps.PlaylistId == pl.Id).Count(),
                         DateCreated = pl.DateCreated,
                         ImageURL = pl.ImageURL,
                         IsPublic = pl.IsPublic
@@ -227,6 +223,13 @@ namespace StaskoFy.Core.Service
             artist.IsAccepted = UploadStatus.Rejected;
 
             await artistRepo.UpdateAsync(artist);
+        }
+
+        public Task<int> GetPendingArtistsCountAsync()
+        {
+            return artistRepo.GetAllAttached()
+                .Where(s => s.IsAccepted != UploadStatus.Approved)
+                .CountAsync();
         }
     }
 }

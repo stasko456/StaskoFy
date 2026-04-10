@@ -52,14 +52,16 @@
                                             data-choices
                                             data-remove-item-button="true"
                                             data-search-enabled="true"
-                                            data-placeholder-value="Select artists">
+                                            data-placeholder-value="Select artists"
+                                            data-max-item-count="4"
+                                            data-msg-maxlength="You can only select 4 featured artists.">
                                     </select>
+                                    <span asp-validation-for="SelectedArtistIds" class="text-danger small"></span>
                                 </div>
 
                                 <div class="mb-3">
                                     <label asp-for="ImageFile" class="form-label fw-semibold">Art Cover</label>
                                     <input type="file" asp-for="ImageFile" class="form-control" />
-                                    <span asp-validation-for="ImageFile" class="text-danger small"></span>
                                 </div>
 
                                 <div class="mb-3">
@@ -76,7 +78,7 @@
                                     </button>
                                     <a asp-controller="Library" asp-action="MyProjectsForCurrentLoggedArtistIndex"
                                        class="btn btn-outline-warning btn-lg rounded-4 px-4">
-                                        Back to Library
+                                        Cancel
                                     </a>
                                 </div>
                             </div>

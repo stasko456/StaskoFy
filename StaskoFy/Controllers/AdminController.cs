@@ -71,29 +71,6 @@ namespace StaskoFy.Controllers
 
         [Authorize(Policy = "Admin")]
         [HttpGet]
-        public async Task<IActionResult> ManageGenresStatus(string name, int pageNumber = 1)
-        {
-            int pageSize = 5;
-            var genres = await genreService.FilterDeletedGenresAsync(name, pageNumber, pageSize);
-            int totalPages = await genreService.GetTotalDeletedPagesAsync(pageSize);
-
-            var viewModel = new DeletedGenresPaginationViewModel
-            {
-                Genres = genres.ToList(),
-                TotalPages = totalPages,
-                CurrentPage = pageNumber,
-            };
-
-            if (!genres.Any())
-            {
-                ViewData["NoResult"] = "No genres found matching your search.";
-            }
-
-            return View(viewModel);
-        }
-
-        [Authorize(Policy = "Admin")]
-        [HttpGet]
         public async Task<IActionResult> ManageArtistsStatus(string name, int pageNumber = 1)
         {
             int pageSize = 5;

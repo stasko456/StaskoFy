@@ -27,8 +27,6 @@ namespace StaskoFy.Controllers
         [Authorize(Policy = "ArtistOrUser")]
         public async Task<IActionResult> Create()
         {
-            var songs = await songService.SelectSongsAsync();
-
             var viewModel = new PlaylistCreateViewModel{};
             return View(viewModel);
         }
@@ -39,8 +37,6 @@ namespace StaskoFy.Controllers
         public async Task<IActionResult> Create(PlaylistCreateViewModel viewModel)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            var songs = await songService.SelectSongsAsync();
 
             if (!ModelState.IsValid)
             {
@@ -63,7 +59,6 @@ namespace StaskoFy.Controllers
             try
             {
                 var playlist = await playlistService.GetPlaylistByIdAsync(id);
-                var songs = await songService.SelectSongsAsync();
                 var viewModel = new PlaylistEditViewModel
                 {
                     Id = id,
@@ -85,8 +80,6 @@ namespace StaskoFy.Controllers
         public async Task<IActionResult> Edit(PlaylistEditViewModel viewModel)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            var songs = await songService.SelectSongsAsync();
 
             if (!ModelState.IsValid)
             {
@@ -134,11 +127,15 @@ namespace StaskoFy.Controllers
                 var playlistInfo = await playlistService.GetPlaylistByIdAsync(id);
                 var playlistSongs = await playlistService.GetPlaylistSongsByIdAsync(id, name, pageNumber, pageSize);
                 int totalPlaylistSongsPages = await playlistService.GetTotalPlaylistSongsPagesAsync(id, pageSize);
+                TimeSpan playlistLength = await playlistService.GetLengthOfPlaylistSongsByIdAsync(id);
+                int songsCount = await playlistService.GetCountOfPlaylistSongsByIdAsync(id);
 
                 var viewModel = new PlaylistSongsPaginationViewModel
                 {
                     PlaylistInfo = playlistInfo,
                     Songs = playlistSongs.ToList(),
+                    PlaylistLength = playlistLength,
+                    SongsCount = songsCount,
                     TotalPages = totalPlaylistSongsPages,
                     CurrentPage = pageNumber,
                 };

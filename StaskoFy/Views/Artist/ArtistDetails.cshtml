@@ -2,6 +2,15 @@
 
 <div class="container mt-4">
 
+    <div class="mb-3">
+        <a asp-controller="User" asp-action="Index" class="specific_heading fs-5 text-decoration-none fw-bold d-inline-flex align-items-center">
+            <svg viewBox="0 0 320 512" width="16" height="16" fill="currentColor" class="me-2">
+                <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z" />
+            </svg>
+            Back
+        </a>
+    </div>
+
     <div class="text-center text-light mb-5">
         <img src="@Model.ProfilePicture"
              class="rounded-circle shadow mb-3"
@@ -283,24 +292,10 @@
 
                                     <div style="font-size: 0.85rem; color: #adb5bd;">
                                         <div class="d-flex align-items-center mb-2">
-                                            <svg viewBox="0 0 512 512" width="16" height="16" class="me-2" style="color: #ffc107;">
-                                                <path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm61.8-104.4l-84.9-61.7c-3.1-2.3-4.9-5.9-4.9-9.7V116c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v141.7l66.8 48.6c5.4 3.9 6.5 11.4 2.6 16.8L333.8 343c-3.9 5.3-11.4 6.4-16.8 2.6z" />
-                                            </svg>
-                                            <span><strong>Length:</strong> @playlist.Hours:@playlist.Minutes.ToString("D2"):@playlist.Seconds.ToString("D2")</span>
-                                        </div>
-
-                                        <div class="d-flex align-items-center mb-2">
                                             <svg viewBox="0 0 448 512" width="16" height="16" class="me-2" style="color: #ffc107;">
                                                 <path fill="currentColor" d="M148 288h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0-6.6-5.4-12-12-12zm108-52v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12zm96 0v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12zm-96 96v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12zm-96 0v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12zm192 0v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12zm96-260v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h48V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h128V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h48c26.5 0 48 21.5 48 48zM400 464V192H48v272h352z" />
                                             </svg>
                                             <span><strong>Created:</strong> @playlist.DateCreated.ToString("dd MMM yyyy")</span>
-                                        </div>
-
-                                        <div class="d-flex align-items-center mb-3">
-                                            <svg viewBox="0 0 512 512" width="16" height="16" class="me-2" style="color: #ffc107;">
-                                                <path fill="currentColor" d="M470.38 1.51L150.41 96A32 32 0 0 0 128 126.51v261.41A139 139 0 0 0 96 384c-53 0-96 28.65-96 64s43 64 96 64 96-28.65 96-64V214.32l256-75v184.61a138.4 138.4 0 0 0-32-4c-53 0-96 28.65-96 64s43 64 96 64 96-28.65 96-64V32a32 32 0 0 0-41.62-30.49z" />
-                                            </svg>
-                                            <span><strong>Songs:</strong> @playlist.SongCount</span>
                                         </div>
                                     </div>
                                 </div>

@@ -32,5 +32,7 @@ namespace StaskoFy.Core.IService
         Task AcceptArtistAsync(Guid id);
 
         Task RejectArtistAsync(Guid id);
+
+        Task<int> GetPendingArtistsCountAsync();
     }
 }

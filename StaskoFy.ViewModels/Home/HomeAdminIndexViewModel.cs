@@ -18,6 +18,6 @@ namespace StaskoFy.ViewModels.Home
 
         public int TotalPendingAlbums { get; set; }
 
-        public int TotalDeletedGenres { get; set; }
+        public int TotalPendingArtists { get; set; }
     }
 }

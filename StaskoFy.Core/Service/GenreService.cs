@@ -18,22 +18,15 @@ namespace StaskoFy.Core.Service
     public class GenreService : IGenreService
     {
         private readonly IRepository<Genre> genreRepo;
-        private readonly IRepository<Song> songRepo;
-        private readonly IRepository<Album> albumRepo;
 
-        public GenreService(IRepository<Genre> _genreRepo,
-                            IRepository<Song> _songRepo,
-                            IRepository<Album> _albumRepo)
+        public GenreService(IRepository<Genre> _genreRepo)
         {
             this.genreRepo = _genreRepo;
-            this.songRepo = _songRepo;
-            this.albumRepo = _albumRepo;
         }
 
         public async Task<IEnumerable<GenreIndexViewModel>> GetGenresAsync()
         {
             return await genreRepo.GetAllAttached()
-                .Where(g => g.Status == UploadStatus.Approved)
                 .Select(g => new GenreIndexViewModel
                 {
                     Id = g.Id,
@@ -64,7 +57,6 @@ namespace StaskoFy.Core.Service
             var genre = new Genre
             {
                 Name = viewModel.Name,
-                Status = UploadStatus.Approved
             };
 
             await genreRepo.AddAsync(genre);
@@ -84,59 +76,17 @@ namespace StaskoFy.Core.Service
             await genreRepo.UpdateAsync(genre);
         }
 
-        public async Task RemoveGenreAsync(Guid id)
-        {
-            var genre = await genreRepo.GetAllAttached()
-                .Include(g => g.Songs)
-                    .ThenInclude(a => a.Album)
-                .FirstOrDefaultAsync(g => g.Id == id);
-            
-            if (genre is null)
-            {
-                throw new NullReferenceException("Unable to find this genre!");
-            }
-
-            genre.Status = UploadStatus.Deleted;
-
-            foreach (var song in genre.Songs)
-            {
-                song.Status = UploadStatus.Deleted;
-                song.LikedSongs.Clear();
-                song.PlaylistSongs.Clear();
-                song.Likes = 0;
-
-                if (song.Album != null)
-                {
-                    song.Album.Length = song.Album.Length - song.Length;
-                    song.AlbumId = null;
-                }
-            }
-
-            await genreRepo.UpdateAsync(genre);
-        }
-
         public async Task<int> GetTotalPagesAsync(int pageSize = 5)
         {
             int totalGenres = await genreRepo.GetAllAttached()
-                .Where(g => g.Status == UploadStatus.Approved)
                 .CountAsync();
 
             return (int)Math.Ceiling(totalGenres / (double)pageSize);
         }
 
-        public async Task<int> GetTotalDeletedPagesAsync(int pageSize = 5)
-        {
-            int totalPendingGenres = await genreRepo.GetAllAttached()
-                .Where(g => g.Status == UploadStatus.Deleted)
-                .CountAsync();
-
-            return (int)Math.Ceiling(totalPendingGenres / (double)pageSize);
-        }
-
         public async Task<IEnumerable<GenreIndexViewModel>> FilterGenresAsync(string name, int pageNumber = 1, int pageSize = 5)
         {
-            var query = genreRepo.GetAllAttached()
-                .Where(g => g.Status == UploadStatus.Approved);
+            var query = genreRepo.GetAllAttached();
 
             if (!string.IsNullOrEmpty(name))
             {
@@ -153,59 +103,9 @@ namespace StaskoFy.Core.Service
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<GenreApprovalViewModel>> FilterDeletedGenresAsync(string name, int pageNumber = 1, int pageSize = 5)
-        {
-            var query = genreRepo.GetAllAttached()
-                .Where(g => g.Status == UploadStatus.Deleted);
-
-            if (!string.IsNullOrEmpty(name))
-            {
-                query = query.Where(g => EF.Functions.Like(g.Name, $"%{name}%"));
-            }
-
-            return await query
-                .Select(g => new GenreApprovalViewModel
-                {
-                    Id = g.Id,
-                    Name= g.Name,
-                    Status = g.Status
-                }).Skip((pageNumber - 1) * pageSize)
-                .Take(pageSize)
-                .ToListAsync();
-        }
-
-        public async Task AcceptGenreUploadAsync(Guid id)
-        {
-            var genre = await genreRepo.GetAllAttached()
-                .Include(g => g.Songs)
-                    .ThenInclude(a => a.Album)
-                .FirstOrDefaultAsync(g => g.Id == id);
-
-            if (genre is null)
-            {
-                throw new NullReferenceException("Unable to find this genre!");
-            }
-
-            genre.Status = UploadStatus.Approved;
-
-            foreach (var song in genre.Songs)
-            {
-                song.Status = UploadStatus.Approved;
-            }
-
-            await genreRepo.UpdateAsync(genre);
-        }
-
         public Task<int> GetGenresCountAsync()
         {
             return genreRepo.GetAllAttached()
-                .CountAsync();
-        }
-
-        public Task<int> GetDeletedGenresCountAsync()
-        {
-            return genreRepo.GetAllAttached()
-                .Where(g => g.Status == UploadStatus.Deleted)
                 .CountAsync();
         }
     }

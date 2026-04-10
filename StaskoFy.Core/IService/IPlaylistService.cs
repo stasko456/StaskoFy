@@ -19,6 +19,10 @@ namespace StaskoFy.Core.IService
 
         Task<IEnumerable<SongPlaylistIndexViewModel>> GetPlaylistSongsByIdAsync(Guid id, string name, int pageNumber = 1, int pageSize = 5);
 
+        Task<TimeSpan> GetLengthOfPlaylistSongsByIdAsync(Guid playlistId);
+
+        Task<int> GetCountOfPlaylistSongsByIdAsync(Guid playlistId);
+
         Task AddPlaylistAsync(PlaylistCreateViewModel model, Guid userId);
 
         Task UpdatePlaylistAsync(PlaylistEditViewModel model, Guid userId);

@@ -18,8 +18,16 @@
                             <span asp-validation-for="Name" class="text-danger small"></span>
                         </div>
 
-                        <div class="text-center mt-4">
-                            <button type="submit" class="btn btn-warning btn-lg rounded-3 px-5 shadow">Edit Genre</button>
+                        <div class="col-12 mt-4">
+                            <div class="d-flex flex-column flex-md-row justify-content-between gap-3">
+                                <button type="submit" class="btn btn-warning btn-lg rounded-4 px-5 shadow fw-semibold">
+                                    Save Changes
+                                </button>
+                                <a asp-controller="Genre" asp-action="Index"
+                                   class="btn btn-outline-warning btn-lg rounded-4 px-4">
+                                    Cancel
+                                </a>
+                            </div>
                         </div>
                     </form>
                 </div>

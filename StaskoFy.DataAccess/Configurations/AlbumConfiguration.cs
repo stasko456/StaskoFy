@@ -21,8 +21,8 @@ namespace StaskoFy.DataAccess.Configurations
                     Title = "A Great Chaos (Deluxe)",
                     Length = new TimeSpan(0, 14, 33),
                     ReleaseDate = new DateOnly(2024, 7, 5),
-                    ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698280/a_great_chaos_deluxe_d2vxhf.jpg",
-                    CloudinaryPublicId = "a_great_chaos_deluxe_d2vxhf",
+                    ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1775556404/a_great_chaos_deluxe_nhsydj.jpg",
+                    CloudinaryPublicId = "a_great_chaos_deluxe_nhsydj",
                     Status = UploadStatus.Approved
                 },
                 new Album
@@ -31,8 +31,8 @@ namespace StaskoFy.DataAccess.Configurations
                     Title = "Super Slimey",
                     Length = new TimeSpan(0, 20, 12),
                     ReleaseDate = new DateOnly(2017, 10, 20),
-                    ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698283/super_slimey_v5r2c1.jpg",
-                    CloudinaryPublicId = "super_slimey_v5r2c1",
+                    ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1775556405/super_slimey_bb4lno.jpg",
+                    CloudinaryPublicId = "super_slimey_bb4lno",
                     Status = UploadStatus.Approved
                 },
                 new Album
@@ -51,8 +51,8 @@ namespace StaskoFy.DataAccess.Configurations
                     Title = "CALL ME IF YOU GET LOST: The Estate Sale",
                     Length = new TimeSpan(0, 24, 14),
                     ReleaseDate = new DateOnly(2023, 3, 31),
-                    ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698281/call_me_if_you_get_lost_the_estate_sale_xiqapi.jpg",
-                    CloudinaryPublicId = "call_me_if_you_get_lost_the_estate_sale_xiqapi",
+                    ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1775556404/call_me_if_you_get_lost_the_estate_sale_sfd1rw.jpg",
+                    CloudinaryPublicId = "call_me_if_you_get_lost_the_estate_sale_sfd1rw",
                     Status = UploadStatus.Approved
                 },
                 new Album

@@ -86,6 +86,11 @@ namespace StaskoFy.Core.Service
                 throw new NullReferenceException("Unable to find this song!");
             }
 
+            if (isLiked is not null)
+            {
+                return;
+            }
+
             var likedSong = new LikedSongs
             {
                 SongId = model.SongId,
@@ -127,7 +132,7 @@ namespace StaskoFy.Core.Service
         public Task<int> GetTotalLikedSongsByCurrentLoggedUserAsync(Guid userId)
         {
             return likedSongsRepo.GetAllAttached()
-                .Where(ls => ls.UserId == userId)
+                .Where(ls => ls.UserId == userId && ls.Song.Status == UploadStatus.Approved)
                 .CountAsync();
         }
 
@@ -135,7 +140,7 @@ namespace StaskoFy.Core.Service
         {
             var songs = likedSongsRepo.GetAllAttached()
             .Include(ls => ls.Song)
-            .Where(ls => ls.UserId == userId);
+            .Where(ls => ls.UserId == userId && ls.Song.Status == UploadStatus.Approved);
 
             var totalDuration = new TimeSpan(0,0,0);
 

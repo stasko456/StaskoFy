@@ -36,6 +36,7 @@ namespace StaskoFy.ViewModels.Song
 
         public IFormFile? AudioFile { get; set; }
 
+        [MaxLength(4)]
         public List<Guid>? SelectedArtistIds { get; set; } = new();
         public Microsoft.AspNetCore.Mvc.Rendering.MultiSelectList? Artists { get; set; }
     }

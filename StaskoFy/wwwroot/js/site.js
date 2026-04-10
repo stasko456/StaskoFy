@@ -1,25 +1,40 @@
 ﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
 
 document.addEventListener('DOMContentLoaded', function () {
-    // 1. Tell jQuery Validator NOT to ignore the hidden select element
     if (typeof $ !== 'undefined' && $.validator) {
         $.validator.setDefaults({ ignore: [] });
     }
 
     document.querySelectorAll('[data-choices]').forEach(function (element) {
+        // 1. Pull the max count from HTML
+        const maxItems = element.dataset.maxItemCount ? parseInt(element.dataset.maxItemCount) : -1;
+
+        // 2. Pull your custom message from HTML (with a generic fallback just in case)
+        const customMaxMessage = element.dataset.maxText || `You can only select ${maxItems} items.`;
+
         const config = {
             removeItemButton: element.dataset.removeItemButton === "true",
             searchEnabled: element.dataset.searchEnabled !== "false",
             placeholderValue: element.dataset.placeholderValue,
-            noResultsText: element.dataset.noResultsText,
-            itemSelectText: element.dataset.itemSelectText,
-            shouldSort: element.dataset.shouldSort !== "false"
+            noResultsText: element.dataset.noResultsText || "No results found",
+            itemSelectText: element.dataset.itemSelectText || "",
+            shouldSort: element.dataset.shouldSort !== "false",
+
+            allowHTML: true,
+            maxItemCount: maxItems,
+
+            // 3. Inject the custom message from the HTML into the Choices UI
+            maxItemText: () => {
+                return `<span class="text-danger fw-semibold">${customMaxMessage}</span>`;
+            }
         };
 
         const choicesInstance = new Choices(element, config);
 
         element.addEventListener('change', function () {
-            $(this).valid();
+            if (typeof $ !== 'undefined' && typeof $(this).valid === 'function') {
+                $(this).valid();
+            }
         });
     });
 });
@@ -257,8 +272,8 @@ function checkAndInitialize() {
     const forbiddenPaths = [
         '/User/Login', '/User/Register', '/Genre/Create', '/Genre/Edit',
         '/Song/Create', '/Song/Edit', '/Album/Create', '/Album/Edit',
-        '/Playlist/Create', '/Playlist/Edit', '/Genre', '/Admin/ManageSongsStatus',
-        '/Admin/ManageAlbumsStatus', '/Admin/ManageGenresStatus', '/Admin/ManageArtistsStatus'
+        '/Playlist/Create', '/Playlist/Edit', '/Genre',
+        '/Admin/ManageAlbumsStatus', '/Admin/ManageArtistsStatus'
     ];
 
     const currentPath = window.location.pathname;
@@ -291,13 +306,29 @@ if (typeof htmx !== 'undefined') {
 }
 
 // --- 2. Navigation & Scroll Management ---
-document.body.addEventListener('htmx:afterOnLoad', function (evt) {
+// A. Create the function
+function updateNavigation() {
     var navLinks = document.querySelectorAll('.nav-link');
-    var currentPath = window.location.pathname;
+    var currentPath = window.location.pathname.toLowerCase().replace(/\/$/, "");
+
     navLinks.forEach(function (link) {
+        var targetUrl = link.getAttribute('href') || link.getAttribute('hx-get') || "";
+        var targetPath = targetUrl.toLowerCase().replace(/\/$/, "");
+
         link.classList.remove('active');
-        if (link.getAttribute('href') === currentPath) link.classList.add('active');
+        if (targetPath && targetPath === currentPath) {
+            link.classList.add('active');
+        }
     });
+}
+
+// B. Run on hard refresh
+document.addEventListener('DOMContentLoaded', updateNavigation);
+
+// C. THE FIX: Use 'htmx:afterSettle' instead of 'afterOnLoad'
+document.body.addEventListener('htmx:afterSettle', function () {
+    // By the time this runs, the browser URL is guaranteed to be updated
+    updateNavigation();
 
     var mainContent = document.getElementById('main-content');
     if (mainContent) {

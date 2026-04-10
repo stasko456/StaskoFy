@@ -8,6 +8,15 @@
     <div class="row justify-content-center">
         <div class="col-12 col-xl-10">
 
+            <div class="mb-3">
+                <a asp-controller="Home" asp-action="Index" class="specific_heading fs-5 text-decoration-none fw-bold d-inline-flex align-items-center">
+                    <svg viewBox="0 0 320 512" width="16" height="16" fill="currentColor" class="me-2">
+                        <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z" />
+                    </svg>
+                    Back
+                </a>
+            </div>
+
             <div class="card shadow-lg border-0 rounded-4 playlist-hover-card">
                 <div class="card-body p-4 p-md-5">
 
@@ -41,8 +50,8 @@
                             </h2>
 
                             <p class="text-muted fw-bold fs-6 mb-3">
-                                @Model.PlaylistInfo.SongCount songs •
-                                @Model.PlaylistInfo.Hours.ToString("D2"):@Model.PlaylistInfo.Minutes.ToString("D2"):@Model.PlaylistInfo.Seconds.ToString("D2") •
+                                @Model.SongsCount songs •
+                                @Model.PlaylistLength.Hours.ToString("D2"):@Model.PlaylistLength.Minutes.ToString("D2"):@Model.PlaylistLength.Seconds.ToString("D2") •
                                 @Model.PlaylistInfo.DateCreated.ToString("dd MMM yyyy")
                             </p>
 
@@ -117,13 +126,24 @@
                                                 @index
                                             </td>
 
-                                            <td class="fw-semibold text-dark">
+                                            <td class="fw-semibold text-dark song-row">
                                                 <div class="d-flex align-items-center gap-3">
-                                                    <img src="@song.ImageUrl"
-                                                         alt="@song.Title"
-                                                         width="50"
-                                                         height="50"
-                                                         class="rounded shadow-sm" />
+
+                                                    <div class="position-relative d-inline-block hover-play-container" style="width: 50px; height: 50px;">
+                                                        <img src="@song.ImageUrl"
+                                                             alt="@song.Title"
+                                                             class="rounded shadow-sm song-image"
+                                                             style="width: 100%; height: 100%; object-fit: cover;" />
+
+                                                        <button class="btn p-0 play-btn-custom position-absolute top-50 start-50 translate-middle play-overlay-btn"
+                                                                type="button"
+                                                                data-song-id="@song.Id"
+                                                                onclick="loadSong('@song.Id')">
+                                                            <svg viewBox="0 0 640 640" height="30" width="30" style="background-color:transparent">
+                                                                <path fill="#ffc107" d="M64 320C64 178.6 178.6 64 320 64C461.4 64 576 178.6 576 320C576 461.4 461.4 576 320 576C178.6 576 64 461.4 64 320zM252.3 211.1C244.7 215.3 240 223.4 240 232L240 408C240 416.7 244.7 424.7 252.3 428.9C259.9 433.1 269.1 433 276.6 428.4L420.6 340.4C427.7 336 432.1 328.3 432.1 319.9C432.1 311.5 427.7 303.8 420.6 299.4L276.6 211.4C269.2 206.9 259.9 206.7 252.3 210.9z" />
+                                                            </svg>
+                                                        </button>
+                                                    </div>
 
                                                     <span>@song.Title</span>
                                                 </div>

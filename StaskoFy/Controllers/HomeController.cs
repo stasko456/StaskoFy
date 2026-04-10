@@ -18,13 +18,15 @@ namespace StaskoFy.Controllers
         private readonly IPlaylistService playlistService;
         private readonly ILikedSongsService likedSongsService;
         private readonly IGenreService genreService;
+        private readonly IArtistService artistService;
 
         public HomeController(ILogger<HomeController> logger,
                               ISongService _songService,
                               IAlbumService _albumService,
                               IPlaylistService _playlistService,
                               ILikedSongsService _likedSongsService,
-                              IGenreService _genreService)
+                              IGenreService _genreService,
+                              IArtistService _artistService)
         {
             _logger = logger;
             this.songService = _songService;
@@ -32,6 +34,7 @@ namespace StaskoFy.Controllers
             this.playlistService = _playlistService;
             this.likedSongsService = _likedSongsService;
             this.genreService = _genreService;
+            this.artistService = _artistService;
         }
 
         public async Task<IActionResult> Index()
@@ -45,7 +48,7 @@ namespace StaskoFy.Controllers
                 int totalAlbums = await albumService.GetTotalAlbumsCountAsync();
                 int totalPendingAlbums = await albumService.GetTotalPendingAlbumsCountAsync();
                 int totalGenres = await genreService.GetGenresCountAsync();
-                int totalDeletedGenres = await genreService.GetDeletedGenresCountAsync();
+                int totalPendingArtists = await artistService.GetPendingArtistsCountAsync();
 
                 var viewModel = new HomeAdminIndexViewModel
                 {
@@ -54,7 +57,7 @@ namespace StaskoFy.Controllers
                     TotalAlbums = totalAlbums,
                     TotalPendingAlbums = totalPendingAlbums,
                     TotalGenres = totalGenres,
-                    TotalDeletedGenres = totalDeletedGenres,
+                    TotalPendingArtists = totalPendingArtists,
                 };
 
                 return View("AdminIndex", viewModel);

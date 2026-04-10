@@ -60,13 +60,13 @@
             <div class="col-md-4">
                 <div class="card shadow-sm admin-manage-card">
                     <div class="card-body">
-                        <h5 class="card-title fw-bold">Manage Deleted Genres</h5>
+                        <h5 class="card-title fw-bold">Manage Pending Artists</h5>
                         <p class="card-text fw-semibold">
                             <svg viewBox="0 0 640 640" height="24" width="24" class="me-2" style="color: red;">
-                                <path fill="currentColor" d="M0 64C0 46.3 14.3 32 32 32l448 0c17.7 0 32 14.3 32 32l0 32c0 17.7-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96L0 64zM32 176l448 0 0 240c0 35.3-28.7 64-64 64L96 480c-35.3 0-64-28.7-64-64l0-240zm152 64c-13.3 0-24 10.7-24 24s10.7 24 24 24l144 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-144 0z" />
-                            </svg>@Model.TotalDeletedGenres
+                                <path fill="currentColor" d="M406.5 399.6C387.4 352.9 341.5 320 288 320l-64 0c-53.5 0-99.4 32.9-118.5 79.6-35.6-37.3-57.5-87.9-57.5-143.6 0-114.9 93.1-208 208-208s208 93.1 208 208c0 55.7-21.9 106.2-57.5 143.6zm-40.1 32.7C334.4 452.4 296.6 464 256 464s-78.4-11.6-110.5-31.7c7.3-36.7 39.7-64.3 78.5-64.3l64 0c38.8 0 71.2 27.6 78.5 64.3zM256 512a256 256 0 1 0 0-512 256 256 0 1 0 0 512zm0-272a40 40 0 1 1 0-80 40 40 0 1 1 0 80zm-88-40a88 88 0 1 0 176 0 88 88 0 1 0 -176 0z" />
+                            </svg>@Model.TotalPendingArtists
                         </p>
-                        <a asp-controller="Admin" asp-action="ManageGenresStatus" class="btn btn-outline-danger custom-manage-button btn-md">Review</a>
+                        <a asp-controller="Admin" asp-action="ManageArtistsStatus" class="btn btn-outline-danger custom-manage-button btn-md">Review</a>
                     </div>
                 </div>
             </div>

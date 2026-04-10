@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace StaskoFy.Core.Service
@@ -44,13 +45,15 @@ namespace StaskoFy.Core.Service
                 throw new ArgumentException("Invalid file type");
             }
 
-            var uniqieName = $"{Guid.NewGuid()}_{name}";
+            var cleanName = Regex.Replace(name, @"[^a-zA-Z0-9_-]", "");
             using var stream = imageFile.OpenReadStream();
 
             var uploadParams = new ImageUploadParams()
             {
                 File = new FileDescription(name, stream),
                 Folder = folder,
+                PublicId = $"{Guid.NewGuid()}_{cleanName}",
+                Overwrite = true
             };
 
             var uploadResult = await cloudinary.UploadAsync(uploadParams);
@@ -66,7 +69,17 @@ namespace StaskoFy.Core.Service
             }
 
             var deletionParams = new DeletionParams(publicId);
+
             var result = await cloudinary.DestroyAsync(deletionParams);
+
+            if (result.Result == "ok")
+            {
+                return;
+            }
+            else
+            {
+                throw new ArgumentException("The image file was not deleted!");
+            }
         }
 
         public async Task<(string Url, string PublicId)> UploadAudioFileAsync(IFormFile audioFile, string name, string folder)
@@ -82,13 +95,15 @@ namespace StaskoFy.Core.Service
                 throw new ArgumentException("Invalid file type");
             }
 
-            var uniqieName = $"{Guid.NewGuid()}_{name}";
+            var cleanName = Regex.Replace(name, @"[^a-zA-Z0-9_-]", "");
             using var stream = audioFile.OpenReadStream();
 
-            var uploadParams = new RawUploadParams()
+            var uploadParams = new VideoUploadParams()
             {
                 File = new FileDescription(name, stream),
                 Folder = folder,
+                PublicId = $"{Guid.NewGuid()}_{cleanName}",
+                Overwrite = true
             };
 
             var uploadResult = await cloudinary.UploadAsync(uploadParams);
@@ -103,8 +118,21 @@ namespace StaskoFy.Core.Service
                 return;
             }
 
-            var deletionParams = new DeletionParams(publicId);
+            var deletionParams = new DeletionParams(publicId)
+            {
+                ResourceType = ResourceType.Video,
+            };
+
             var result = await cloudinary.DestroyAsync(deletionParams);
+
+            if (result.Result == "ok")
+            {
+                return;
+            }
+            else
+            {
+                throw new Exception("The audio file was not deleted!");
+            }
         }
     }
 }

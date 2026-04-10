@@ -1,6 +1,7 @@
 ﻿using CloudinaryDotNet.Actions;
 using DocumentFormat.OpenXml.Office2010.Excel;
 using DocumentFormat.OpenXml.Office2019.Drawing.Model3D;
+using DocumentFormat.OpenXml.Spreadsheet;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using Microsoft.IdentityModel.Tokens;
@@ -40,15 +41,11 @@ namespace StaskoFy.Core.Service
         public async Task <IEnumerable<PlaylistIndexViewModel>> GetPlaylistsFromCurrentLoggedUserAsync(Guid userId)
         {
             return await playlistRepo.GetAllAttached()
-                .Where(x => x.UserId == userId)
+                .Where(x => x.UserId == userId )
                 .Select(p => new PlaylistIndexViewModel
                 {
                     Id = p.Id,
                     Title = p.Title,
-                    Hours = p.Length.Hours,
-                    Minutes = p.Length.Minutes,
-                    Seconds = p.Length.Seconds,
-                    SongCount = p.PlaylistsSongs.Where(ps => ps.PlaylistId == p.Id).Count(),
                     DateCreated = p.DateCreated,
                     ImageURL = p.ImageURL,
                     IsPublic = p.IsPublic,
@@ -64,10 +61,6 @@ namespace StaskoFy.Core.Service
             {
                 Id = p.Id,
                 Title = p.Title,
-                Hours = p.Length.Hours,
-                Minutes = p.Length.Minutes,
-                Seconds = p.Length.Seconds,
-                SongCount = p.PlaylistsSongs.Where(ps => ps.PlaylistId == p.Id).Count(),
                 DateCreated = p.DateCreated,
                 ImageURL = p.ImageURL,
                 IsPublic = p.IsPublic,
@@ -95,7 +88,7 @@ namespace StaskoFy.Core.Service
         public async Task<IEnumerable<SongPlaylistIndexViewModel>> GetPlaylistSongsByIdAsync(Guid id, string name, int pageNumber = 1, int pageSize = 5)
         {
             var query = playlistSongRepo.GetAllAttached()
-                .Where(ps => ps.PlaylistId == id);
+                .Where(ps => ps.PlaylistId == id && ps.Song.Status == UploadStatus.Approved);
 
             if (!string.IsNullOrEmpty(name))
             {
@@ -116,6 +109,29 @@ namespace StaskoFy.Core.Service
                 }).Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
+        }
+
+        public async Task<TimeSpan> GetLengthOfPlaylistSongsByIdAsync(Guid playlistId)
+        {
+            var songs = playlistSongRepo.GetAllAttached()
+            .Include(ps => ps.Song)
+            .Where(ps => ps.PlaylistId == playlistId && ps.Song.Status == UploadStatus.Approved);
+
+            var totalDuration = new TimeSpan(0, 0, 0);
+
+            foreach (var song in songs)
+            {
+                totalDuration = totalDuration + song.Song.Length;
+            }
+
+            return totalDuration;
+        }
+
+        public async Task<int> GetCountOfPlaylistSongsByIdAsync(Guid playlistId)
+        {
+            return await playlistSongRepo.GetAllAttached()
+                .Where(ps => ps.PlaylistId == playlistId && ps.Song.Status == UploadStatus.Approved)
+                .CountAsync();
         }
 
         public async Task AddPlaylistAsync(PlaylistCreateViewModel model, Guid userId)
@@ -271,7 +287,7 @@ namespace StaskoFy.Core.Service
         public async Task<IEnumerable<SongDetailsForMusicPlayer>> GetSongsFromPlaylistByIdForMusicPlayerAsync(Guid playlistId)
         {
             return await playlistSongRepo.GetAllAttached()
-                .Where(playlist => playlist.PlaylistId == playlistId)
+                .Where(ps => ps.PlaylistId == playlistId && ps.Song.Status == UploadStatus.Approved)
                 .Select(s => new SongDetailsForMusicPlayer
                 {
                     Id = s.Id,

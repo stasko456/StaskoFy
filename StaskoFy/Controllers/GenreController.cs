@@ -100,49 +100,5 @@ namespace StaskoFy.Controllers
 
             return RedirectToAction("Index");
         }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize(Policy = "Admin")]
-        public async Task<IActionResult> Delete(Guid id)
-        {
-            if (id == Guid.Empty)
-            {
-                return BadRequest();
-            }
-
-            try
-            {
-                await genreService.RemoveGenreAsync(id);
-                return RedirectToAction("Index");
-            }
-            catch (NullReferenceException ex)
-            {
-                logger.LogError($"{ex.Message}");
-                return RedirectToAction("Error", "Home", new { code = 404 });
-            }
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize(Policy = "Admin")]
-        public async Task<IActionResult> AcceptGenreUpload(Guid id)
-        {
-            if (id == Guid.Empty)
-            {
-                return BadRequest();
-            }
-
-            try
-            {
-                await genreService.AcceptGenreUploadAsync(id);
-                return RedirectToAction("ManageGenresStatus", "Admin");
-            }
-            catch (NullReferenceException ex)
-            {
-                logger.LogError($"{ex.Message}");
-                return RedirectToAction("Error", "Home", new { code = 404 });
-            }
-        }
     }
 }
