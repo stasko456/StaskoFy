@@ -41,7 +41,7 @@ namespace StaskoFy.Controllers
 
         [HttpGet]
         [Authorize(Policy = "ArtistOrAdminOrUser")]
-        public async Task<IActionResult> SongsIndexForAllUsers(string searchItem, List<string> filters, int pageNumber = 1)
+        public async Task<IActionResult> Index(string searchItem, List<string> filters, int pageNumber = 1)
         {
             int pageSize = 12;
             var songs = await songService.FilterSongsAsync(searchItem, filters, pageNumber, pageSize);
@@ -104,7 +104,7 @@ namespace StaskoFy.Controllers
                 return View(viewModel);
             }
             await songService.AddSongAsync(viewModel, Guid.Parse(userId));
-            return RedirectToAction("MyProjectsForCurrentLoggedArtistIndex", "Library");
+            return RedirectToAction("MyProjectsIndex", "Library");
         }
 
         [HttpGet]
@@ -156,7 +156,7 @@ namespace StaskoFy.Controllers
             }
 
             await songService.UpdateSongsAsync(viewModel, Guid.Parse(userId));
-            return RedirectToAction("MyProjectsForCurrentLoggedArtistIndex", "Library");
+            return RedirectToAction("MyProjectsIndex", "Library");
         }
 
         [HttpPost]

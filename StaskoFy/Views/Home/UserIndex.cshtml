@@ -1,17 +1,17 @@
 ﻿@model HomeUserIndexViewModel
 
-<div class="container py-5">
+<div class="text-center mb-5">
+    <h1 class="display-4 fw-bold mb-3">
+        Welcome to <span class="specific_heading">StaskoFy</span>
+    </h1>
+
+    <p class="lead text-dark mb-1">
+        Discover new music, explore albums, and enjoy projects created by your favorite artists.
+    </p>
+</div>
+
+<div class="container">
     <div class="text-center text-light">
-        <div class="mb-5">
-            <h1 class="display-4 fw-bold mb-3">
-                Welcome to <span class="specific_heading">StaskoFy</span>
-            </h1>
-
-            <p class="lead text-secondary mb-1">
-                Discover new music, explore albums, and enjoy projects created by your favorite artists.
-            </p>
-        </div>
-
         <div class="row text-center justify-content-center text-center mb-5 g-4">
             <div class="col-md-4">
                 <div class="card shadow-sm user-manage-card">
@@ -35,7 +35,7 @@
                                 <path fill="currentColor" d="M532 71C539.6 77.1 544 86.3 544 96L544 400C544 444.2 501 480 448 480C395 480 352 444.2 352 400C352 355.8 395 320 448 320C459.2 320 470 321.6 480 324.6L480 207.9L256 257.7L256 464C256 508.2 213 544 160 544C107 544 64 508.2 64 464C64 419.8 107 384 160 384C171.2 384 182 385.6 192 388.6L192 160C192 145 202.4 132 217.1 128.8L505.1 64.8C514.6 62.7 524.5 65 532.1 71.1z" />
                             </svg>@Model.TotalLikedSongsByUser
                         </p>
-                        <a asp-controller="LikedSongs" asp-action="LikedSongsIndexForCurrentLoggedUser" class="btn btn-outline-warning btn-md">Manage</a>
+                        <a asp-controller="LikedSongs" asp-action="Index" class="btn btn-outline-warning btn-md">Manage</a>
                     </div>
                 </div>
             </div>

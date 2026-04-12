@@ -9,7 +9,7 @@
         <div class="col-12 col-xl-10">
                    
             <div class="mb-3">
-                <a asp-controller="Album" asp-action="AlbumsIndexForAllUsers" class="specific_heading fs-5 text-decoration-none fw-bold d-inline-flex align-items-center">
+                <a asp-controller="Album" asp-action="Index" class="specific_heading fs-5 text-decoration-none fw-bold d-inline-flex align-items-center">
                     <svg viewBox="0 0 320 512" width="16" height="16" fill="currentColor" class="me-2">
                         <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z" />
                     </svg>
@@ -43,7 +43,7 @@
                         <div class="flex-grow-1 d-flex flex-column justify-content-center align-items-center text-center" style="min-height:300px;">
 
                             <h2 class="fw-bold">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" height="50" width="50"><!--!Font Awesome Free v7.2.0 by @@fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path fill="rgb(255, 255, 255)" d="M0 256a256 256 0 1 1 512 0 256 256 0 1 1 -512 0zm256 32a32 32 0 1 1 0-64 32 32 0 1 1 0 64zm-96-32a96 96 0 1 0 192 0 96 96 0 1 0 -192 0zm-56-16c0-32.4 16.3-66.6 42.8-93.2S207.6 104 240 104c13.3 0 24-10.7 24-24s-10.7-24-24-24c-47.9 0-93.7 23.5-127.1 56.9S56 192.1 56 240c0 13.3 10.7 24 24 24s24-10.7 24-24z" /></svg><span class="specific_heading">@Model.Title</span>
+                                <svg viewBox="0 0 640 640" height="50" width="50"><path fill="rgb(255, 255, 255)" d="M0 256a256 256 0 1 1 512 0 256 256 0 1 1 -512 0zm256 32a32 32 0 1 1 0-64 32 32 0 1 1 0 64zm-96-32a96 96 0 1 0 192 0 96 96 0 1 0 -192 0zm-56-16c0-32.4 16.3-66.6 42.8-93.2S207.6 104 240 104c13.3 0 24-10.7 24-24s-10.7-24-24-24c-47.9 0-93.7 23.5-127.1 56.9S56 192.1 56 240c0 13.3 10.7 24 24 24s24-10.7 24-24z" /></svg><span class="specific_heading">@Model.Title</span>
                             </h2>
 
                             <p class="text-muted fw-bold fs-6 mb-2">
@@ -81,6 +81,10 @@
                                     {
                                         <th>Actions</th>
                                     }
+                                    else
+                                    {
+                                        <th></th>
+                                    }
                                 </tr>
                             </thead>
 
@@ -91,22 +95,22 @@
 
                                 @foreach (var song in Model.Songs)
                                 {
-                                    <tr class="border-top">
+                                    <tr class="border-top align-middle">
 
-                                        <td class="ps-3 text-muted fw-semibold">
-                                            @index
-                                        </td>
-
-                                        <td class="fw-semibold text-dark">
-                                            
-                                            <button class="btn p-0 play-btn-custom me-2"
+                                        <td class="ps-3 text-muted fw-semibold track-index-cell">
+                                            <button class="btn p-0 play-btn-custom"
                                                     type="button"
                                                     data-song-id="@song.Id"
                                                     onclick="loadSong('@song.Id')">
                                                 <svg viewBox="0 0 640 640" height="40" width="40" style="background-color:transparent">
                                                     <path fill="#ffc107" d="M64 320C64 178.6 178.6 64 320 64C461.4 64 576 178.6 576 320C576 461.4 461.4 576 320 576C178.6 576 64 461.4 64 320zM252.3 211.1C244.7 215.3 240 223.4 240 232L240 408C240 416.7 244.7 424.7 252.3 428.9C259.9 433.1 269.1 433 276.6 428.4L420.6 340.4C427.7 336 432.1 328.3 432.1 319.9C432.1 311.5 427.7 303.8 420.6 299.4L276.6 211.4C269.2 206.9 259.9 206.7 252.3 210.9z" />
                                                 </svg>
-                                            </button>@song.Title
+                                            </button>
+                                            <span class="track-index-number">@index</span>
+                                        </td>
+
+                                        <td class="fw-semibold text-dark">
+                                            @song.Title
                                         </td>
 
                                         <td class="text-muted">
@@ -128,7 +132,7 @@
                                             }
                                         </td>
 
-                                        @if (User.IsInRole("Artist") && Model.UserIds.Contains(currentUserId))
+                                        @if (User.IsInRole("Artist") && Model.UserIds.Contains(currentUserId) && song.Artists.Contains(User.Identity.Name))
                                         {
                                             <td>
                                                 <div class="d-flex gap-2 align-items-center mt-1">
@@ -159,6 +163,27 @@
                                                         </button>
                                                     </form>
                                                 </div>
+                                            </td>
+                                        }
+                                        else if (User.IsInRole("Artist") && Model.UserIds.Contains(currentUserId))
+                                        {
+                                            <td>
+                                                <div class="d-flex align-items-start mt-1">
+                                                    <form asp-controller="Song" asp-action="MakeSongSingle" asp-route-songId="@song.Id" asp-route-albumId="@Model.Id">
+                                                        <button class="btn btn-outline-warning btn-md d-inline-flex align-items-center">
+                                                            <svg viewBox="0 0 640 640" width="25" height="25" class="me-2">
+                                                                <path fill="currentColor" d="M532 71C539.6 77.1 544 86.3 544 96L544 400C544 444.2 501 480 448 480C395 480 352 444.2 352 400C352 355.8 395 320 448 320C459.2 320 470 321.6 480 324.6L480 207.9L256 257.7L256 464C256 508.2 213 544 160 544C107 544 64 508.2 64 464C64 419.8 107 384 160 384C171.2 384 182 385.6 192 388.6L192 160C192 145 202.4 132 217.1 128.8L505.1 64.8C514.6 62.7 524.5 65 532.1 71.1z" />
+                                                            </svg>
+                                                            Single
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td>
+                                                <div class="mt-1" style="height: 38px; width: 1px;"></div>
                                             </td>
                                         }
                                     </tr>

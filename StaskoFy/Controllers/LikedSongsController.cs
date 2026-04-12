@@ -23,7 +23,7 @@ namespace StaskoFy.Controllers
 
         [HttpGet]
         [Authorize(Policy = "ArtistOrUser")]
-        public async Task<IActionResult> LikedSongsIndexForCurrentLoggedUser(string name, int pageNumber = 1)
+        public async Task<IActionResult> Index(string name, int pageNumber = 1)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
@@ -72,7 +72,7 @@ namespace StaskoFy.Controllers
                 {
                     return Redirect(returnURL);
                 }
-                return RedirectToAction("SongsIndexForAllUsers", "Song");
+                return RedirectToAction("Index", "Song");
             }
             catch (NullReferenceException ex)
             {
@@ -91,7 +91,7 @@ namespace StaskoFy.Controllers
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
                 await likedSongsService.RemoveLikedSongAsync(Guid.Parse(userId), songId);
-                return RedirectToAction("LikedSongsIndexForCurrentLoggedUser");
+                return RedirectToAction("Index");
             }
             catch (NullReferenceException ex)
             {

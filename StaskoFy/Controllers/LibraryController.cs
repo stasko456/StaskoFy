@@ -36,6 +36,11 @@ namespace StaskoFy.Controllers
             int likedSongsCount = await likedSongsService.GetTotalLikedSongsByCurrentLoggedUserAsync(Guid.Parse(userId));
             TimeSpan likedSongsLength = await likedSongsService.GetLengthOfLikedSongsByCurrentLoggedUserAsync(Guid.Parse(userId));
 
+            if (!playlists.Any())
+            {
+                ViewData["NoResult"] = "You have not created any playlists.";
+            }
+
             var viewModel = new LibraryViewModel
             {
                 Playlists = playlists.ToList(),
@@ -50,7 +55,7 @@ namespace StaskoFy.Controllers
 
         [HttpGet]
         [Authorize(Policy = "Artist")]
-        public async Task<IActionResult> MyProjectsForCurrentLoggedArtistIndex()
+        public async Task<IActionResult> MyProjectsIndex()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 

@@ -689,3 +689,23 @@ tr:hover .play-overlay-btn {
 tr:hover .song-image {
     filter: brightness(0.4);
 }
+
+/* Default State: Hide the play button, show the index */
+.track-index-cell .play-btn-custom {
+    display: none;
+}
+
+.track-index-cell .track-index-number {
+    display: inline-block;
+    width: 40px; /* Matches your SVG width to prevent the table cells from shifting on hover */
+    text-align: center;
+}
+
+/* Hover State: When hovering over the table row (tr), swap them */
+tr:hover .track-index-cell .play-btn-custom {
+    display: inline-block;
+}
+
+tr:hover .track-index-cell .track-index-number {
+    display: none;
+}

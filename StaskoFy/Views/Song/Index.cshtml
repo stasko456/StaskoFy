@@ -1,22 +1,27 @@
 ﻿@model SongsPaginationViewModel
 
 <div class="text-center mb-5">
-    <h1 class="display-4 fw-bold">
-        Discover <span class="specific_heading">Songs</span>
+    <h1 class="display-4 fw-bold mb-3">
+        Discover <span class="specific_heading">Albums</span>
     </h1>
+
     @if (User.IsInRole("Admin"))
     {
-        <p class="text-muted">Browse all songs on the platform and <span class="text-danger">remove</span> any that <span class="text-danger">violate the rules</span>.</p>
+        <p class="lead text-dark mb-1">
+            Browse all songs on the platform and <span class="text-danger">remove</span> any that <span class="text-danger">violate the rules</span>.
+        </p>
     }
     else
     {
-        <p class="text-muted">Explore all songs on the platform</p>
+        <p class="lead text-dark mb-1">
+            Explore all songs on the platform
+        </p>
     }
 </div>
 
 <div class="row justify-content-center w-100 mx-0">
     <div class="col-12 col-md-8 col-lg-6 mb-4 mx-auto">
-        <form asp-controller="Song" asp-action="SongsIndexForAllUsers" method="get">
+        <form asp-controller="Song" asp-action="Index" method="get">
             <div class="d-flex align-items-center gap-4 mb-4">
                 <input class="form-control form-control-lg"
                        type="search"
@@ -67,13 +72,13 @@
         <p class="text-secondary">Try searching for a different track.</p>
 
         <div class="mt-4">
-            <a href="@Url.Action("SongsIndexForAllUsers", "Song")" class="btn btn-outline-warning px-4 me-2">Clear Search</a>
+            <a href="@Url.Action("Index", "Song")" class="btn btn-outline-warning px-4 me-2">Clear Search</a>
         </div>
     </div>
 }
 else
 {
-    <div class="container my-5">
+    <div class="container">
         <div class="row g-4 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6 justify-content-center mx-auto"
              style="max-width: 1200px;">
 
@@ -199,14 +204,14 @@ else
             @if (Model.CurrentPage > 1)
             {
                 <li class="page-item">
-                    <a class="page-link" asp-action="SongsIndexForAllUsers" asp-route-pageNumber="@(Model.CurrentPage - 1)" asp-route-pageSize="3">Previous</a>
+                    <a class="page-link" asp-action="Index" asp-route-pageNumber="@(Model.CurrentPage - 1)" asp-route-pageSize="3">Previous</a>
                 </li>
             }
 
             @if (Model.CurrentPage > 2)
             {
                 <li class="page-item">
-                    <a class="page-link" asp-action="SongsIndexForAllUsers" asp-route-pageNumber="1" asp-route-pageSize="3">1</a>
+                    <a class="page-link" asp-action="Index" asp-route-pageNumber="1" asp-route-pageSize="3">1</a>
                 </li>
                 <li class="page-item disabled">
                     <span class="page-link">...</span>
@@ -218,7 +223,7 @@ else
                 if (i > 0 && i <= Model.TotalPages)
                 {
                     <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
-                        <a class="page-link" asp-action="SongsIndexForAllUsers" asp-route-pageNumber="@i" asp-route-pageSize="3">@i</a>
+                        <a class="page-link" asp-action="Index" asp-route-pageNumber="@i" asp-route-pageSize="3">@i</a>
                     </li>
                 }
             }
@@ -229,14 +234,14 @@ else
                     <span class="page-link">...</span>
                 </li>
                 <li class="page-item">
-                    <a class="page-link" asp-action="SongsIndexForAllUsers" asp-route-pageNumber="@Model.TotalPages" asp-route-pageSize="3">@Model.TotalPages</a>
+                    <a class="page-link" asp-action="Index" asp-route-pageNumber="@Model.TotalPages" asp-route-pageSize="3">@Model.TotalPages</a>
                 </li>
             }
 
             @if (Model.CurrentPage < Model.TotalPages)
             {
                 <li class="page-item">
-                    <a class="page-link" asp-action="SongsIndexForAllUsers" asp-route-pageNumber="@(Model.CurrentPage + 1)" asp-route-pageSize="3">Next</a>
+                    <a class="page-link" asp-action="Index" asp-route-pageNumber="@(Model.CurrentPage + 1)" asp-route-pageSize="3">Next</a>
                 </li>
             }
         </ul>

@@ -30,7 +30,7 @@ namespace StaskoFy.Controllers
 
         [HttpGet]
         [Authorize(Policy = "ArtistOrAdminOrUser")]
-        public async Task<IActionResult> AlbumsIndexForAllUsers(string searchItem, List<string> filters, int pageNumber = 1)
+        public async Task<IActionResult> Index(string searchItem, List<string> filters, int pageNumber = 1)
         {
             int pageSize = 4;
             var albums = await albumService.FilterAlbumsAsync(searchItem, filters, pageNumber, pageSize);
@@ -88,7 +88,7 @@ namespace StaskoFy.Controllers
             }
 
             await albumService.AddAlbumAsync(viewModel, Guid.Parse(userId));
-            return RedirectToAction("MyProjectsForCurrentLoggedArtistIndex", "Library");
+            return RedirectToAction("MyProjectsIndex", "Library");
         }
 
         [HttpGet]
@@ -140,7 +140,7 @@ namespace StaskoFy.Controllers
             }
 
             await albumService.UpdateAlbumAsync(viewModel, Guid.Parse(userId));
-            return RedirectToAction("MyProjectsForCurrentLoggedArtistIndex", "Library");
+            return RedirectToAction("MyProjectsIndex", "Library");
         }
 
         [HttpPost]

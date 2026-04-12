@@ -402,13 +402,18 @@ namespace StaskoFy.Core.Service
         public async Task<IEnumerable<SongIndexViewModel>> GetSinglesForCurrentLoggedArtistAsync(Guid userId)
         {
             return await songRepo.GetAllAttached()
-                .Where(song => song.ArtistsSongs.Any(a => a.Artist.UserId == userId) && song.AlbumId == null && song.Status == UploadStatus.Approved)
-                .Select(song => new SongIndexViewModel
-                {
-                    Id = song.Id,
-                    Title = song.Title,
-                    ImageURL = song.ImageURL,
-                }).ToListAsync();
+                .Where(s => (s.Status == UploadStatus.Approved && s.ArtistsSongs.Any(aa => aa.Artist.UserId == userId)) &&
+                    (
+                        s.AlbumId == null
+                        ||
+                        !s.Album.ArtistsAlbums.Any(aa => aa.Artist.UserId == userId)
+                    ))
+                    .Select(s => new SongIndexViewModel
+                    {
+                        Id = s.Id,
+                        Title = s.Title,
+                        ImageURL = s.ImageURL,
+                    }).ToListAsync();
         }
 
         public async Task AcceptSongUploadAsync(Guid id)

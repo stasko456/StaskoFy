@@ -1,12 +1,13 @@
 ﻿@model LibraryViewModel
 
-<div class="container py-5">
-    <div class="text-center text-light">
-        <h1 class="display-4 fw-bold mb-3">
-            Your <span class="specific_heading"> Music Library</span>
-        </h1>
-        <p class="text-muted">Explore your loved projects</p>
-    </div>
+<div class="text-center mb-5">
+    <h1 class="display-4 fw-bold mb-3">
+        Your <span class="specific_heading"> Music Library</span>
+    </h1>
+
+    <p class="lead text-dark mb-1">
+        Explore your loved projects.
+    </p>
 </div>
 
 <div class="container mt-4">
@@ -29,7 +30,7 @@
 
     <hr />
 
-    <div class="tab-content pt-4" id="pills-tabContent">
+    <div class="tab-content" id="pills-tabContent">
 
         <div class="tab-pane fade show active" id="pills-playlists" role="tabpanel" aria-labelledby="pills-playlists-tab">
             <div class="text-light text-center">
@@ -38,6 +39,24 @@
                 </h3>
             </div>
 
+            @if (!Model.Playlists.Any())
+            {
+                <div class="border border-secondary border-opacity-50 rounded-4 text-center py-5 px-3 mb-5 shadow-sm">
+                    <div class="mb-3">
+                        <svg viewBox="0 0 384 512" height="70" width="70">
+                            <path fill="#ffc107" d="M381.9 388.2c-6.4 27.4-27.2 42.8-55.1 48-24.5 4.5-44.9 5.6-64.5-10.2-23.9-20.1-24.2-53.4-2.7-74.4 17-16.2 40.9-19.5 76.8-25.8 6-1.1 11.2-2.5 15.6-7.4 6.4-7.2 4.4-4.1 4.4-163.2 0-11.2-5.5-14.3-17-12.3-8.2 1.4-185.7 34.6-185.7 34.6-10.2 2.2-13.4 5.2-13.4 16.7 0 234.7 1.1 223.9-2.5 239.5-4.2 18.2-15.4 31.9-30.2 39.5-16.8 9.3-47.2 13.4-63.4 10.4-43.2-8.1-58.4-58-29.1-86.6 17-16.2 40.9-19.5 76.8-25.8 6-1.1 11.2-2.5 15.6-7.4 10.1-11.5 1.8-256.6 5.2-270.2 .8-5.2 3-9.6 7.1-12.9 4.2-3.5 11.8-5.5 13.4-5.5 204-38.2 228.9-43.1 232.4-43.1 11.5-.8 18.1 6 18.1 17.6 .2 344.5 1.1 326-1.8 338.5z" />
+                        </svg>
+                    </div>
+
+                    <h5 class="fw-semibold text-white mb-2">
+                        @ViewData["NoResult"]
+                    </h5>
+
+                    <p class="text-dark mb-4">
+                        Get started by creating your first playlist on the platform.
+                    </p>
+                </div>
+            }
             <div class="row g-4 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 justify-content-center">
                 @foreach (var playlist in Model.Playlists)
                 {
@@ -140,11 +159,10 @@
         </div>
 
         <div class="tab-pane fade" id="pills-liked" role="tabpanel" aria-labelledby="pills-liked-tab">
-
             <div class="text-light text-center">
-                <h4 class="display-4 fw-bold mb-3">
+                <h3 class="fw-bold mb-3">
                     Your <span class="specific_heading">Liked Songs</span>
-                </h4>
+                </h3>
             </div>
 
             <div class="row g-4 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 justify-content-center">
@@ -153,7 +171,7 @@
                          style="border-radius: 12px; background-color: #1a1a1a; transition: transform 0.3s ease; overflow: hidden;">
 
                         <div class="position-relative overflow-hidden" style="aspect-ratio: 1 / 1; background-color: #2a2a2a;">
-                            <a asp-controller="LikedSongs" asp-action="LikedSongsIndexForCurrentLoggedUser">
+                            <a asp-controller="LikedSongs" asp-action="Index">
                                 <img src="/images/defaults/liked_songs.jpg"
                                      alt="Liked songs"
                                      class="w-100 h-100"

@@ -8,7 +8,7 @@
 
                 <div class="text-center mb-3 mt-3">
                     <h4 class="display-4 fw-bold">
-                        Edit <span class="specific_heading">Profile</span>
+                        Edit <span class="text-warning">Profile</span>
                     </h4>
                 </div>
 
@@ -16,7 +16,6 @@
 
                     <form asp-action="Manage" method="post" enctype="multipart/form-data">
 
-                        <!-- Current Profile Picture -->
                         <div class="text-center mb-4">
                             <img src="@Model.CurrentProfilePicture"
                                  class="rounded-circle"
@@ -25,25 +24,23 @@
                                  style="object-fit:cover;" />
                         </div>
 
-                        <!-- Username -->
                         <div class="col-md-10 mx-auto">
 
                             <div class="mb-3">
-                                <label asp-for="Username" class="form-label fw-semibold"></label>
+                                <label asp-for="Username" class="form-label fw-semibold fs-5"></label>
                                 <input asp-for="Username" class="form-control" />
                                 <span asp-validation-for="Username" class="text-danger small"></span>
                             </div>
 
                             <div class="mb-4">
-                                <label asp-for="ImageFile" class="form-label fw-semibold">Change Profile Picture</label>
+                                <label asp-for="ImageFile" class="form-label fw-semibold fs-5">Change Profile Picture</label>
                                 <input type="file" asp-for="ImageFile" class="form-control" accept="image/*" />
                             </div>
                             
-                            <!-- Buttons -->
                             <div class="d-flex justify-content-between">
                                 <a asp-action="Details" class="btn btn-outline-warning">Cancel</a>
 
-                                <button type="submit" class="btn btn-success btn-wan">Save Changes</button>
+                                <button type="submit" class="btn btn-warning btn-wan">Save Changes</button>
                             </div>
                         </div>
                     </form>
