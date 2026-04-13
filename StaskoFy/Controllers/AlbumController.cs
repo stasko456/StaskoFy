@@ -132,7 +132,9 @@ namespace StaskoFy.Controllers
             {
                 var artists = await artistService.PopulateArtistSelectListAsync(Guid.Parse(userId));
                 viewModel.Artists = new MultiSelectList(artists, "Id", "Username", viewModel.SelectedArtistIds.AsEnumerable());
-                
+
+                ViewBag.AllArtists = artists;
+
                 var songs = await songService.SelectSinglesByCurrentLoggedArtistAsync(Guid.Parse(userId));
                 viewModel.Songs = new MultiSelectList(songs, "Id", "Title");
                 

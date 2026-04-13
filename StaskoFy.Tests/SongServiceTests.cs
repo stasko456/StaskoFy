@@ -55,7 +55,7 @@ namespace StaskoFy.Tests
             songService = new SongService(songRepo, artistSongRepo, artistRepo, mockImageService.Object, playlistSongRepo, likedSongsRepo, playlistRepo);
 
             // Seed
-            testUser = new User { Id = Guid.NewGuid(), UserName = "TestArtist", Email = "test@test.com", ImageURL = "/img/test.png" };
+            testUser = new User { Id = Guid.NewGuid(), UserName = "TestArtist", Email = "test@test.com", ImageURL = "/img/test.png", CloudinaryPublicId = "test-pub" };
             context.Users.Add(testUser);
             await context.SaveChangesAsync();
 

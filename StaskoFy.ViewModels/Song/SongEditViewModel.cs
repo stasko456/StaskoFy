@@ -25,7 +25,7 @@ namespace StaskoFy.ViewModels.Song
         [Range(0, 59, ErrorMessage = "Seconds must be between 0 and 59.")]
         public int Seconds { get; set; }
 
-        [Required(ErrorMessage = "Release date is required!")]
+        [Required(ErrorMessage = "Release date is required.")]
         [DataType(DataType.Date)]
         public DateOnly ReleaseDate { get; set; }
 

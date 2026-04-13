@@ -48,7 +48,7 @@ namespace StaskoFy.Tests
             playlistService = new PlaylistService(playlistRepo, songRepo, playlistSongRepo, mockImageService.Object);
 
             // Seed
-            testUser = new User { Id = Guid.NewGuid(), UserName = "TestUser", Email = "test@test.com", ImageURL = "/img/test.png" };
+            testUser = new User { Id = Guid.NewGuid(), UserName = "TestUser", Email = "test@test.com", ImageURL = "/img/test.png", CloudinaryPublicId = "test-pub" };
             testGenre = new Genre { Id = Guid.NewGuid(), Name = "Rock" };
 
             context.Users.Add(testUser);
@@ -102,7 +102,7 @@ namespace StaskoFy.Tests
             await playlistRepo.AddAsync(CreatePlaylist("Playlist 2"));
 
             var otherUserId = Guid.NewGuid();
-            context.Users.Add(new User { Id = otherUserId, UserName = "Other", Email = "other@t.com", ImageURL = "/img/o.png" });
+            context.Users.Add(new User { Id = otherUserId, UserName = "Other", Email = "other@t.com", ImageURL = "/img/o.png", CloudinaryPublicId = "test-pub" });
             await context.SaveChangesAsync();
             await playlistRepo.AddAsync(CreatePlaylist("Other Playlist", otherUserId));
 

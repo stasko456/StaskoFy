@@ -17,10 +17,8 @@ namespace StaskoFy.Models.Entities
         [MaxLength(100)]
         public string Title { get; set; } = null!;
 
-        // non required because I am summing the lenghts of the playlist's songs
         public TimeSpan Length { get; set; }
 
-        // cannot be null
         public DateOnly DateCreated { get; set; }
 
         [Required]
@@ -33,10 +31,10 @@ namespace StaskoFy.Models.Entities
         public string ImageURL { get; set; } = null!;
 
         [Required]
-        [MaxLength(255)]
+        [MaxLength(2048)]
         public string CloudinaryPublicId { get; set; } = null!;
 
-        public bool IsPublic { get; set; } = false; // false by default
+        public bool IsPublic { get; set; } = false;
 
         public ICollection<PlaylistSong> PlaylistsSongs { get; set; } = new List<PlaylistSong>();
     }

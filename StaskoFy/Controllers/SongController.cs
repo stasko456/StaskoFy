@@ -150,6 +150,9 @@ namespace StaskoFy.Controllers
                 ViewBag.Genres = new SelectList(genres, "Id", "Name");
 
                 var artists = await artistService.PopulateArtistSelectListAsync(Guid.Parse(userId));
+
+                ViewBag.AllArtists = artists;
+
                 viewModel.Artists = new MultiSelectList(artists, "Id", "Username", viewModel.SelectedArtistIds.AsEnumerable());
 
                 return View(viewModel);
@@ -162,7 +165,7 @@ namespace StaskoFy.Controllers
         [HttpPost]
         [Authorize(Policy = "ArtistOrAdmin")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(Guid id, string sourceController, string sourceAction)
+        public async Task<IActionResult> Delete(Guid id)
         {
             if (id == Guid.Empty)
             {
@@ -172,7 +175,7 @@ namespace StaskoFy.Controllers
             try
             {
                 await songService.RemoveSongAsync(id);
-                return RedirectToAction(sourceAction, sourceController);
+                return RedirectToAction("Index", "Song");
             }
             catch (NullReferenceException ex)
             {

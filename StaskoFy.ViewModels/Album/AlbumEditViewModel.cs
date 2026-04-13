@@ -11,7 +11,6 @@ namespace StaskoFy.ViewModels.Album
 {
     public class AlbumEditViewModel
     {
-        [Required]
         public Guid Id { get; set; }
 
         [Required(ErrorMessage = "Title is required!")]

@@ -14,6 +14,7 @@ namespace StaskoFy.Models.Entities
         [Key]
         public Guid Id { get; set; }
 
+        [Required]
         [ForeignKey(nameof(User))]
         public Guid UserId { get; set; }
         public User User { get; set; } = null!;

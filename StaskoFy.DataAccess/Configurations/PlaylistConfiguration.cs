@@ -22,8 +22,8 @@ namespace StaskoFy.DataAccess.Configurations
                     DateCreated = new DateOnly(2024, 12, 4),
                     UserId = Guid.Parse("01111111-1111-1111-1111-111111111111"),
                     IsPublic = true,
-                    ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1775556133/hip-hop-trap-filmar_xxacji.jpg",
-                    CloudinaryPublicId = "hip-hop-trap-filmar_xxacji"
+                    ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1776078475/hip-hop-trap-filmar_wmu6g3.jpg",
+                    CloudinaryPublicId = "hip-hop-trap-filmar_wmu6g3"
                 },
                 new Playlist
                 {

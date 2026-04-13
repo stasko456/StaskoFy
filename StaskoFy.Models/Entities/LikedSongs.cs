@@ -23,7 +23,6 @@ namespace StaskoFy.Models.Entities
         public Guid SongId { get; set; }
         public Song Song { get; set; } = null!;
 
-        [Required]
         public DateOnly DateAdded { get; set; }
     }
 }

@@ -71,15 +71,6 @@ namespace StaskoFy.Core.Service
             var deletionParams = new DeletionParams(publicId);
 
             var result = await cloudinary.DestroyAsync(deletionParams);
-
-            if (result.Result == "ok")
-            {
-                return;
-            }
-            else
-            {
-                throw new ArgumentException("The image file was not deleted!");
-            }
         }
 
         public async Task<(string Url, string PublicId)> UploadAudioFileAsync(IFormFile audioFile, string name, string folder)
@@ -124,15 +115,6 @@ namespace StaskoFy.Core.Service
             };
 
             var result = await cloudinary.DestroyAsync(deletionParams);
-
-            if (result.Result == "ok")
-            {
-                return;
-            }
-            else
-            {
-                throw new Exception("The audio file was not deleted!");
-            }
         }
     }
 }

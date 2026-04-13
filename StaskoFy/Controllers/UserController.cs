@@ -233,6 +233,8 @@ namespace StaskoFy.Controllers
             
             if (viewModel.ImageFile != null && viewModel.ImageFile.Length > 0)
             {
+                await imageService.DestroyImageAsync(user.CloudinaryPublicId);
+
                 var uploadResult = await imageService.UploadImageAsync(viewModel.ImageFile, viewModel.ImageFile.FileName, "user-profile-pictures");
                 user.ImageURL = uploadResult.Url;
                 user.CloudinaryPublicId = uploadResult.PublicId;

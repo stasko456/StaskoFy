@@ -6,12 +6,10 @@
             <div class="card shadow-lg border-0 rounded-4 song-create-edit-card">
                 <div class="card-body p-4">
                     <h2 class="text-center mb-4 fw-bold">
-                        <svg viewBox="0 0 640 640" height="40" width="40" class="me-2">
-                            <path fill="rgb(255, 255, 255)" d="M468 7c7.6 6.1 12 15.3 12 25l0 304c0 44.2-43 80-96 80s-96-35.8-96-80 43-80 96-80c11.2 0 22 1.6 32 4.6l0-116.7-224 49.8 0 206.3c0 44.2-43 80-96 80s-96-35.8-96-80 43-80 96-80c11.2 0 22 1.6 32 4.6L128 96c0-15 10.4-28 25.1-31.2l288-64c9.5-2.1 19.4 .2 27 6.3z" />
-                        </svg>Edit <span class="text-warning">Song</span>
+                        Edit <span class="text-warning">Song</span>
                     </h2>
 
-                    <form method="post" asp-action="Edit" enctype="multipart/form-data">
+                    <form asp-action="Edit" method="post" enctype="multipart/form-data">
                         <input type="hidden" asp-for="Id" />
 
                         <div class="row g-3">

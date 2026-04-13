@@ -25,8 +25,8 @@ namespace StaskoFy.DataAccess.Configurations
                 AlbumId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                 Likes = 6,
                 GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
-                ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1775556404/a_great_chaos_deluxe_nhsydj.jpg",
-                CloudinaryPublicId = "a_great_chaos_deluxe_nhsydj",
+                ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1776078561/a_great_chaos_deluxe_jnaj7p.jpg",
+                CloudinaryPublicId = "a_great_chaos_deluxe_jnaj7p",
                 Status = UploadStatus.Approved,
                 AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203109/Ken_Carson_-_Green_Room_Official_Audio_cksiai.mp3",
                 CloudinaryAudioPublicId = "Ken_Carson_-_Green_Room_Official_Audio_cksiai"
@@ -40,8 +40,8 @@ namespace StaskoFy.DataAccess.Configurations
                 AlbumId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                 Likes = 3,
                 GenreId = Guid.Parse("41111111-1111-1111-1111-111111111111"),
-                ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1775556404/a_great_chaos_deluxe_nhsydj.jpg",
-                CloudinaryPublicId = "a_great_chaos_deluxe_nhsydj",
+                ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1776078561/a_great_chaos_deluxe_jnaj7p.jpg",
+                CloudinaryPublicId = "a_great_chaos_deluxe_jnaj7p",
                 Status = UploadStatus.Approved,
                 AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203106/Ken_Carson_-_Lose_It_Official_Audio_l2wjgb.mp3",
                 CloudinaryAudioPublicId = "Ken_Carson_-_Lose_It_Official_Audio_l2wjgb"
@@ -56,8 +56,8 @@ namespace StaskoFy.DataAccess.Configurations
                 AlbumId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                 Likes = 2,
                 GenreId = Guid.Parse("41111111-1111-1111-1111-111111111111"),
-                ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1775556404/a_great_chaos_deluxe_nhsydj.jpg",
-                CloudinaryPublicId = "a_great_chaos_deluxe_nhsydj",
+                ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1776078561/a_great_chaos_deluxe_jnaj7p.jpg",
+                CloudinaryPublicId = "a_great_chaos_deluxe_jnaj7p",
                 Status = UploadStatus.Approved,
                 AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203108/Ken_Carson_-_Me_N_My_Kup_Official_Audio_hfuxfy.mp3",
                 CloudinaryAudioPublicId = "Ken_Carson_-_Me_N_My_Kup_Official_Audio_hfuxfy"
@@ -71,8 +71,8 @@ namespace StaskoFy.DataAccess.Configurations
                 AlbumId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                 Likes = 4,
                 GenreId = Guid.Parse("31111111-1111-1111-1111-111111111111"),
-                ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1775556404/a_great_chaos_deluxe_nhsydj.jpg",
-                CloudinaryPublicId = "a_great_chaos_deluxe_nhsydj",
+                ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1776078561/a_great_chaos_deluxe_jnaj7p.jpg",
+                CloudinaryPublicId = "a_great_chaos_deluxe_jnaj7p",
                 Status = UploadStatus.Approved,
                 AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203108/Ken_Carson_Destroy_Lonely_-_Paranoid_Official_Audio_axsypt.mp3",
                 CloudinaryAudioPublicId = "Ken_Carson_Destroy_Lonely_-_Paranoid_Official_Audio_axsypt"
@@ -86,8 +86,8 @@ namespace StaskoFy.DataAccess.Configurations
                 AlbumId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                 Likes = 0,
                 GenreId = Guid.Parse("31111111-1111-1111-1111-111111111111"),
-                ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1775556404/a_great_chaos_deluxe_nhsydj.jpg",
-                CloudinaryPublicId = "a_great_chaos_deluxe_nhsydj",
+                ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1776078561/a_great_chaos_deluxe_jnaj7p.jpg",
+                CloudinaryPublicId = "a_great_chaos_deluxe_jnaj7p",
                 Status = UploadStatus.Approved,
                 AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203108/Ken_Carson_-_ss_Official_Audio_v0ttsl.mp3",
                 CloudinaryAudioPublicId = "Ken_Carson_-_ss_Official_Audio_v0ttsl"
@@ -349,8 +349,8 @@ namespace StaskoFy.DataAccess.Configurations
                 AlbumId = null,
                 Likes = 0,
                 GenreId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
-                ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698280/bane_v4s8f8.jpg",
-                CloudinaryPublicId = "bane_v4s8f8",
+                ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1776078587/bane_fuzfez.jpg",
+                CloudinaryPublicId = "bane_fuzfez",
                 Status = UploadStatus.Approved,
                 AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203086/Bane_loijws.mp3",
                 CloudinaryAudioPublicId = "Bane_loijws"
@@ -413,8 +413,8 @@ namespace StaskoFy.DataAccess.Configurations
                 ImageURL = "/images/defaults/default-song-cover-art.png",
                 CloudinaryPublicId = "",
                 Status = UploadStatus.Approved,
-                AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203113/Money_Spread_p2e3go.mp3",
-                CloudinaryAudioPublicId = "Money_Spread_p2e3go"
+                AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1776078791/Money_Spread_s3bo5n.mp3",
+                CloudinaryAudioPublicId = "Money_Spread_s3bo5n"
             },
             new Song
             {

@@ -120,8 +120,6 @@ else
                                 @if (User.IsInRole("Admin"))
                                 {
                                     <form id="delete-form-@song.Id" asp-controller="Song" asp-action="Delete" method="post" asp-route-id="@song.Id" hx-boost="false">
-                                        <input type="hidden" name="sourceController" value="@ViewContext.RouteData.Values["controller"]" />
-                                        <input type="hidden" name="sourceAction" value="@ViewContext.RouteData.Values["action"]" />
                                         <button type="button"
                                                 class="btn btn-outline-danger btn-sm w-100 py-2 d-flex align-items-center justify-content-center"
                                                 style="border-radius: 8px; font-weight: 600;"

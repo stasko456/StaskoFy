@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using StaskoFy.Core.Service;
 using StaskoFy.DataAccess;
@@ -32,9 +32,9 @@ namespace StaskoFy.Tests
             artistService = new ArtistService(artistRepo);
 
             // Seed users
-            testUser1 = new User { Id = Guid.NewGuid(), UserName = "ArtistOne", Email = "one@test.com", ImageURL = "/img/1.png" };
-            testUser2 = new User { Id = Guid.NewGuid(), UserName = "ArtistTwo", Email = "two@test.com", ImageURL = "/img/2.png" };
-            testUser3 = new User { Id = Guid.NewGuid(), UserName = "ThirdUser", Email = "three@test.com", ImageURL = "/img/3.png" };
+            testUser1 = new User { Id = Guid.NewGuid(), UserName = "ArtistOne", Email = "one@test.com", ImageURL = "/img/1.png", CloudinaryPublicId = "test-pub" };
+            testUser2 = new User { Id = Guid.NewGuid(), UserName = "ArtistTwo", Email = "two@test.com", ImageURL = "/img/2.png", CloudinaryPublicId = "test-pub" };
+            testUser3 = new User { Id = Guid.NewGuid(), UserName = "ThirdUser", Email = "three@test.com", ImageURL = "/img/3.png", CloudinaryPublicId = "test-pub" };
 
             context.Users.AddRange(testUser1, testUser2, testUser3);
             await context.SaveChangesAsync();

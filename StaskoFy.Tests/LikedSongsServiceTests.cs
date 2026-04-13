@@ -33,7 +33,7 @@ namespace StaskoFy.Tests
             likedSongsService = new LikedSongsService(likedSongsRepo, songRepo);
 
             // Seed user and genre
-            testUser = new User { Id = Guid.NewGuid(), UserName = "TestUser", Email = "test@test.com", ImageURL = "/img/test.png" };
+            testUser = new User { Id = Guid.NewGuid(), UserName = "TestUser", Email = "test@test.com", ImageURL = "/img/test.png", CloudinaryPublicId = "test-pub" };
             testGenre = new Genre { Id = Guid.NewGuid(), Name = "Rock" };
 
             context.Users.Add(testUser);

@@ -12,7 +12,7 @@ using StaskoFy.DataAccess;
 namespace StaskoFy.DataAccess.Migrations
 {
     [DbContext(typeof(StaskoFyDbContext))]
-    [Migration("20260412160629_InitialMigration")]
+    [Migration("20260413111628_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -164,8 +164,8 @@ namespace StaskoFy.DataAccess.Migrations
 
                     b.Property<string>("CloudinaryPublicId")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<string>("ImageURL")
                         .IsRequired()
@@ -772,126 +772,126 @@ namespace StaskoFy.DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("dc587116-ebd1-4ae0-b200-dd08134a9095"),
+                            Id = new Guid("e4a8cc6a-bf34-49ee-811b-8728e69ca8a2"),
                             DateAdded = new DateOnly(2026, 1, 10),
                             SongId = new Guid("01111111-1111-1111-1111-111111111111"),
                             UserId = new Guid("01111111-1111-1111-1111-111111111111")
                         },
                         new
                         {
-                            Id = new Guid("d17e87fc-44ad-422f-9614-0bb2a8b48659"),
+                            Id = new Guid("4218b880-0fe1-4a6f-9d9c-08a6c67c148c"),
                             DateAdded = new DateOnly(2026, 2, 15),
                             SongId = new Guid("06111111-1111-1111-1111-111111111111"),
                             UserId = new Guid("01111111-1111-1111-1111-111111111111")
                         },
                         new
                         {
-                            Id = new Guid("eaa52a82-a4bf-4cf2-8b4b-12ce7a20e867"),
+                            Id = new Guid("7832d5c4-d32e-4749-b9f2-5c8949e8c0ff"),
                             DateAdded = new DateOnly(2026, 3, 20),
                             SongId = new Guid("23111111-1111-1111-1111-111111111111"),
                             UserId = new Guid("01111111-1111-1111-1111-111111111111")
                         },
                         new
                         {
-                            Id = new Guid("4f107981-108c-47c5-b59b-5de545927088"),
+                            Id = new Guid("f339ee63-5fcb-470c-9b6b-0283885b951b"),
                             DateAdded = new DateOnly(2026, 4, 5),
                             SongId = new Guid("25111111-1111-1111-1111-111111111111"),
                             UserId = new Guid("01111111-1111-1111-1111-111111111111")
                         },
                         new
                         {
-                            Id = new Guid("888fd55f-9ef7-4c75-a57c-1eb32906045e"),
+                            Id = new Guid("649e1227-5114-418f-b5ba-bb0f6786a975"),
                             DateAdded = new DateOnly(2026, 4, 12),
                             SongId = new Guid("34111111-1111-1111-1111-111111111111"),
                             UserId = new Guid("01111111-1111-1111-1111-111111111111")
                         },
                         new
                         {
-                            Id = new Guid("d22a97b7-353b-4279-8dc2-bc09f352a359"),
+                            Id = new Guid("57da6f90-2426-4fed-9736-eab016498db3"),
                             DateAdded = new DateOnly(2026, 1, 5),
                             SongId = new Guid("01111111-1111-1111-1111-111111111111"),
                             UserId = new Guid("02111111-1111-1111-1111-111111111111")
                         },
                         new
                         {
-                            Id = new Guid("f41e7dd2-7051-475d-8245-630d6db13792"),
+                            Id = new Guid("c9b281b4-36b3-4d15-acb7-03c835310ac0"),
                             DateAdded = new DateOnly(2026, 1, 22),
                             SongId = new Guid("02111111-1111-1111-1111-111111111111"),
                             UserId = new Guid("02111111-1111-1111-1111-111111111111")
                         },
                         new
                         {
-                            Id = new Guid("49a5206d-e4f7-4fb1-8ede-70500eb4c8da"),
+                            Id = new Guid("6fc8e1b0-e2c9-4bc8-a5f6-606efcb564c9"),
                             DateAdded = new DateOnly(2026, 2, 10),
                             SongId = new Guid("04111111-1111-1111-1111-111111111111"),
                             UserId = new Guid("02111111-1111-1111-1111-111111111111")
                         },
                         new
                         {
-                            Id = new Guid("dde75ba5-7712-4ea4-b74a-95080b42aaac"),
+                            Id = new Guid("260fb618-06ea-492f-a59b-da8747892980"),
                             DateAdded = new DateOnly(2026, 2, 28),
                             SongId = new Guid("08111111-1111-1111-1111-111111111111"),
                             UserId = new Guid("02111111-1111-1111-1111-111111111111")
                         },
                         new
                         {
-                            Id = new Guid("6cc0c611-8e63-42a5-a938-6743039c0a1d"),
+                            Id = new Guid("f9c6fb1e-4615-4917-8b71-ec90a0a2415d"),
                             DateAdded = new DateOnly(2026, 3, 15),
                             SongId = new Guid("23111111-1111-1111-1111-111111111111"),
                             UserId = new Guid("02111111-1111-1111-1111-111111111111")
                         },
                         new
                         {
-                            Id = new Guid("dc9c7f23-1d8b-4286-960a-4108283e56c7"),
+                            Id = new Guid("067b4a86-ae7b-4027-814d-c332e0d77931"),
                             DateAdded = new DateOnly(2026, 4, 1),
                             SongId = new Guid("34111111-1111-1111-1111-111111111111"),
                             UserId = new Guid("02111111-1111-1111-1111-111111111111")
                         },
                         new
                         {
-                            Id = new Guid("7003e90c-a0be-479a-a4aa-5fac4b6fa339"),
+                            Id = new Guid("36abbb2b-4458-493a-a097-b6914aa6b575"),
                             DateAdded = new DateOnly(2026, 1, 15),
                             SongId = new Guid("01111111-1111-1111-1111-111111111111"),
                             UserId = new Guid("03111111-1111-1111-1111-111111111111")
                         },
                         new
                         {
-                            Id = new Guid("bd2d066c-4095-4fce-a1a3-1473070f1cfb"),
+                            Id = new Guid("6940414e-6c87-4b3e-809f-a7fa6822fc14"),
                             DateAdded = new DateOnly(2026, 2, 5),
                             SongId = new Guid("03111111-1111-1111-1111-111111111111"),
                             UserId = new Guid("03111111-1111-1111-1111-111111111111")
                         },
                         new
                         {
-                            Id = new Guid("84ec5194-d849-4973-b153-7e52f586765a"),
+                            Id = new Guid("02774f37-0a50-4c78-8e82-6f08ed06a8d9"),
                             DateAdded = new DateOnly(2026, 2, 20),
                             SongId = new Guid("04111111-1111-1111-1111-111111111111"),
                             UserId = new Guid("03111111-1111-1111-1111-111111111111")
                         },
                         new
                         {
-                            Id = new Guid("fbdf8520-210b-4099-8b0f-bec96d083a9e"),
+                            Id = new Guid("50c6599b-6b0e-4514-a56b-cde680c6dbd0"),
                             DateAdded = new DateOnly(2026, 3, 1),
                             SongId = new Guid("06111111-1111-1111-1111-111111111111"),
                             UserId = new Guid("03111111-1111-1111-1111-111111111111")
                         },
                         new
                         {
-                            Id = new Guid("b76189e1-c84f-486f-9d4d-481803a9f984"),
+                            Id = new Guid("19110ce1-b19f-403e-a7d9-ac795893424a"),
                             DateAdded = new DateOnly(2026, 3, 10),
                             SongId = new Guid("08111111-1111-1111-1111-111111111111"),
                             UserId = new Guid("03111111-1111-1111-1111-111111111111")
                         },
                         new
                         {
-                            Id = new Guid("ff693fc7-7599-481d-aeeb-9ea62b2bf436"),
+                            Id = new Guid("74adb929-3163-44b8-b18d-6364035836d2"),
                             DateAdded = new DateOnly(2026, 3, 25),
                             SongId = new Guid("23111111-1111-1111-1111-111111111111"),
                             UserId = new Guid("03111111-1111-1111-1111-111111111111")
                         },
                         new
                         {
-                            Id = new Guid("791a9cf2-bc7c-4afb-87e8-9d4c5692b144"),
+                            Id = new Guid("838e264b-e651-4233-964a-56704c4c38f1"),
                             DateAdded = new DateOnly(2026, 4, 2),
                             SongId = new Guid("25111111-1111-1111-1111-111111111111"),
                             UserId = new Guid("03111111-1111-1111-1111-111111111111")
@@ -906,8 +906,8 @@ namespace StaskoFy.DataAccess.Migrations
 
                     b.Property<string>("CloudinaryPublicId")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<DateOnly>("DateCreated")
                         .HasColumnType("date");
@@ -941,9 +941,9 @@ namespace StaskoFy.DataAccess.Migrations
                         new
                         {
                             Id = new Guid("11111111-1111-1111-1111-111111111111"),
-                            CloudinaryPublicId = "hip-hop-trap-filmar_xxacji",
+                            CloudinaryPublicId = "hip-hop-trap-filmar_wmu6g3",
                             DateCreated = new DateOnly(2024, 12, 4),
-                            ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1775556133/hip-hop-trap-filmar_xxacji.jpg",
+                            ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1776078475/hip-hop-trap-filmar_wmu6g3.jpg",
                             IsPublic = true,
                             Length = new TimeSpan(0, 0, 16, 59, 0),
                             Title = "Hip-Hop & Trap Filmar",
@@ -1162,13 +1162,13 @@ namespace StaskoFy.DataAccess.Migrations
 
                     b.Property<string>("CloudinaryAudioPublicId")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<string>("CloudinaryPublicId")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<Guid>("GenreId")
                         .HasColumnType("uniqueidentifier");
@@ -1210,9 +1210,9 @@ namespace StaskoFy.DataAccess.Migrations
                             AlbumId = new Guid("11111111-1111-1111-1111-111111111111"),
                             AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203109/Ken_Carson_-_Green_Room_Official_Audio_cksiai.mp3",
                             CloudinaryAudioPublicId = "Ken_Carson_-_Green_Room_Official_Audio_cksiai",
-                            CloudinaryPublicId = "a_great_chaos_deluxe_nhsydj",
+                            CloudinaryPublicId = "a_great_chaos_deluxe_jnaj7p",
                             GenreId = new Guid("11111111-1111-1111-1111-111111111111"),
-                            ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1775556404/a_great_chaos_deluxe_nhsydj.jpg",
+                            ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1776078561/a_great_chaos_deluxe_jnaj7p.jpg",
                             Length = new TimeSpan(0, 0, 3, 8, 0),
                             Likes = 6,
                             ReleaseDate = new DateOnly(2024, 7, 5),
@@ -1225,9 +1225,9 @@ namespace StaskoFy.DataAccess.Migrations
                             AlbumId = new Guid("11111111-1111-1111-1111-111111111111"),
                             AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203106/Ken_Carson_-_Lose_It_Official_Audio_l2wjgb.mp3",
                             CloudinaryAudioPublicId = "Ken_Carson_-_Lose_It_Official_Audio_l2wjgb",
-                            CloudinaryPublicId = "a_great_chaos_deluxe_nhsydj",
+                            CloudinaryPublicId = "a_great_chaos_deluxe_jnaj7p",
                             GenreId = new Guid("41111111-1111-1111-1111-111111111111"),
-                            ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1775556404/a_great_chaos_deluxe_nhsydj.jpg",
+                            ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1776078561/a_great_chaos_deluxe_jnaj7p.jpg",
                             Length = new TimeSpan(0, 0, 2, 20, 0),
                             Likes = 3,
                             ReleaseDate = new DateOnly(2024, 7, 5),
@@ -1240,9 +1240,9 @@ namespace StaskoFy.DataAccess.Migrations
                             AlbumId = new Guid("11111111-1111-1111-1111-111111111111"),
                             AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203108/Ken_Carson_-_Me_N_My_Kup_Official_Audio_hfuxfy.mp3",
                             CloudinaryAudioPublicId = "Ken_Carson_-_Me_N_My_Kup_Official_Audio_hfuxfy",
-                            CloudinaryPublicId = "a_great_chaos_deluxe_nhsydj",
+                            CloudinaryPublicId = "a_great_chaos_deluxe_jnaj7p",
                             GenreId = new Guid("41111111-1111-1111-1111-111111111111"),
-                            ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1775556404/a_great_chaos_deluxe_nhsydj.jpg",
+                            ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1776078561/a_great_chaos_deluxe_jnaj7p.jpg",
                             Length = new TimeSpan(0, 0, 3, 54, 0),
                             Likes = 2,
                             ReleaseDate = new DateOnly(2024, 7, 5),
@@ -1255,9 +1255,9 @@ namespace StaskoFy.DataAccess.Migrations
                             AlbumId = new Guid("11111111-1111-1111-1111-111111111111"),
                             AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203108/Ken_Carson_Destroy_Lonely_-_Paranoid_Official_Audio_axsypt.mp3",
                             CloudinaryAudioPublicId = "Ken_Carson_Destroy_Lonely_-_Paranoid_Official_Audio_axsypt",
-                            CloudinaryPublicId = "a_great_chaos_deluxe_nhsydj",
+                            CloudinaryPublicId = "a_great_chaos_deluxe_jnaj7p",
                             GenreId = new Guid("31111111-1111-1111-1111-111111111111"),
-                            ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1775556404/a_great_chaos_deluxe_nhsydj.jpg",
+                            ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1776078561/a_great_chaos_deluxe_jnaj7p.jpg",
                             Length = new TimeSpan(0, 0, 2, 7, 0),
                             Likes = 4,
                             ReleaseDate = new DateOnly(2024, 7, 5),
@@ -1270,9 +1270,9 @@ namespace StaskoFy.DataAccess.Migrations
                             AlbumId = new Guid("11111111-1111-1111-1111-111111111111"),
                             AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203108/Ken_Carson_-_ss_Official_Audio_v0ttsl.mp3",
                             CloudinaryAudioPublicId = "Ken_Carson_-_ss_Official_Audio_v0ttsl",
-                            CloudinaryPublicId = "a_great_chaos_deluxe_nhsydj",
+                            CloudinaryPublicId = "a_great_chaos_deluxe_jnaj7p",
                             GenreId = new Guid("31111111-1111-1111-1111-111111111111"),
-                            ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1775556404/a_great_chaos_deluxe_nhsydj.jpg",
+                            ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1776078561/a_great_chaos_deluxe_jnaj7p.jpg",
                             Length = new TimeSpan(0, 0, 3, 4, 0),
                             Likes = 0,
                             ReleaseDate = new DateOnly(2024, 7, 5),
@@ -1524,9 +1524,9 @@ namespace StaskoFy.DataAccess.Migrations
                             Id = new Guid("22111111-1111-1111-1111-111111111111"),
                             AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203086/Bane_loijws.mp3",
                             CloudinaryAudioPublicId = "Bane_loijws",
-                            CloudinaryPublicId = "bane_v4s8f8",
+                            CloudinaryPublicId = "bane_fuzfez",
                             GenreId = new Guid("11111111-1111-1111-1111-111111111111"),
-                            ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698280/bane_v4s8f8.jpg",
+                            ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1776078587/bane_fuzfez.jpg",
                             Length = new TimeSpan(0, 0, 2, 20, 0),
                             Likes = 0,
                             ReleaseDate = new DateOnly(2019, 7, 30),
@@ -1578,8 +1578,8 @@ namespace StaskoFy.DataAccess.Migrations
                         new
                         {
                             Id = new Guid("30111111-1111-1111-1111-111111111111"),
-                            AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1775203113/Money_Spread_p2e3go.mp3",
-                            CloudinaryAudioPublicId = "Money_Spread_p2e3go",
+                            AudioURL = "https://res.cloudinary.com/stasko456cloud/video/upload/v1776078791/Money_Spread_s3bo5n.mp3",
+                            CloudinaryAudioPublicId = "Money_Spread_s3bo5n",
                             CloudinaryPublicId = "",
                             GenreId = new Guid("41111111-1111-1111-1111-111111111111"),
                             ImageURL = "/images/defaults/default-song-cover-art.png",
@@ -1793,7 +1793,9 @@ namespace StaskoFy.DataAccess.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("CloudinaryPublicId")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -1864,14 +1866,14 @@ namespace StaskoFy.DataAccess.Migrations
                             Id = new Guid("01111111-1111-1111-1111-111111111111"),
                             AccessFailedCount = 0,
                             CloudinaryPublicId = "ken_carson_amg20i",
-                            ConcurrencyStamp = "aa119dc7-9a36-40c7-a074-6db48e0ea0c4",
+                            ConcurrencyStamp = "c5cf86f6-642f-490b-98f6-c1ce936dba0a",
                             Email = "kenCarson@gmail.com",
                             EmailConfirmed = false,
                             ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698506/ken_carson_amg20i.jpg",
                             LockoutEnabled = false,
                             NormalizedEmail = "kenCarson@gmail.com",
                             NormalizedUserName = "kenCarson",
-                            PasswordHash = "AQAAAAIAAYagAAAAEJrGrWE/Hiix57ZWuTAm04dz0JGNhLGx/3jK7eBAKVaIDB6I0mM7eAeDL3LDEMRrZQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDEdot4wFskUyKmA4pi/cilE6z72rE6GKPjB8lAyDUv4qQEqmEMxzQY3olK3yTfL9A==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "01111111-1111-1111-1111-111111111111",
                             TwoFactorEnabled = false,
@@ -1882,14 +1884,14 @@ namespace StaskoFy.DataAccess.Migrations
                             Id = new Guid("02111111-1111-1111-1111-111111111111"),
                             AccessFailedCount = 0,
                             CloudinaryPublicId = "future_pbmahw",
-                            ConcurrencyStamp = "bb428153-84eb-44dd-9588-af66628c787b",
+                            ConcurrencyStamp = "543643d3-8f03-403c-bd61-dd0b949df49c",
                             Email = "future@gmail.com",
                             EmailConfirmed = false,
                             ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698503/future_pbmahw.jpg",
                             LockoutEnabled = false,
                             NormalizedEmail = "future@gmail.com",
                             NormalizedUserName = "future",
-                            PasswordHash = "AQAAAAIAAYagAAAAEME0iLkiNBcV7hUSmTYt6l4kszLEnkAzDRgyplWtMmVAVvbQCAMdunSsAOf6YvVevw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEBYI5yRHvIEJ+EsTYauj+IdLRedjwaVDWt1fAc+th7co3nh/6yzhKjMa0nesb2uuEQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "02111111-1111-1111-1111-111111111111",
                             TwoFactorEnabled = false,
@@ -1900,14 +1902,14 @@ namespace StaskoFy.DataAccess.Migrations
                             Id = new Guid("03111111-1111-1111-1111-111111111111"),
                             AccessFailedCount = 0,
                             CloudinaryPublicId = "young_thug_wz2fln",
-                            ConcurrencyStamp = "a4284365-aad6-4dfb-9e6b-5c37f2d50122",
+                            ConcurrencyStamp = "6d235e6b-3a6f-4b46-b53e-dea4d0fce917",
                             Email = "youngThug@gmail.com",
                             EmailConfirmed = false,
                             ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698511/young_thug_wz2fln.jpg",
                             LockoutEnabled = false,
                             NormalizedEmail = "youngThug@gmail.com",
                             NormalizedUserName = "youngThug",
-                            PasswordHash = "AQAAAAIAAYagAAAAECg094mCbCQOVxphLvgGdeFRrntX9XSWMFrMfj6yZOgMTk9puHPOAjlohumvQ1OaOg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAELxga2FpDlc/AnIb2VxoFLonf3gBXjVWczB0/+ODYh21UkVazu0yB8gQnv88PPT01w==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "03111111-1111-1111-1111-111111111111",
                             TwoFactorEnabled = false,
@@ -1918,14 +1920,14 @@ namespace StaskoFy.DataAccess.Migrations
                             Id = new Guid("04111111-1111-1111-1111-111111111111"),
                             AccessFailedCount = 0,
                             CloudinaryPublicId = "westside_gunn_vm7xf2",
-                            ConcurrencyStamp = "69cfd1e0-a773-4fc6-a3da-244eaff93912",
+                            ConcurrencyStamp = "c625a66c-6803-498b-a04c-200033ef0936",
                             Email = "westsideGunn@gmail.com",
                             EmailConfirmed = false,
                             ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698510/westside_gunn_vm7xf2.jpg",
                             LockoutEnabled = false,
                             NormalizedEmail = "westsideGunn@gmail.com",
                             NormalizedUserName = "westsideGunn",
-                            PasswordHash = "AQAAAAIAAYagAAAAEJAyYUHVeC8XBdukACgfaCRBuvWLHjHOi5cTktn/gOSiWez13okIqxjDtqh3cvJdcg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJRwyV2SomAXF8Ucwv7wCm47mymvS4R5lWmsOSCEZ9P15wF0uASBp12N6JX5DyTepQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "04111111-1111-1111-1111-111111111111",
                             TwoFactorEnabled = false,
@@ -1936,14 +1938,14 @@ namespace StaskoFy.DataAccess.Migrations
                             Id = new Guid("05111111-1111-1111-1111-111111111111"),
                             AccessFailedCount = 0,
                             CloudinaryPublicId = "tyler_the_creator_i9yhnu",
-                            ConcurrencyStamp = "2e37b1e7-3af9-4849-98e0-12c7a8439c72",
+                            ConcurrencyStamp = "71d1e786-8798-44b3-accc-10245bcd54b2",
                             Email = "tylerTheCreator@gmail.com",
                             EmailConfirmed = false,
                             ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698509/tyler_the_creator_i9yhnu.jpg",
                             LockoutEnabled = false,
                             NormalizedEmail = "tylerTheCreator@gmail.com",
                             NormalizedUserName = "tylerTheCreator",
-                            PasswordHash = "AQAAAAIAAYagAAAAEDEisB15XK9/rfYbJWciuYzlUo4QFxQsauZNgQlMO/QrplVsTjFPoPEWdcb1GlAs+Q==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEIa8nEqnhiUT2Fz0oleAxvt/ByHIrobGZ8u2o/iEYn5o7MXNKce99WYZ/p6OZpv9xg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "05111111-1111-1111-1111-111111111111",
                             TwoFactorEnabled = false,
@@ -1954,14 +1956,14 @@ namespace StaskoFy.DataAccess.Migrations
                             Id = new Guid("06111111-1111-1111-1111-111111111111"),
                             AccessFailedCount = 0,
                             CloudinaryPublicId = "destroy_lonely_hmhymx",
-                            ConcurrencyStamp = "b7c4dde9-64bf-4775-97b6-647bc333b7b9",
+                            ConcurrencyStamp = "08eb9b30-e4ef-45d8-a62d-c7667be484fa",
                             Email = "destroyLonely@gmail.com",
                             EmailConfirmed = false,
                             ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698502/destroy_lonely_hmhymx.jpg",
                             LockoutEnabled = false,
                             NormalizedEmail = "destroyLonely@gmail.com",
                             NormalizedUserName = "destroyLonely",
-                            PasswordHash = "AQAAAAIAAYagAAAAEBAvh4IPDqhIcmSmfq5PEzGuX9xYtMr4KQXjnheJeqq8ihOZI85IAcsM2uaMhcwpMQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAECMDbuGGGADHHFRejEb9+JtUkSLdPpba69ix1iIZmqG+kWUXv1i0mx7rxMTzx6Ri9A==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "06111111-1111-1111-1111-111111111111",
                             TwoFactorEnabled = false,
@@ -1972,14 +1974,14 @@ namespace StaskoFy.DataAccess.Migrations
                             Id = new Guid("07111111-1111-1111-1111-111111111111"),
                             AccessFailedCount = 0,
                             CloudinaryPublicId = "joey_bada_t4ig6u",
-                            ConcurrencyStamp = "c9524da2-c9f6-4b06-a3ca-b2623c0bed2f",
+                            ConcurrencyStamp = "dd7c0d05-4aab-4cc3-a05c-ac875bda1f7f",
                             Email = "joeyBada$$@gmail.com",
                             EmailConfirmed = false,
                             ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698505/joey_bada_t4ig6u.jpg",
                             LockoutEnabled = false,
                             NormalizedEmail = "joeyBada$$@gmail.com",
                             NormalizedUserName = "joeyBada$$",
-                            PasswordHash = "AQAAAAIAAYagAAAAENYGbGTR7/xzWCJ7cRZbq8mcrlU7JMGtFlekkKk04DNUDcbN3nSJlC6XGmFeslZI2Q==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPbY5099eNPyQXP1Mxbbk2c5pauQ0obeR7xFk0ip6+r0sX87zjWZZN3pxMw0d11DDw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "07111111-1111-1111-1111-111111111111",
                             TwoFactorEnabled = false,
@@ -1990,14 +1992,14 @@ namespace StaskoFy.DataAccess.Migrations
                             Id = new Guid("08111111-1111-1111-1111-111111111111"),
                             AccessFailedCount = 0,
                             CloudinaryPublicId = "billie_essco_tqdmip",
-                            ConcurrencyStamp = "889447e7-f4d3-455d-8f1a-e860ec686451",
+                            ConcurrencyStamp = "41c4aeb0-1415-4ac3-a8a8-dc03552fd32b",
                             Email = "billiEssco@gmail.com",
                             EmailConfirmed = false,
                             ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698501/billie_essco_tqdmip.jpg",
                             LockoutEnabled = false,
                             NormalizedEmail = "billiEssco@gmail.com",
                             NormalizedUserName = "billiEssco",
-                            PasswordHash = "AQAAAAIAAYagAAAAEHaSq2qImzPj9zaROeoizvsK54nU+5v6hvlxdihVaM+Ekl8HqiTUCcVFhjLm7f4vyg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEGSwX5aLxXbbvg7xO4UeFKpbecCXUW6XGRo7gypzs+g3TWGXH53I1RwD92J4VLk5hg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "08111111-1111-1111-1111-111111111111",
                             TwoFactorEnabled = false,
@@ -2008,14 +2010,14 @@ namespace StaskoFy.DataAccess.Migrations
                             Id = new Guid("09111111-1111-1111-1111-111111111111"),
                             AccessFailedCount = 0,
                             CloudinaryPublicId = "lil_wayne_pqbiny",
-                            ConcurrencyStamp = "c05fa304-d997-4e6e-939b-cec3981c28dd",
+                            ConcurrencyStamp = "0605e13a-22ea-4103-b0b3-e774e7d67f2c",
                             Email = "lilWayne@gmail.com",
                             EmailConfirmed = false,
                             ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698506/lil_wayne_pqbiny.jpg",
                             LockoutEnabled = false,
                             NormalizedEmail = "lilWayne@gmail.com",
                             NormalizedUserName = "lilWayne",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOk3JqlhJ5PbGTyBz58yPkoPi+kIsYEjKgvVqNx3jyHFpBjgjRrINeho7TbgocOaKw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOjwkEUTEiJwO5rfDCwfIKuSt5lDumhpmy2SMMC1svT4Cw5ALc/t/ef2dI20L61eUw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "09111111-1111-1111-1111-111111111111",
                             TwoFactorEnabled = false,
@@ -2026,14 +2028,14 @@ namespace StaskoFy.DataAccess.Migrations
                             Id = new Guid("10111111-1111-1111-1111-111111111111"),
                             AccessFailedCount = 0,
                             CloudinaryPublicId = "homixide_gang_anf7iv",
-                            ConcurrencyStamp = "8c556136-b6cd-4d65-9945-e25956887b1b",
+                            ConcurrencyStamp = "a1e24ba0-dc1b-45e8-888b-cf53366fca4a",
                             Email = "homixideGang@gmail.com",
                             EmailConfirmed = false,
                             ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698504/homixide_gang_anf7iv.jpg",
                             LockoutEnabled = false,
                             NormalizedEmail = "homixideGang@gmail.com",
                             NormalizedUserName = "homixideGang",
-                            PasswordHash = "AQAAAAIAAYagAAAAEF97JrQ7rGYGopAmA5E3ivQAnJQxfVv4aQfmG3NAsLXh7SFGBIhKMRagTEXVf00x+A==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEK1Urbo7xEA4aNzqOxafTIplWwoYcDjHirIetWA6orT3nujW85W1IRWaj0G6rEaz0A==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "10111111-1111-1111-1111-111111111111",
                             TwoFactorEnabled = false,
@@ -2044,14 +2046,14 @@ namespace StaskoFy.DataAccess.Migrations
                             Id = new Guid("11111111-1111-1111-1111-111111111111"),
                             AccessFailedCount = 0,
                             CloudinaryPublicId = "stasko456_hblwlq",
-                            ConcurrencyStamp = "164f0ea9-2087-4fc9-abe3-deaaedd7af82",
+                            ConcurrencyStamp = "db366db3-8291-47d2-a87e-f8c923e77f73",
                             Email = "stdimov2007@gmail.com",
                             EmailConfirmed = false,
                             ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698508/stasko456_hblwlq.jpg",
                             LockoutEnabled = false,
                             NormalizedEmail = "stdimov2007@gmail.com",
                             NormalizedUserName = "stasko456",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOskl1RFMJCC18SQq/mLUndU5uZ27933Z00y6zxK34a8yDsiFIJNyuTCXjVjPmL/4g==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJGibIk/kTctUzYYMDreF5qz34Wsvgmd2ivGcN9RE5AotDKMnQB/fGPd+iwSifHfpg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "11111111-1111-1111-1111-111111111111",
                             TwoFactorEnabled = false,
@@ -2062,14 +2064,14 @@ namespace StaskoFy.DataAccess.Migrations
                             Id = new Guid("12111111-1111-1111-1111-111111111111"),
                             AccessFailedCount = 0,
                             CloudinaryPublicId = "simon333_fafgdv",
-                            ConcurrencyStamp = "c3917559-fef7-47a6-bb89-09272b3ef212",
+                            ConcurrencyStamp = "56863a45-d90e-4eaf-9a20-9257b23a2721",
                             Email = "simon2403e8@gmail.com",
                             EmailConfirmed = false,
                             ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698508/simon333_fafgdv.jpg",
                             LockoutEnabled = false,
                             NormalizedEmail = "simon2403e8@gmail.com",
                             NormalizedUserName = "simon333",
-                            PasswordHash = "AQAAAAIAAYagAAAAEG1/A4p/GICZyAR9rSvTqknU+xiRfIdSZQAz5IzXIIAQ7hBOU7wcZKeS7EINebJFUg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEBqy9zYyIXmd/Wl8MZlMpq6rlJjz0f3YMtifb+Xg/fgPQ2ab1L2mzkSVNfxshRPWow==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "12111111-1111-1111-1111-111111111111",
                             TwoFactorEnabled = false,
@@ -2080,14 +2082,14 @@ namespace StaskoFy.DataAccess.Migrations
                             Id = new Guid("13111111-1111-1111-1111-111111111111"),
                             AccessFailedCount = 0,
                             CloudinaryPublicId = "n_peew07_yoj6ay",
-                            ConcurrencyStamp = "b2a08d83-a292-4ef2-80c5-cb51c580459d",
+                            ConcurrencyStamp = "684ec6b1-1c2d-4012-818f-8e32b5287733",
                             Email = "nikolaPeew@gmail.com",
                             EmailConfirmed = false,
                             ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698507/n_peew07_yoj6ay.jpg",
                             LockoutEnabled = false,
                             NormalizedEmail = "nikolaPeew@gmail.com",
                             NormalizedUserName = "n_peew07",
-                            PasswordHash = "AQAAAAIAAYagAAAAECJq2FB5aO8qGUGw1q8Vk+p7hB/OBgvSGHQVK0dlhFdIwRcfzY1tHzgso9kqcLtvMQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEGnkRt3mkTKBCPhgrulg6XmXUP4fvJ86AsEL1BpzUTNnmHtE6cr0xuK8y00vyZIXBA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "13111111-1111-1111-1111-111111111111",
                             TwoFactorEnabled = false,
@@ -2098,14 +2100,14 @@ namespace StaskoFy.DataAccess.Migrations
                             Id = new Guid("14111111-1111-1111-1111-111111111111"),
                             AccessFailedCount = 0,
                             CloudinaryPublicId = "gt_baby_gdk5le",
-                            ConcurrencyStamp = "452f34f5-131e-44b7-bc05-fc6998725aaf",
+                            ConcurrencyStamp = "5ae708d9-8637-403d-a6f2-1c6909e3ebb8",
                             Email = "gtonev@gmail.com",
                             EmailConfirmed = false,
                             ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1772698503/gt_baby_gdk5le.jpg",
                             LockoutEnabled = false,
                             NormalizedEmail = "gtonev@gmail.com",
                             NormalizedUserName = "g_tonev",
-                            PasswordHash = "AQAAAAIAAYagAAAAEIlUMyxSawwT/2AvazmeSCqS1SiG2nAMsYMOUBUR7cXEaD4cixmpt7WkZRjQ3e7OGg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFGFznSBItuhJaaTLAeOJNl1iPBHFXqGRTUe3A8cW6nALO84XBtLo9YUx/bDB+i2AQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "14111111-1111-1111-1111-111111111111",
                             TwoFactorEnabled = false,
@@ -2116,14 +2118,14 @@ namespace StaskoFy.DataAccess.Migrations
                             Id = new Guid("15111111-1111-1111-1111-111111111111"),
                             AccessFailedCount = 0,
                             CloudinaryPublicId = "adasha_quhjni",
-                            ConcurrencyStamp = "af787def-6d7d-4649-8c7b-92a867cc4a74",
+                            ConcurrencyStamp = "2afcdea2-762c-4235-93ef-123f7b04c1d2",
                             Email = "nikolaGragov@gmail.com",
                             EmailConfirmed = false,
                             ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1773127136/adasha_quhjni.png",
                             LockoutEnabled = false,
                             NormalizedEmail = "nikolaGragov@gmail.com",
                             NormalizedUserName = "niksy_g",
-                            PasswordHash = "AQAAAAIAAYagAAAAEAt5YoN6yx2ijvdjLlY7j1PP6vqQiD1bzpFcOjt3MJLKHbxI3mkP11QViYZSn+TrBw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEMGaaZ8/pMS19+BbjHpEY2kDSbNqLlaTyWiwiNqR/+wuHkKsuWCIt+qt+zkmRG625A==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "15111111-1111-1111-1111-111111111111",
                             TwoFactorEnabled = false,

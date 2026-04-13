@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -71,7 +71,8 @@ namespace StaskoFy.Tests
                 Id = Guid.NewGuid(),
                 UserName = username,
                 Email = email,
-                ImageURL = $"/img/{username}.png"
+                ImageURL = $"/img/{username}.png",
+                CloudinaryPublicId = "test-pub"
             };
             await userManager.CreateAsync(user, "TestPass123!");
             return user;

@@ -14,7 +14,9 @@ namespace StaskoFy.Models.Entities
         [MaxLength(2048)]
         public string ImageURL { get; set; } = null!;
 
-        public string? CloudinaryPublicId { get; set; }
+        [Required]
+        [MaxLength(2048)]
+        public string CloudinaryPublicId { get; set; } = null!;
 
         public ICollection<LikedSongs> LikedSongs { get; set; } = new List<LikedSongs>();
 
