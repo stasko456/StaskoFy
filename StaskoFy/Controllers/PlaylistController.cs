@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StaskoFy.Core.IService;
 using StaskoFy.ViewModels.Playlist;
@@ -11,15 +11,12 @@ namespace StaskoFy.Controllers
     public class PlaylistController : Controller
     {
         private readonly IPlaylistService playlistService;
-        private readonly ISongService songService;
         private readonly ILogger<PlaylistController> logger;
 
         public PlaylistController(IPlaylistService _playlistService,
-                                  ISongService _songService,
                                   ILogger<PlaylistController> _logger)
         {
             this.playlistService = _playlistService;
-            this.songService = _songService;
             this.logger = _logger;
         }
 
@@ -113,7 +110,7 @@ namespace StaskoFy.Controllers
         }
 
         [HttpGet]
-        [Authorize(Policy = "ArtistOrUser")]
+        [Authorize(Policy = "ArtistOrAdminOrUser")]
         public async Task<IActionResult> Details(Guid id, string name, int pageNumber = 1)
         {
             if (id == Guid.Empty)

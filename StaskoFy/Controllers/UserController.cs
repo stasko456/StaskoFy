@@ -218,7 +218,7 @@ namespace StaskoFy.Controllers
         }
 
         [HttpPost]
-        [Authorize(Policy = "ArtistOrAdminOrUser")]
+        [Authorize(Policy = "ArtistOrUser")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Manage(EditProfileViewModel viewModel)
         {

@@ -61,11 +61,15 @@ namespace StaskoFy.Controllers
             return View(artist);
         }
 
+        [HttpGet]
         public IActionResult ArtistNotAcceptedPage()
         {
             return View();
         }
 
+        [HttpPost]
+        [Authorize(Policy = "Admin")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> AcceptArtist(Guid id)
         {
             try
@@ -80,6 +84,9 @@ namespace StaskoFy.Controllers
             }
         }
 
+        [HttpPost]
+        [Authorize(Policy = "Admin")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> RejectArtist(Guid id)
         {
             try

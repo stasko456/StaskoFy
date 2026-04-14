@@ -233,6 +233,7 @@ namespace StaskoFy.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         [Route("Album/GetAlbumSongsForQueue")]
         public async Task<IActionResult> GetAlbumSongsForQueue(Guid id)
         {
