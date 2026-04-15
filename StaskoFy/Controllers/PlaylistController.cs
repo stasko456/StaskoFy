@@ -22,7 +22,7 @@ namespace StaskoFy.Controllers
 
         [HttpGet]
         [Authorize(Policy = "ArtistOrUser")]
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
             var viewModel = new PlaylistCreateViewModel{};
             return View(viewModel);
