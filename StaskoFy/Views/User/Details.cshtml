@@ -22,10 +22,12 @@
                     </p>
 
                     <div class="d-flex justify-content-center gap-3">
-                        <a asp-controller="User" asp-action="Manage" class="btn btn-lg btn-warning">
-                            Edit Profile
-                        </a>
-
+                        @if (!User.IsInRole("Admin"))
+                        {
+                            <a asp-controller="User" asp-action="Manage" class="btn btn-lg btn-warning">
+                                Edit Profile
+                            </a>
+                        }
                         <a asp-controller="Home" asp-action="Index" class="btn btn-lg btn-outline-warning">
                             Back
                         </a>

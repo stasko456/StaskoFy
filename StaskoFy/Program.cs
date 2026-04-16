@@ -34,22 +34,22 @@ namespace StaskoFy
             builder.Services.AddAuthorization(options =>
             {
                 options.AddPolicy("Admin", policy =>
-                    policy.RequireRole("Admin")); // used
+                    policy.RequireRole("Admin"));
 
                 options.AddPolicy("Artist", policy =>
-                    policy.RequireRole("Artist")); // used
+                    policy.RequireRole("Artist"));
 
                 options.AddPolicy("User", policy =>
-                    policy.RequireRole("User")); // used
+                    policy.RequireRole("User"));
                  
                 options.AddPolicy("ArtistOrUser", policy =>
-                    policy.RequireRole("Artist", "User")); // used
+                    policy.RequireRole("Artist", "User"));
 
                 options.AddPolicy("ArtistOrAdmin", policy =>
-                    policy.RequireRole("Admin", "Artist")); // used
+                    policy.RequireRole("Admin", "Artist"));
 
                 options.AddPolicy("ArtistOrAdminOrUser", policy =>
-                    policy.RequireRole("Artist", "Admin", "User")); // used
+                    policy.RequireRole("Artist", "Admin", "User"));
             });
 
 
@@ -82,8 +82,8 @@ namespace StaskoFy
             using (var scope = app.Services.CreateScope())
             {
                 await DataSeeder.SeedRolesAsync(scope.ServiceProvider);
-                await DataSeeder.SeedAdminUser(scope.ServiceProvider);
                 await DataSeeder.GiveRolesRemainingUsers(scope.ServiceProvider);
+                await DataSeeder.SeedAdminUser(scope.ServiceProvider);
             }
 
             // Configure the HTTP request pipeline.

@@ -21,8 +21,8 @@ namespace StaskoFy.DataAccess.Configurations
                     Title = "A Great Chaos (Deluxe)",
                     Length = new TimeSpan(0, 14, 33),
                     ReleaseDate = new DateOnly(2024, 7, 5),
-                    ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1775556404/a_great_chaos_deluxe_nhsydj.jpg",
-                    CloudinaryPublicId = "a_great_chaos_deluxe_nhsydj",
+                    ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1776078561/a_great_chaos_deluxe_jnaj7p.jpg",
+                    CloudinaryPublicId = "a_great_chaos_deluxe_jnaj7p",
                     Status = UploadStatus.Approved
                 },
                 new Album
@@ -31,8 +31,8 @@ namespace StaskoFy.DataAccess.Configurations
                     Title = "Super Slimey",
                     Length = new TimeSpan(0, 20, 12),
                     ReleaseDate = new DateOnly(2017, 10, 20),
-                    ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1775556405/super_slimey_bb4lno.jpg",
-                    CloudinaryPublicId = "super_slimey_bb4lno",
+                    ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1776333860/super_slimey_kxogmj.jpg",
+                    CloudinaryPublicId = "super_slimey_kxogmj",
                     Status = UploadStatus.Approved
                 },
                 new Album

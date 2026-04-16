@@ -101,7 +101,7 @@ namespace StaskoFy.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Policy = "ArtistOrAdminOrUser")]
         [Route("LikedSongs/GetLikedSongsForQueue")]
         public async Task<IActionResult> GetLikedSongsForQueue()
         {

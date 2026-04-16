@@ -299,7 +299,7 @@ namespace StaskoFy.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Policy = "ArtistOrAdminOrUser")]
         [Route("Song/GetSongForQueue")]
         public async Task<JsonResult> GetSongForQueue(Guid id)
         {
@@ -317,7 +317,7 @@ namespace StaskoFy.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Policy = "ArtistOrAdminOrUser")]
         [Route("Song/GetSongsForQueue")]
         public async Task<IActionResult> GetSongsForQueue(int offset = 0, int count = 10)
         {

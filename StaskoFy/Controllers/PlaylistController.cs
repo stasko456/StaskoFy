@@ -192,6 +192,7 @@ namespace StaskoFy.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = "ArtistOrAdminOrUser")]
         [Route("Playlist/GetPlaylistSongsForQueue")]
         public async Task<IActionResult> GetPlaylistSongsForQueue([FromQuery] Guid id)
         {
