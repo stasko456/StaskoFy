@@ -3,40 +3,65 @@
 <div class="container py-5 fade-in-up">
     <div class="row justify-content-center">
         <div class="col-12 col-md-6 col-lg-5">
-            <div class="card shadow-lg border-0 rounded-4 login-register-card">
-                <div class="card-body p-5">
-                    <h2 class="text-center  fw-bold display-5">
-                        <svg viewBox="0 0 640 640" width="50" height="50" class="">
-                            <path fill="currentColor" d="M352 96l64 0c17.7 0 32 14.3 32 32l0 256c0 17.7-14.3 32-32 32l-64 0c-17.7 0-32 14.3-32 32s14.3 32 32 32l64 0c53 0 96-43 96-96l0-256c0-53-43-96-96-96l-64 0c-17.7 0-32 14.3-32 32s14.3 32 32 32zm-9.4 182.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L242.7 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l210.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128z" />
-                        </svg><span class="specific_heading">Login</span>
-                    </h2>
-                    <p class="text-center text-muted">Log in here using your username and password</p>
+            <div class="form-studio-card">
+
+                <!-- Header -->
+                <div class="form-studio-header">
+                    <div class="form-studio-header__icon">
+                        <svg viewBox="0 0 640 640" width="28" height="28" fill="currentColor">
+                            <path d="M352 96l64 0c17.7 0 32 14.3 32 32l0 256c0 17.7-14.3 32-32 32l-64 0c-17.7 0-32 14.3-32 32s14.3 32 32 32l64 0c53 0 96-43 96-96l0-256c0-53-43-96-96-96l-64 0c-17.7 0-32 14.3-32 32s14.3 32 32 32zm-9.4 182.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L242.7 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l210.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h2 class="form-studio-header__title">Welcome <span>Back</span></h2>
+                        <p class="form-studio-header__subtitle">Log in with your username and password</p>
+                    </div>
+                </div>
+
+                <div class="form-studio-body">
                     <form id="account" method="post" asp-action="Login">
-                        <div asp-validation-summary="ModelOnly" class="text-danger mb-4"></div>
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3 small"></div>
 
-                        <div class="mb-3">
-                            <label asp-for="Username" class="form-label fw-semibold fs-5">Username</label>
-                            <input asp-for="Username" class="form-control form-control-lg" autocomplete="username" aria-required="true" placeholder="Enter username" />
-                            <span asp-validation-for="Username" class="text-danger small"></span>
+                        <!-- Section: Credentials -->
+                        <div class="form-studio-section">
+                            <div class="form-studio-section__label">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
+                                </svg>
+                                Credentials
+                            </div>
+
+                            <div class="form-studio-field mb-3">
+                                <label asp-for="Username" class="form-studio-field__label">Username</label>
+                                <input asp-for="Username" class="form-control" autocomplete="username" aria-required="true" placeholder="Enter your username…" />
+                                <span asp-validation-for="Username" class="form-studio-field__error"></span>
+                            </div>
+
+                            <div class="form-studio-field">
+                                <label asp-for="Password" class="form-studio-field__label">Password</label>
+                                <input asp-for="Password" type="password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="Enter your password…" />
+                                <span asp-validation-for="Password" class="form-studio-field__error"></span>
+                            </div>
                         </div>
 
-                        <div class="mb-3">
-                            <label asp-for="Password" class="form-label fw-semibold fs-5">Password</label>
-                            <input asp-for="Password" type="password" class="form-control form-control-lg" autocomplete="current-password" aria-required="true" placeholder="Enter password" />
-                            <span asp-validation-for="Password" class="text-danger small"></span>
-                        </div>
-
-                        <hr class="mb-3 mt-4" />
-
-                        <p class="text-center text-muted">Don't have an account yet? <a asp-action="Register" class="text-warning text-decoration-none fw-bold">Sign Up now</a></p>
-
-                        <div class="text-center mt-4">
-                            <button id="login-submit" type="submit" class="btn btn-outline-warning btn-lg w-100 rounded-4 shadow fs-5">
+                        <!-- Actions -->
+                        <div class="form-studio-actions">
+                            <p class="mb-0 small" style="color: #b3b3b3;">
+                                No account?
+                                <a asp-action="Register" class="text-warning text-decoration-none fw-bold">Sign Up</a>
+                            </p>
+                            <button id="login-submit" type="submit" class="form-studio-actions__submit form-studio-actions__submit--edit">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+                                    <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+                                </svg>
                                 Log In
                             </button>
                         </div>
+
                     </form>
                 </div>
+
             </div>
         </div>
     </div>

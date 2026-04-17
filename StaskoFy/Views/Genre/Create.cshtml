@@ -3,31 +3,52 @@
 <div class="container py-5 fade-in-up">
     <div class="row justify-content-center">
         <div class="col-12 col-md-8 col-xl-6">
-            <div class="card shadow-lg border-0 rounded-4 card-create">
-                <div class="card-body p-4 p-md-5">
-                    <h2 class="text-center mb-4 fw-bold">
-                        Create <span class="text-success">Genre</span>
-                    </h2>
+            <div class="form-studio-card">
+
+                <!-- Header -->
+                <div class="form-studio-header">
+                    <div class="form-studio-header__icon">
+                        <svg viewBox="0 0 640 640" width="28" height="28" fill="currentColor">
+                            <path d="M0 64C0 46.3 14.3 32 32 32l448 0c17.7 0 32 14.3 32 32l0 32c0 17.7-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96L0 64zM32 176l448 0 0 240c0 35.3-28.7 64-64 64L96 480c-35.3 0-64-28.7-64-64l0-240zm152 64c-13.3 0-24 10.7-24 24s10.7 24 24 24l144 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-144 0z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h2 class="form-studio-header__title">Create <span>Genre</span></h2>
+                        <p class="form-studio-header__subtitle">Add a new music genre to the platform</p>
+                    </div>
+                </div>
+
+                <div class="form-studio-body">
                     <form method="post" asp-action="Create">
-                        <div class="mb-5">
-                            <label asp-for="Name" class="form-label fw-semibold fs-5">Genre Name</label>
-                            <input asp-for="Name" class="form-control form-control-lg" placeholder="Enter genre name" aria-required="true" />
-                            <span asp-validation-for="Name" class="text-danger small"></span>
+
+                        <div class="form-studio-section">
+                            <div class="form-studio-section__label">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M2.5 3A1.5 1.5 0 0 0 1 4.5v.793c.026.009.051.02.076.032L7.674 8.51c.206.1.446.1.652 0l6.598-3.185A.755.755 0 0 1 15 5.293V4.5A1.5 1.5 0 0 0 13.5 3h-11Z"/>
+                                    <path d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z"/>
+                                </svg>
+                                Genre Details
+                            </div>
+
+                            <div class="form-studio-field">
+                                <label asp-for="Name" class="form-studio-field__label">Genre Name</label>
+                                <input asp-for="Name" class="form-control" placeholder="e.g. Jazz, Hip-Hop, Classical…" aria-required="true" />
+                                <span asp-validation-for="Name" class="form-studio-field__error"></span>
+                            </div>
                         </div>
 
-                        <div class="col-12 mt-4">
-                            <div class="d-flex flex-column flex-md-row justify-content-between gap-3">
-                                <button type="submit" class="btn btn-success btn-lg rounded-3 px-5 shadow">
-                                    Create Genre
-                                </button>
-                                <a asp-controller="Genre" asp-action="Index"
-                                   class="btn btn-outline-warning btn-lg rounded-4 px-4">
-                                    Cancel
-                                </a>
-                            </div>
+                        <div class="form-studio-actions">
+                            <a asp-controller="Genre" asp-action="Index" class="form-studio-actions__cancel">Cancel</a>
+                            <button type="submit" class="form-studio-actions__submit form-studio-actions__submit--create">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                </svg>
+                                Create Genre
+                            </button>
                         </div>
                     </form>
                 </div>
+
             </div>
         </div>
     </div>

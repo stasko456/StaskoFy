@@ -2,67 +2,107 @@
 
 <div class="container py-5 fade-in-up">
     <div class="row justify-content-center">
-        <div class="col-12 col-md-10 col-lg-9">
-            <div class="card shadow-lg border-0 rounded-4 login-register-card">
-                <div class="card-body p-4 p-md-5">
-                    <h2 class="text-center mb-5 fw-bold">
-                        <svg viewBox="0 0 640 640" width="50" height="50" class="me-1">
-                            <path fill="rgb(255, 255, 255)" d="M285.7 304c98.5 0 178.3 79.8 178.3 178.3 0 16.4-13.3 29.7-29.7 29.7L77.7 512C61.3 512 48 498.7 48 482.3 48 383.8 127.8 304 226.3 304l59.4 0zM528 80c13.3 0 24 10.7 24 24l0 48 48 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-48 0 0 48c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-48-48 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l48 0 0-48c0-13.3 10.7-24 24-24zM256 248a120 120 0 1 1 0-240 120 120 0 1 1 0 240z" />
-                        </svg><span class="specific_heading">Register</span>
-                    </h2>
+        <div class="col-12 col-md-10 col-lg-8">
+            <div class="form-studio-card">
 
+                <!-- Header -->
+                <div class="form-studio-header">
+                    <div class="form-studio-header__icon">
+                        <svg viewBox="0 0 640 640" width="28" height="28" fill="currentColor">
+                            <path d="M285.7 304c98.5 0 178.3 79.8 178.3 178.3 0 16.4-13.3 29.7-29.7 29.7L77.7 512C61.3 512 48 498.7 48 482.3 48 383.8 127.8 304 226.3 304l59.4 0zM528 80c13.3 0 24 10.7 24 24l0 48 48 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-48 0 0 48c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-48-48 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l48 0 0-48c0-13.3 10.7-24 24-24zM256 248a120 120 0 1 1 0-240 120 120 0 1 1 0 240z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h2 class="form-studio-header__title">Create <span>Account</span></h2>
+                        <p class="form-studio-header__subtitle">Join StaskoFy and start streaming today</p>
+                    </div>
+                </div>
+
+                <div class="form-studio-body">
                     <form id="registerForm" method="post" asp-action="Register">
-                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3 small"></div>
 
                         <div class="row g-4">
-                            <fieldset class="col-12 col-lg-6">
-                                <div class="mb-3">
-                                    <label asp-for="Username" class="form-label fw-semibold fs-5">Username</label>
-                                    <input asp-for="Username" class="form-control" placeholder="Enter username" />
-                                    <span asp-validation-for="Username" class="text-danger small"></span>
-                                </div>
+                            <!-- Left: Account Info -->
+                            <div class="col-12 col-lg-6">
+                                <div class="form-studio-section" style="border-bottom: none; margin-bottom: 0; padding-bottom: 0;">
+                                    <div class="form-studio-section__label">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" viewBox="0 0 16 16">
+                                            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Z"/>
+                                        </svg>
+                                        Account Info
+                                    </div>
 
-                                <div class="mb-3">
-                                    <label asp-for="EmailAddress" class="form-label fw-semibold fs-5">Email</label>
-                                    <input asp-for="EmailAddress" class="form-control" placeholder="Enter email" />
-                                    <span asp-validation-for="EmailAddress" class="text-danger small"></span>
-                                </div>
-                            </fieldset>
+                                    <div class="form-studio-field mb-3">
+                                        <label asp-for="Username" class="form-studio-field__label">Username</label>
+                                        <input asp-for="Username" class="form-control" placeholder="Choose a username…" />
+                                        <span asp-validation-for="Username" class="form-studio-field__error"></span>
+                                    </div>
 
-                            <fieldset class="col-12 col-lg-6">
-                                <div class="mb-3">
-                                    <label asp-for="Password" class="form-label fw-semibold fs-5">Password</label>
-                                    <input asp-for="Password" type="password" class="form-control" placeholder="Enter password" />
-                                    <span asp-validation-for="Password" class="text-danger small"></span>
+                                    <div class="form-studio-field">
+                                        <label asp-for="EmailAddress" class="form-studio-field__label">Email Address</label>
+                                        <input asp-for="EmailAddress" class="form-control" placeholder="Enter your email…" />
+                                        <span asp-validation-for="EmailAddress" class="form-studio-field__error"></span>
+                                    </div>
                                 </div>
+                            </div>
 
-                                <div class="mb-3">
-                                    <label asp-for="ConfirmPassword" class="form-label fw-semibold fs-5">Confirm Password</label>
-                                    <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Confirm password" />
-                                    <span asp-validation-for="ConfirmPassword" class="text-danger small"></span>
-                                </div>
+                            <!-- Right: Security + Role -->
+                            <div class="col-12 col-lg-6">
+                                <div class="form-studio-section" style="border-bottom: none; margin-bottom: 0; padding-bottom: 0;">
+                                    <div class="form-studio-section__label">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" viewBox="0 0 16 16">
+                                            <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
+                                        </svg>
+                                        Security &amp; Role
+                                    </div>
 
-                                <div class="mb-3">
-                                    <label asp-for="Role" class="form-label fw-semibold fs-5">Role</label>
-                                    <select asp-for="Role" asp-items="ViewBag.Roles" class="form-select">
-                                        <option value="">-- Select role --</option>
-                                    </select>
-                                    <span asp-validation-for="Role" class="text-danger small"></span>
+                                    <div class="form-studio-field mb-3">
+                                        <label asp-for="Password" class="form-studio-field__label">Password</label>
+                                        <input asp-for="Password" type="password" class="form-control" placeholder="Enter a password…" />
+                                        <span asp-validation-for="Password" class="form-studio-field__error"></span>
+                                    </div>
+
+                                    <div class="form-studio-field mb-3">
+                                        <label asp-for="ConfirmPassword" class="form-studio-field__label">Confirm Password</label>
+                                        <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Repeat your password…" />
+                                        <span asp-validation-for="ConfirmPassword" class="form-studio-field__error"></span>
+                                    </div>
+
+                                    <div class="form-studio-field">
+                                        <label asp-for="Role" class="form-studio-field__label">Role</label>
+                                        <select asp-for="Role" asp-items="ViewBag.Roles" class="form-select form-studio-field__select">
+                                            <option value="">— Select role —</option>
+                                        </select>
+                                        <span asp-validation-for="Role" class="form-studio-field__error"></span>
+                                    </div>
                                 </div>
-                            </fieldset>
+                            </div>
                         </div>
 
-                        <hr class="my-4 opacity-25" />
-
-                        <div class="text-center text-muted">
-                            <p class="mb-3">Already have an account? <a asp-action="Login" class="text-warning text-decoration-none fw-bold">Log in now</a></p>
-                            <button id="registerSubmit" type="submit" class="btn btn-outline-warning btn-lg w-50 rounded-4 shadow-sm fs-5">
+                        <!-- Actions -->
+                        <div class="form-studio-actions">
+                            <p class="mb-0 small" style="color: #b3b3b3;">
+                                Already have an account?
+                                <a asp-action="Login" class="text-warning text-decoration-none fw-bold">Log in</a>
+                            </p>
+                            <button id="registerSubmit" type="submit" class="form-studio-actions__submit form-studio-actions__submit--create">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                </svg>
                                 Create Account
                             </button>
                         </div>
+
                     </form>
                 </div>
+
             </div>
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

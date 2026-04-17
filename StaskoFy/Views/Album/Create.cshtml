@@ -2,74 +2,132 @@
 
 <div class="container py-5 fade-in-up">
     <div class="row justify-content-center">
-        <div class="col-12 col-xl-10">
-            <div class="card shadow-lg border-0 rounded-4 album-create-edit-card">
-                <div class="card-body p-4">
-                    <h2 class="text-center mb-4 fw-bold">
-                        Create <span class="text-success">Album</span>
-                    </h2>
+        <div class="col-12 col-xl-9">
+            <div class="form-studio-card">
 
-                    <form method="post" asp-action="Create" enctype="multipart/form-data">
-                        <div class="row g-3">
-                            <div class="col-12 col-lg-6">
-                                <div class="mb-3">
-                                    <label asp-for="Title" class="form-label fw-semibold">Album Title</label>
-                                    <input asp-for="Title" class="form-control" placeholder="Title">
-                                    <span asp-validation-for="Title" class="text-danger small"></span>
-                                </div>
+                <!-- Header -->
+                <div class="form-studio-header">
+                    <div class="form-studio-header__icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/>
+                            <path d="M9.5 8a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h2 class="form-studio-header__title">Create <span>Album</span></h2>
+                        <p class="form-studio-header__subtitle">Compile your tracks into an album</p>
+                    </div>
+                </div>
 
-                                <div class="mb-3 mb-lg-0">
-                                    <label asp-for="ImageFile" class="form-label fw-semibold">Art Cover</label>
-                                    <input type="file" asp-for="ImageFile" class="form-control" />
-                                </div>
+                <div class="form-studio-body">
+                    <form method="post" asp-action="Create" enctype="multipart/form-data" id="album-create-form">
+
+                        <!-- Section: Core Details -->
+                        <div class="form-studio-section">
+                            <div class="form-studio-section__label">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                    <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                                </svg>
+                                Core Details
                             </div>
-
-                            <div class="col-12 col-lg-6">
-                                <div class="mb-3">
-                                    <label class="form-label fw-semibold">Featured Artists</label>
-                                    <select asp-for="@Model.SelectedArtistIds"
-                                            asp-items="Model.Artists"
-                                            multiple
-                                            class="form-select js-choice"
-                                            data-choices
-                                            data-remove-item-button="true"
-                                            data-search-enabled="true"
-                                            data-placeholder-value="Select artists"
-                                            data-max-item-count="4"
-                                            data-msg-maxlength="You can only select 4 featured artists.">
-                                    </select>
-                                    <span asp-validation-for="SelectedArtistIds" class="text-danger small"></span>
+                            <div class="row g-3">
+                                <div class="col-12 col-md-7">
+                                    <div class="form-studio-field">
+                                        <label asp-for="Title" class="form-studio-field__label">Album Title</label>
+                                        <input asp-for="Title" class="form-studio-field__input" placeholder="Enter album title…" />
+                                        <span asp-validation-for="Title" class="form-studio-field__error"></span>
+                                    </div>
                                 </div>
-
-                                <div class="mb-3 mb-lg-0">
-                                    <label class="form-label fw-semibold">Add Songs</label>
-                                    <select asp-for="SelectedSongIds"
-                                            asp-items="Model.Songs"
-                                            multiple
-                                            class="form-select js-choice"
-                                            data-choices
-                                            data-remove-item-button="true"
-                                            data-search-enabled="true"
-                                            data-placeholder-value="Select songs"
-                                            required
-                                            data-msg-required="Please select at least one song.">
-                                    </select>
-                                    <span asp-validation-for="SelectedSongIds" class="text-danger small"></span>
-                                </div>
-                            </div>
-
-                            <div class="col-12 mt-2">
-                                <div class="d-flex flex-column flex-md-row justify-content-between gap-3 pt-2">
-                                    <button type="submit" class="btn btn-success btn-lg rounded-4 px-5 shadow fw-semibold">
-                                        Create Album
-                                    </button>
-                                    <a asp-controller="Library" asp-action="MyProjectsIndex"
-                                       class="btn btn-outline-warning btn-lg rounded-4 px-4">
-                                        Cancel
-                                    </a>
+                                <div class="col-12 col-md-5">
+                                    <div class="form-studio-field">
+                                        <label class="form-studio-field__label">Featured Artists</label>
+                                        <select asp-for="@Model.SelectedArtistIds"
+                                                asp-items="Model.Artists"
+                                                multiple
+                                                class="form-select js-choice"
+                                                data-choices
+                                                data-remove-item-button="true"
+                                                data-search-enabled="true"
+                                                data-placeholder-value="Select artists…"
+                                                data-max-item-count="4"
+                                                data-msg-maxlength="You can only select 4 featured artists.">
+                                        </select>
+                                        <span asp-validation-for="SelectedArtistIds" class="form-studio-field__error"></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Section: Tracklist -->
+                        <div class="form-studio-section">
+                            <div class="form-studio-section__label">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+                                </svg>
+                                Tracklist
+                            </div>
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <div class="form-studio-field">
+                                        <label class="form-studio-field__label">Add Songs</label>
+                                        <select asp-for="SelectedSongIds"
+                                                asp-items="Model.Songs"
+                                                multiple
+                                                class="form-select js-choice"
+                                                data-choices
+                                                data-remove-item-button="true"
+                                                data-search-enabled="true"
+                                                data-placeholder-value="Search and select songs…"
+                                                required
+                                                data-msg-required="Please select at least one song.">
+                                        </select>
+                                        <span asp-validation-for="SelectedSongIds" class="form-studio-field__error"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Section: Art Cover -->
+                        <div class="form-studio-section">
+                            <div class="form-studio-section__label">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                                    <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
+                                </svg>
+                                Album Artwork
+                            </div>
+                            <div class="row g-3">
+                                <div class="col-12 col-md-6 mx-auto">
+                                    <div class="form-studio-upload" id="artcover-upload">
+                                        <div class="form-studio-upload__icon">🖼️</div>
+                                        <div class="form-studio-upload__title">Art Cover</div>
+                                        <div class="form-studio-upload__hint">PNG, JPG, WEBP recommended</div>
+                                        <input type="file" asp-for="ImageFile" class="form-studio-upload__input" accept="image/*" />
+                                        <div class="form-studio-upload__preview" id="artcover-preview"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="form-studio-actions">
+                            <a asp-controller="Library" asp-action="MyProjectsIndex" class="form-studio-actions__cancel">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                                </svg>
+                                Cancel
+                            </a>
+                            <button type="submit" class="form-studio-actions__submit form-studio-actions__submit--create">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                </svg>
+                                Create Album
+                            </button>
+                        </div>
+
                     </form>
                 </div>
             </div>
@@ -79,4 +137,19 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script>
+        document.getElementById('ImageFile').addEventListener('change', function () {
+            const preview = document.getElementById('artcover-preview');
+            const wrap = document.getElementById('artcover-upload');
+            if (this.files && this.files[0]) {
+                const reader = new FileReader();
+                reader.onload = e => {
+                    preview.style.backgroundImage = `url('${e.target.result}')`;
+                    preview.style.display = 'block';
+                    wrap.classList.add('form-studio-upload--has-file');
+                };
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+    </script>
 }

@@ -4,7 +4,7 @@
     <div class="row justify-content-center">
         <div class="col-12 col-xxl-10">
 
-            <div class="card shadow-lg border-0 rounded-4 card-index">
+            <div class="card border-0" style="background-color:#161616; border: 1px solid rgba(255,193,7,0.15) !important; border-radius: 20px; overflow:hidden;">
                 <div class="card-body p-5">
 
                     <div class="d-flex justify-content-between align-items-center w-100 py-4 px-3">
@@ -46,11 +46,11 @@
                     <div class="table-responsive">
                         <table class="table align-middle table-hover mb-0 fs-6">
 
-                            <thead class="bg-light text-secondary">
+                            <thead style="background-color:#1a1a1a; border-bottom: 1px solid rgba(255,193,7,0.15);">
                                 <tr class="text-uppercase">
-                                    <th class="ps-3">#</th>
-                                    <th>Name</th>
-                                    <th class="text-center">Actions</th>
+                                    <th class="ps-3" style="color:#ffc107; font-size:0.72rem; letter-spacing:0.08em;">  #</th>
+                                    <th style="color:#ffc107; font-size:0.72rem; letter-spacing:0.08em;">Name</th>
+                                    <th class="text-center" style="color:#ffc107; font-size:0.72rem; letter-spacing:0.08em;">Actions</th>
                                 </tr>
                             </thead>
 
@@ -79,11 +79,11 @@
                                     {
                                         <tr class="border-top" id="genre-@genre.Id">
 
-                                            <td class="ps-3 text-muted fw-semibold py-2">
+                                            <td class="ps-3 py-3" style="color:#b3b3b3; font-weight:600;">
                                                 @index
                                             </td>
 
-                                            <td class="fw-bold text-dark py-2 fs-5">
+                                            <td class="py-3" style="color:#fff; font-weight:700; font-size:1rem;">
                                                 @genre.Name
                                             </td>
 

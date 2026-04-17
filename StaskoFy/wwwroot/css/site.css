@@ -437,68 +437,92 @@ footer {
 
 /* --- 11. Form Select (Dropdown Menus) --- */
 .form-select {
-    background-color: #ffffff !important;
-    border: 2px solid #ffc107 !important;
-    color: #000000 !important;
-    border-radius: 8px;
-    padding: 12px 15px;
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.1) !important;
+    color: #ffffff !important;
+    border-radius: 10px !important;
+    padding: 11px 14px !important;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 0 6px rgba(255, 193, 7, 0.3) !important;
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+    transition: border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease !important;
+    box-shadow: none !important;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23aaaaaa' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
 }
 
-    .form-select:hover, .form-select:focus {
-        background-color: #f8f9fa !important;
-        transform: translateY(-4px);
-        box-shadow: 0 6px 18px rgba(255, 193, 7, 0.6) !important;
-        outline: none;
+    .form-select:hover {
+        background: rgba(255, 255, 255, 0.06) !important;
+        border-color: rgba(255, 255, 255, 0.2) !important;
+        transform: none !important;
+        box-shadow: none !important;
+    }
+
+    .form-select:focus {
+        background: rgba(255, 255, 255, 0.07) !important;
+        border-color: rgba(255, 193, 7, 0.6) !important;
+        box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.12) !important;
+        outline: none !important;
+        transform: none !important;
+        color: #fff !important;
     }
 
     .form-select option {
-        background-color: #ffffff !important;
-        color: #000000 !important;
-        padding: 15px !important;
+        background-color: #1a1a1a !important;
+        color: #ffffff !important;
+        padding: 10px !important;
     }
 
 /* --- 12. Choices.js Multi-Select Customization --- */
 .choices__inner {
-    background-color: #ffffff !important;
-    border: 2px solid #ffc107 !important;
-    border-radius: 8px !important;
-    color: #000000 !important;
-    padding: 8px 12px !important;
-    min-height: 50px;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
-    box-shadow: 0 0 6px rgba(255, 193, 7, 0.3) !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 10px !important;
+    color: #ffffff !important;
+    padding: 6px 10px !important;
+    min-height: 46px;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease !important;
+    box-shadow: none !important;
 }
 
 .choices:hover .choices__inner,
 .choices.is-focused .choices__inner {
-    transform: translateY(-4px);
-    box-shadow: 0 6px 18px rgba(255, 193, 7, 0.6) !important;
-    background-color: #f8f9fa !important;
+    border-color: rgba(255, 193, 7, 0.6) !important;
+    box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.12) !important;
+    background: rgba(255, 255, 255, 0.07) !important;
+    transform: none !important;
+}
+
+.choices__placeholder {
+    color: rgba(255, 255, 255, 0.25) !important;
+    opacity: 1 !important;
+}
+
+.choices__input {
+    background: transparent !important;
+    color: #ffffff !important;
 }
 
 .choices__list--multiple .choices__item {
-    background-color: #ffc107 !important;
-    border: 1px solid #ffc107 !important;
-    color: #000000 !important;
+    background: rgba(255, 193, 7, 0.15) !important;
+    border: 1px solid rgba(255, 193, 7, 0.35) !important;
+    color: #ffc107 !important;
     border-radius: 6px !important;
-    font-weight: bold;
+    font-weight: 600;
 }
 
 .choices__list--dropdown {
-    background-color: #ffffff !important;
-    border: 2px solid #ffc107 !important;
-    border-radius: 8px !important;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5) !important;
-    color:black;
+    background: #1a1a1a !important;
+    border: 1.5px solid rgba(255, 193, 7, 0.3) !important;
+    border-radius: 10px !important;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5) !important;
+    color: #ddd !important;
 }
 
+    .choices__list--dropdown .choices__item {
+        color: #ddd !important;
+    }
+
     .choices__list--dropdown .choices__item--selectable.is-highlighted {
-        background-color: #ffc107 !important;
-        color: #000000 !important;
+        background: rgba(255, 193, 7, 0.15) !important;
+        color: #ffc107 !important;
     }
 
 /* --- 13. Fieldset & Sectioning --- */
@@ -625,56 +649,71 @@ fieldset {
     }
 
 /* --- 15. Standard Form Inputs (Text, Password, File, etc.) --- */
+/* Global dark-studio style applied to ALL .form-control inputs */
 .form-control {
-    background-color: #ffffff !important;
-    border: 2px solid #ffc107 !important;
-    color: #000000 !important;
-    border-radius: 8px;
-    padding: 12px 15px;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 0 6px rgba(255, 193, 7, 0.2) !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 10px !important;
+    color: #ffffff !important;
+    padding: 11px 14px !important;
+    transition: border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease !important;
+    box-shadow: none !important;
 }
 
-    /* Placeholder color (Darker grey so it's readable on white) */
     .form-control::placeholder {
-        color: #6c757d !important;
+        color: rgba(255, 255, 255, 0.25) !important;
         opacity: 1;
     }
 
-    /* Hover & Focus State - Matches your Select behavior */
-    .form-control:hover,
-    .form-control:focus {
-        background-color: #f8f9fa !important;
-        color: #000000 !important;
-        transform: translateY(-4px);
-        box-shadow: 0 6px 18px rgba(255, 193, 7, 0.5) !important;
-        outline: none;
-        border-color: #ffc107 !important;
+    .form-control:hover {
+        background: rgba(255, 255, 255, 0.06) !important;
+        border-color: rgba(255, 255, 255, 0.2) !important;
+        transform: none !important;
+        box-shadow: none !important;
+        color: #fff !important;
     }
 
-    /* --- 16. Special Handling for Validation Errors with HTMX --- */
-    /* This ensures that when a field is invalid, it keeps your style but changes the border color */
+    .form-control:focus {
+        background: rgba(255, 255, 255, 0.07) !important;
+        border-color: rgba(255, 193, 7, 0.6) !important;
+        box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.12) !important;
+        outline: none !important;
+        transform: none !important;
+        color: #fff !important;
+    }
+
+    /* --- 16. Validation Error States --- */
     .form-control.input-validation-error {
-        border-color: #dc3545 !important;
-        box-shadow: 0 0 8px rgba(220, 53, 69, 0.2) !important;
+        border-color: rgba(248, 113, 113, 0.6) !important;
+        box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.1) !important;
     }
 
         .form-control.input-validation-error:hover,
         .form-control.input-validation-error:focus {
-            border-color: #dc3545 !important;
-            box-shadow: 0 6px 18px rgba(220, 53, 69, 0.4) !important;
+            border-color: rgba(248, 113, 113, 0.7) !important;
+            box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.15) !important;
         }
 
-    /* --- 17. File Input specific adjustment --- */
-    /* Makes the "Choose File" button look cleaner inside your styled input */
+    /* --- 17. File Input — dark-themed choose button --- */
+    .form-control[type="file"] {
+        color: rgba(255, 255, 255, 0.55) !important;
+    }
+
     .form-control[type="file"]::-webkit-file-upload-button {
-        background-color: #ffc107;
-        border: none;
-        border-radius: 4px;
-        padding: 4px 10px;
+        background: rgba(255, 193, 7, 0.15);
+        border: 1px solid rgba(255, 193, 7, 0.35);
+        border-radius: 6px;
+        padding: 4px 12px;
         margin-right: 10px;
         cursor: pointer;
-        font-weight: bold;
+        font-weight: 600;
+        font-size: 0.8rem;
+        color: #ffc107;
+        transition: background 0.2s ease;
+    }
+
+    .form-control[type="file"]::-webkit-file-upload-button:hover {
+        background: rgba(255, 193, 7, 0.28);
     }
 
 /* 1. The Wrapper */
@@ -1202,4 +1241,644 @@ a.specific_heading:hover {
 ::-moz-selection {
     background: rgba(255, 193, 7, 0.3);
     color: #fff;
+}
+
+/* =====================================================================
+   GLOBAL DARK-MODE CONSISTENCY FIXES
+   ===================================================================== */
+
+/* text-dark is Bootstrap's dark text class — on a #0a0a0a background
+   it renders as near-invisible. Override it app-wide to text-muted. */
+.text-dark {
+    color: #b3b3b3 !important;
+}
+
+/* hr — Bootstrap's default gives a light grey line; darken it */
+hr {
+    border-color: rgba(255, 193, 7, 0.12) !important;
+    opacity: 1;
+}
+
+/* Bootstrap tables — ensure dark backgrounds + legible text */
+.table {
+    color: #e0e0e0 !important;
+    border-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+.table > :not(caption) > * > * {
+    background-color: transparent !important;
+    color: inherit !important;
+    border-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+/* table-hover row highlight */
+.table-hover > tbody > tr:hover > * {
+    background-color: rgba(255, 193, 7, 0.05) !important;
+    color: #fff !important;
+}
+
+/* thead  */
+.table thead th {
+    border-bottom: 1px solid rgba(255, 193, 7, 0.15) !important;
+}
+
+/* Bootstrap card body — ensure dark bg everywhere a .card is used
+   that doesn't already have a bespoke class */
+.card-body {
+    color: #e0e0e0;
+}
+
+/* Dropdown menus — dark themed globally */
+.dropdown-menu-dark,
+.dropdown-menu {
+    background-color: #1a1a1a !important;
+    border: 1px solid rgba(255, 193, 7, 0.2) !important;
+    border-radius: 10px !important;
+}
+
+.dropdown-item {
+    color: #d0d0d0 !important;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+    background-color: rgba(255, 193, 7, 0.1) !important;
+    color: #ffc107 !important;
+}
+
+.dropdown-divider {
+    border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* =====================================================================
+   FORM STUDIO — Premium Create / Edit Form Design System
+   ===================================================================== */
+
+/* --- Card Wrapper --- */
+.form-studio-card {
+    background: #111111;
+    border: 1px solid rgba(255, 193, 7, 0.12);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.03) inset;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-studio-card:hover {
+    border-color: rgba(255, 193, 7, 0.25);
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.65), 0 0 30px rgba(255, 193, 7, 0.07);
+}
+
+/* --- Gradient Header --- */
+.form-studio-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 28px 32px;
+    position: relative;
+    overflow: hidden;
+}
+
+.form-studio-header--create {
+    background: linear-gradient(135deg, #0d2b17 0%, #1a3d20 40%, #162c1e 100%);
+    border-bottom: 1px solid rgba(25, 135, 84, 0.3);
+}
+
+.form-studio-header--edit {
+    background: linear-gradient(135deg, #2b200d 0%, #3d2d1a 40%, #2c2116 100%);
+    border-bottom: 1px solid rgba(255, 193, 7, 0.3);
+}
+
+/* Subtle shimmer sweep in header */
+.form-studio-header::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.03) 50%, transparent 60%);
+    pointer-events: none;
+}
+
+.form-studio-header__icon {
+    flex-shrink: 0;
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+}
+
+.form-studio-header--create .form-studio-header__icon {
+    background: rgba(25, 135, 84, 0.2);
+    border: 1px solid rgba(25, 135, 84, 0.4);
+    color: #2ecc71;
+    box-shadow: 0 0 20px rgba(25, 135, 84, 0.3);
+}
+
+.form-studio-header--edit .form-studio-header__icon {
+    background: rgba(255, 193, 7, 0.15);
+    border: 1px solid rgba(255, 193, 7, 0.4);
+    color: #ffc107;
+    box-shadow: 0 0 20px rgba(255, 193, 7, 0.2);
+}
+
+.form-studio-header__title {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0;
+    letter-spacing: -0.5px;
+}
+
+.form-studio-header__subtitle {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin: 4px 0 0;
+}
+
+/* --- Body Padding --- */
+.form-studio-body {
+    padding: 28px 32px;
+}
+
+/* --- Section Dividers --- */
+.form-studio-section {
+    margin-bottom: 28px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.form-studio-section:last-of-type {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.form-studio-section__label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.35);
+    margin-bottom: 16px;
+}
+
+.form-studio-section__optional {
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.22);
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 0.75rem;
+    margin-left: 4px;
+}
+
+/* --- Form Fields --- */
+.form-studio-field {
+    position: relative;
+}
+
+.form-studio-field__label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 6px;
+    letter-spacing: 0.03em;
+}
+
+.form-studio-field__input {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 10px !important;
+    color: #ffffff !important;
+    padding: 11px 14px !important;
+    font-size: 0.925rem;
+    transition: border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease !important;
+    box-shadow: none !important;
+}
+
+.form-studio-field__input::placeholder {
+    color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.form-studio-field__input:hover {
+    background: rgba(255, 255, 255, 0.06) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+.form-studio-field__input:focus {
+    background: rgba(255, 255, 255, 0.07) !important;
+    border-color: rgba(255, 193, 7, 0.6) !important;
+    box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.12) !important;
+    outline: none !important;
+    transform: none !important;
+    color: #fff !important;
+}
+
+/* Override for select inside .form-studio-field */
+.form-studio-field__select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23aaaaaa' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
+}
+
+.form-studio-field__select option {
+    background-color: #1a1a1a !important;
+    color: #fff !important;
+}
+
+/* Validation error text */
+.form-studio-field__error {
+    display: block;
+    font-size: 0.78rem;
+    color: #f87171;
+    margin-top: 4px;
+    min-height: 18px;
+}
+
+/* Validation error border state */
+.form-studio-field__input.input-validation-error {
+    border-color: rgba(248, 113, 113, 0.6) !important;
+    box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.1) !important;
+}
+
+/* --- Duration Inputs --- */
+.form-studio-duration {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.form-studio-duration__unit {
+    flex: 1;
+    position: relative;
+}
+
+.form-studio-duration__badge {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.25);
+    pointer-events: none;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.form-studio-duration__sep {
+    font-size: 1.4rem;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.3);
+    line-height: 1;
+    flex-shrink: 0;
+    padding-bottom: 2px;
+}
+
+/* Override choices.js wrapper inside studio fields */
+.form-studio-field .choices__inner {
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 10px !important;
+    box-shadow: none !important;
+    min-height: 46px;
+    color: #fff !important;
+    padding: 6px 10px !important;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease !important;
+}
+
+.form-studio-field .choices__inner:hover,
+.form-studio-field .choices.is-focused .choices__inner {
+    border-color: rgba(255, 193, 7, 0.6) !important;
+    box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.12) !important;
+    background: rgba(255, 255, 255, 0.07) !important;
+    transform: none !important;
+}
+
+.form-studio-field .choices__placeholder {
+    color: rgba(255, 255, 255, 0.2) !important;
+    opacity: 1 !important;
+}
+
+.form-studio-field .choices__input {
+    background: transparent !important;
+    color: #fff !important;
+}
+
+.form-studio-field .choices__list--dropdown {
+    background: #1a1a1a !important;
+    border: 1.5px solid rgba(255, 193, 7, 0.3) !important;
+    border-radius: 10px !important;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5) !important;
+}
+
+.form-studio-field .choices__list--dropdown .choices__item {
+    color: #ddd !important;
+    padding: 10px 14px;
+}
+
+.form-studio-field .choices__list--dropdown .choices__item--selectable.is-highlighted {
+    background: rgba(255, 193, 7, 0.15) !important;
+    color: #ffc107 !important;
+}
+
+.form-studio-field .choices__list--multiple .choices__item {
+    color: #ffc107;
+    opacity: 0.4;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+/* --- Upload Zones — gold dashed border, consistent with app gold accent --- */
+.form-studio-upload {
+    position: relative;
+    border: 2px dashed rgba(255, 193, 7, 0.25);
+    border-radius: 12px;
+    padding: 28px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+    background: rgba(255, 193, 7, 0.03);
+    overflow: hidden;
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.form-studio-upload:hover {
+    border-color: rgba(255, 193, 7, 0.55);
+    background: rgba(255, 193, 7, 0.07);
+    box-shadow: 0 0 12px rgba(255, 193, 7, 0.1);
+}
+
+.form-studio-upload--has-file {
+    border-color: rgba(255, 193, 7, 0.6);
+    background: rgba(255, 193, 7, 0.08);
+}
+
+.form-studio-upload__icon {
+    font-size: 1.8rem;
+    line-height: 1;
+}
+
+.form-studio-upload__title {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #ffc107;
+}
+
+.form-studio-upload__hint {
+    font-size: 0.72rem;
+    color: #b3b3b3;
+}
+
+.form-studio-upload__input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 2;
+}
+
+/* Image preview overlay */
+.form-studio-upload__preview {
+    display: none;
+    position: absolute;
+    inset: 0;
+    border-radius: 10px;
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+}
+
+.form-studio-upload__preview::after {
+    content: "✔ Image selected";
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.7rem;
+    font-weight: 700;
+    background: rgba(0, 0, 0, 0.8);
+    color: #ffc107;
+    padding: 3px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 193, 7, 0.4);
+    white-space: nowrap;
+}
+
+/* Filename for audio */
+.form-studio-upload__filename {
+    font-size: 0.78rem;
+    color: #ffc107;
+    font-weight: 600;
+    word-break: break-all;
+    margin-top: 4px;
+}
+
+/* Audio zone gets same style but slight blue tint on hover removed — use gold consistently */
+.form-studio-upload--audio:hover {
+    border-color: rgba(255, 193, 7, 0.55);
+    background: rgba(255, 193, 7, 0.07);
+}
+
+/* --- Visibility Toggle Card --- */
+.form-studio-toggle-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    background: rgba(255, 193, 7, 0.04);
+    border: 1px solid rgba(255, 193, 7, 0.2);
+    border-radius: 12px;
+    padding: 16px 20px;
+    transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.form-studio-toggle-card:hover {
+    border-color: rgba(255, 193, 7, 0.4);
+    background: rgba(255, 193, 7, 0.08);
+}
+
+.form-studio-toggle-card__info {
+    flex: 1;
+    min-width: 0;
+}
+
+.form-studio-toggle-card__title {
+    display: flex;
+    align-items: center;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 3px;
+}
+
+.form-studio-toggle-card__desc {
+    font-size: 0.78rem;
+    color: #b3b3b3;
+}
+
+/* Custom iOS-style toggle — gold when ON */
+.form-studio-toggle-card__switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 26px;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.form-studio-toggle-card__switch input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.form-studio-toggle-card__track {
+    position: absolute;
+    inset: 0;
+    border-radius: 13px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-studio-toggle-card__track::after {
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.35);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s ease;
+}
+
+.form-studio-toggle-card__switch input:checked + .form-studio-toggle-card__track {
+    background: #ffc107;
+    border-color: #ffc107;
+    box-shadow: 0 0 12px rgba(255, 193, 7, 0.4);
+}
+
+.form-studio-toggle-card__switch input:checked + .form-studio-toggle-card__track::after {
+    transform: translateX(24px);
+    background: #000;
+}
+
+/* --- Actions Row --- */
+.form-studio-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: 22px;
+    border-top: 1px solid rgba(255, 193, 7, 0.1);
+    margin-top: 26px;
+    flex-wrap: wrap;
+}
+
+/* Cancel: standard app btn-outline-warning */
+.form-studio-actions__cancel {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: bold;
+    color: #ffc107 !important;
+    background: transparent;
+    border: 2px solid #ffc107 !important;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+}
+
+.form-studio-actions__cancel:hover {
+    color: #000 !important;
+    background: #ffc107;
+    border-color: #ffc107 !important;
+    box-shadow: 0 5px 15px rgba(255, 193, 7, 0.3);
+    transform: translateY(-5px);
+}
+
+.form-studio-actions__cancel:active {
+    transform: translateY(-2px) scale(0.96);
+}
+
+/* Submit: solid btn-success for Create, btn-warning for Edit */
+.form-studio-actions__submit {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 26px;
+    border-radius: 8px;
+    font-size: 0.925rem;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    letter-spacing: 0.01em;
+    box-shadow: none;
+}
+
+.form-studio-actions__submit:hover {
+    transform: translateY(-5px);
+}
+
+.form-studio-actions__submit:active {
+    transform: translateY(-2px) scale(0.96);
+}
+
+.form-studio-actions__submit--create {
+    background-color: #198754;
+    color: #ffffff;
+}
+
+.form-studio-actions__submit--create:hover {
+    background-color: #157347;
+    color: #fff;
+}
+
+.form-studio-actions__submit--edit {
+    background-color: #ffc107;
+    color: #000000;
+}
+
+.form-studio-actions__submit--edit:hover {
+    background-color: #ffca2c;
+    color: #000;
+}
+
+@media (max-width: 576px) {
+    .form-studio-header {
+        padding: 20px;
+    }
+    .form-studio-body {
+        padding: 20px;
+    }
+    .form-studio-actions {
+        flex-direction: column-reverse;
+    }
+    .form-studio-actions__submit,
+    .form-studio-actions__cancel {
+        width: 100%;
+        justify-content: center;
+    }
 }
