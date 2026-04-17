@@ -38,9 +38,12 @@ html, body {
     overflow: hidden; /* Locks the browser window */
     display: flex;
     flex-direction: column;
-    background-color: #000;
+    background-color: #0a0a0a;
 }
 
+.header {
+    overflow: visible;
+}
 header {
     flex: 0 0 auto;
 }
@@ -51,7 +54,7 @@ header {
     min-height: 0;
     display: block !important;
     position: relative;
-    background-color: #121212; /* Spotify-like dark grey */
+    background-color: #0a0a0a; /* Lighter dark background */
 }
 
     #main-content > main {
@@ -62,23 +65,37 @@ header {
         padding-left: 20px;
         padding-right: 20px;
         /* SCROLL FIX: The Clearance Padding */
-        /* Must be higher than the footer height (150px) */
-        padding-bottom: 220px !important;
-        /* STOP STRETCHING: Prevents buttons from looking giant */
+        /* Must be higher than the footer height */
+        padding-bottom: 150px !important;
         height: auto !important;
         min-height: min-content !important;
     }
+}
+
+@media (max-width: 767px) {
+    #main-content > main {
+        padding-bottom: 250px !important; /* More padding on mobile for stacked footer */
+    }
+}
 
 .footer {
-    flex: 0 0 150px;
-    height: 150px;
     width: 100%;
-    background-color: #181818 !important;
+    background-color: #202020 !important;
     border-top: 1px solid #282828;
     z-index: 1100 !important;
     position: fixed;
     bottom: 0;
     left: 0;
+    height: 120px; /* Default desktop height */
+    transition: height 0.3s ease;
+}
+
+@media (max-width: 767px) {
+    .footer {
+        height: auto;
+        min-height: 100px;
+        padding: 10px 0 !important;
+    }
 }
 
 
@@ -88,34 +105,66 @@ header {
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    height: 100%; /* Now takes full footer height for perfect Y-centering */
+    height: 100%;
     padding: 0 20px;
+}
+
+@media (max-width: 767px) {
+    .music-player {
+        flex-direction: column;
+        gap: 10px !important;
+        padding: 10px;
+    }
 }
 
 /* 1. Left Section: Song Info */
 .song-info {
-    flex: 1; /* Bootstrap-style: take equal space */
+    flex: 1;
     display: flex;
     align-items: center;
-    min-width: 0; /* Important for text-truncation */
+    min-width: 0;
+}
+
+@media (max-width: 767px) {
+    .song-info {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .song-info .song-art {
+        width: 50px !important;
+        height: 50px !important;
+    }
 }
 
 /* 2. Center Section: Player Controls */
 .player-controls {
-    flex: 2; /* Gives the middle section more priority/width */
+    flex: 2;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
+@media (max-width: 767px) {
+    .player-controls {
+        width: 100%;
+    }
+}
+
 /* 3. Right Section: Volume */
 .volume-controls {
-    flex: 1; /* Matches the left side for perfect symmetry */
+    flex: 1;
     display: flex;
     justify-content: flex-end;
     align-items: center;
     gap: 10px;
+}
+
+@media (max-width: 767px) {
+    .volume-controls {
+        display: none !important; /* Hide volume on mobile to save space */
+    }
 }
 
 /* Slider Styling */
@@ -230,7 +279,7 @@ header {
     border-radius: 10px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     padding: 10px 0;
-    z-index: 2000; /* Ensures it stays above cards */
+    z-index: 2200; /* Ensures it stays above cards and footer */
 }
 
 /* Targets the individual items */
@@ -708,4 +757,449 @@ tr:hover .track-index-cell .play-btn-custom {
 
 tr:hover .track-index-cell .track-index-number {
     display: none;
+}
+/* ===================================================================
+   DESIGN TOUCH-UP — APPENDED ENHANCEMENTS
+   These styles ADD to or OVERRIDE the originals above.
+   The yellow (#ffc107) is preserved everywhere.
+   =================================================================== */
+
+/* --- A. Typography --- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+html, body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6,
+.display-3, .display-4, .display-5 {
+    letter-spacing: -0.5px;
+}
+
+/* --- B. Text Visibility Fixes --- */
+.text-muted {
+    color: #b3b3b3 !important;
+}
+
+.text-dark {
+    color: #cccccc !important;
+}
+
+.text-secondary {
+    color: #aaaaaa !important;
+}
+
+/* Form labels should be visible */
+.form-label {
+    color: #e0e0e0 !important;
+}
+
+/* Card text should be lighter */
+.card-text {
+    color: #d0d0d0;
+}
+
+.card-title {
+    color: #ffffff;
+}
+
+/* --- C. Custom Scrollbar --- */
+#main-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+#main-content::-webkit-scrollbar-track {
+    background: #0a0a0a;
+}
+
+#main-content::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 4px;
+    transition: background 0.3s ease;
+}
+
+#main-content::-webkit-scrollbar-thumb:hover {
+    background: #ffc107;
+}
+
+/* --- D. Navbar Enhancement (Glassmorphism) --- */
+.navbar {
+    background: rgba(18, 18, 18, 0.85) !important;
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid rgba(255, 193, 7, 0.15) !important;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+    position: sticky;
+    top: 0;
+    z-index: 1050;
+}
+
+/* Profile image in navbar gets a gold ring */
+.navbar .rounded-circle {
+    border: 2px solid rgba(255, 193, 7, 0.5);
+    transition: all 0.3s ease;
+}
+
+.navbar .rounded-circle:hover {
+    border-color: #ffc107;
+    box-shadow: 0 0 12px rgba(255, 193, 7, 0.4);
+}
+
+/* --- E. Footer / Music Player Enhancement --- */
+footer.footer {
+    background: rgba(18, 18, 18, 0.9) !important;
+    backdrop-filter: blur(25px) saturate(180%);
+    -webkit-backdrop-filter: blur(25px) saturate(180%);
+    border-top: 1px solid rgba(255, 193, 7, 0.2) !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: none !important;
+    box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.5), 0 -1px 0 rgba(255, 193, 7, 0.1);
+}
+
+/* Now-playing album art glow */
+.song-art {
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    transition: all 0.4s ease;
+}
+
+.song-art:hover {
+    transform: scale(1.08);
+    box-shadow: 0 4px 25px rgba(255, 193, 7, 0.3);
+}
+
+/* Song title in footer */
+.song-title {
+    color: #fff !important;
+}
+
+/* Player control buttons hover glow */
+.music-player .btn-link:hover svg path {
+    filter: drop-shadow(0 0 6px rgba(255, 193, 7, 0.6));
+}
+
+/* --- F. Card Enhancements (Shimmer + Polish) --- */
+
+/* Shimmer sweep on hover */
+.song-card-container::before,
+.playlist-hover-card::before,
+.artist-hover-card::before,
+.liked-songs-card::before,
+.admin-manage-card::before,
+.artist-manage-card::before,
+.user-manage-card::before,
+.login-register-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.04),
+        transparent
+    );
+    transform: skewX(-15deg);
+    transition: none;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.song-card-container:hover::before,
+.playlist-hover-card:hover::before,
+.artist-hover-card:hover::before,
+.liked-songs-card:hover::before,
+.admin-manage-card:hover::before,
+.artist-manage-card:hover::before,
+.user-manage-card:hover::before,
+.login-register-card:hover::before {
+    animation: cardShimmer 0.8s ease forwards;
+}
+
+@keyframes cardShimmer {
+    0% { left: -75%; }
+    100% { left: 125%; }
+}
+
+/* Card image zoom on hover */
+.song-card-container:hover img,
+.playlist-hover-card:hover img,
+.artist-hover-card:hover img,
+.liked-songs-card:hover img {
+    transform: scale(1.05);
+    transition: transform 0.5s ease;
+}
+
+.song-card-container img,
+.playlist-hover-card img,
+.artist-hover-card img,
+.liked-songs-card img {
+    transition: transform 0.5s ease;
+}
+
+/* Larger border-radius on all cards */
+.song-card-container,
+.playlist-hover-card,
+.artist-hover-card,
+.liked-songs-card {
+    border-radius: 16px !important;
+    overflow: visible !important; /* allow dropdowns to escape card bounds */
+    background-color: #181818 !important;
+}
+
+/* Gold top accent line on dashboard stat cards */
+.admin-manage-card,
+.artist-manage-card,
+.user-manage-card {
+    border-top: 3px solid #ffc107 !important;
+    border-radius: 16px !important;
+    background-color: #181818 !important;
+    min-height: 160px;
+}
+
+.admin-manage-card .card-title,
+.artist-manage-card .card-title,
+.user-manage-card .card-title {
+    color: #ffffff;
+    font-size: 1rem;
+}
+
+.admin-manage-card .card-text,
+.artist-manage-card .card-text,
+.user-manage-card .card-text {
+    font-size: 1.5rem;
+    color: #ffc107;
+}
+
+/* --- G. Login/Register Card Glass Effect --- */
+.login-register-card {
+    background: rgba(26, 26, 26, 0.95) !important;
+    border: 1px solid rgba(255, 193, 7, 0.15) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.03) inset !important;
+}
+
+/* --- H. Details Cards (Song/Album/Playlist Details) --- */
+.card-song-details,
+.card-album-details {
+    background-color: #161616 !important;
+    border: 1px solid rgba(255, 193, 7, 0.1) !important;
+    border-radius: 20px !important;
+}
+
+/* Details page info text */
+.card-song-details .card-text,
+.card-album-details .card-text {
+    color: #d0d0d0;
+}
+
+.card-song-details strong,
+.card-album-details strong {
+    color: #ffc107;
+}
+
+/* --- I. Song/Album Create & Edit Cards --- */
+.song-create-edit-card,
+.album-create-edit-card,
+.playlist-create-edit-card {
+    background-color: #161616 !important;
+    border: 1px solid rgba(255, 193, 7, 0.1) !important;
+    border-radius: 20px !important;
+}
+
+/* --- J. User Profile Cards --- */
+.user-profile-card,
+.user-edit-profile-card {
+    background-color: #181818 !important;
+    border: 1px solid rgba(255, 193, 7, 0.12) !important;
+    border-radius: 20px !important;
+}
+
+/* User profile image gold ring */
+.user-profile-card .rounded-circle,
+.user-edit-profile-card .rounded-circle {
+    border: 3px solid rgba(255, 193, 7, 0.4);
+    box-shadow: 0 0 20px rgba(255, 193, 7, 0.15);
+}
+
+/* --- K. Badge Styling --- */
+.badge.bg-secondary {
+    background-color: rgba(255, 193, 7, 0.15) !important;
+    color: #ffc107 !important;
+    border: 1px solid rgba(255, 193, 7, 0.3);
+    font-weight: 600;
+}
+
+/* --- L. Table Enhancements --- */
+table {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+table thead th {
+    background-color: #1a1a1a;
+    color: #ffc107 !important;
+    border-bottom: 2px solid rgba(255, 193, 7, 0.3) !important;
+    padding: 14px 16px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+table tbody tr {
+    transition: background-color 0.25s ease;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+table tbody tr:hover {
+    background-color: rgba(255, 193, 7, 0.06) !important;
+}
+
+table tbody td {
+    padding: 12px 16px;
+    color: #d0d0d0;
+    vertical-align: middle;
+}
+
+/* --- M. Horizontal Rules --- */
+hr {
+    border-color: rgba(255, 193, 7, 0.2) !important;
+    opacity: 1;
+}
+
+/* --- N. Dropdown Slide Animation --- */
+.dropdown-menu,
+.navbar .dropdown-menu {
+    overflow: visible !important;
+    z-index: 2100 !important; /* ensure dropdown appears above other elements */
+    animation: dropSlide 0.25s ease-out;
+    transform-origin: top center;
+}
+
+@keyframes dropSlide {
+    from {
+        opacity: 0;
+        transform: translateY(-8px) scale(0.97);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+    from {
+        opacity: 0;
+        transform: translateY(-8px) scale(0.97);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* --- O. Nav Pills Enhancement --- */
+.nav-pills .nav-link {
+    border-radius: 20px !important;
+    padding: 8px 24px !important;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.nav-pills .nav-link.active {
+    box-shadow: 0 0 15px rgba(255, 193, 7, 0.3);
+}
+
+/* --- P. Search Input Enhancement --- */
+.form-control[type="search"],
+input[type="search"].form-control {
+    border-radius: 25px !important;
+    padding-left: 20px !important;
+}
+
+/* --- Q. Page Heading Underline Accent --- */
+.display-3, .display-4 {
+    position: relative;
+    display: inline-block;
+}
+
+/* --- R. Entrance Animations --- */
+.fade-in-up {
+    animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    opacity: 0;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Stagger delays for cards in rows */
+.row > .col:nth-child(1) { animation-delay: 0s; }
+.row > .col:nth-child(2) { animation-delay: 0.05s; }
+.row > .col:nth-child(3) { animation-delay: 0.1s; }
+.row > .col:nth-child(4) { animation-delay: 0.15s; }
+.row > .col:nth-child(5) { animation-delay: 0.2s; }
+.row > .col:nth-child(6) { animation-delay: 0.25s; }
+
+/* --- S. "Options" Button on Cards --- */
+.dropup .btn[data-bs-toggle="dropdown"],
+.dropdown .btn[data-bs-toggle="dropdown"] {
+    background-color: rgba(255, 193, 7, 0.08) !important;
+    border: 1px solid rgba(255, 193, 7, 0.2) !important;
+    color: #ffc107 !important;
+    transition: all 0.3s ease;
+}
+
+.dropup .btn[data-bs-toggle="dropdown"]:hover,
+.dropdown .btn[data-bs-toggle="dropdown"]:hover {
+    background-color: rgba(255, 193, 7, 0.15) !important;
+    border-color: rgba(255, 193, 7, 0.4) !important;
+    box-shadow: 0 0 12px rgba(255, 193, 7, 0.15);
+}
+
+/* --- T. Validation Error States --- */
+.form-control.input-validation-error {
+    border-color: #dc3545 !important;
+    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.15) !important;
+}
+
+.text-danger.field-validation-error {
+    font-size: 0.8rem;
+    margin-top: 4px;
+}
+
+/* --- U. "Back" Link Styling --- */
+a.specific_heading {
+    transition: all 0.3s ease;
+}
+
+a.specific_heading:hover {
+    filter: brightness(1.2);
+    transform: translateX(-4px);
+}
+
+/* --- V. Empty State Styling --- */
+.border-secondary {
+    border-color: rgba(255, 193, 7, 0.2) !important;
+}
+
+/* --- W. Selection / Highlight Color --- */
+::selection {
+    background: rgba(255, 193, 7, 0.3);
+    color: #fff;
+}
+
+::-moz-selection {
+    background: rgba(255, 193, 7, 0.3);
+    color: #fff;
 }

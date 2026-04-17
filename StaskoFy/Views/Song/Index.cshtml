@@ -1,25 +1,25 @@
-﻿@model SongsPaginationViewModel
+@model SongsPaginationViewModel
 
-<div class="text-center mb-5">
+<div class="text-center mb-5 fade-in-up">
     <h1 class="display-4 fw-bold mb-3">
         Discover <span class="specific_heading">Albums</span>
     </h1>
 
     @if (User.IsInRole("Admin"))
     {
-        <p class="lead text-dark mb-1">
+        <p class="lead text-muted mb-1">
             Browse all songs on the platform and <span class="text-danger">remove</span> any that <span class="text-danger">violate the rules</span>.
         </p>
     }
     else
     {
-        <p class="lead text-dark mb-1">
+        <p class="lead text-muted mb-1">
             Explore all songs on the platform
         </p>
     }
 </div>
 
-<div class="row justify-content-center w-100 mx-0">
+<div class="row justify-content-center w-100 mx-0 fade-in-up" style="animation-delay: 0.1s;">
     <div class="col-12 col-md-8 col-lg-6 mb-4 mx-auto">
         <form asp-controller="Song" asp-action="Index" method="get">
             <div class="d-flex align-items-center gap-4 mb-4">

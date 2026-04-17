@@ -1,4 +1,4 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
+// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
 
 document.addEventListener('DOMContentLoaded', function () {
     if (typeof $ !== 'undefined' && $.validator) {
@@ -297,15 +297,42 @@ function checkAndInitialize() {
 
 checkAndInitialize();
 
-// General Fixing of broken stuff from using the HTMX library
-// --- 1. HTMX Configuration ---
-if (typeof htmx !== 'undefined') {
-    htmx.config.historyEnabled = true;
-    htmx.config.historyCacheSize = 0; // Forces a fresh AJAX fetch on 'Back'
-    htmx.config.refreshOnHistoryMiss = false;
-}
+// --- 11. Scroll Animations (Intersection Observer) ---
+document.addEventListener('DOMContentLoaded', function() {
+    const observerOptions = {
+        threshold: 0.1
+    };
 
-// --- 2. Navigation & Scroll Management ---
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                // Optional: stop observing once shown
+                // observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-in-up').forEach(el => {
+        observer.observe(el);
+    });
+});
+
+// THE MAGIC PART: Run it every time HTMX swaps content
+document.body.addEventListener('htmx:afterOnLoad', function (evt) {
+    initializeMusicSelects();
+    
+    // Re-trigger animations on new content
+    document.querySelectorAll('.fade-in-up').forEach(el => {
+        el.style.opacity = "0";
+        setTimeout(() => {
+            el.style.transition = "opacity 0.8s ease, transform 0.8s ease";
+            el.style.opacity = "1";
+            el.style.transform = "translateY(0)";
+        }, 50);
+    });
+});
+
 // A. Create the function
 function updateNavigation() {
     var navLinks = document.querySelectorAll('.nav-link');
@@ -333,5 +360,10 @@ document.body.addEventListener('htmx:afterSettle', function () {
     var mainContent = document.getElementById('main-content');
     if (mainContent) {
         mainContent.scrollTop = 0;
+        
+        // Trigger fade-in on main content after swap
+        mainContent.classList.remove('fade-in-up');
+        void mainContent.offsetWidth; // Trigger reflow
+        mainContent.classList.add('fade-in-up');
     }
-});
+});

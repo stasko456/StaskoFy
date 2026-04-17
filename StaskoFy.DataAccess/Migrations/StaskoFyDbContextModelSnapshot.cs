@@ -185,7 +185,7 @@ namespace StaskoFy.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Albums");
+                    b.ToTable("Albums", (string)null);
 
                     b.HasData(
                         new
@@ -266,7 +266,7 @@ namespace StaskoFy.DataAccess.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Artists");
+                    b.ToTable("Artists", (string)null);
 
                     b.HasData(
                         new
@@ -343,7 +343,7 @@ namespace StaskoFy.DataAccess.Migrations
 
                     b.HasIndex("AlbumId");
 
-                    b.ToTable("ArtistsAlbums");
+                    b.ToTable("ArtistsAlbums", (string)null);
 
                     b.HasData(
                         new
@@ -395,7 +395,7 @@ namespace StaskoFy.DataAccess.Migrations
 
                     b.HasIndex("SongId");
 
-                    b.ToTable("ArtistsSongs");
+                    b.ToTable("ArtistsSongs", (string)null);
 
                     b.HasData(
                         new
@@ -658,7 +658,7 @@ namespace StaskoFy.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Genres");
+                    b.ToTable("Genres", (string)null);
 
                     b.HasData(
                         new
@@ -764,7 +764,7 @@ namespace StaskoFy.DataAccess.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("LikedSongs");
+                    b.ToTable("LikedSongs", (string)null);
 
                     b.HasData(
                         new
@@ -932,7 +932,7 @@ namespace StaskoFy.DataAccess.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Playlists");
+                    b.ToTable("Playlists", (string)null);
 
                     b.HasData(
                         new
@@ -991,7 +991,7 @@ namespace StaskoFy.DataAccess.Migrations
 
                     b.HasIndex("SongId");
 
-                    b.ToTable("PlaylistsSongs");
+                    b.ToTable("PlaylistsSongs", (string)null);
 
                     b.HasData(
                         new
@@ -1198,7 +1198,7 @@ namespace StaskoFy.DataAccess.Migrations
 
                     b.HasIndex("GenreId");
 
-                    b.ToTable("Songs");
+                    b.ToTable("Songs", (string)null);
 
                     b.HasData(
                         new

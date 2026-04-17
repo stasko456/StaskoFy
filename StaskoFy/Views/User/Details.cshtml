@@ -1,4 +1,4 @@
-﻿@model ProfileIndexViewModel
+@model ProfileIndexViewModel
 
 <div class="container mt-5">
     <div class="row justify-content-center">
@@ -9,17 +9,17 @@
 
                 <div class="card-body text-center">
 
-                    <img src="@Model.ProfilePicture"
-                         class="rounded-circle mb-4"
-                         width="200"
-                         height="200"
-                         style="object-fit:cover;">
-
-                    <h2 class="fw-bold mb-2">@Model.Username</h2>
-
-                    <p class="text-dark mb-4 fs-5">
-                        Member of the platform
-                    </p>
+                     <div class="profile-header text-center">
+                         <img src="@Model.ProfilePicture"
+                              class="rounded-circle mb-4"
+                              width="200"
+                              height="200"
+                              style="object-fit:cover;" />
+                         <h2 class="fw-bold mb-2">@Model.Username</h2>
+                         <p class="text-dark mb-4 fs-5">
+                             Member of the platform
+                         </p>
+                     </div>
 
                     <div class="d-flex justify-content-center gap-3">
                         @if (!User.IsInRole("Admin"))

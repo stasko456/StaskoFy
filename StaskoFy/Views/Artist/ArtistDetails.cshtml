@@ -1,4 +1,4 @@
-﻿@model ArtistIndexWithProjects
+@model ArtistIndexWithProjects
 
 <div class="container mt-4">
 
@@ -12,16 +12,18 @@
     </div>
 
     <div class="text-center text-light mb-5">
-        <img src="@Model.ProfilePicture"
-             class="rounded-circle shadow mb-3"
-             width="150"
-             height="150"
-             style="object-fit:cover;" />
+        <div class="profile-header d-flex flex-column align-items-center text-center">
+            <img src="@Model.ProfilePicture"
+                 class="rounded-circle shadow mb-3"
+                 width="150"
+                 height="150"
+                 style="object-fit:cover;" />
 
-        <h1 class="display-4 fw-bold specific_heading">
-            @Model.Username
-        </h1>
-        <p class="text-dark fs-5">Artist</p>
+            <h1 class="display-4 fw-bold specific_heading">
+                @Model.Username
+            </h1>
+            <p class="text-dark fs-5">Artist</p>
+        </div>
     </div>
 
     <ul class="nav nav-pills justify-content-start mb-4" id="pills-tab" role="tablist">
