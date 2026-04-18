@@ -5,7 +5,7 @@
         <div class="col-12 col-md-7 col-lg-5">
             <div class="form-studio-card">
 
-                <!-- Header -->
+
                 <div class="form-studio-header">
                     <div class="form-studio-header__icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 16 16">
@@ -21,7 +21,7 @@
                 <div class="form-studio-body">
                     <form asp-action="Manage" method="post" enctype="multipart/form-data">
 
-                        <!-- Current Avatar -->
+
                         <div class="form-studio-section">
                             <div class="form-studio-section__label">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" viewBox="0 0 16 16">
@@ -32,20 +32,19 @@
 
                             <div class="text-center mb-4">
                                 <img src="@Model.CurrentProfilePicture"
-                                     class="rounded-circle"
+                                     class="rounded-circle user-profile-img"
                                      width="120"
-                                     height="120"
-                                     style="object-fit:cover; border: 3px solid rgba(255,193,7,0.4); box-shadow: 0 0 20px rgba(255,193,7,0.15);" />
+                                     height="120">
                             </div>
 
                             <div class="form-studio-field mb-3">
                                 <label asp-for="Username" class="form-studio-field__label">Username</label>
-                                <input asp-for="Username" class="form-control" placeholder="Enter username…" />
+                                <input asp-for="Username" class="form-studio-field__input" placeholder="Enter username…" />
                                 <span asp-validation-for="Username" class="form-studio-field__error"></span>
                             </div>
                         </div>
 
-                        <!-- Profile Picture Upload -->
+
                         <div class="form-studio-section">
                             <div class="form-studio-section__label">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" viewBox="0 0 16 16">
@@ -64,7 +63,7 @@
                             </div>
                         </div>
 
-                        <!-- Actions -->
+
                         <div class="form-studio-actions">
                             <a asp-action="Details" class="form-studio-actions__cancel">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">

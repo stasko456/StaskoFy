@@ -1,41 +1,8 @@
-/* --- 1. Global & Base Styles --- */
-/*html {
-    position: relative;
-    min-height: 100%;
-    font-size: 14px;
-}
-
-@media (min-width: 768px) {
-    html {
-        font-size: 16px;
-        scroll-behavior: auto !important;
-        scroll-padding-top: 80px;
-    }
-}
-
-body {
-    margin-bottom: 60px;
-    background-color: #121212;
-    color: white;
-}*/
-
-/*html {
-    position: relative;
-    min-height: 100%;
-}
-
-body {*/
-    /* Margin bottom by footer height */
-    /*margin-bottom: 180px;
-}*/
-
-
-
 html, body {
     height: 100vh;
     margin: 0;
     padding: 0;
-    overflow: hidden; /* Locks the browser window */
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     background-color: #0a0a0a;
@@ -50,11 +17,11 @@ header {
 
 #main-content {
     flex: 1 1 auto;
-    overflow-y: auto !important; /* This is your ONLY scrollbar */
+    overflow-y: auto !important;
     min-height: 0;
     display: block !important;
     position: relative;
-    background-color: #0a0a0a; /* Lighter dark background */
+    background-color: #0a0a0a;
 }
 
     #main-content > main {
@@ -64,8 +31,6 @@ header {
         padding-top: 20px;
         padding-left: 20px;
         padding-right: 20px;
-        /* SCROLL FIX: The Clearance Padding */
-        /* Must be higher than the footer height */
         padding-bottom: 150px !important;
         height: auto !important;
         min-height: min-content !important;
@@ -74,7 +39,7 @@ header {
 
 @media (max-width: 767px) {
     #main-content > main {
-        padding-bottom: 250px !important; /* More padding on mobile for stacked footer */
+        padding-bottom: 250px !important;
     }
 }
 
@@ -86,7 +51,7 @@ header {
     position: fixed;
     bottom: 0;
     left: 0;
-    height: 120px; /* Default desktop height */
+    height: 120px;
     transition: height 0.3s ease;
 }
 
@@ -97,8 +62,6 @@ header {
         padding: 10px 0 !important;
     }
 }
-
-
 
 .music-player {
     display: flex;
@@ -117,7 +80,6 @@ header {
     }
 }
 
-/* 1. Left Section: Song Info */
 .song-info {
     flex: 1;
     display: flex;
@@ -130,14 +92,13 @@ header {
         width: 100%;
         justify-content: center;
     }
-    
+
     .song-info .song-art {
         width: 50px !important;
         height: 50px !important;
     }
 }
 
-/* 2. Center Section: Player Controls */
 .player-controls {
     flex: 2;
     display: flex;
@@ -152,7 +113,6 @@ header {
     }
 }
 
-/* 3. Right Section: Volume */
 .volume-controls {
     flex: 1;
     display: flex;
@@ -163,26 +123,41 @@ header {
 
 @media (max-width: 767px) {
     .volume-controls {
-        display: none !important; /* Hide volume on mobile to save space */
+        display: none !important;
     }
 }
 
-/* Slider Styling */
+.player-section-left {
+    flex: 1;
+    width: 0;
+    min-width: 0;
+}
+
+.player-section-center {
+    flex: 2;
+    width: 100%;
+}
+
+.player-section-right {
+    flex: 1;
+    width: 0;
+}
+
 #progress-bar, #volume-bar {
     cursor: pointer;
-    accent-color: #ffc107; /* Modern way to set slider color to gold */
+    accent-color: #ffc107;
 }
 
 #volume-bar {
     width: 100px;
 }
 
-/* --- 3. Buttons & Focus States --- */
 .btn-outline-warning, .btn-search, #registerSubmit {
     color: #ffc107 !important;
     border: 2px solid #ffc107 !important;
     background-color: transparent;
     border-radius: 8px;
+    padding: 10px 24px !important;
 }
 
     .btn-check:checked + .btn-outline-warning,
@@ -205,23 +180,19 @@ header {
     border-color: #dc3545 !important;
 }
 
-/* 1. The Base State (Not on hover) */
 .btn-outline-success {
-    border-width: 2px !important; /* Makes the outline thicker */
-    font-weight: 600; /* Optional: makes text match the bold border */
+    border-width: 2px !important;
+    font-weight: 600;
 }
 
-    /* 2. The Hover State */
     .btn-outline-success:hover {
-        border-width: 2px !important; /* Keeps the thickness consistent */
-        background-color: #198754; /* Standard Bootstrap success green */
+        border-width: 2px !important;
+        background-color: #198754;
         color: #fff;
     }
 
-    /* 3. The Focus State (The ring when clicked) */
     .btn-outline-success:focus {
         border-width: 2px !important;
-        /* This creates the double-ring effect you had earlier */
         box-shadow: 0 0 0 0.1rem #121212, 0 0 0 0.25rem rgba(25, 135, 84, 0.5) !important;
         border-color: #198754 !important;
     }
@@ -231,7 +202,6 @@ header {
     border-color: #fd7e14 !important;
 }
 
-/* --- 4. Navigation --- */
 .nav-item .nav-link {
     position: relative;
     padding: 10px 15px !important;
@@ -252,7 +222,6 @@ header {
         border-bottom: 3px solid #ffc107;
     }
 
-/* --- 5. Nav Pills Fix --- */
 .nav-pills .nav-link {
     color: #ffc107 !important;
     border: 2px solid #ffc107;
@@ -267,10 +236,6 @@ header {
         border-bottom: 2px solid #ffc107;
     }
 
-/* --- 6. Admin & Sub-Menus --- */
-/* --- 6. Admin & Sub-Menus (Fixed for all Dropdowns) --- */
-
-/* Targets the container for both Nav and Card dropdowns */
 .dropdown-menu,
 .nav-item.dropdown .dropdown-menu,
 .dropdown-menu-dark {
@@ -279,35 +244,31 @@ header {
     border-radius: 10px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     padding: 10px 0;
-    z-index: 2200; /* Ensures it stays above cards and footer */
+    z-index: 2200;
 }
 
-/* Targets the individual items */
 .dropdown-item {
     color: white !important;
     padding: 10px 20px;
     font-weight: 500;
     transition: all 0.2s ease;
-    border-left: 3px solid transparent; /* Your original design */
+    border-left: 3px solid transparent;
     background: transparent;
 }
 
-    /* Hover state: Slide effect + Gold border */
     .dropdown-item:hover,
     .dropdown-item:focus {
         background-color: rgba(255, 193, 7, 0.1) !important;
         color: #ffc107 !important;
         border-left: 3px solid #ffc107;
-        padding-left: 25px; /* Creates that nice slide-in feel */
+        padding-left: 25px;
     }
 
-    /* Specific fix for the Gold "Liked Songs" button to keep it bold */
     .dropdown-item.text-gold {
         color: #ffc107 !important;
         font-weight: 700;
     }
 
-/* Nested Dropdown Logic (Add to Playlist) */
 .dropdown-submenu {
     position: relative;
 }
@@ -323,7 +284,6 @@ header {
         display: block;
     }
 
-/* --- 7. Cards --- */
 .card {
     overflow: visible !important;
 }
@@ -339,7 +299,7 @@ header {
     border-radius: 12px;
     position: relative;
     z-index: 1;
-    border: 1px solid transparent !important; /* Added a transparent border to prevent jumping */
+    border: 1px solid transparent !important;
 }
 
     .project-card:hover, .artist-hover-card:hover, .playlist-hover-card:hover,
@@ -350,7 +310,6 @@ header {
     .card-album-details:hover, .song-create-edit-card:hover, .album-create-edit-card:hover,
     .playlist-create-edit-card:hover, .liked-songs-card:hover, .artist-card-acception:hover {
         transform: translateY(-10px);
-        /* Lower this slightly so it's always under the footer's 1100 */
         z-index: 1000 !important;
         border: 1px solid rgba(255, 193, 7, 0.4) !important;
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6), 0 0 15px rgba(255, 193, 7, 0.3) !important;
@@ -361,7 +320,6 @@ footer {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6), 0 0 15px rgba(255, 193, 7, 0.3) !important;
 }
 
-/* --- 8. Global Button Logic --- */
 .btn {
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
     font-weight: bold;
@@ -375,7 +333,6 @@ footer {
         transform: translateY(-2px) scale(0.96);
     }
 
-/* Danger Group (Red) */
 .btn-outline-danger {
     color: #dc3545 !important;
     border: 2px solid #dc3545 !important;
@@ -389,7 +346,6 @@ footer {
         box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
     }
 
-/* Edit Group (Orange) */
 .edit-button {
     color: #fd7e14 !important;
     border: 2px solid #fd7e14 !important;
@@ -403,7 +359,6 @@ footer {
         box-shadow: 0 5px 15px rgba(253, 126, 20, 0.3);
     }
 
-/* --- 9. Pagination --- */
 .pagination .page-link {
     color: #ffc107;
     background-color: transparent;
@@ -425,7 +380,6 @@ footer {
     transform: scale(1.1);
 }
 
-/* --- 10. Helpers --- */
 .specific_heading {
     color: #ffc107;
 }
@@ -435,7 +389,6 @@ footer {
     min-height: 100px;
 }
 
-/* --- 11. Form Select (Dropdown Menus) --- */
 .form-select {
     background: rgba(255, 255, 255, 0.04) !important;
     border: 1.5px solid rgba(255, 255, 255, 0.1) !important;
@@ -470,7 +423,6 @@ footer {
         padding: 10px !important;
     }
 
-/* --- 12. Choices.js Multi-Select Customization --- */
 .choices__inner {
     background: rgba(255, 255, 255, 0.04) !important;
     border: 1.5px solid rgba(255, 255, 255, 0.1) !important;
@@ -525,23 +477,21 @@ footer {
         color: #ffc107 !important;
     }
 
-/* --- 13. Fieldset & Sectioning --- */
 fieldset {
     border: none;
     padding: 0;
     margin: 0;
 }
 
-/* --- 14 Custom namespace to isolate styles --- */
 .compact-search-group .form-control.custom-search-input {
-    height: 32px; /* Slimmer height */
+    height: 32px;
     padding: 0.25rem 0.75rem;
     font-size: 0.85rem;
     border-radius: 6px;
 }
 
 .compact-search-group .btn.custom-search-btn {
-    height: 32px; /* Matches the input */
+    height: 32px;
     padding: 0 1rem;
     font-size: 0.85rem;
     line-height: 1;
@@ -550,69 +500,55 @@ fieldset {
     align-items: center;
 }
 
-/* Ensure the SVG scales with the smaller button */
 .compact-search-group .custom-search-btn svg {
     width: 16px;
     height: 16px;
     margin-right: 6px;
 }
 
-/* 1. Make the Switch Bigger */
 .form-check-input {
-    width: 3.5em !important; /* Increased width */
-    height: 1.75em !important; /* Increased height */
+    width: 3.5em !important;
+    height: 1.75em !important;
     cursor: pointer;
-    background-color: rgba(255, 255, 255, 0.1); /* Darker "off" state */
+    background-color: rgba(255, 255, 255, 0.1);
     border-color: rgba(255, 255, 255, 0.3);
 }
 
-    /* 2. Success Green Glow when ON */
     .form-check-input:checked {
         background-color: #198754 !important;
         border-color: #198754 !important;
         box-shadow: 0 0 15px rgba(25, 135, 84, 0.6) !important;
     }
 
-    /* 3. Remove default blue focus and add green glow */
     .form-check-input:focus {
         border-color: #198754;
         box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25);
     }
 
-    /* 4. Label Styles (White/Bold when ON) */
     .form-check-input:checked + .form-check-label {
         color: #fff !important;
         font-weight: 700;
         text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
     }
 
-/* 5. Dim Label when OFF */
 .form-check-label {
     color: #adb5bd;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.2s ease;
-    padding-left: 0.75rem; /* Space between switch and text */
+    padding-left: 0.75rem;
 }
-
-
-
 
 .form-range {
-    /* This makes it fill the entire width of its container */
     width: 100%;
-    /* OR, if you want a specific "long" size: */
-    /* width: 500px; */
-    /* This ensures it doesn't look squashed on small screens */
     max-width: 800px;
     display: block;
-    margin: 20px 0; /* Adds some breathing room above and below */
+    margin: 20px 0;
 }
 
-    /* 2. BIGGER TRACK */
     .form-range::-webkit-slider-runnable-track {
         width: 100%;
-        height: 12px; /* Thicker line */
+        height: 12px;
         background: #333;
         border-radius: 6px;
     }
@@ -624,19 +560,16 @@ fieldset {
         border-radius: 6px;
     }
 
-    /* 3. BIGGER THUMB (The Knob) */
     .form-range::-webkit-slider-thumb {
         -webkit-appearance: none;
-        height: 28px; /* Massive thumb */
+        height: 28px;
         width: 28px;
         background: #ffc107;
         border-radius: 50%;
         cursor: pointer;
-        /* Centering formula: (TrackHeight / 2) - (ThumbHeight / 2) */
-        /* (12 / 2) - (28 / 2) = 6 - 14 = -8px */
         margin-top: -8px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-        border: 2px solid #222; /* Adding a border makes it pop */
+        border: 2px solid #222;
     }
 
     .form-range::-moz-range-thumb {
@@ -648,8 +581,6 @@ fieldset {
         border: 2px solid #222;
     }
 
-/* --- 15. Standard Form Inputs (Text, Password, File, etc.) --- */
-/* Global dark-studio style applied to ALL .form-control inputs */
 .form-control {
     background: rgba(255, 255, 255, 0.04) !important;
     border: 1.5px solid rgba(255, 255, 255, 0.1) !important;
@@ -682,7 +613,6 @@ fieldset {
         color: #fff !important;
     }
 
-    /* --- 16. Validation Error States --- */
     .form-control.input-validation-error {
         border-color: rgba(248, 113, 113, 0.6) !important;
         box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.1) !important;
@@ -694,7 +624,6 @@ fieldset {
             box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.15) !important;
         }
 
-    /* --- 17. File Input — dark-themed choose button --- */
     .form-control[type="file"] {
         color: rgba(255, 255, 255, 0.55) !important;
     }
@@ -716,80 +645,65 @@ fieldset {
         background: rgba(255, 193, 7, 0.28);
     }
 
-/* 1. The Wrapper */
 .details-card-container {
     width: 300px;
     height: 300px;
-    position: relative; /* Essential for positioning the button */
+    position: relative;
     cursor: pointer;
 }
 
-/* 2. The Play Button Overlay */
 .play-btn-overlay {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); /* Keeps it perfectly centered */
-    opacity: 0; /* Hidden by default */
+    transform: translate(-50%, -50%);
+    opacity: 0;
     transition: opacity 0.2s ease-in-out, transform 0.2s ease;
     border: none;
     background: transparent;
-    z-index: 10; /* Ensures it sits on top of the image */
+    z-index: 10;
 }
 
-/* 3. Hover Logic: Show button, keep image original */
 .details-card-container:hover .play-btn-overlay {
     opacity: 1;
 }
 
-/* Optional: Subtle hover effect on the button itself so it feels "alive" */
 .play-btn-overlay:hover {
     transform: translate(-50%, -50%) scale(1.1);
 }
 
-/* --- Song Row Hover Effects --- */
-
-/* 1. Hide the play button initially and prepare the animation */
 .play-overlay-btn {
     opacity: 0;
     transition: opacity 0.2s ease, transform 0.2s ease;
-    /* Optional: starts slightly smaller for a "pop" effect */
     transform: translate(-50%, -50%) scale(0.8) !important;
     z-index: 2;
 }
 
-/* 2. Prepare the image to smoothly transition darker */
 .song-image {
     transition: filter 0.2s ease;
 }
 
-/* 3. When the ROW is hovered (or just the container), trigger the effects */
-/* Note: If you want it to trigger when hovering anywhere on the table row (<tr>), 
-   add the class "song-row" to your <tr> and change the hover selector to: tr.song-row:hover */
 .hover-play-container:hover .play-overlay-btn,
 tr:hover .play-overlay-btn {
     opacity: 1;
     transform: translate(-50%, -50%) scale(1) !important;
 }
 
-/* Darken the image so the gold play button is easily visible */
 .hover-play-container:hover .song-image,
 tr:hover .song-image {
     filter: brightness(0.4);
 }
 
-/* Default State: Hide the play button, show the index */
 .track-index-cell .play-btn-custom {
     display: none;
 }
 
 .track-index-cell .track-index-number {
     display: inline-block;
-    width: 40px; /* Matches your SVG width to prevent the table cells from shifting on hover */
+    width: 40px;
     text-align: center;
 }
 
-/* Hover State: When hovering over the table row (tr), swap them */
 tr:hover .track-index-cell .play-btn-custom {
     display: inline-block;
 }
@@ -797,13 +711,7 @@ tr:hover .track-index-cell .play-btn-custom {
 tr:hover .track-index-cell .track-index-number {
     display: none;
 }
-/* ===================================================================
-   DESIGN TOUCH-UP — APPENDED ENHANCEMENTS
-   These styles ADD to or OVERRIDE the originals above.
-   The yellow (#ffc107) is preserved everywhere.
-   =================================================================== */
 
-/* --- A. Typography --- */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 html, body {
@@ -817,25 +725,22 @@ h1, h2, h3, h4, h5, h6,
     letter-spacing: -0.5px;
 }
 
-/* --- B. Text Visibility Fixes --- */
 .text-muted {
     color: #b3b3b3 !important;
 }
 
 .text-dark {
-    color: #cccccc !important;
+    color: #b3b3b3 !important;
 }
 
 .text-secondary {
     color: #aaaaaa !important;
 }
 
-/* Form labels should be visible */
 .form-label {
     color: #e0e0e0 !important;
 }
 
-/* Card text should be lighter */
 .card-text {
     color: #d0d0d0;
 }
@@ -844,7 +749,6 @@ h1, h2, h3, h4, h5, h6,
     color: #ffffff;
 }
 
-/* --- C. Custom Scrollbar --- */
 #main-content::-webkit-scrollbar {
     width: 8px;
 }
@@ -863,7 +767,6 @@ h1, h2, h3, h4, h5, h6,
     background: #ffc107;
 }
 
-/* --- D. Navbar Enhancement (Glassmorphism) --- */
 .navbar {
     background: rgba(18, 18, 18, 0.85) !important;
     backdrop-filter: blur(20px) saturate(180%);
@@ -875,7 +778,6 @@ h1, h2, h3, h4, h5, h6,
     z-index: 1050;
 }
 
-/* Profile image in navbar gets a gold ring */
 .navbar .rounded-circle {
     border: 2px solid rgba(255, 193, 7, 0.5);
     transition: all 0.3s ease;
@@ -886,7 +788,6 @@ h1, h2, h3, h4, h5, h6,
     box-shadow: 0 0 12px rgba(255, 193, 7, 0.4);
 }
 
-/* --- E. Footer / Music Player Enhancement --- */
 footer.footer {
     background: rgba(18, 18, 18, 0.9) !important;
     backdrop-filter: blur(25px) saturate(180%);
@@ -898,7 +799,6 @@ footer.footer {
     box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.5), 0 -1px 0 rgba(255, 193, 7, 0.1);
 }
 
-/* Now-playing album art glow */
 .song-art {
     border-radius: 10px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
@@ -910,19 +810,14 @@ footer.footer {
     box-shadow: 0 4px 25px rgba(255, 193, 7, 0.3);
 }
 
-/* Song title in footer */
 .song-title {
     color: #fff !important;
 }
 
-/* Player control buttons hover glow */
 .music-player .btn-link:hover svg path {
     filter: drop-shadow(0 0 6px rgba(255, 193, 7, 0.6));
 }
 
-/* --- F. Card Enhancements (Shimmer + Polish) --- */
-
-/* Shimmer sweep on hover */
 .song-card-container::before,
 .playlist-hover-card::before,
 .artist-hover-card::before,
@@ -965,7 +860,6 @@ footer.footer {
     100% { left: 125%; }
 }
 
-/* Card image zoom on hover */
 .song-card-container:hover img,
 .playlist-hover-card:hover img,
 .artist-hover-card:hover img,
@@ -981,17 +875,15 @@ footer.footer {
     transition: transform 0.5s ease;
 }
 
-/* Larger border-radius on all cards */
 .song-card-container,
 .playlist-hover-card,
 .artist-hover-card,
 .liked-songs-card {
     border-radius: 16px !important;
-    overflow: visible !important; /* allow dropdowns to escape card bounds */
+    overflow: visible !important;
     background-color: #181818 !important;
 }
 
-/* Gold top accent line on dashboard stat cards */
 .admin-manage-card,
 .artist-manage-card,
 .user-manage-card {
@@ -1015,14 +907,12 @@ footer.footer {
     color: #ffc107;
 }
 
-/* --- G. Login/Register Card Glass Effect --- */
 .login-register-card {
     background: rgba(26, 26, 26, 0.95) !important;
     border: 1px solid rgba(255, 193, 7, 0.15) !important;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.03) inset !important;
 }
 
-/* --- H. Details Cards (Song/Album/Playlist Details) --- */
 .card-song-details,
 .card-album-details {
     background-color: #161616 !important;
@@ -1030,7 +920,6 @@ footer.footer {
     border-radius: 20px !important;
 }
 
-/* Details page info text */
 .card-song-details .card-text,
 .card-album-details .card-text {
     color: #d0d0d0;
@@ -1041,7 +930,6 @@ footer.footer {
     color: #ffc107;
 }
 
-/* --- I. Song/Album Create & Edit Cards --- */
 .song-create-edit-card,
 .album-create-edit-card,
 .playlist-create-edit-card {
@@ -1050,7 +938,6 @@ footer.footer {
     border-radius: 20px !important;
 }
 
-/* --- J. User Profile Cards --- */
 .user-profile-card,
 .user-edit-profile-card {
     background-color: #181818 !important;
@@ -1058,14 +945,12 @@ footer.footer {
     border-radius: 20px !important;
 }
 
-/* User profile image gold ring */
 .user-profile-card .rounded-circle,
 .user-edit-profile-card .rounded-circle {
     border: 3px solid rgba(255, 193, 7, 0.4);
     box-shadow: 0 0 20px rgba(255, 193, 7, 0.15);
 }
 
-/* --- K. Badge Styling --- */
 .badge.bg-secondary {
     background-color: rgba(255, 193, 7, 0.15) !important;
     color: #ffc107 !important;
@@ -1073,7 +958,6 @@ footer.footer {
     font-weight: 600;
 }
 
-/* --- L. Table Enhancements --- */
 table {
     border-collapse: separate;
     border-spacing: 0;
@@ -1105,17 +989,15 @@ table tbody td {
     vertical-align: middle;
 }
 
-/* --- M. Horizontal Rules --- */
 hr {
     border-color: rgba(255, 193, 7, 0.2) !important;
     opacity: 1;
 }
 
-/* --- N. Dropdown Slide Animation --- */
 .dropdown-menu,
 .navbar .dropdown-menu {
     overflow: visible !important;
-    z-index: 2100 !important; /* ensure dropdown appears above other elements */
+    z-index: 2100 !important;
     animation: dropSlide 0.25s ease-out;
     transform-origin: top center;
 }
@@ -1130,17 +1012,7 @@ hr {
         transform: translateY(0) scale(1);
     }
 }
-    from {
-        opacity: 0;
-        transform: translateY(-8px) scale(0.97);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
 
-/* --- O. Nav Pills Enhancement --- */
 .nav-pills .nav-link {
     border-radius: 20px !important;
     padding: 8px 24px !important;
@@ -1152,20 +1024,17 @@ hr {
     box-shadow: 0 0 15px rgba(255, 193, 7, 0.3);
 }
 
-/* --- P. Search Input Enhancement --- */
 .form-control[type="search"],
 input[type="search"].form-control {
     border-radius: 25px !important;
     padding-left: 20px !important;
 }
 
-/* --- Q. Page Heading Underline Accent --- */
 .display-3, .display-4 {
     position: relative;
     display: inline-block;
 }
 
-/* --- R. Entrance Animations --- */
 .fade-in-up {
     animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
     opacity: 0;
@@ -1182,7 +1051,6 @@ input[type="search"].form-control {
     }
 }
 
-/* Stagger delays for cards in rows */
 .row > .col:nth-child(1) { animation-delay: 0s; }
 .row > .col:nth-child(2) { animation-delay: 0.05s; }
 .row > .col:nth-child(3) { animation-delay: 0.1s; }
@@ -1190,7 +1058,6 @@ input[type="search"].form-control {
 .row > .col:nth-child(5) { animation-delay: 0.2s; }
 .row > .col:nth-child(6) { animation-delay: 0.25s; }
 
-/* --- S. "Options" Button on Cards --- */
 .dropup .btn[data-bs-toggle="dropdown"],
 .dropdown .btn[data-bs-toggle="dropdown"] {
     background-color: rgba(255, 193, 7, 0.08) !important;
@@ -1206,7 +1073,6 @@ input[type="search"].form-control {
     box-shadow: 0 0 12px rgba(255, 193, 7, 0.15);
 }
 
-/* --- T. Validation Error States --- */
 .form-control.input-validation-error {
     border-color: #dc3545 !important;
     box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.15) !important;
@@ -1217,7 +1083,6 @@ input[type="search"].form-control {
     margin-top: 4px;
 }
 
-/* --- U. "Back" Link Styling --- */
 a.specific_heading {
     transition: all 0.3s ease;
 }
@@ -1227,12 +1092,10 @@ a.specific_heading:hover {
     transform: translateX(-4px);
 }
 
-/* --- V. Empty State Styling --- */
 .border-secondary {
     border-color: rgba(255, 193, 7, 0.2) !important;
 }
 
-/* --- W. Selection / Highlight Color --- */
 ::selection {
     background: rgba(255, 193, 7, 0.3);
     color: #fff;
@@ -1243,23 +1106,6 @@ a.specific_heading:hover {
     color: #fff;
 }
 
-/* =====================================================================
-   GLOBAL DARK-MODE CONSISTENCY FIXES
-   ===================================================================== */
-
-/* text-dark is Bootstrap's dark text class — on a #0a0a0a background
-   it renders as near-invisible. Override it app-wide to text-muted. */
-.text-dark {
-    color: #b3b3b3 !important;
-}
-
-/* hr — Bootstrap's default gives a light grey line; darken it */
-hr {
-    border-color: rgba(255, 193, 7, 0.12) !important;
-    opacity: 1;
-}
-
-/* Bootstrap tables — ensure dark backgrounds + legible text */
 .table {
     color: #e0e0e0 !important;
     border-color: rgba(255, 255, 255, 0.06) !important;
@@ -1271,24 +1117,19 @@ hr {
     border-color: rgba(255, 255, 255, 0.06) !important;
 }
 
-/* table-hover row highlight */
 .table-hover > tbody > tr:hover > * {
     background-color: rgba(255, 193, 7, 0.05) !important;
     color: #fff !important;
 }
 
-/* thead  */
 .table thead th {
     border-bottom: 1px solid rgba(255, 193, 7, 0.15) !important;
 }
 
-/* Bootstrap card body — ensure dark bg everywhere a .card is used
-   that doesn't already have a bespoke class */
 .card-body {
     color: #e0e0e0;
 }
 
-/* Dropdown menus — dark themed globally */
 .dropdown-menu-dark,
 .dropdown-menu {
     background-color: #1a1a1a !important;
@@ -1310,11 +1151,86 @@ hr {
     border-color: rgba(255, 255, 255, 0.08) !important;
 }
 
-/* =====================================================================
-   FORM STUDIO — Premium Create / Edit Form Design System
-   ===================================================================== */
+.badge-gold {
+    background-color: rgba(255, 193, 7, 0.15) !important;
+    color: #ffc107 !important;
+    border: 1px solid rgba(255, 193, 7, 0.3) !important;
+    font-weight: 600;
+}
 
-/* --- Card Wrapper --- */
+.img-detail-cover {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+}
+
+.card-info-text {
+    font-size: 0.85rem;
+    color: #adb5bd;
+}
+
+.card-title-sm {
+    font-weight: 700;
+    font-size: 0.95rem;
+}
+
+.card-title-md {
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.min-height-300 {
+    min-height: 300px;
+}
+
+.anim-delay-1 {
+    animation-delay: 0.1s;
+}
+
+.anim-delay-2 {
+    animation-delay: 0.2s;
+}
+
+.text-gold {
+    color: #ffc107;
+}
+
+.img-thumbnail-sq {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+.song-grid-max {
+    max-width: 1200px;
+}
+
+.user-profile-img {
+    object-fit: cover;
+    border: 3px solid rgba(255, 193, 7, 0.4);
+    box-shadow: 0 0 20px rgba(255, 193, 7, 0.15);
+}
+
+.card-img-top-sq {
+    position: relative;
+    width: 100%;
+    padding-bottom: 100%;
+    background-color: #2a2a2a;
+    border-radius: 12px 12px 0 0;
+    overflow: hidden;
+}
+
+.card-img-top-sq a,
+.card-img-top-sq img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
 .form-studio-card {
     background: #111111;
     border: 1px solid rgba(255, 193, 7, 0.12);
@@ -1329,7 +1245,6 @@ hr {
     box-shadow: 0 24px 70px rgba(0, 0, 0, 0.65), 0 0 30px rgba(255, 193, 7, 0.07);
 }
 
-/* --- Gradient Header --- */
 .form-studio-header {
     display: flex;
     align-items: center;
@@ -1349,7 +1264,6 @@ hr {
     border-bottom: 1px solid rgba(255, 193, 7, 0.3);
 }
 
-/* Subtle shimmer sweep in header */
 .form-studio-header::after {
     content: "";
     position: absolute;
@@ -1398,12 +1312,10 @@ hr {
     margin: 4px 0 0;
 }
 
-/* --- Body Padding --- */
 .form-studio-body {
     padding: 28px 32px;
 }
 
-/* --- Section Dividers --- */
 .form-studio-section {
     margin-bottom: 28px;
     padding-bottom: 28px;
@@ -1437,7 +1349,6 @@ hr {
     margin-left: 4px;
 }
 
-/* --- Form Fields --- */
 .form-studio-field {
     position: relative;
 }
@@ -1483,7 +1394,6 @@ hr {
     color: #fff !important;
 }
 
-/* Override for select inside .form-studio-field */
 .form-studio-field__select {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23aaaaaa' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
 }
@@ -1493,7 +1403,6 @@ hr {
     color: #fff !important;
 }
 
-/* Validation error text */
 .form-studio-field__error {
     display: block;
     font-size: 0.78rem;
@@ -1502,13 +1411,11 @@ hr {
     min-height: 18px;
 }
 
-/* Validation error border state */
 .form-studio-field__input.input-validation-error {
     border-color: rgba(248, 113, 113, 0.6) !important;
     box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.1) !important;
 }
 
-/* --- Duration Inputs --- */
 .form-studio-duration {
     display: flex;
     align-items: center;
@@ -1542,7 +1449,6 @@ hr {
     padding-bottom: 2px;
 }
 
-/* Override choices.js wrapper inside studio fields */
 .form-studio-field .choices__inner {
     background: rgba(255, 255, 255, 0.04) !important;
     border: 1.5px solid rgba(255, 255, 255, 0.1) !important;
@@ -1597,7 +1503,6 @@ hr {
     margin-top: 2px;
 }
 
-/* --- Upload Zones — gold dashed border, consistent with app gold accent --- */
 .form-studio-upload {
     position: relative;
     border: 2px dashed rgba(255, 193, 7, 0.25);
@@ -1653,7 +1558,6 @@ hr {
     z-index: 2;
 }
 
-/* Image preview overlay */
 .form-studio-upload__preview {
     display: none;
     position: absolute;
@@ -1680,7 +1584,6 @@ hr {
     white-space: nowrap;
 }
 
-/* Filename for audio */
 .form-studio-upload__filename {
     font-size: 0.78rem;
     color: #ffc107;
@@ -1689,13 +1592,11 @@ hr {
     margin-top: 4px;
 }
 
-/* Audio zone gets same style but slight blue tint on hover removed — use gold consistently */
 .form-studio-upload--audio:hover {
     border-color: rgba(255, 193, 7, 0.55);
     background: rgba(255, 193, 7, 0.07);
 }
 
-/* --- Visibility Toggle Card --- */
 .form-studio-toggle-card {
     display: flex;
     align-items: center;
@@ -1732,7 +1633,6 @@ hr {
     color: #b3b3b3;
 }
 
-/* Custom iOS-style toggle — gold when ON */
 .form-studio-toggle-card__switch {
     position: relative;
     display: inline-block;
@@ -1781,7 +1681,6 @@ hr {
     background: #000;
 }
 
-/* --- Actions Row --- */
 .form-studio-actions {
     display: flex;
     align-items: center;
@@ -1793,7 +1692,6 @@ hr {
     flex-wrap: wrap;
 }
 
-/* Cancel: standard app btn-outline-warning */
 .form-studio-actions__cancel {
     display: inline-flex;
     align-items: center;
@@ -1822,7 +1720,6 @@ hr {
     transform: translateY(-2px) scale(0.96);
 }
 
-/* Submit: solid btn-success for Create, btn-warning for Edit */
 .form-studio-actions__submit {
     display: inline-flex;
     align-items: center;

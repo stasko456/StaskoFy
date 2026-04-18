@@ -10,7 +10,7 @@
     </p>
 </div>
 
-<div class="container mt-4 fade-in-up" style="animation-delay: 0.1s;">
+<div class="container mt-4 fade-in-up anim-delay-1">
     <div class="d-flex align-items-center justify-content-between mb-4">
         <ul class="nav nav-pills" id="pills-tab" role="tablist">
             <li class="nav-item" role="presentation">
@@ -66,27 +66,25 @@
             }
             else
             {
-                <div class="row g-4 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6 mx-auto justify-content-center" style="max-width: 1200px;">
+                <div class="row g-4 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6 mx-auto justify-content-center song-grid-max">
                     @foreach (var song in Model.Singles)
                     {
                         <div class="col mb-4" id="song-@song.Id">
-                            <div class="card h-100 border-0 shadow-sm song-card-container"
-                                 style="border-radius: 12px; background-color: #1a1a1a; transition: transform 0.3s ease; overflow: visible;">
+                            <div class="card h-100 border-0 shadow-sm song-card-container">
 
-                                <div style="position: relative; width: 100%; padding-bottom: 100%; background-color: #2a2a2a; border-radius: 12px 12px 0 0; overflow: hidden;">
+                                <div class="card-img-top-sq">
                                     <a asp-controller="Song" asp-action="Details" asp-route-id="@song.Id">
                                         <img src="@song.ImageURL"
                                              alt="@song.Title"
-                                             style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;">
+                                             class="w-100 h-100" style="object-fit:cover;">
                                     </a>
                                 </div>
 
                                 <div class="card-body p-3 d-flex flex-column">
                                     <div class="d-flex align-items-center justify-content-between w-100 mb-3">
                                         <div class="flex-grow-1 overflow-hidden">
-                                            <h6 class="card-title mb-0 text-truncate text-white"
-                                                title="@song.Title"
-                                                style="font-weight: 700; font-size: 0.95rem;">
+                                            <h6 class="card-title mb-0 text-truncate text-white card-title-sm"
+                                                title="@song.Title">
                                                 @song.Title
                                             </h6>
                                         </div>
@@ -95,7 +93,7 @@
                                                 type="button"
                                                 data-song-id="@song.Id"
                                                 onclick="loadSong('@song.Id')">
-                                            <svg viewBox="0 0 640 640" height="40" width="40" style="background-color:transparent">
+                                            <svg viewBox="0 0 640 640" height="40" width="40">
                                                 <path fill="#ffc107" d="M64 320C64 178.6 178.6 64 320 64C461.4 64 576 178.6 576 320C576 461.4 461.4 576 320 576C178.6 576 64 461.4 64 320zM252.3 211.1C244.7 215.3 240 223.4 240 232L240 408C240 416.7 244.7 424.7 252.3 428.9C259.9 433.1 269.1 433 276.6 428.4L420.6 340.4C427.7 336 432.1 328.3 432.1 319.9C432.1 311.5 427.7 303.8 420.6 299.4L276.6 211.4C269.2 206.9 259.9 206.7 252.3 210.9z" />
                                             </svg>
                                         </button>
@@ -216,10 +214,9 @@
                     @foreach (var album in Model.Albums)
                     {
                         <div class="col" id="album-@album.Id">
-                            <div class="card h-100 border-0 shadow-sm project-card"
-                                 style="border-radius: 12px; background-color: #1a1a1a; transition: transform 0.3s ease; overflow: visible;">
+                            <div class="card h-100 border-0 shadow-sm project-card">
 
-                                <div class="card-img-top overflow-hidden" style="aspect-ratio: 1 / 1; background-color: #2a2a2a; border-radius: 12px 12px 0 0;">
+                                <div class="card-img-top-sq">
                                     <a asp-controller="Album" asp-action="Details" asp-route-id="@album.Id">
                                         <img src="@album.ImageURL" alt="@album.Title" class="w-100 h-100" style="object-fit: cover;">
                                     </a>
@@ -228,9 +225,8 @@
                                 <div class="card-body d-flex flex-column p-3">
                                     <div class="d-flex align-items-center justify-content-between w-100 mb-3">
                                         <div class="flex-grow-1 overflow-hidden">
-                                            <h6 class="card-title mb-0 text-truncate text-white"
-                                                title="@album.Title"
-                                                style="font-weight: 700; font-size: 0.95rem;">
+                                            <h6 class="card-title mb-0 text-truncate text-white card-title-sm"
+                                                title="@album.Title">
                                                 @album.Title
                                             </h6>
                                         </div>
@@ -238,7 +234,7 @@
                                         <button class="btn p-0 play-btn-custom"
                                                 type="button"
                                                 onclick="loadSongsFromAlbumToQueue('@album.Id')">
-                                            <svg viewBox="0 0 640 640" height="50" width="50" style="background-color:transparent">
+                                            <svg viewBox="0 0 640 640" height="50" width="50">
                                                 <path fill="#ffc107" d="M64 320C64 178.6 178.6 64 320 64C461.4 64 576 178.6 576 320C576 461.4 461.4 576 320 576C178.6 576 64 461.4 64 320zM252.3 211.1C244.7 215.3 240 223.4 240 232L240 408C240 416.7 244.7 424.7 252.3 428.9C259.9 433.1 269.1 433 276.6 428.4L420.6 340.4C427.7 336 432.1 328.3 432.1 319.9C432.1 311.5 427.7 303.8 420.6 299.4L276.6 211.4C269.2 206.9 259.9 206.7 252.3 210.9z" />
                                             </svg>
                                         </button>
@@ -247,29 +243,29 @@
                                     <div class="mb-3">
                                         @foreach (var artist in album.Artists)
                                         {
-                                            <span class="badge" style="background-color: rgba(255, 193, 7, 0.15); color: #ffc107; border: 1px solid rgba(255, 193, 7, 0.3);">
+                                            <span class="badge badge-gold">
                                                 @artist
                                             </span>
                                         }
                                     </div>
 
-                                    <div style="font-size: 0.85rem; color: #adb5bd;">
+                                    <div class="card-info-text">
                                         <div class="d-flex align-items-center mb-2">
-                                            <svg viewBox="0 0 512 512" width="16" height="16" class="me-2" style="color: #ffc107;">
+                                            <svg viewBox="0 0 512 512" width="16" height="16" class="me-2 text-gold">
                                                 <path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm61.8-104.4l-84.9-61.7c-3.1-2.3-4.9-5.9-4.9-9.7V116c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v141.7l66.8 48.6c5.4 3.9 6.5 11.4 2.6 16.8L333.8 343c-3.9 5.3-11.4 6.4-16.8 2.6z" />
                                             </svg>
                                             <span><strong>Length:</strong> @album.Hours.ToString("D2"):@album.Minutes.ToString("D2"):@album.Seconds.ToString("D2")</span>
                                         </div>
 
                                         <div class="d-flex align-items-center mb-2">
-                                            <svg viewBox="0 0 448 512" width="16" height="16" class="me-2" style="color: #ffc107;">
+                                            <svg viewBox="0 0 448 512" width="16" height="16" class="me-2 text-gold">
                                                 <path fill="currentColor" d="M148 288h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0-6.6-5.4-12-12-12zm108-52v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12zm96 0v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12zm-96 96v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12zm-96 0v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12zm192 0v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12zm96-260v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h48V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h128V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h48c26.5 0 48 21.5 48 48zM400 464V192H48v272h352z" />
                                             </svg>
                                             <span><strong>Released:</strong> @album.ReleaseDate.ToString("dd MMM yyyy")</span>
                                         </div>
 
                                         <div class="d-flex align-items-center mb-3">
-                                            <svg viewBox="0 0 512 512" width="16" height="16" class="me-2" style="color: #ffc107;">
+                                            <svg viewBox="0 0 512 512" width="16" height="16" class="me-2 text-gold">
                                                 <path fill="currentColor" d="M470.38 1.51L150.41 96A32 32 0 0 0 128 126.51v261.41A139 139 0 0 0 96 384c-53 0-96 28.65-96 64s43 64 96 64 96-28.65 96-64V214.32l256-75v184.61a138.4 138.4 0 0 0-32-4c-53 0-96 28.65-96 64s43 64 96 64 96-28.65 96-64V32a32 32 0 0 0-41.62-30.49z" />
                                             </svg>
                                             <span><strong>Songs:</strong> @album.SongsCount</span>

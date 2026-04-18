@@ -22,14 +22,13 @@
                             <div class="details-card-container position-relative">
                                 <img src="@Model.ImageURL"
                                      alt="@Model.Title"
-                                     class="rounded-4 shadow flex-shrink-0 song-image"
-                                     style="width:300px; height:300px; object-fit:cover;">
+                                     class="rounded-4 shadow flex-shrink-0 song-image img-detail-cover">
 
                                 <button class="btn play-btn-overlay"
                                         type="button"
                                         data-song-id="@Model.Id"
                                         onclick="loadSong('@Model.Id')">
-                                    <svg viewBox="0 0 640 640" height="70" width="70" style="background-color:transparent">
+                                    <svg viewBox="0 0 640 640" height="70" width="70">
                                         <path fill="#ffc107" d="M64 320C64 178.6 178.6 64 320 64C461.4 64 576 178.6 576 320C576 461.4 461.4 576 320 576C178.6 576 64 461.4 64 320zM252.3 211.1C244.7 215.3 240 223.4 240 232L240 408C240 416.7 244.7 424.7 252.3 428.9C259.9 433.1 269.1 433 276.6 428.4L420.6 340.4C427.7 336 432.1 328.3 432.1 319.9C432.1 311.5 427.7 303.8 420.6 299.4L276.6 211.4C269.2 206.9 259.9 206.7 252.3 210.9z" />
                                     </svg>
                                 </button>
@@ -102,13 +101,13 @@
                             }
                         </div>
 
-                        <div class="flex-grow-1 d-flex flex-column justify-content-center align-items-center" style="min-height:300px;">
+                        <div class="flex-grow-1 d-flex flex-column justify-content-center align-items-center min-height-300">
 
                             <h2 class="fw-bold">
                                 <span class="specific_heading">@Model.Title</span>
                             </h2>
 
-                            <div class="flex-grow-1 d-flex flex-column justify-content-center align-items-center fs-5" style="min-height:300px;">
+                            <div class="flex-grow-1 d-flex flex-column justify-content-center align-items-center fs-5 min-height-300">
                                 @if (Model.AlbumName != "Single")
                                 {
                                     <p class="card-text mb-1">
@@ -127,19 +126,19 @@
                                 </p>
 
                                 <p class="card-text mb-1 d-flex align-items-center">
-                                    <svg viewBox="0 0 640 640" height="24" width="24" class="me-2" style="color: #ffc107;">
+                                    <svg viewBox="0 0 640 640" height="24" width="24" class="me-2 text-gold">
                                         <path fill="currentColor" d="M442.9 144C415.6 144 389.9 157.1 373.9 179.2L339.5 226.8C335 233 327.8 236.7 320.1 236.7C312.4 236.7 305.2 233 300.7 226.8L266.3 179.2C250.3 157.1 224.6 144 197.3 144C150.3 144 112.2 182.1 112.2 229.1C112.2 279 144.2 327.5 180.3 371.4C221.4 421.4 271.7 465.4 306.2 491.7C309.4 494.1 314.1 495.9 320.2 495.9C326.3 495.9 331 494.1 334.2 491.7C368.7 465.4 419 421.3 460.1 371.4C496.3 327.5 528.2 279 528.2 229.1C528.2 182.1 490.1 144 443.1 144zM335 151.1C360 116.5 400.2 96 442.9 96C516.4 96 576 155.6 576 229.1C576 297.7 533.1 358 496.9 401.9C452.8 455.5 399.6 502 363.1 529.8C350.8 539.2 335.6 543.9 320 543.9C304.4 543.9 289.2 539.2 276.9 529.8C240.4 502 187.2 455.5 143.1 402C106.9 358.1 64 297.7 64 229.1C64 155.6 123.6 96 197.1 96C239.8 96 280 116.5 305 151.1L320 171.8L335 151.1z" />
                                     </svg><strong>Likes:</strong> @Model.Likes
                                 </p>
 
                                 <p class="card-text mb-1 d-flex align-items-center">
-                                    <svg viewBox="0 0 640 640" width="24" height="24" class="me-2" style="color: #ffc107;">
+                                    <svg viewBox="0 0 640 640" width="24" height="24" class="me-2 text-gold">
                                         <path fill="currentColor" d="M528 320C528 434.9 434.9 528 320 528C205.1 528 112 434.9 112 320C112 205.1 205.1 112 320 112C434.9 112 528 205.1 528 320zM64 320C64 461.4 178.6 576 320 576C461.4 576 576 461.4 576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320zM296 184L296 320C296 328 300 335.5 306.7 340L402.7 404C413.7 411.4 428.6 408.4 436 397.3C443.4 386.2 440.4 371.4 429.3 364L344 307.2L344 184C344 170.7 333.3 160 320 160C306.7 160 296 170.7 296 184z" />
                                     </svg><strong>Length:</strong> @Model.Minutes.ToString("D2"):@Model.Seconds.ToString("D2") minutes
                                 </p>
 
                                 <p class="card-text mb-1 d-flex align-items-center">
-                                    <svg viewBox="0 0 640 640" width="24" height="24" class="me-2" style="color: #ffc107;">
+                                    <svg viewBox="0 0 640 640" width="24" height="24" class="me-2 text-gold">
                                         <path fill="currentColor" d="M216 64C229.3 64 240 74.7 240 88L240 128L400 128L400 88C400 74.7 410.7 64 424 64C437.3 64 448 74.7 448 88L448 128L480 128C515.3 128 544 156.7 544 192L544 480C544 515.3 515.3 544 480 544L160 544C124.7 544 96 515.3 96 480L96 192C96 156.7 124.7 128 160 128L192 128L192 88C192 74.7 202.7 64 216 64zM216 176L160 176C151.2 176 144 183.2 144 192L144 240L496 240L496 192C496 183.2 488.8 176 480 176L216 176zM144 288L144 480C144 488.8 151.2 496 160 496L480 496C488.8 496 496 488.8 496 480L496 288L144 288z" />
                                     </svg><strong>Release Date:</strong> @Model.ReleaseDate.ToString("dd MMM yyyy")
                                 </p>
@@ -148,7 +147,7 @@
                                     <strong>Artists:</strong>
                                     @foreach (var artist in Model.Artists)
                                     {
-                                        <span class="badge" style="background-color: rgba(255, 193, 7, 0.15); color: #ffc107; border: 1px solid rgba(255, 193, 7, 0.3);">
+                                        <span class="badge badge-gold">
                                             @artist
                                         </span>
                                     }

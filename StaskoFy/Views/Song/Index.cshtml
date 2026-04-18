@@ -19,7 +19,7 @@
     }
 </div>
 
-<div class="row justify-content-center w-100 mx-0 fade-in-up" style="animation-delay: 0.1s;">
+<div class="row justify-content-center w-100 mx-0 fade-in-up anim-delay-1">
     <div class="col-12 col-md-8 col-lg-6 mb-4 mx-auto">
         <form asp-controller="Song" asp-action="Index" method="get">
             <div class="d-flex align-items-center gap-4 mb-4">
@@ -28,7 +28,7 @@
                        placeholder="Search songs..."
                        name="searchItem"
                        value="@Context.Request.Query["searchItem"]" />
-                <button type="submit" class="btn btn-search custom-gold-button btn-lg d-inline-flex align-items-center px-4">
+                <button type="submit" class="btn btn-search btn-lg d-inline-flex align-items-center px-4">
                     <svg viewBox="0 0 640 640" width="25" height="25" class="me-2">
                         <path fill="currentColor" d="M480 272C480 317.9 465.1 360.3 440 394.7L566.6 521.4C579.1 533.9 579.1 554.2 566.6 566.7C554.1 579.2 533.8 579.2 521.3 566.7L394.7 440C360.3 465.1 317.9 480 272 480C157.1 480 64 386.9 64 272C64 157.1 157.1 64 272 64C386.9 64 480 157.1 480 272zM272 416C351.5 416 416 351.5 416 272C416 192.5 351.5 128 272 128C192.5 128 128 192.5 128 272C128 351.5 192.5 416 272 416z" />
                     </svg>
@@ -79,29 +79,26 @@
 else
 {
     <div class="container">
-        <div class="row g-4 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6 justify-content-center mx-auto"
-             style="max-width: 1200px;">
+        <div class="row g-4 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6 justify-content-center mx-auto song-grid-max">
 
             @foreach (var song in Model.Songs)
             {
                 <div class="col" id="song-@song.Id">
-                    <div class="card h-100 border-0 song-card-container"
-                         style="border-radius: 12px; background-color: #1a1a1a; transition: transform 0.3s ease, box-shadow 0.3s ease; overflow: visible;">
+                    <div class="card h-100 border-0 song-card-container">
 
-                        <div style="position: relative; width: 100%; padding-bottom: 100%; background-color: #2a2a2a; border-radius: 12px 12px 0 0; overflow: hidden;">
+                        <div class="card-img-top-sq">
                             <a asp-controller="Song" asp-action="Details" asp-route-id="@song.Id">
                                 <img src="@song.ImageURL"
                                      alt="@song.Title"
-                                     style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;">
+                                     class="w-100 h-100" style="object-fit:cover;">
                             </a>
                         </div>
 
                         <div class="card-body p-3 d-flex flex-column">
                             <div class="d-flex align-items-center justify-content-between w-100 mb-3">
                                 <div class="flex-grow-1 overflow-hidden">
-                                    <h6 class="card-title mb-0 text-truncate text-white"
-                                        title="@song.Title"
-                                        style="font-weight: 700; font-size: 0.95rem;">
+                                    <h6 class="card-title mb-0 text-truncate text-white card-title-sm"
+                                        title="@song.Title">
                                         @song.Title
                                     </h6>
                                 </div>
@@ -110,7 +107,7 @@ else
                                         type="button"
                                         data-song-id="@song.Id"
                                         onclick="loadSong('@song.Id')">
-                                    <svg viewBox="0 0 640 640" height="40" width="40" style="background-color:transparent">
+                                    <svg viewBox="0 0 640 640" height="40" width="40">
                                         <path fill="#ffc107" d="M64 320C64 178.6 178.6 64 320 64C461.4 64 576 178.6 576 320C576 461.4 461.4 576 320 576C178.6 576 64 461.4 64 320zM252.3 211.1C244.7 215.3 240 223.4 240 232L240 408C240 416.7 244.7 424.7 252.3 428.9C259.9 433.1 269.1 433 276.6 428.4L420.6 340.4C427.7 336 432.1 328.3 432.1 319.9C432.1 311.5 427.7 303.8 420.6 299.4L276.6 211.4C269.2 206.9 259.9 206.7 252.3 210.9z" />
                                     </svg>
                                 </button>
