@@ -111,7 +111,7 @@ const PAUSE_ICON = '<svg viewBox="0 0 448 512" height="40" width="40" style="bac
 let songQueue = [];
 let currentQueueIndex = -1;
 
-const audio = document.getElementById("myAudio");
+//const audio = document.getElementById("myAudio");
 const playPauseButton = document.getElementById("btn-play-pause");
 const progressBar = document.getElementById("progress-bar");
 const audioBar = document.getElementById("volume-bar");

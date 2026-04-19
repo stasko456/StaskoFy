@@ -1,12 +1,11 @@
 @model AlbumEditViewModel
 
-<div class="container py-5 fade-in-up">
+<div class="container py-3 fade-in-up">
     <div class="row justify-content-center">
-        <div class="col-12 col-xl-9">
+        <div class="col-12 col-xl-10">
             <div class="form-studio-card">
 
-
-                <div class="form-studio-header">
+                <div class="form-studio-header form-studio-header--edit">
                     <div class="form-studio-header__icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 16 16">
                             <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
@@ -21,67 +20,67 @@
                 <div class="form-studio-body">
                     <form method="post" asp-action="Edit" enctype="multipart/form-data" id="album-edit-form">
 
+                        <div class="row g-4">
+                            <!-- LEFT: fields -->
+                            <div class="col-12 col-lg-7">
 
-                        <div class="form-studio-section">
-                            <div class="form-studio-section__label">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
-                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                                    <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
-                                </svg>
-                                Core Details
-                            </div>
-                            <div class="row g-3">
-                                <div class="col-12 col-md-7">
-                                    <div class="form-studio-field">
-                                        <label asp-for="Title" class="form-studio-field__label">Album Title</label>
-                                        <input asp-for="Title" class="form-studio-field__input" placeholder="Enter album title…" />
-                                        <span asp-validation-for="Title" class="form-studio-field__error"></span>
+                                <div class="form-studio-section">
+                                    <div class="form-studio-section__label">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+                                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                            <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                                        </svg>
+                                        Core Details
+                                    </div>
+                                    <div class="row g-3">
+                                        <div class="col-12 col-md-7">
+                                            <div class="form-studio-field">
+                                                <label asp-for="Title" class="form-studio-field__label">Album Title</label>
+                                                <input asp-for="Title" class="form-studio-field__input" placeholder="Enter album title…" />
+                                                <span asp-validation-for="Title" class="form-studio-field__error"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-5">
+                                            <div class="form-studio-field">
+                                                <label asp-for="ReleaseDate" class="form-studio-field__label">Release Date</label>
+                                                <input asp-for="ReleaseDate" class="form-studio-field__input" placeholder="Release Date" />
+                                                <span asp-validation-for="ReleaseDate" class="form-studio-field__error"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-studio-field">
+                                                <label class="form-studio-field__label">Featured Artists</label>
+                                                <select asp-for="@Model.SelectedArtistIds"
+                                                        asp-items="Model.Artists"
+                                                        multiple
+                                                        class="form-select js-choice"
+                                                        data-choices
+                                                        data-remove-item-button="true"
+                                                        data-search-enabled="true"
+                                                        data-placeholder-value="Select artists…"
+                                                        data-max-item-count="4"
+                                                        data-msg-maxlength="You can only select 4 featured artists.">
+                                                    @foreach (var artist in ViewBag.AllArtists)
+                                                    {
+                                                        bool isSelected = Model.SelectedArtistIds.Contains(artist.Id);
+                                                        <option value="@artist.Id" selected="@(isSelected ? "selected" : null)">
+                                                            @artist.Username
+                                                        </option>
+                                                    }
+                                                </select>
+                                                <span asp-validation-for="SelectedArtistIds" class="form-studio-field__error"></span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-5">
-                                    <div class="form-studio-field">
-                                        <label asp-for="ReleaseDate" class="form-studio-field__label">Release Date</label>
-                                        <input asp-for="ReleaseDate" class="form-studio-field__input" placeholder="Release Date" />
-                                        <span asp-validation-for="ReleaseDate" class="form-studio-field__error"></span>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-studio-field">
-                                        <label class="form-studio-field__label">Featured Artists</label>
-                                        <select asp-for="@Model.SelectedArtistIds"
-                                                asp-items="Model.Artists"
-                                                multiple
-                                                class="form-select js-choice"
-                                                data-choices
-                                                data-remove-item-button="true"
-                                                data-search-enabled="true"
-                                                data-placeholder-value="Select artists…"
-                                                data-max-item-count="4"
-                                                data-msg-maxlength="You can only select 4 featured artists.">
-                                            @foreach (var artist in ViewBag.AllArtists)
-                                            {
-                                                bool isSelected = Model.SelectedArtistIds.Contains(artist.Id);
-                                                <option value="@artist.Id" selected="@(isSelected ? "selected" : null)">
-                                                    @artist.Username
-                                                </option>
-                                            }
-                                        </select>
-                                        <span asp-validation-for="SelectedArtistIds" class="form-studio-field__error"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
-
-                        <div class="form-studio-section">
-                            <div class="form-studio-section__label">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
-                                </svg>
-                                Tracklist
-                            </div>
-                            <div class="row g-3">
-                                <div class="col-12">
+                                <div class="form-studio-section" style="border-bottom:none;margin-bottom:0;padding-bottom:0;">
+                                    <div class="form-studio-section__label">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+                                        </svg>
+                                        Tracklist
+                                    </div>
                                     <div class="form-studio-field">
                                         <label class="form-studio-field__label">Add More Songs</label>
                                         <select asp-for="SelectedSongIds"
@@ -98,31 +97,27 @@
                                         </select>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
 
-
-                        <div class="form-studio-section">
-                            <div class="form-studio-section__label">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
-                                    <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
-                                </svg>
-                                Replace Artwork <span class="form-studio-section__optional">(optional)</span>
                             </div>
-                            <div class="row g-3">
-                                <div class="col-12 col-md-6 mx-auto">
-                                    <div class="form-studio-upload" id="artcover-upload">
-                                        <div class="form-studio-upload__icon">🖼️</div>
-                                        <div class="form-studio-upload__title">New Art Cover</div>
-                                        <div class="form-studio-upload__hint">Leave empty to keep current</div>
-                                        <input type="file" asp-for="ImageFile" class="form-studio-upload__input" accept="image/*" />
-                                        <div class="form-studio-upload__preview" id="artcover-preview"></div>
-                                    </div>
+
+                            <!-- RIGHT: artwork -->
+                            <div class="col-12 col-lg-5 d-flex flex-column gap-3">
+                                <div class="form-studio-section__label">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+                                        <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+                                    </svg>
+                                    Replace Artwork <span class="form-studio-section__optional">(optional)</span>
+                                </div>
+                                <div class="form-studio-upload" id="artcover-upload" style="flex:1;min-height:200px;">
+                                    <div class="form-studio-upload__icon">🖼️</div>
+                                    <div class="form-studio-upload__title">New Art Cover</div>
+                                    <div class="form-studio-upload__hint">Leave empty to keep current</div>
+                                    <input type="file" asp-for="ImageFile" class="form-studio-upload__input" accept="image/*" />
+                                    <div class="form-studio-upload__preview" id="artcover-preview"></div>
                                 </div>
                             </div>
                         </div>
-
 
                         <div class="form-studio-actions">
                             <a asp-controller="Library" asp-action="MyProjectsIndex" class="form-studio-actions__cancel">

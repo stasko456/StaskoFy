@@ -2,7 +2,7 @@
 
 <div class="container py-5 fade-in-up">
     <div class="row justify-content-center">
-        <div class="col-12 col-md-7 col-lg-5">
+        <div class="col-12 col-md-10 col-lg-8">
             <div class="form-studio-card">
 
 
@@ -21,62 +21,70 @@
                 <div class="form-studio-body">
                     <form asp-action="Manage" method="post" enctype="multipart/form-data">
 
+                        <div class="manage-two-col">
 
-                        <div class="form-studio-section">
-                            <div class="form-studio-section__label">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" viewBox="0 0 16 16">
-                                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.029 10 8 10c-2.029 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
-                                </svg>
-                                Your Profile
+                            <div class="manage-col-left">
+                                <div class="form-studio-section__label">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" viewBox="0 0 16 16">
+                                        <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.029 10 8 10c-2.029 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
+                                    </svg>
+                                    Current Picture
+                                </div>
+
+                                <div class="text-center mb-3">
+                                    <img src="@Model.CurrentProfilePicture"
+                                         class="rounded-circle user-profile-img"
+                                         width="110"
+                                         height="110">
+                                </div>
+
+                                <div class="form-studio-section__label mt-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" viewBox="0 0 16 16">
+                                        <path d=".5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                                        <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/>
+                                    </svg>
+                                    New Picture <span class="form-studio-section__optional">(optional)</span>
+                                </div>
+
+                                <div class="form-studio-upload" id="avatar-upload">
+                                    <div class="form-studio-upload__icon">🖼️</div>
+                                    <div class="form-studio-upload__title">Upload Photo</div>
+                                    <div class="form-studio-upload__hint">Leave empty to keep current</div>
+                                    <input type="file" asp-for="ImageFile" class="form-studio-upload__input" accept="image/*" />
+                                    <div class="form-studio-upload__preview" id="avatar-preview"></div>
+                                </div>
                             </div>
 
-                            <div class="text-center mb-4">
-                                <img src="@Model.CurrentProfilePicture"
-                                     class="rounded-circle user-profile-img"
-                                     width="120"
-                                     height="120">
+                            <div class="manage-col-right">
+                                <div class="form-studio-section__label">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" viewBox="0 0 16 16">
+                                        <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                                    </svg>
+                                    Profile Details
+                                </div>
+
+                                <div class="form-studio-field mb-3">
+                                    <label asp-for="Username" class="form-studio-field__label">Username</label>
+                                    <input asp-for="Username" class="form-studio-field__input" placeholder="Enter username…" />
+                                    <span asp-validation-for="Username" class="form-studio-field__error"></span>
+                                </div>
+
+                                <div class="form-studio-actions manage-actions-inline">
+                                    <a asp-action="Details" class="form-studio-actions__cancel">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                                        </svg>
+                                        Cancel
+                                    </a>
+                                    <button type="submit" class="form-studio-actions__submit form-studio-actions__submit--edit">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" viewBox="0 0 16 16">
+                                            <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+                                        </svg>
+                                        Save Changes
+                                    </button>
+                                </div>
                             </div>
 
-                            <div class="form-studio-field mb-3">
-                                <label asp-for="Username" class="form-studio-field__label">Username</label>
-                                <input asp-for="Username" class="form-studio-field__input" placeholder="Enter username…" />
-                                <span asp-validation-for="Username" class="form-studio-field__error"></span>
-                            </div>
-                        </div>
-
-
-                        <div class="form-studio-section">
-                            <div class="form-studio-section__label">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" viewBox="0 0 16 16">
-                                    <path d=".5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
-                                    <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/>
-                                </svg>
-                                Change Picture <span class="form-studio-section__optional">(optional)</span>
-                            </div>
-
-                            <div class="form-studio-upload" id="avatar-upload">
-                                <div class="form-studio-upload__icon">🖼️</div>
-                                <div class="form-studio-upload__title">New Profile Picture</div>
-                                <div class="form-studio-upload__hint">Leave empty to keep current picture</div>
-                                <input type="file" asp-for="ImageFile" class="form-studio-upload__input" accept="image/*" />
-                                <div class="form-studio-upload__preview" id="avatar-preview"></div>
-                            </div>
-                        </div>
-
-
-                        <div class="form-studio-actions">
-                            <a asp-action="Details" class="form-studio-actions__cancel">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
-                                </svg>
-                                Cancel
-                            </a>
-                            <button type="submit" class="form-studio-actions__submit form-studio-actions__submit--edit">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" viewBox="0 0 16 16">
-                                    <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
-                                </svg>
-                                Save Changes
-                            </button>
                         </div>
 
                     </form>

@@ -1231,8 +1231,47 @@ a.specific_heading:hover {
 }
 
 
+.manage-two-col {
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
+}
+
+.manage-col-left {
+    flex: 0 0 220px;
+    width: 220px;
+}
+
+.manage-col-right {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.manage-actions-inline {
+    margin-top: auto;
+    padding-top: 18px;
+    border-top: 1px solid rgba(255, 193, 7, 0.1);
+}
+
+@media (max-width: 576px) {
+    .manage-two-col {
+        flex-direction: column;
+        gap: 16px;
+    }
+    .manage-col-left {
+        flex: none;
+        width: 100%;
+    }
+}
+
+
+
 .form-studio-card {
     background: #111111;
+
     border: 1px solid rgba(255, 193, 7, 0.12);
     border-radius: 20px;
     overflow: hidden;
