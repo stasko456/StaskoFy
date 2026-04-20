@@ -6,10 +6,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     document.querySelectorAll('[data-choices]').forEach(function (element) {
-        // 1. Pull the max count from HTML
         const maxItems = element.dataset.maxItemCount ? parseInt(element.dataset.maxItemCount) : -1;
 
-        // 2. Pull your custom message from HTML (with a generic fallback just in case)
         const customMaxMessage = element.dataset.maxText || `You can only select ${maxItems} items.`;
 
         const config = {
@@ -23,7 +21,6 @@ document.addEventListener('DOMContentLoaded', function () {
             allowHTML: true,
             maxItemCount: maxItems,
 
-            // 3. Inject the custom message from the HTML into the Choices UI
             maxItemText: () => {
                 return `<span class="text-danger fw-semibold">${customMaxMessage}</span>`;
             }
@@ -39,13 +36,10 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-// 1. Create a function that initializes Choices.js
 function initializeMusicSelects() {
-    // Target your select elements (make sure they have this class or 'js-choice')
     const elements = document.querySelectorAll('.js-choice');
 
     elements.forEach(el => {
-        // Check if it's already initialized to avoid "doubling" the dropdown
         if (!el.parentElement.classList.contains('choices')) {
             new Choices(el, {
                 removeItemButton: true,
@@ -57,10 +51,8 @@ function initializeMusicSelects() {
     });
 }
 
-// 2. Run it when the page first loads
 document.addEventListener('DOMContentLoaded', initializeMusicSelects);
 
-// 3. THE MAGIC PART: Run it every time HTMX swaps content
 document.body.addEventListener('htmx:afterOnLoad', function (evt) {
     initializeMusicSelects();
 });
@@ -107,11 +99,10 @@ function confirmDelete(event, formId) {
 const PLAY_ICON = '<svg viewBox="0 0 640 640" height="40" width="40" style="background-color:transparent"><path fill="#ffc107" d="M64 320C64 178.6 178.6 64 320 64C461.4 64 576 178.6 576 320C576 461.4 461.4 576 320 576C178.6 576 64 461.4 64 320zM252.3 211.1C244.7 215.3 240 223.4 240 232L240 408C240 416.7 244.7 424.7 252.3 428.9C259.9 433.1 269.1 433 276.6 428.4L420.6 340.4C427.7 336 432.1 328.3 432.1 319.9C432.1 311.5 427.7 303.8 420.6 299.4L276.6 211.4C269.2 206.9 259.9 206.7 252.3 210.9z" /></svg>';
 const PAUSE_ICON = '<svg viewBox="0 0 448 512" height="40" width="40" style="background-color:transparent"><path fill="#ffc107" d="M48 64C21.5 64 0 85.5 0 112L0 400c0 26.5 21.5 48 48 48l64 0c26.5 0 48-21.5 48-48l0-288c0-26.5-21.5-48-48-48L48 64zm192 0c-26.5 0-48 21.5-48 48l0 288c0 26.5 21.5 48 48 48l64 0c26.5 0 48-21.5 48-48l0-288c0-26.5-21.5-48-48-48l-64 0z"/></svg>';
 
-// --- 1. State & Selectors ---
 let songQueue = [];
 let currentQueueIndex = -1;
 
-//const audio = document.getElementById("myAudio");
+const audio = document.getElementById("myAudio");
 const playPauseButton = document.getElementById("btn-play-pause");
 const progressBar = document.getElementById("progress-bar");
 const audioBar = document.getElementById("volume-bar");
@@ -120,9 +111,7 @@ const durationLabel = document.querySelectorAll('.time')[1];
 const btnPrevious = document.getElementById('btn-previous');
 const btnNext = document.getElementById('btn-next');
 
-// --- 2. The "Brain": playFromQueue ---
 function playFromQueue(index) {
-    // Boundary check
     if (index < 0 || index >= songQueue.length) return;
 
     currentQueueIndex = index;
@@ -145,8 +134,6 @@ function playFromQueue(index) {
     }
 }
 
-// --- 3. Interaction: loadSong ---
-// Call this when someone clicks a song card
 function loadSong(songId) {
     fetch(`/Song/GetSongForQueue?id=${songId}`)
         .then(response => response.json())
@@ -159,7 +146,6 @@ function loadSong(songId) {
         .catch(error => console.error('Error loading song:', error));
 }
 
-// --- 4. Automation: fetchMoreSongsForQueue ---
 function fetchMoreSongsForQueue() {
     const offset = songQueue.length;
     fetch(`/Song/GetSongsForQueue?offset=${offset}&count=10`)
@@ -176,14 +162,11 @@ function fetchMoreSongsForQueue() {
         });
 }
 
-// --- 5. Event Listeners ---
 
-// Auto-play next song when one ends
 audio.addEventListener('ended', () => {
     playFromQueue(currentQueueIndex + 1);
 });
 
-// Sync Play/Pause Icons (Reuse your existing constants)
 audio.addEventListener('play', () => {
     playPauseButton.innerHTML = PAUSE_ICON;
 });
@@ -198,7 +181,6 @@ playPauseButton.addEventListener("click", () => {
     }
 });
 
-// Play next and play prevoius song
 btnNext.addEventListener("click", () => {
     playFromQueue(currentQueueIndex + 1);
 })
@@ -207,7 +189,6 @@ btnPrevious.addEventListener("click", () => {
     playFromQueue(currentQueueIndex - 1);
 })
 
-// Progress Bar & Volume (Your existing logic is perfect)
 audio.addEventListener('timeupdate', () => {
     if (audio.duration && !isNaN(audio.duration)) {
         const progress = (audio.currentTime / audio.duration) * 100;
@@ -228,7 +209,6 @@ audioBar.addEventListener("input", (e) => {
     audio.volume = e.target.value / 100;
 });
 
-// --- 6. Fetch Songs From Playlist ---
 function loadSongsFromPlaylistToQueue(playlistId) {
     fetch(`/Playlist/GetPlaylistSongsForQueue?id=${playlistId}`)
         .then(response => response.json())
@@ -241,7 +221,6 @@ function loadSongsFromPlaylistToQueue(playlistId) {
         })
 }
 
-// --- 7. Fetch Songs From Album ---
 function loadSongsFromAlbumToQueue(albumId) {
     fetch(`/Album/GetAlbumSongsForQueue?id=${albumId}`)
         .then(response => response.json())
@@ -254,7 +233,6 @@ function loadSongsFromAlbumToQueue(albumId) {
         })
 }
 
-// --- 8. Fetch Songs From Liked Songs ---
 function loadSongsFromLikedSongsToQueue(albumId) {
     fetch(`/LikedSongs/GetLikedSongsForQueue`)
         .then(response => response.json())
@@ -267,7 +245,6 @@ function loadSongsFromLikedSongsToQueue(albumId) {
         })
 }
 
-// --- 9. Startup ---
 function checkAndInitialize() {
     const forbiddenPaths = [
         '/User/Login', '/User/Register', '/Genre/Create', '/Genre/Edit',
@@ -297,8 +274,7 @@ function checkAndInitialize() {
 
 checkAndInitialize();
 
-// --- 11. Scroll Animations (Intersection Observer) ---
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const observerOptions = {
         threshold: 0.1
     };
@@ -307,8 +283,6 @@ document.addEventListener('DOMContentLoaded', function() {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-                // Optional: stop observing once shown
-                // observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
@@ -318,11 +292,9 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// THE MAGIC PART: Run it every time HTMX swaps content
 document.body.addEventListener('htmx:afterOnLoad', function (evt) {
     initializeMusicSelects();
-    
-    // Re-trigger animations on new content
+
     document.querySelectorAll('.fade-in-up').forEach(el => {
         el.style.opacity = "0";
         setTimeout(() => {
@@ -333,7 +305,6 @@ document.body.addEventListener('htmx:afterOnLoad', function (evt) {
     });
 });
 
-// A. Create the function
 function updateNavigation() {
     var navLinks = document.querySelectorAll('.nav-link');
     var currentPath = window.location.pathname.toLowerCase().replace(/\/$/, "");
@@ -349,21 +320,17 @@ function updateNavigation() {
     });
 }
 
-// B. Run on hard refresh
 document.addEventListener('DOMContentLoaded', updateNavigation);
 
-// C. THE FIX: Use 'htmx:afterSettle' instead of 'afterOnLoad'
 document.body.addEventListener('htmx:afterSettle', function () {
-    // By the time this runs, the browser URL is guaranteed to be updated
     updateNavigation();
 
     var mainContent = document.getElementById('main-content');
     if (mainContent) {
         mainContent.scrollTop = 0;
-        
-        // Trigger fade-in on main content after swap
+
         mainContent.classList.remove('fade-in-up');
-        void mainContent.offsetWidth; // Trigger reflow
+        void mainContent.offsetWidth;
         mainContent.classList.add('fade-in-up');
     }
-});
+});

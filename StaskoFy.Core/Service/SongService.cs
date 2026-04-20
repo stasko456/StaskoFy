@@ -157,19 +157,16 @@ namespace StaskoFy.Core.Service
 
             if (model.ImageFile != null && model.ImageFile.Length > 0)
             {
-                // Artist uploaded a cover → use Cloudinary
                 var uploadResult = await uploadService.UploadImageAsync(model.ImageFile, model.ImageFile.FileName, "art-covers");
                 imageURL = uploadResult.Url;
                 publicId = uploadResult.PublicId;
             }
             else
             {
-                // No upload → use default cover
                 imageURL = "/images/defaults/default-song-cover-art.png";
-                publicId = ""; // No publicId because we didn’t upload
+                publicId = "";
             }
 
-            // upload auido file to Cloudinary
             var uploadAudio = await uploadService.UploadAudioFileAsync(model.AudioFile, model.AudioFile.FileName, "audio-files");
 
             var song = new Song
@@ -186,14 +183,12 @@ namespace StaskoFy.Core.Service
                 ArtistsSongs = new List<ArtistSong>()
             };
 
-            // add main artist
             song.ArtistsSongs.Add(new ArtistSong
             {
                 Artist = mainArtist,
                 Song = song,
             });
 
-            // add featured artists if any are seletced
             if (featuredArtists.Count > 0)
             {
                 foreach (var artist in featuredArtists)
@@ -229,16 +224,13 @@ namespace StaskoFy.Core.Service
                 throw new NullReferenceException("Unable to find this song!");
             }
 
-            // if song is part of album do not remove the image
             if (model.ImageFile != null && model.ImageFile.Length > 0 && song.AlbumId == null)
             {
-                // delete image from Cloudinary
                 if (!string.IsNullOrEmpty(song.CloudinaryPublicId))
                 {
                     await uploadService.DestroyImageAsync(song.CloudinaryPublicId);
                 }
 
-                // Artist uploaded a cover → use Cloudinary
                 var uploadResult = await uploadService.UploadImageAsync(model.ImageFile, model.ImageFile.FileName, "art-covers");
                 song.ImageURL = uploadResult.Url;
                 song.CloudinaryPublicId = uploadResult.PublicId;
@@ -259,20 +251,16 @@ namespace StaskoFy.Core.Service
             song.ReleaseDate = model.ReleaseDate;
             song.GenreId = model.GenreId;
 
-            // make status of song pending
             song.Status = UploadStatus.Pending;
 
-            // remove ArtistSong for this song from the DB 
             song.ArtistsSongs.Clear();
 
-            // add main artist to the song
             song.ArtistsSongs.Add(new ArtistSong
             {
                 ArtistId = mainArtist.Id,
                 SongId = song.Id,
             });
 
-            // add featured artists if any are seletced
             if (featuredArtists.Count > 0)
             {
                 foreach (var artist in featuredArtists)
@@ -285,7 +273,6 @@ namespace StaskoFy.Core.Service
                 }
             }
 
-            // update entity
             await songRepo.UpdateAsync(song);
         }
 
@@ -302,15 +289,6 @@ namespace StaskoFy.Core.Service
             {
                 throw new NullReferenceException("Unable to find this song!");
             }
-
-            // if song is part of album do not remove the image
-            //if (!string.IsNullOrEmpty(song.CloudinaryPublicId) && song.AlbumId == null)
-            //{
-            //    // delete image from Cloudinary
-            //    await uploadService.DestroyImageAsync(song.CloudinaryPublicId);
-            //    song.ImageURL = "/images/defaults/default-song-cover-art.png";
-            //    song.CloudinaryPublicId = "";
-            //}
 
             if (song.Album != null)
             {
@@ -452,15 +430,6 @@ namespace StaskoFy.Core.Service
             {
                 throw new NullReferenceException("Unable to find this song!");
             }
-
-            // if song is part of album do not remove the image
-            //if (!string.IsNullOrEmpty(song.CloudinaryPublicId) && song.AlbumId == null)
-            //{
-            //    // delete image from Cloudinary
-            //    await uploadService.DestroyImageAsync(song.CloudinaryPublicId);
-            //    song.ImageURL = "/images/defaults/default-song-cover-art.png";
-            //    song.CloudinaryPublicId = "";
-            //}
 
             if (song.Album != null)
             {

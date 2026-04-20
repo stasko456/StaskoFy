@@ -156,15 +156,13 @@ namespace StaskoFy.Core.Service
             }
             else
             {
-                // No upload → use default cover
                 imageURL = "/images/defaults/default-album-cover-art.png";
-                publicId = ""; // No publicId because we didn’t upload
+                publicId = "";
             }
 
             playlist.ImageURL = imageURL;
             playlist.CloudinaryPublicId = publicId;
 
-            // add playlist to DB
             await playlistRepo.AddAsync(playlist);
         }
 
@@ -182,10 +180,8 @@ namespace StaskoFy.Core.Service
 
             if (model.ImageFile != null && model.ImageFile.Length > 0)
             {
-                // delete image from Cloudinary
                 await imageService.DestroyImageAsync(playlist.CloudinaryPublicId);
 
-                // add image to Cloudinary
                 var uploadResult = await imageService.UploadImageAsync(model.ImageFile, model.ImageFile.FileName, "playlist-covers");
                 playlist.ImageURL = uploadResult.Url;
                 playlist.CloudinaryPublicId = uploadResult.PublicId;
@@ -195,7 +191,6 @@ namespace StaskoFy.Core.Service
             playlist.IsPublic = model.IsPublic;
             playlist.UserId = userId;
 
-            // update entity
             await playlistRepo.UpdateAsync(playlist);
         }
 
@@ -210,7 +205,6 @@ namespace StaskoFy.Core.Service
 
             if (!string.IsNullOrEmpty(playlist.ImageURL) && !string.IsNullOrEmpty(playlist.CloudinaryPublicId))
             {
-                // delete image from Cloudinary
                 await imageService.DestroyImageAsync(playlist.CloudinaryPublicId);
             }
 

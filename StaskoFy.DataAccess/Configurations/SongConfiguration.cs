@@ -66,7 +66,7 @@ namespace StaskoFy.DataAccess.Configurations
             {
                 Id = Guid.Parse("04111111-1111-1111-1111-111111111111"),
                 Title = "Paranoid",
-                Length = new TimeSpan(0, 2, 7),
+                Length = new TimeSpan(0, 2, 8),
                 ReleaseDate = new DateOnly(2024, 7, 5),
                 AlbumId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                 Likes = 4,
@@ -113,7 +113,7 @@ namespace StaskoFy.DataAccess.Configurations
             {
                 Id = Guid.Parse("07111111-1111-1111-1111-111111111111"),
                 Title = "All da Smoke",
-                Length = new TimeSpan(0, 3, 24),
+                Length = new TimeSpan(0, 3, 25),
                 ReleaseDate = new DateOnly(2017, 10, 20),
                 AlbumId = Guid.Parse("21111111-1111-1111-1111-111111111111"),
                 Likes = 0,
@@ -128,7 +128,7 @@ namespace StaskoFy.DataAccess.Configurations
             {
                 Id = Guid.Parse("08111111-1111-1111-1111-111111111111"),
                 Title = "200",
-                Length = new TimeSpan(0, 2, 26),
+                Length = new TimeSpan(0, 2, 27),
                 ReleaseDate = new DateOnly(2017, 10, 20),
                 AlbumId = Guid.Parse("21111111-1111-1111-1111-111111111111"),
                 Likes = 5,
@@ -190,7 +190,7 @@ namespace StaskoFy.DataAccess.Configurations
             {
                 Id = Guid.Parse("12111111-1111-1111-1111-111111111111"),
                 Title = "No Vacancy",
-                Length = new TimeSpan(0, 1, 35),
+                Length = new TimeSpan(0, 1, 36),
                 ReleaseDate = new DateOnly(2020, 4, 17),
                 AlbumId = Guid.Parse("31111111-1111-1111-1111-111111111111"),
                 Likes = 0,
@@ -220,7 +220,7 @@ namespace StaskoFy.DataAccess.Configurations
             {
                 Id = Guid.Parse("14111111-1111-1111-1111-111111111111"),
                 Title = "Euro Step",
-                Length = new TimeSpan(0, 1, 49),
+                Length = new TimeSpan(0, 1, 50),
                 ReleaseDate = new DateOnly(2020, 4, 17),
                 AlbumId = Guid.Parse("31111111-1111-1111-1111-111111111111"),
                 Likes = 0,
@@ -327,7 +327,7 @@ namespace StaskoFy.DataAccess.Configurations
             {
                 Id = Guid.Parse("21111111-1111-1111-1111-111111111111"),
                 Title = "HEAVEN TO ME",
-                Length = new TimeSpan(0, 3, 50),
+                Length = new TimeSpan(0, 3, 58),
                 ReleaseDate = new DateOnly(2023, 3, 31),
                 AlbumId = Guid.Parse("41111111-1111-1111-1111-111111111111"),
                 Likes = 0,
@@ -390,7 +390,7 @@ namespace StaskoFy.DataAccess.Configurations
             {
                 Id = Guid.Parse("29111111-1111-1111-1111-111111111111"),
                 Title = "Lord Of Chaos",
-                Length = new TimeSpan(0, 2, 1),
+                Length = new TimeSpan(0, 2, 20),
                 ReleaseDate = new DateOnly(2025, 4, 11),
                 AlbumId = null,
                 Likes = 0,
@@ -482,7 +482,7 @@ namespace StaskoFy.DataAccess.Configurations
 
                 Id = Guid.Parse("26111111-1111-1111-1111-111111111111"),
                 Title = "Freestyle 2",
-                Length = new TimeSpan(0, 2, 18),
+                Length = new TimeSpan(0, 2, 21),
                 ReleaseDate = new DateOnly(2022, 10, 31),
                 AlbumId = Guid.Parse("51111111-1111-1111-1111-111111111111"),
                 Likes = 0,

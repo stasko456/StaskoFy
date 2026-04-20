@@ -169,19 +169,16 @@ namespace StaskoFy.Core.Service
 
             if (model.ImageFile != null && model.ImageFile.Length > 0)
             {
-                // Artist uploaded a cover → use Cloudinary
                 var uploadResult = await uploadService.UploadImageAsync(model.ImageFile, model.ImageFile.FileName, "art-covers");
                 imageURL = uploadResult.Url;
                 publicId = uploadResult.PublicId;
             }
             else
             {
-                // No upload → use default cover
                 imageURL = "/images/defaults/default-album-cover-art.png";
-                publicId = ""; // No publicId because we didn’t upload
+                publicId = "";
             }
 
-            // make new album entity
             var album = new Album
             {
                 Title = model.Title,
@@ -194,14 +191,12 @@ namespace StaskoFy.Core.Service
             };
 
 
-            // add main artist
             album.ArtistsAlbums.Add(new ArtistAlbum
             {
                 Artist = mainArtist,
                 Album = album,
             });
 
-            // add featured artists
             if (featuredArtists.Count > 0)
             {
                 foreach (var artist in featuredArtists)
@@ -214,7 +209,6 @@ namespace StaskoFy.Core.Service
                 }
             }
 
-            // add songs from the album
             if (album.ImageURL == "/images/defaults/default-album-cover-art.png")
             {
                 foreach (var song in albumSongs)
@@ -235,7 +229,6 @@ namespace StaskoFy.Core.Service
                 }
             }
 
-            // update album Length
             TimeSpan albumLength = TimeSpan.Zero;
             foreach (var song in albumSongs)
             {
@@ -243,7 +236,6 @@ namespace StaskoFy.Core.Service
             }
             album.Length = albumLength;
 
-            // add album to DB
             await albumRepo.AddAsync(album);
         }
 
@@ -274,10 +266,8 @@ namespace StaskoFy.Core.Service
 
             if (albumSongs.Count > 0)
             {
-                // add new songs to the album
                 albumSongs.ForEach(s => album.Songs.Add(s));
 
-                // increase length of album
                 TimeSpan albumLength = TimeSpan.Zero;
                 foreach (var song in albumSongs)
                 {
@@ -290,16 +280,13 @@ namespace StaskoFy.Core.Service
             {
                 if (!string.IsNullOrEmpty(album.CloudinaryPublicId))
                 {
-                    // delete image from Cloudinary
                     await uploadService.DestroyImageAsync(album.CloudinaryPublicId);
                 }
 
-                // Artist uploaded a cover → use Cloudinary
                 var uploadResult = await uploadService.UploadImageAsync(model.ImageFile, model.ImageFile.FileName, "art-covers");
                 album.ImageURL = uploadResult.Url;
                 album.CloudinaryPublicId = uploadResult.PublicId;
 
-                // change the covers of the songs that are already in the album to the album cover
                 foreach (var song in album.Songs)
                 {
                     song.ImageURL = album.ImageURL;
@@ -329,23 +316,18 @@ namespace StaskoFy.Core.Service
             album.Title = model.Title;
             album.ReleaseDate = model.ReleaseDate;
 
-            // make status of album pending
             album.Status = UploadStatus.Pending;
 
-            // remove ArtistAlbums for this album from the DB 
             album.ArtistsAlbums.Clear();
 
-            // add main artist to the album
             album.ArtistsAlbums.Add(new ArtistAlbum
             {
                 ArtistId = mainArtist.Id,
                 AlbumId = album.Id,
             });
 
-            // add featured artists to the album if any are selected
             if (featuredArtists.Count > 0)
             { 
-                // add featured artists to the album
                 foreach (var artist in featuredArtists)
                 {
                     album.ArtistsAlbums.Add(new ArtistAlbum
@@ -356,7 +338,6 @@ namespace StaskoFy.Core.Service
                 }
             }
 
-            // update entity
             await albumRepo.UpdateAsync(album);
         }
 
@@ -370,14 +351,6 @@ namespace StaskoFy.Core.Service
             {
                 throw new NullReferenceException("Unable to find this album!");
             }
-
-            //if (!string.IsNullOrEmpty(album.CloudinaryPublicId))
-            //{
-            //    // delete image from Cloudinary
-            //    await uploadService.DestroyImageAsync(album.CloudinaryPublicId);
-            //    album.ImageURL = "/images/defaults/default-album-cover-art.png";
-            //    album.CloudinaryPublicId = "";
-            //}
 
             if (album.Songs.Count > 0)
             {
@@ -501,18 +474,15 @@ namespace StaskoFy.Core.Service
                 throw new NullReferenceException("Unable to find this album!");
             }
 
-            // delete song from cloudinary for the single if one exists in the cloud
             if (!string.IsNullOrEmpty(song.CloudinaryPublicId))
             {
                 await uploadService.DestroyImageAsync(song.CloudinaryPublicId);
             }
 
-            // update song
             song.AlbumId = album.Id;
             song.ImageURL = album.ImageURL;
             song.CloudinaryPublicId = album.CloudinaryPublicId;
 
-            // update album stats
             album.Length = album.Length + song.Length;
 
             await songRepo.UpdateAsync(song);
@@ -553,15 +523,6 @@ namespace StaskoFy.Core.Service
             {
                 throw new NullReferenceException("Unable to find this album!");
             }
-
-            //if (!string.IsNullOrEmpty(album.CloudinaryPublicId))
-            //{
-            //    // delete image from Cloudinary
-            //    await uploadService.DestroyImageAsync(album.CloudinaryPublicId);
-            //    album.ImageURL = "/images/defaults/default-album-cover-art.png";
-            //    album.CloudinaryPublicId = "";
-            //}
-
 
             if (album.Songs.Count > 0)
             {

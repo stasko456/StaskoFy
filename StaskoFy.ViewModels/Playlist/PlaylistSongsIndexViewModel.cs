@@ -25,8 +25,6 @@ namespace StaskoFy.ViewModels.Playlist
 
         public string ImageURL { get; set; } = null!;
 
-        // add is public
-
         public List<SongPlaylistIndexViewModel> Songs { get; set; } = new();
     }
 }
