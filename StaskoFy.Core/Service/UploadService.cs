@@ -1,4 +1,4 @@
-﻿using CloudinaryDotNet;
+﻿    using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using DocumentFormat.OpenXml.Presentation;
 using Microsoft.AspNetCore.Http;
@@ -19,6 +19,7 @@ namespace StaskoFy.Core.Service
     {
         private readonly Cloudinary cloudinary;
 
+        // For environmental variables in .env file
         public UploadService(IOptions<CloudinarySettings> options)
         {
             var settings = options.Value;

@@ -1,4 +1,4 @@
-    using CloudinaryDotNet;
+using CloudinaryDotNet;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using StaskoFy.Core.IService;
@@ -14,6 +14,9 @@ namespace StaskoFy
     {
         public static async Task Main(string[] args)
         {
+            // For environmental variables in .env file
+            DotNetEnv.Env.TraversePath().Load();
+
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddDbContext<StaskoFyDbContext>(options =>
@@ -52,15 +55,7 @@ namespace StaskoFy
                     policy.RequireRole("Artist", "Admin", "User"));
             });
 
-
-            //var cloudinarySettings = builder.Configuration
-            //    .GetSection("CloudinarySettings").Get<CloudinarySettings>();
-            //builder.Services.AddSingleton<Cloudinary>((sp) =>
-            //{
-            //    return new Cloudinary(new Account(cloudinarySettings.CloudName, cloudinarySettings.ApiKey,
-            //        cloudinarySettings.ApiSecret));
-            //});
-
+            // For environmental variables
             builder.Services.Configure<CloudinarySettings>(
             builder.Configuration.GetSection("Cloudinary"));
 
