@@ -225,7 +225,7 @@ namespace StaskoFy.Controllers
         {
             var user = await userManager.GetUserAsync(User);
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(viewModel);
             }

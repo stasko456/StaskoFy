@@ -35,7 +35,7 @@
                             </div>
                             @if (User.IsInRole("Admin"))
                             {
-                                <form asp-controller="Song" asp-action="Delete" method="post" asp-route-id="@Model.Id">
+                                <form id="delete-form-@Model.Id" asp-controller="Song" asp-action="Delete" method="post" asp-route-id="@Model.Id">
                                     <button class="btn btn-outline-danger btn-lg w-100 py-1" style="border-radius: 6px;"
                                             onclick="confirmDelete(event, 'delete-form-@Model.Id')">
                                         <svg viewBox="0 0 448 512" width="20" height="20" class="me-2">

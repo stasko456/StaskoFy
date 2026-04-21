@@ -24,6 +24,12 @@ namespace StaskoFy.Core.Service
         {
             var settings = options.Value;
 
+            Console.WriteLine("----- CLOUDINARY DEBUG -----");
+            Console.WriteLine($"Api Key: [{settings.ApiKey}]");
+            Console.WriteLine($"Api Secret: [{settings.ApiSecret}]");
+            Console.WriteLine($"Secret Length: {settings.ApiSecret?.Length}");
+            Console.WriteLine("----------------------------");
+
             var account = new Account(
                 settings.CloudName,
                 settings.ApiKey,
@@ -58,6 +64,11 @@ namespace StaskoFy.Core.Service
             };
 
             var uploadResult = await cloudinary.UploadAsync(uploadParams);
+
+            if (uploadResult.Error != null)
+            {
+                throw new Exception($"Cloudinary Image Upload Error: {uploadResult.Error.Message}");
+            }
 
             return (uploadResult.SecureUrl.ToString(), uploadResult.PublicId);
         }
@@ -99,6 +110,11 @@ namespace StaskoFy.Core.Service
             };
 
             var uploadResult = await cloudinary.UploadAsync(uploadParams);
+
+            if (uploadResult.Error != null)
+            {
+                throw new Exception($"Cloudinary Audio Upload Error: {uploadResult.Error.Message}");
+            }
 
             return (uploadResult.SecureUrl.ToString(), uploadResult.PublicId);
         }

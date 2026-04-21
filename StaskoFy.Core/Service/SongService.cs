@@ -496,7 +496,7 @@ namespace StaskoFy.Core.Service
         public async Task<SongDetailsForMusicPlayer?> GetSongDetailsForMusicPlayerAsync(Guid id)
         {
             return await songRepo.GetAllAttached()
-                .Where(s => s.Id == id && s.Status == UploadStatus.Approved)
+                .Where(s => s.Id == id)
                 .Select(s => new SongDetailsForMusicPlayer
                 {
                     Id = s.Id,
