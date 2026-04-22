@@ -24,12 +24,6 @@ namespace StaskoFy.Core.Service
         {
             var settings = options.Value;
 
-            Console.WriteLine("----- CLOUDINARY DEBUG -----");
-            Console.WriteLine($"Api Key: [{settings.ApiKey}]");
-            Console.WriteLine($"Api Secret: [{settings.ApiSecret}]");
-            Console.WriteLine($"Secret Length: {settings.ApiSecret?.Length}");
-            Console.WriteLine("----------------------------");
-
             var account = new Account(
                 settings.CloudName,
                 settings.ApiKey,

@@ -1,4 +1,4 @@
-﻿using CloudinaryDotNet.Actions;
+using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -242,8 +242,9 @@ namespace StaskoFy.Controllers
             }
 
             await userManager.UpdateAsync(user);
+            await signInManager.RefreshSignInAsync(user);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Details", "User");
         }
 
         [HttpGet]

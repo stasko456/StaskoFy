@@ -16,6 +16,7 @@ namespace StaskoFy.ViewModels.User
 
         public IFormFile? ImageFile { get; set; }
 
+        [Required]
         public string CurrentProfilePicture { get; set; } = null!;
     }
 }

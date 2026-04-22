@@ -31,8 +31,8 @@ namespace StaskoFy.DataAccess.Configurations
                     Title = "Super Slimey",
                     Length = new TimeSpan(0, 20, 12),
                     ReleaseDate = new DateOnly(2017, 10, 20),
-                    ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1776333860/super_slimey_kxogmj.jpg",
-                    CloudinaryPublicId = "super_slimey_kxogmj",
+                    ImageURL = "https://res.cloudinary.com/stasko456cloud/image/upload/v1776840599/super_slimey_sau2gl.jpg",
+                    CloudinaryPublicId = "super_slimey_sau2gl",
                     Status = UploadStatus.Approved
                 },
                 new Album

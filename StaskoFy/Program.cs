@@ -20,7 +20,7 @@ namespace StaskoFy
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddDbContext<StaskoFyDbContext>(options =>
-            options.UseSqlServer(builder.Configuration.GetConnectionString("Connection")));
+            options.UseSqlServer(builder.Configuration.GetConnectionString("ArsenalConnection")));
 
             builder.Services.AddIdentity<User, IdentityRole<Guid>>(options =>
             {
